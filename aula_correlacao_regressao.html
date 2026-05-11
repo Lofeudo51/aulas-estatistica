@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Correlação e Regressão</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --azul:   #3B82F6;
+    --verde:  #10B981;
+    --laranja:#F59E0B;
+    --rosa:   #EC4899;
+    --roxo:   #8B5CF6;
+    --fundo:  #F0FDF4;
+    --card:   #FFFFFF;
+    --texto:  #1E293B;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: var(--fundo); color: var(--texto); min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, #10B981 0%, #3B82F6 100%);
+    color: white; text-align: center; padding: 1.2rem 1rem 1.8rem;
+    position: relative; overflow: hidden;
+  }
+  header::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 20% 80%, rgba(255,255,255,.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255,255,255,.10) 0%, transparent 50%);
+  }
+  header h1 { font-family: 'Fredoka One', cursive; font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: .5px; position: relative; }
+  header p  { font-size: 1.1rem; margin-top: .5rem; opacity: .9; position: relative; }
+
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: .8rem 1rem; background: white; box-shadow: 0 2px 12px rgba(0,0,0,.07);
+    position: sticky; top: 0; z-index: 100; gap: .5rem;
+  }
+  .nav-arrow {
+    font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.3rem;
+    border: none; border-radius: 12px; padding: .5rem 1rem;
+    cursor: pointer; transition: all .15s; background: #E2E8F0; color: #475569; flex-shrink: 0;
+  }
+  .nav-arrow:hover:not(:disabled) { background: var(--azul); color: white; }
+  .nav-arrow:disabled { opacity: 0.3; cursor: default; }
+  .nav-label {
+    font-family: 'Nunito', sans-serif; font-weight: 900; font-size: .95rem;
+    color: white; background: var(--verde); border-radius: 12px; padding: .5rem 1rem;
+    text-align: center; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+
+  section { display: none; padding: 2rem 1rem 3rem; max-width: 860px; margin: 0 auto; }
+  section.active { display: block; animation: fadeUp .4s ease; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+  .card {
+    background: var(--card); border-radius: 20px; padding: 1.8rem;
+    margin-bottom: 1.4rem; box-shadow: 0 4px 20px rgba(0,0,0,.07);
+    border-left: 6px solid var(--azul);
+  }
+  .card.verde  { border-color: var(--verde); }
+  .card.laranja{ border-color: var(--laranja); }
+  .card.rosa   { border-color: var(--rosa); }
+  .card.roxo   { border-color: var(--roxo); }
+  .card h2 { font-family: 'Fredoka One', cursive; font-size: 1.6rem; margin-bottom: .7rem; display: flex; align-items: center; gap: .5rem; }
+  .card p  { font-size: 1.05rem; line-height: 1.7; }
+  .card p + p { margin-top: .7rem; }
+  .card ul { padding-left: 1.4rem; margin-top: .5rem; }
+  .card li { font-size: 1.05rem; line-height: 1.7; }
+
+  canvas { display: block; margin: .8rem auto; border-radius: 16px; max-width: 100%; background: #F8FAFC; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+
+  /* Dataset buttons */
+  .ds-btns { display: flex; flex-wrap: wrap; gap: .6rem; margin: .8rem 0; }
+  .ds-btn {
+    font-family: 'Nunito', sans-serif; font-weight: 900; font-size: .9rem;
+    padding: .55rem 1.1rem; border: 3px solid; border-radius: 12px;
+    cursor: pointer; transition: all .18s; background: white;
+  }
+  .ds-btn:hover { transform: translateY(-2px); }
+
+  /* Correlation table */
+  .cor-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: .95rem; border-radius: 14px; overflow: hidden; }
+  .cor-table th { background: var(--verde); color: white; padding: .7rem 1rem; text-align: left; font-weight: 900; }
+  .cor-table td { padding: .6rem 1rem; border-bottom: 1px solid #E2E8F0; }
+  .cor-table tr:last-child td { border-bottom: none; }
+  .cor-table tr:nth-child(even) td { background: #F8FAFC; }
+
+  /* R2 bar */
+  .r2-bar { height: 84px; border-radius: 14px; overflow: hidden; display: flex; margin: .8rem 0; }
+  .r2-expl  { background: var(--verde); display: flex; align-items: center; justify-content: center; font-weight: 900; color: white; font-size: 1.05rem; transition: width .6s ease; text-align: center; line-height: 1.4; padding: 0 .5rem; }
+  .r2-resto { background: #E2E8F0; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #64748B; font-size: 1rem; transition: width .6s ease; text-align: center; line-height: 1.4; padding: 0 .5rem; }
+
+  /* Slider */
+  .slider-wrap { margin: 1rem 0; }
+  .slider-wrap label { font-weight: 700; font-size: 1rem; display: block; margin-bottom: .3rem; }
+  input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border-radius: 4px; }
+  .slider-val { display: inline-block; background: var(--verde); color: white; border-radius: 8px; padding: .15rem .7rem; font-weight: 700; font-size: 1rem; margin-left: .4rem; }
+
+  /* Quiz */
+  .quiz-q { font-size: 1.1rem; font-weight: 700; margin-bottom: .8rem; line-height: 1.6; }
+  .quiz-opts { display: flex; flex-direction: column; gap: .55rem; }
+  .quiz-opts button {
+    font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700;
+    text-align: left; padding: .75rem 1.1rem; border: 2px solid #CBD5E1;
+    border-radius: 12px; background: white; cursor: pointer; transition: all .15s;
+  }
+  @media (hover: hover) {
+    .quiz-opts button:hover:not(:disabled) { border-color: var(--verde); background: #F0FDF4; }
+  }
+  .quiz-opts button.correct { background: #D1FAE5; border-color: var(--verde); }
+  .quiz-opts button.wrong   { background: #FEE2E2; border-color: #EF4444; }
+  .feedback { margin-top: .8rem; font-size: .98rem; font-weight: 700; padding: .5rem .8rem; border-radius: 10px; min-height: 1.5rem; }
+  .feedback.ok  { background: #D1FAE5; color: #059669; }
+  .feedback.err { background: #FEE2E2; color: #DC2626; }
+  .next-btn {
+    margin-top: 1rem; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700;
+    background: var(--azul); color: white; border: none; border-radius: 12px;
+    padding: .65rem 1.8rem; cursor: pointer; display: none; transition: transform .15s;
+  }
+  .next-btn:hover { transform: translateY(-2px); }
+
+  /* Conclusion box */
+  .concl {
+    background: linear-gradient(135deg, #10B981, #3B82F6);
+    border-radius: 20px; padding: 1.8rem; margin-bottom: 1.4rem;
+    box-shadow: 0 4px 20px rgba(16,185,129,.3);
+  }
+  .concl .tag  { font-size: .85rem; font-weight: 900; color: rgba(255,255,255,.75); letter-spacing: 1px; margin-bottom: .5rem; }
+  .concl .text { font-size: 1.35rem; font-weight: 900; color: white; line-height: 1.45; }
+  .hl { background: rgba(253,224,71,.8); color: #1E293B; border-radius: 8px; padding: 2px 9px; }
+
+  /* Warning box */
+  .warn { background: linear-gradient(135deg, #FEF3C7, #FDE68A); border-radius: 16px; padding: 1.3rem; margin: 1rem 0; border-left: 5px solid var(--laranja); }
+  .warn h3 { font-family: 'Fredoka One', cursive; font-size: 1.25rem; color: #92400E; margin-bottom: .5rem; }
+  .warn p  { font-size: .98rem; line-height: 1.7; color: #78350F; }
+
+  /* Emoji facts */
+  .fact { display: flex; align-items: flex-start; gap: .9rem; padding: .7rem 0; border-bottom: 1px solid #F1F5F9; }
+  .fact:last-child { border-bottom: none; }
+  .fact .ico { font-size: 1.8rem; flex-shrink: 0; }
+  .fact .txt { font-size: 1rem; line-height: 1.65; }
+
+  /* r example cards */
+  .r-cards { display: flex; flex-wrap: wrap; gap: .7rem; margin: 1rem 0; }
+  .r-card {
+    background: #F8FAFC; border-radius: 14px; padding: .7rem 1.1rem; cursor: pointer;
+    border: 3px solid transparent; transition: all .2s; text-align: center; flex: 1; min-width: 100px;
+  }
+  .r-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,.1); }
+  .r-card.sel   { border-color: var(--azul); background: #EFF6FF; }
+  .r-card .rv   { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.2rem; }
+  .r-card .rd   { font-size: .75rem; font-weight: 700; color: #64748B; margin-top: .1rem; }
+
+  /* Comparison cards */
+  .cmp-cards { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+  .cmp-card  { flex: 1; min-width: 200px; border-radius: 16px; padding: 1rem; text-align: center; }
+
+  /* Predict result */
+  .pred-result { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.35rem; text-align: center; margin-top: .8rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔗 Correlação e Regressão</h1>
+  <p>Entendendo relações entre variáveis — sem fórmulas, só interpretação</p>
+  <p style="font-size:.82rem;opacity:.7;margin-top:.4rem;font-weight:600;letter-spacing:.3px">Desenvolvido por André Lo Feudo com apoio do Claude</p>
+</header>
+
+<nav>
+  <button class="nav-arrow" id="nav-prev" onclick="go(-1)">←</button>
+  <span class="nav-label" id="nav-label"></span>
+  <button class="nav-arrow" id="nav-next" onclick="go(1)">→</button>
+</nav>
+
+<!-- ══════════════ ABA 1 – DISPERSÃO ══════════════ -->
+<section id="s1">
+
+  <div class="card">
+    <h2>📈 O que é um diagrama de dispersão?</h2>
+    <p>É um gráfico que mostra a relação entre <strong>duas variáveis</strong>. Cada ponto representa os dois valores observados ao mesmo tempo.</p>
+    <p>Pela distribuição dos pontos percebemos se a relação é <strong>positiva</strong>, <strong>negativa</strong> ou <strong>inexistente</strong> — e também sua <strong>força</strong>: pontos bem alinhados indicam relação forte; pontos espalhados indicam relação fraca.</p>
+  </div>
+
+  <div class="card rosa">
+    <h2>🔀 Variável independente e variável dependente</h2>
+    <p>No diagrama de dispersão, as duas variáveis têm papéis distintos:</p>
+    <div class="fact" style="margin-top:.8rem">
+      <span class="ico">📌</span>
+      <div class="txt"><strong>Variável independente (X):</strong> é o fator explicativo — aquela que acreditamos influenciar a outra. Fica no <strong>eixo horizontal (X)</strong>. Ex: horas de estudo.</div>
+    </div>
+    <div class="fact">
+      <span class="ico">📊</span>
+      <div class="txt"><strong>Variável dependente (Y):</strong> é o resultado — aquela que pode variar em função da outra. Fica no <strong>eixo vertical (Y)</strong>. Ex: nota da prova.</div>
+    </div>
+    <div class="warn" style="margin-top:.8rem">
+      <h3>💡 Como identificar qual é qual?</h3>
+      <p>Pergunte: <em>"Qual variável pode influenciar a outra?"</em> A que influencia é a independente (X); a que é influenciada é a dependente (Y). No exemplo das turmas: as horas de estudo (X) podem influenciar a nota (Y) — e não o contrário.</p>
+    </div>
+  </div>
+
+  <div class="card verde">
+    <h2>🖱️ Explore as turmas</h2>
+    <p>Clique em cada turma para ver o gráfico e identificar o tipo de relação:</p>
+    <div class="ds-btns" id="s1-btns"></div>
+    <canvas id="s1-cv" width="700" height="400"></canvas>
+    <div id="s1-info" style="text-align:center;font-weight:700;font-size:1.1rem;margin-top:.4rem;color:#475569;min-height:1.8rem"></div>
+  </div>
+
+
+  <div class="concl">
+    <div class="tag">💡 CONCLUSÃO ABA 1</div>
+    <div class="text">O diagrama de dispersão mostra visualmente se a relação entre duas variáveis é <span class="hl">positiva</span>, <span class="hl">negativa</span> ou <span class="hl">inexistente</span> — antes mesmo de calcular qualquer número.</div>
+  </div>
+
+  <div class="card" style="border-color:var(--azul)">
+    <h2>✏️ Exercícios — Aba 1</h2>
+    <p style="color:#64748B;font-weight:700;margin-bottom:1.2rem">Toque na resposta correta!</p>
+    <div id="ex-s1"></div>
+  </div>
+</section>
+
+<!-- ══════════════ ABA 2 – CORRELAÇÃO ══════════════ -->
+<section id="s2">
+
+  <div class="card">
+    <h2>🔗 O coeficiente de correlação de Pearson (r)</h2>
+    <p>O <strong>r</strong> é um número que resume a relação entre duas variáveis em dois aspectos:</p>
+    <ul>
+      <li><strong>Direção:</strong> o sinal (+) ou (−) indica se a relação é positiva ou negativa</li>
+      <li><strong>Força:</strong> o valor (de 0 a 1) indica o quão intensa é a relação</li>
+    </ul>
+    <p>O r <strong>sempre fica entre −1 e +1</strong>. Quanto mais próximo de zero, mais fraca a correlação. Quanto mais próximo de +1 ou −1, mais forte.</p>
+  </div>
+
+  <div class="card laranja">
+    <h2>👀 Visualize a correlação</h2>
+    <div class="r-cards" id="r-cards"></div>
+    <canvas id="r-cv" width="700" height="420"></canvas>
+    <div id="r-info" style="text-align:center;font-weight:700;font-size:1.05rem;margin-top:.4rem;color:#475569;min-height:1.8rem"></div>
+  </div>
+
+  <div class="card verde">
+    <h2>📋 Tabela de interpretação da força</h2>
+    <table class="cor-table">
+      <thead><tr><th>Valor de |r|</th><th>Interpretação</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>0,00 a 0,19</td><td>Correlação bem fraca</td><td style="font-size:1.6rem">😴</td></tr>
+        <tr><td>0,20 a 0,39</td><td>Correlação fraca</td><td style="font-size:1.6rem">🤏</td></tr>
+        <tr><td>0,40 a 0,69</td><td>Correlação moderada</td><td style="font-size:1.6rem">🤔</td></tr>
+        <tr><td>0,70 a 0,89</td><td>Correlação forte</td><td style="font-size:1.6rem">💪</td></tr>
+        <tr><td>0,90 a 1,00</td><td>Correlação muito forte</td><td style="font-size:1.6rem">🔥</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.95rem;color:#64748B;margin-top:.3rem">💡 O <strong>sinal</strong> (+/−) = <strong>direção</strong>, mas é necessário visualizar no gráfico.</p>
+  </div>
+
+
+
+  <div class="card" style="border-color:var(--roxo)">
+    <h2>🎮 Adivinhe o r!</h2>
+    <p>Observe o gráfico e tente adivinhar o valor do coeficiente de correlação. Digite um número entre −1 e +1.</p>
+    <canvas id="guess-cv" width="700" height="420" style="max-width:100%;border-radius:14px;background:#F8FAFC;box-shadow:0 2px 10px rgba(0,0,0,.08);display:block;margin:.8rem auto"></canvas>
+    <div style="display:flex;gap:.7rem;align-items:center;margin:.8rem 0;flex-wrap:wrap">
+      <input id="guess-input" type="text" inputmode="decimal" placeholder="Ex: 0.75 ou -0.5"
+        style="font-family:'Nunito',sans-serif;font-size:1.1rem;font-weight:700;padding:.6rem 1rem;border:3px solid var(--roxo);border-radius:12px;width:160px;outline:none"
+        onkeydown="if(event.key==='Enter') checkGuess()">
+      <button onclick="checkGuess()" style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;background:var(--roxo);color:white;border:none;border-radius:12px;padding:.65rem 1.4rem;cursor:pointer">Confirmar</button>
+      <button onclick="newGuessGame()" style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;background:#E2E8F0;color:#475569;border:none;border-radius:12px;padding:.65rem 1.4rem;cursor:pointer">🔀 Novo gráfico</button>
+    </div>
+    <div id="guess-fb" style="min-height:2rem;font-size:1.05rem;font-weight:700;padding:.5rem .8rem;border-radius:10px"></div>
+    <div id="guess-score" style="font-size:.9rem;color:#94A3B8;font-weight:700;margin-top:.4rem"></div>
+  </div>
+
+  <div class="concl">
+    <div class="tag">💡 CONCLUSÃO ABA 2</div>
+    <div class="text">O coeficiente r resume em um único número a <span class="hl">direção</span> (sinal + ou −) e a <span class="hl">força</span> (0 a 1) da relação linear entre duas variáveis. Um r próximo de zero indica relação <span class="hl">muito fraca ou inexistente</span>; próximo de +1 ou −1, relação muito forte. O <span class="hl">sinal</span> do r não é arbitrário — ele reflete o que você vê no gráfico: se os pontos sobem da esquerda para a direita, o sinal é positivo; se descem, é negativo.</div>
+  </div>
+
+  <div class="card" style="border-color:var(--azul)">
+    <h2>✏️ Exercícios — Aba 2</h2>
+    <div id="ex-s2"></div>
+  </div>
+</section>
+
+<!-- ══════════════ ABA 3 – R² ══════════════ -->
+<section id="s3">
+
+  <div class="card">
+    <h2>📐 O que é R²?</h2>
+    <p>O <strong>R²</strong> (lê-se "r quadrado") indica <strong>quanto da variação</strong> da variável Y é <strong>explicada</strong> pela variável X.</p>
+    <p>Ele é simplesmente <strong>r × r</strong> (o coeficiente de correlação ao quadrado), e vai de 0 a 1 — normalmente expresso em percentual:</p>
+    <ul>
+      <li>R² = 0,95 → <strong>95% da variação de Y é explicada por X</strong> (os outros 5% dependem de outros fatores)</li>
+      <li>R² = 0,40 → 40% explicado por X</li>
+      <li>R² = 0,00 → X não explica nada da variação de Y</li>
+    </ul>
+  </div>
+
+  <div class="card verde">
+    <h2>📊 Visualize o R² de cada turma</h2>
+    <div class="ds-btns" id="r2-btns"></div>
+    <canvas id="r2-cv" width="700" height="400" style="max-width:100%;border-radius:14px;background:#F8FAFC;box-shadow:0 2px 8px rgba(0,0,0,.08);display:none;margin:.8rem auto;display:none"></canvas>
+    <div class="r2-bar" id="r2-bar-wrap" style="background:#F0FDF4;border-radius:14px;height:84px;display:flex;align-items:center;justify-content:center;margin-top:.8rem">
+      <span id="r2-waiting" style="font-weight:700;font-size:1rem;color:#94A3B8">⏳ Toque no botão de uma turma</span>
+      <div class="r2-expl" id="r2-expl" style="width:0%;display:none"></div>
+      <div class="r2-resto" id="r2-rest" style="width:0%;display:none"></div>
+    </div>
+    <div id="r2-info" style="text-align:center;font-weight:700;font-size:1rem;color:#475569;margin-top:.8rem"></div>
+  </div>
+
+  <div class="card laranja">
+    <h2>🧮 De R² para r: como fazer?</h2>
+    <p>Quando você tem o R² mas precisa do r, basta tirar a <strong>raiz quadrada</strong> e depois definir o <strong>sinal</strong> observando a direção dos pontos no gráfico.</p>
+    <div style="background:#F0FDF4;border-left:4px solid #10B981;border-radius:12px;padding:1rem 1.2rem;margin:.9rem 0">
+      <span style="font-weight:900;color:#065F46">💡 No Excel:</span>
+      <span style="font-size:.98rem;color:#065F46;line-height:1.7"> quando você adiciona uma linha de tendência ao gráfico de dispersão, o Excel já exibe o R² automaticamente — mas <strong>não mostra o r</strong>. Para encontrar o r, basta tirar a raiz quadrada do R² e definir o sinal observando a direção dos pontos no gráfico.</span>
+    </div>
+    <div class="cmp-cards" style="margin-top:1rem">
+      <div class="cmp-card" style="background:#EFF6FF;text-align:left;padding:1.1rem">
+        <div style="font-weight:900;color:#3B82F6;font-family:'Fredoka One',cursive;font-size:1.1rem;margin-bottom:.5rem">Turma A</div>
+        <div style="font-size:.95rem;color:#475569">R² = 0,9524</div>
+        <div style="font-size:.95rem;color:#475569">√0,9524 = 0,9759</div>
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1.5rem;color:#3B82F6;margin-top:.4rem">r = +0,98 ↗️</div>
+        <div style="font-size:.85rem;color:#64748B;margin-top:.3rem">Positivo: pontos sobem</div>
+      </div>
+      <div class="cmp-card" style="background:#FFF0F9;text-align:left;padding:1.1rem">
+        <div style="font-weight:900;color:#EC4899;font-family:'Fredoka One',cursive;font-size:1.1rem;margin-bottom:.5rem">Turma C</div>
+        <div style="font-size:.95rem;color:#475569">R² = 0,7627</div>
+        <div style="font-size:.95rem;color:#475569">√0,7627 = 0,8733</div>
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1.5rem;color:#EC4899;margin-top:.4rem">r = −0,87 ↘️</div>
+        <div style="font-size:.85rem;color:#64748B;margin-top:.3rem">Negativo: pontos descem</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="concl">
+    <div class="tag">💡 CONCLUSÃO ABA 3</div>
+    <div class="text">R² = 0,9524 na Turma A significa que <span class="hl">95% das diferenças nas notas</span> podem ser atribuídas às diferenças nas horas de estudo. Os outros 5% dependem de outros fatores.</div>
+  </div>
+
+  <div class="card" style="border-color:var(--azul)">
+    <h2>✏️ Exercícios — Aba 3</h2>
+    <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--verde);margin:.4rem 0 .8rem">📊 Grupo 1 — Interprete o R²</div>
+    <div id="ex-s3-g1"></div>
+    <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--azul);margin:1.4rem 0 .8rem">🔢 Grupo 2 — Dado r, calcule R² e interprete</div>
+    <div id="ex-s3-g2"></div>
+    <div id="s3-group3-start" style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--laranja);margin:1.4rem 0 .8rem">🧮 Grupo 3 — Dado R², calcule r e interprete</div>
+    <div id="ex-s3-g3"></div>
+    <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--rosa);margin:1.4rem 0 .8rem">📈 Grupo 4 — Observe o gráfico e interprete</div>
+    <div id="ex-s3-g4"></div>
+  </div>
+</section>
+
+<!-- ══════════════ ABA 4 – REGRESSÃO ══════════════ -->
+<section id="s4">
+
+  <div class="card">
+    <h2>📏 O que é a reta de regressão?</h2>
+    <p>Quando duas variáveis têm correlação <strong>moderada, forte ou muito forte</strong>, podemos ajustar uma <strong>reta de regressão</strong> ao gráfico de dispersão.</p>
+    <p>Essa reta é a <strong>melhor linha reta possível</strong> para resumir a relação entre X e Y — e permite <strong>estimar o valor de Y</strong> dado qualquer valor de X.</p>
+    <ul style="margin-top:.6rem">
+      <li><strong>Variável independente (X):</strong> a que usamos para fazer a previsão</li>
+      <li><strong>Variável dependente (Y):</strong> a que estamos estimando</li>
+    </ul>
+  </div>
+
+
+  <div class="card verde">
+    <h2>🎯 Faça sua própria previsão!</h2>
+    <p>Selecione a turma e mova o slider para estimar a nota:</p>
+    <div class="ds-btns" id="pred-btns"></div>
+    <canvas id="pred-cv" width="700" height="400"></canvas>
+    <div style="background:#F8FAFC;border-radius:14px;padding:1.2rem;margin-top:.8rem">
+      <div style="text-align:center;margin-bottom:1rem" id="pred-eq"></div>
+      <div class="slider-wrap">
+        <label>Horas de estudo: <span class="slider-val" id="pred-x-val">3</span></label>
+        <input type="range" id="pred-sl" min="1" max="5" step="0.5" value="3" oninput="updatePred()">
+      </div>
+      <div class="pred-result" id="pred-res"></div>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--azul)">
+    <h2>✏️ Exercícios — Aba 4</h2>
+    <div id="ex-s4"></div>
+  </div>
+</section>
+
+<!-- ══════════════ ABA 5 – CUIDADOS ══════════════ -->
+<section id="s5">
+
+  <div class="card">
+    <h2>⚠️ Cuidados importantes</h2>
+    <p>A correlação é uma ferramenta poderosa, mas tem <strong>limitações importantes</strong> que precisamos conhecer para não tirar conclusões erradas.</p>
+  </div>
+
+  <div class="card laranja">
+    <h2>🚫 Correlação ≠ Causalidade</h2>
+    <p>Um dos erros mais comuns é confundir <strong>correlação com causa</strong>. Só porque duas variáveis se movem juntas, isso <strong>não significa</strong> que uma causa a outra.</p>
+    <div class="warn">
+      <h3>🍦 Um exemplo clássico</h3>
+      <p>Existe uma correlação forte entre o <strong>número de sorvetes vendidos</strong> e o <strong>número de afogamentos</strong>. Isso significa que sorvete causa afogamento? <strong>Claro que não!</strong> Ambos aumentam no <strong>verão</strong> — esse é o fator oculto por trás da correlação.</p>
+    </div>
+    <div style="margin-top:.8rem">
+      <div class="fact"><span class="ico">🧠</span><div class="txt">Para confirmar uma relação de <strong>causa e efeito</strong>, precisamos de estudos experimentais bem controlados, não apenas de correlação.</div></div>
+      <div class="fact"><span class="ico">🕵️</span><div class="txt">Sempre pergunte: <em>"Existe um terceiro fator (variável de confusão) que poderia explicar essa correlação?"</em></div></div>
+    </div>
+  </div>
+
+  <div class="card rosa">
+    <h2>📉 Pearson mede apenas relações lineares</h2>
+    <p>O coeficiente de Pearson só detecta relações em linha reta. Se a relação for <strong>curvilinear</strong> (como uma curva em U ou parábola), o valor de r pode ser próximo de zero — mesmo existindo uma relação clara entre as variáveis!</p>
+    <div class="warn" style="background:linear-gradient(135deg,#FCE7F3,#FECDD3);border-color:var(--rosa)">
+      <h3 style="color:#9D174D">⚠️ Sempre olhe o gráfico!</h3>
+      <p style="color:#831843">Por isso, é essencial <strong>visualizar o diagrama de dispersão</strong> antes de interpretar r. Um r baixo não significa necessariamente ausência de relação — pode ser uma relação <strong>não-linear</strong>.</p>
+    </div>
+  </div>
+
+  <div class="concl" style="background:linear-gradient(135deg,#F59E0B,#EC4899)">
+    <div class="tag">💡 RESUMÃO DOS CUIDADOS</div>
+    <div class="text" style="font-size:1.2rem;line-height:1.7">
+      1️⃣ Correlação forte <span class="hl">não implica causalidade</span><br>
+      2️⃣ Pearson mede apenas <span class="hl">relações lineares</span><br>
+      3️⃣ Sempre <span class="hl">visualize o gráfico</span> antes de interpretar r
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--azul)">
+    <h2>✏️ Exercícios — Aba 5</h2>
+    <div id="ex-s5"></div>
+  </div>
+</section>
+
+
+<footer style="text-align:center;padding:1.2rem 1rem;font-size:.82rem;color:#94A3B8;font-family:'Nunito',sans-serif;border-top:1px solid #E2E8F0;margin-top:2rem">
+  Desenvolvido por André Lo Feudo com apoio do Claude
+</footer>
+
+<!-- Floating reference button -->
+<button id="ref-btn" onclick="toggleRef()" style="display:none;position:fixed;bottom:24px;right:20px;z-index:999;font-family:'Nunito',sans-serif;font-weight:900;font-size:.95rem;background:var(--roxo);color:white;border:none;border-radius:50px;padding:.7rem 1.2rem;box-shadow:0 4px 16px rgba(139,92,246,.4);cursor:pointer">
+  📋 Tabela de r
+</button>
+
+<div id="ref-panel" style="display:none;position:fixed;bottom:74px;right:16px;z-index:998;background:white;border-radius:18px;box-shadow:0 8px 32px rgba(0,0,0,.18);padding:1.2rem;max-width:280px;border:2px solid var(--roxo)">
+  <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:var(--roxo);margin-bottom:.7rem">Interpretação do |r|</div>
+  <table style="width:100%;border-collapse:collapse;font-size:.9rem;font-family:'Nunito',sans-serif">
+    <tr style="background:var(--roxo);color:white"><th style="padding:.4rem .6rem;text-align:left;border-radius:6px 0 0 0">Valor</th><th style="padding:.4rem .6rem;text-align:left">Força</th><th style="padding:.4rem .2rem;border-radius:0 6px 0 0"></th></tr>
+    <tr><td style="padding:.35rem .6rem;border-bottom:1px solid #F1F5F9">0,00 – 0,19</td><td style="padding:.35rem .6rem;border-bottom:1px solid #F1F5F9">Bem fraca</td><td style="font-size:1.2rem;border-bottom:1px solid #F1F5F9">😴</td></tr>
+    <tr><td style="padding:.35rem .6rem;border-bottom:1px solid #F1F5F9">0,20 – 0,39</td><td style="padding:.35rem .6rem;border-bottom:1px solid #F1F5F9">Fraca</td><td style="font-size:1.2rem;border-bottom:1px solid #F1F5F9">🤏</td></tr>
+    <tr><td style="padding:.35rem .6rem;border-bottom:1px solid #F1F5F9">0,40 – 0,69</td><td style="padding:.35rem .6rem;border-bottom:1px solid #F1F5F9">Moderada</td><td style="font-size:1.2rem;border-bottom:1px solid #F1F5F9">🤔</td></tr>
+    <tr><td style="padding:.35rem .6rem;border-bottom:1px solid #F1F5F9">0,70 – 0,89</td><td style="padding:.35rem .6rem;border-bottom:1px solid #F1F5F9">Forte</td><td style="font-size:1.2rem;border-bottom:1px solid #F1F5F9">💪</td></tr>
+    <tr><td style="padding:.35rem .6rem">0,90 – 1,00</td><td style="padding:.35rem .6rem">Muito forte</td><td style="font-size:1.2rem">🔥</td></tr>
+  </table>
+  <div style="font-size:.78rem;color:#94A3B8;margin-top:.6rem;font-weight:700">Use o valor absoluto — ignore o sinal!</div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════════
+const DS = {
+  turmaA: {
+    label:'Turma A',
+    points:[{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:6}],
+    xLabel:'Horas de estudo', yLabel:'Nota da prova',
+    xRange:[0,5], yRange:[0,10], xStep:1, yStep:2,
+    r:'+0,98', rNum:0.98, r2:0.9524, r2Str:'0,9524',
+    color:'#3B82F6', tipo:'↗️ Positiva e muito forte', forca:'Os pontos estão bem alinhados — dá para imaginar uma reta passando por eles.',
+    line:{a:2, b:-0.5}, lineStr:'y = 2x − 0,5',
+    slMin:1, slMax:5, slStep:0.5
+  },
+  turmaB: {
+    label:'Turma B',
+    points:[{x:1,y:3},{x:2,y:3},{x:3,y:8},{x:4,y:6}],
+    xLabel:'Horas de estudo', yLabel:'Nota da prova',
+    xRange:[0,5], yRange:[0,10], xStep:1, yStep:2,
+    r:'+0,74', rNum:0.74, r2:0.55, r2Str:'0,55',
+    color:'#10B981', tipo:'↗️ Positiva e forte', forca:'Os pontos seguem uma tendência clara de subida, mas com alguma dispersão.',
+    line:{a:1.4, b:1.5}, lineStr:'y = 1,4x + 1,5',
+    slMin:1, slMax:5, slStep:0.5
+  },
+  turmaC: {
+    label:'Turma C',
+    points:[{x:1,y:9},{x:2,y:10},{x:5,y:7},{x:8,y:5},{x:9,y:1}],
+    xLabel:'Horas de estudo', yLabel:'Nota da prova',
+    xRange:[0,10], yRange:[0,11], xStep:1, yStep:2,
+    r:'−0,87', rNum:-0.87, r2:0.7627, r2Str:'0,7627',
+    color:'#EC4899', tipo:'↘️ Negativa e forte', forca:'Os pontos descem com alguma dispersão — a tendência é clara, mas não perfeita.',
+    line:{a:-0.94, b:11.1}, lineStr:'y = −0,94x + 11,1',
+    slMin:1, slMax:9, slStep:0.5
+  },
+  semRel: {
+    label:'Sem relação',
+    points:[{x:1,y:6},{x:2,y:2},{x:3,y:9},{x:4,y:3},{x:5,y:7},{x:6,y:4},{x:7,y:6}],
+    xLabel:'Horas de TV', yLabel:'Nota da prova',
+    xRange:[0,8], yRange:[0,11], xStep:1, yStep:2,
+    r:'≈ 0', rNum:0.03, r2:0.001, r2Str:'≈ 0',
+    color:'#94A3B8', tipo:'↔️ Sem relação aparente', forca:'Os pontos estão espalhados aleatoriamente — impossível traçar uma reta.',
+    line:null, lineStr:'—',
+    slMin:1, slMax:7, slStep:0.5
+  }
+};
+
+const R_EX = [
+  {label:'r ≈ +0,95', color:'#3B82F6', desc:'Muito forte positiva', rVal:0.95,
+   nuvem:'Reparem que a nuvem está bem estreitinha e alongada — os pontos têm pouquíssima dispersão em torno da reta.',
+   pts:[{x:1,y:1.2},{x:2,y:2.1},{x:3,y:2.9},{x:4,y:4.1},{x:5,y:5.0},{x:6,y:6.1},{x:7,y:7.0}]},
+  {label:'r ≈ +0,60', color:'#10B981', desc:'Moderada positiva', rVal:0.60,
+   nuvem:'Reparem que a nuvem está mais espalhada — os pontos têm dispersão considerável em torno da reta. Por isso a correlação é moderada.',
+   pts:[{x:1,y:5},{x:1,y:1},{x:2,y:6},{x:3,y:2},{x:3,y:7},{x:4,y:3},{x:5,y:5},{x:5,y:9},{x:6,y:3},{x:6,y:8},{x:7,y:6},{x:7,y:9}]},
+  {label:'r ≈ 0',     color:'#94A3B8', desc:'Sem relação', noLine:true, rVal:0,
+   nuvem:'A nuvem é quase circular — os pontos estão espalhados em todas as direções sem tendência alguma. Impossível traçar uma reta.',
+   pts:[{x:1,y:2},{x:1,y:8},{x:2,y:5},{x:3,y:1},{x:3,y:9},{x:4,y:6},{x:4,y:2},{x:5,y:8},{x:5,y:3},{x:6,y:1},{x:6,y:7},{x:7,y:4},{x:7,y:9},{x:2,y:3}]},
+  {label:'r ≈ −0,60', color:'#F59E0B', desc:'Moderada negativa', rVal:0.60,
+   nuvem:'A nuvem desce da esquerda para a direita com bastante dispersão — tendência clara mas não perfeita. Correlação moderada negativa.',
+   pts:[{x:1,y:5},{x:1,y:9},{x:2,y:4},{x:3,y:8},{x:3,y:3},{x:4,y:7},{x:5,y:5},{x:5,y:1},{x:6,y:7},{x:6,y:2},{x:7,y:4},{x:7,y:1}]},
+  {label:'r ≈ −0,95', color:'#EC4899', desc:'Muito forte negativa', rVal:0.95,
+   nuvem:'A nuvem é bem estreitinha e desce acentuadamente — pouquíssima dispersão. Os pontos quase formam uma reta perfeita.',
+   pts:[{x:1,y:7.0},{x:2,y:6.1},{x:3,y:5.0},{x:4,y:4.1},{x:5,y:2.9},{x:6,y:2.1},{x:7,y:1.2}]}
+];
+
+const SECS = [
+  {id:'s1', label:'1. Diagrama de Dispersão'},
+  {id:'s2', label:'2. Correlação de Pearson (r)'},
+  {id:'s3', label:'3. R² — Poder Explicativo'},
+  {id:'s4', label:'4. Regressão — Previsões'},
+  {id:'s5', label:'5. ⚠️ Cuidados Importantes'}
+];
+
+// ══════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════
+let cur = 0;
+function go(dir) {
+  const nx = cur + dir;
+  if (nx < 0 || nx >= SECS.length) return;
+  document.getElementById(SECS[cur].id).classList.remove('active');
+  cur = nx;
+  document.getElementById(SECS[cur].id).classList.add('active');
+  updateNav();
+  window.scrollTo({top:0, behavior:'smooth'});
+  onActivate(cur);
+}
+function updateNav() {
+  document.getElementById('nav-label').textContent = SECS[cur].label;
+  document.getElementById('nav-prev').disabled = cur === 0;
+  document.getElementById('nav-next').disabled = cur === SECS.length - 1;
+}
+function onActivate(i) {
+  document.getElementById('ref-btn').style.display = 'none';
+  document.getElementById('ref-panel').style.display = 'none';
+  refOpen = false;
+  document.getElementById('ref-btn').textContent = '📋 Tabela de r';
+
+  if (i === 0) { showS1('turmaA'); redrawExCanvases('ex-s1', [0,2,3,1,24,21,22]); }
+  if (i === 1) { drawRWaiting(); redrawExCanvases('ex-s2', [4,5,13,6,11,12]); newGuessGame(); }
+  if (i === 2) {
+    redrawExCanvases('ex-s3-g1', SEC_QS.s3g1);
+    redrawExCanvases('ex-s3-g2', SEC_QS.s3g2);
+    redrawExCanvases('ex-s3-g3', SEC_QS.s3g3);
+    redrawExCanvases('ex-s3-g4', SEC_QS.s3g4);
+    exS3Observer.observe(document.querySelector('#s3 .card:last-child'));
+  }
+  if (i === 3) { predKey = 'turmaA'; syncPredBtns(); updatePred(); }
+  if (i === 4) redrawExCanvases('ex-s5', [30,19,20]);
+}
+
+// Show floating button when exercises of Aba 2 scroll into view
+const exS2Observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (cur === 1) {
+      document.getElementById('ref-btn').style.display = e.isIntersecting ? 'block' : 'none';
+      if (!e.isIntersecting) {
+        document.getElementById('ref-panel').style.display = 'none';
+        refOpen = false;
+        document.getElementById('ref-btn').textContent = '📋 Tabela de r';
+      }
+    }
+  });
+}, {threshold: 0.05});
+
+const exS3Observer = new IntersectionObserver(entries => {}, {threshold: 0});
+
+function s3ScrollCheck() {
+  if (cur !== 2) return;
+  const g3 = document.getElementById('s3-group3-start');
+  if (!g3) return;
+  const top = g3.getBoundingClientRect().top;
+  const show = top < window.innerHeight;
+  document.getElementById('ref-btn').style.display = show ? 'block' : 'none';
+  if (!show) {
+    document.getElementById('ref-panel').style.display = 'none';
+    refOpen = false;
+    document.getElementById('ref-btn').textContent = '📋 Tabela de r';
+  }
+}
+window.addEventListener('scroll', s3ScrollCheck);
+
+let refOpen = false;
+function toggleRef() {
+  refOpen = !refOpen;
+  document.getElementById('ref-panel').style.display = refOpen ? 'block' : 'none';
+  document.getElementById('ref-btn').textContent = refOpen ? '✕ Fechar' : '📋 Tabela de r';
+}
+function redrawExCanvases(cid, indices) {
+  indices.forEach((qi, order) => {
+    const q = QS[qi];
+    if (q && q.cv) drawMiniScatter(`cv-${cid}-${order}`, q.cv);
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// SCATTER DRAW ENGINE
+// ══════════════════════════════════════════════════════
+function drawScatter(id, ds, opts = {}) {
+  const cv = document.getElementById(id);
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#F8FAFC'; ctx.fillRect(0, 0, W, H);
+
+  const PL = 58, PR = 24, PT = 44, PB = 56;
+  const pw = W - PL - PR, ph = H - PT - PB;
+  const [xMin, xMax] = ds.xRange, [yMin, yMax] = ds.yRange;
+  const tx = x => PL + (x - xMin) / (xMax - xMin) * pw;
+  const ty = y => H - PB - (y - yMin) / (yMax - yMin) * ph;
+
+  // grid
+  ctx.strokeStyle = '#E2E8F0'; ctx.lineWidth = 1;
+  for (let gx = xMin; gx <= xMax; gx += ds.xStep) {
+    ctx.beginPath(); ctx.moveTo(tx(gx), PT); ctx.lineTo(tx(gx), H - PB); ctx.stroke();
+  }
+  for (let gy = yMin; gy <= yMax; gy += ds.yStep) {
+    ctx.beginPath(); ctx.moveTo(PL, ty(gy)); ctx.lineTo(W - PR, ty(gy)); ctx.stroke();
+  }
+
+  // axes
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(PL, PT); ctx.lineTo(PL, H - PB); ctx.lineTo(W - PR, H - PB); ctx.stroke();
+
+  // tick labels
+  ctx.fillStyle = '#64748B'; ctx.font = 'bold 26px Nunito'; ctx.textAlign = 'center';
+  for (let gx = xMin; gx <= xMax; gx += ds.xStep)
+    ctx.fillText(gx, tx(gx), H - PB + 20);
+  ctx.textAlign = 'right';
+  for (let gy = yMin; gy <= yMax; gy += ds.yStep)
+    ctx.fillText(gy, PL - 7, ty(gy) + 6);
+
+  // axis labels
+  ctx.textAlign = 'center'; ctx.font = 'bold 26px Nunito'; ctx.fillStyle = '#475569';
+  ctx.fillText(ds.xLabel, PL + pw / 2, H - 4);
+  ctx.save(); ctx.translate(14, PT + ph / 2); ctx.rotate(-Math.PI / 2);
+  ctx.fillText(ds.yLabel, 0, 0); ctx.restore();
+
+  // title
+  ctx.textAlign = 'center';
+  if (opts.noRBadge && ds.lineStr) {
+    ctx.font = 'bold 35px Nunito'; ctx.fillStyle = ds.color;
+    ctx.fillText(ds.lineStr, PL + pw / 2, 30);
+  } else {
+    ctx.fillStyle = ds.color; ctx.font = 'bold 26px Nunito';
+    ctx.fillText('Dispersão — ' + ds.label, PL + pw / 2, 24);
+  }
+
+  // clip to plot area
+  ctx.save();
+  ctx.beginPath(); ctx.rect(PL, PT, pw, ph); ctx.clip();
+
+  // confidence ellipse (only when showEllipse option is set)
+  if (opts.showEllipse && ds.points.length > 1 && ds.line) {
+    const pts = ds.points;
+    const n = pts.length;
+    const mx = pts.reduce((s,p) => s+p.x, 0) / n;
+    const my = pts.reduce((s,p) => s+p.y, 0) / n;
+
+    // use regression line angle in screen coordinates
+    const scaleX = pw / (xMax - xMin);
+    const scaleY = ph / (yMax - yMin);
+    // slope in data space → slope in screen space (y is flipped)
+    const screenSlope = -ds.line.a * (scaleY / scaleX);
+    const angle = Math.atan2(screenSlope, 1);
+
+    // spread along and across the line
+    const cosA = Math.cos(angle), sinA = Math.sin(angle);
+    let spreadAlong = 0, spreadAcross = 0;
+    pts.forEach(p => {
+      const px = tx(p.x) - tx(mx);
+      const py = ty(p.y) - ty(my);
+      const along  =  px * cosA + py * sinA;
+      const across = -px * sinA + py * cosA;
+      spreadAlong  = Math.max(spreadAlong,  Math.abs(along));
+      spreadAcross = Math.max(spreadAcross, Math.abs(across));
+    });
+    const rx = spreadAlong  + 18;
+    const ry = spreadAcross + 18;
+
+    ctx.save();
+    ctx.translate(tx(mx), ty(my));
+    ctx.rotate(angle);
+    ctx.beginPath();
+    ctx.ellipse(0, 0, rx, Math.max(ry, 10), 0, 0, Math.PI*2);
+    ctx.fillStyle = ds.color + '22';
+    ctx.fill();
+    ctx.strokeStyle = ds.color + '99';
+    ctx.lineWidth = 2.5;
+    ctx.setLineDash([6, 4]);
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  // regression line
+  if (ds.line && opts.showLine !== false) {
+    const lx1 = xMin, lx2 = xMax;
+    ctx.beginPath();
+    ctx.moveTo(tx(lx1), ty(ds.line.a * lx1 + ds.line.b));
+    ctx.lineTo(tx(lx2), ty(ds.line.a * lx2 + ds.line.b));
+    ctx.strokeStyle = ds.color; ctx.lineWidth = 2.5; ctx.setLineDash([9, 5]); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // prediction guide lines
+  if (opts.predX !== undefined && ds.line) {
+    const py = ds.line.a * opts.predX + ds.line.b;
+    ctx.strokeStyle = '#F59E0B'; ctx.lineWidth = 1.8; ctx.setLineDash([5, 4]);
+    ctx.beginPath(); ctx.moveTo(tx(opts.predX), ty(yMin)); ctx.lineTo(tx(opts.predX), ty(py)); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(tx(xMin), ty(py)); ctx.lineTo(tx(opts.predX), ty(py)); ctx.stroke();
+    ctx.setLineDash([]);
+    // prediction point
+    ctx.beginPath(); ctx.arc(tx(opts.predX), ty(py), 13, 0, Math.PI*2);
+    ctx.fillStyle = '#F59E0B'; ctx.fill();
+    ctx.strokeStyle = 'white'; ctx.lineWidth = 2.5; ctx.stroke();
+    // y value label above point
+    if (opts.predY !== undefined) {
+      ctx.font = 'bold 35px Nunito'; ctx.fillStyle = ds.color; ctx.textAlign = 'center';
+      ctx.fillText(opts.predY, tx(opts.predX), ty(py) - 20);
+    }
+  }
+
+  ctx.restore(); // remove clip
+
+  // data points (drawn over clip)
+  ds.points.forEach(p => {
+    ctx.beginPath(); ctx.arc(tx(p.x), ty(p.y), 9, 0, Math.PI*2);
+    ctx.fillStyle = ds.color; ctx.fill();
+    ctx.strokeStyle = 'white'; ctx.lineWidth = 2.2; ctx.stroke();
+  });
+
+
+  // badge (top right)
+  if (!opts.noRBadge && ds.line && opts.showLine !== false && ds.r2Str !== '≈ 0') {
+    const badgeText = opts.showROnly
+      ? `r = ${ds.r}`
+      : `R² = ${ds.r2Str} = ${(ds.r2 * 100).toFixed(1)}%`;
+    ctx.font = 'bold 28px Nunito';
+    const bw2 = ctx.measureText(badgeText).width + 22;
+    ctx.fillStyle = ds.color + '18';
+    roundRect(ctx, W - PR - bw2 - 6, PT + 8, bw2, 36, 10);
+    ctx.fill();
+    ctx.fillStyle = ds.color; ctx.textAlign = 'right';
+    ctx.fillText(badgeText, W - PR - 12, PT + 34);
+  }
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y); ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x + w, y + h - r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctx.lineTo(x + r, y + h); ctx.arcTo(x,y+h,x,y+h-r,r);
+  ctx.lineTo(x, y + r); ctx.arcTo(x,y,x+r,y,r);
+  ctx.closePath();
+}
+
+// ══════════════════════════════════════════════════════
+// SECTION 1 – SCATTER
+// ══════════════════════════════════════════════════════
+const S1_KEYS   = ['turmaA','turmaB','turmaC','semRel'];
+const S1_LABELS = ['Turma A ↗️','Turma B ↗️','Turma C ↘️','Sem relação ↔️'];
+const S1_COLORS = ['#3B82F6','#10B981','#EC4899','#94A3B8'];
+
+function initS1() {
+  const wrap = document.getElementById('s1-btns');
+  S1_KEYS.forEach((k, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'ds-btn'; btn.textContent = S1_LABELS[i];
+    btn.style.borderColor = S1_COLORS[i];
+    btn.style.color = S1_COLORS[i];
+    btn.onclick = () => { setS1Active(i); showS1(k); };
+    wrap.appendChild(btn);
+  });
+  setS1Active(0); showS1('turmaA');
+}
+function setS1Active(idx) {
+  document.querySelectorAll('#s1-btns .ds-btn').forEach((b, i) => {
+    const active = i === idx;
+    b.style.background = active ? S1_COLORS[i] : 'white';
+    b.style.color = active ? 'white' : S1_COLORS[i];
+  });
+}
+function showS1(key) {
+  const ds = DS[key];
+  drawScatter('s1-cv', ds, {showLine: false, showEllipse: true});
+  document.getElementById('s1-info').innerHTML =
+    `<span style="color:${ds.color};font-family:'Fredoka One',cursive;font-size:1.25rem">${ds.tipo}</span>` +
+    `<br><span style="font-size:.95rem;font-weight:600;color:#64748B">${ds.forca}</span>`;
+}
+
+// ══════════════════════════════════════════════════════
+// SECTION 2 – r EXAMPLES
+// ══════════════════════════════════════════════════════
+function initS2() {
+  const wrap = document.getElementById('r-cards');
+  R_EX.forEach((ex, i) => {
+    const div = document.createElement('div');
+    div.className = 'r-card';
+    div.innerHTML = `<div class="rv" style="color:${ex.color}">${ex.label}</div>`;
+    div.onclick = () => showREx(i);
+    wrap.appendChild(div);
+  });
+}
+function drawRWaiting() {
+  const cv = document.getElementById('r-cv');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = '#F8FAFC'; ctx.fillRect(0,0,W,H);
+  ctx.fillStyle = '#CBD5E1';
+  ctx.font = 'bold 66px Nunito'; ctx.textAlign = 'center';
+  ctx.fillText('⏳', W/2, H/2 - 20);
+  ctx.font = 'bold 28px Nunito';
+  ctx.fillText('Toque em um valor de r', W/2, H/2 + 40);
+}
+
+function showREx(i) {
+  document.querySelectorAll('.r-card').forEach((el, j) => el.classList.toggle('sel', j===i));
+  const ex = R_EX[i];
+  const cv = document.getElementById('r-cv');
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  ctx.clearRect(0,0,W,H); ctx.fillStyle='#F8FAFC'; ctx.fillRect(0,0,W,H);
+
+  const PL=50,PR=24,PT=50,PB=46;
+  const pw=W-PL-PR, ph=H-PT-PB;
+  const tx=x=>PL+(x-0)/(8-0)*pw, ty=y=>H-PB-(y-0)/(10-0)*ph;
+
+  // grid
+  ctx.strokeStyle='#E2E8F0'; ctx.lineWidth=1;
+  for(let gx=0;gx<=8;gx++){ctx.beginPath();ctx.moveTo(tx(gx),PT);ctx.lineTo(tx(gx),H-PB);ctx.stroke();}
+  for(let gy=0;gy<=10;gy+=2){ctx.beginPath();ctx.moveTo(PL,ty(gy));ctx.lineTo(W-PR,ty(gy));ctx.stroke();}
+  ctx.strokeStyle='#475569';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(PL,PT);ctx.lineTo(PL,H-PB);ctx.lineTo(W-PR,H-PB);ctx.stroke();
+
+  // title
+  ctx.fillStyle=ex.color; ctx.font='bold 26px Nunito'; ctx.textAlign='center';
+  ctx.fillText(`${ex.label} — ${ex.desc}`, PL+pw/2, 28);
+
+  // trend line (OLS through points)
+  const n=ex.pts.length;
+  const mxe=ex.pts.reduce((s,p)=>s+p.x,0)/n;
+  const mye=ex.pts.reduce((s,p)=>s+p.y,0)/n;
+  const num=ex.pts.reduce((s,p)=>s+(p.x-mxe)*(p.y-mye),0);
+  const den=ex.pts.reduce((s,p)=>s+(p.x-mxe)**2,0);
+  const slope=den ? num/den : 0, intercept=mye-slope*mxe;
+
+  if (!ex.noLine) {
+    ctx.beginPath();
+    ctx.moveTo(tx(1),ty(slope*1+intercept));
+    ctx.lineTo(tx(7),ty(slope*7+intercept));
+    ctx.strokeStyle=ex.color; ctx.lineWidth=2.5; ctx.setLineDash([8,5]); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // ellipse aligned to regression line
+  const screenSlope = -slope * (ph/10) / (pw/8);
+  const angle = Math.atan2(screenSlope, 1);
+  const cosA = Math.cos(angle), sinA = Math.sin(angle);
+  let spreadAlong = 0;
+  ex.pts.forEach(p => {
+    const px = tx(p.x) - tx(mxe);
+    const py = ty(p.y) - ty(mye);
+    const along = px*cosA + py*sinA;
+    spreadAlong = Math.max(spreadAlong, Math.abs(along));
+  });
+  // width proportional to (1 - |r|) so stronger correlations = narrower ellipse
+  const absR = Math.abs(ex.rVal || 0);
+  const ry = Math.max(spreadAlong * (1 - absR) * 0.6 + 10, 10);
+  ctx.save();
+  ctx.translate(tx(mxe), ty(mye));
+  ctx.rotate(angle);
+  ctx.beginPath();
+  ctx.ellipse(0, 0, spreadAlong+16, ry, 0, 0, Math.PI*2);
+  ctx.fillStyle = ex.color + '22';
+  ctx.fill();
+  ctx.strokeStyle = ex.color + '99';
+  ctx.lineWidth = 2.5; ctx.setLineDash([6,4]); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  // points
+  ex.pts.forEach(p=>{
+    ctx.beginPath(); ctx.arc(tx(p.x),ty(p.y),9,0,Math.PI*2);
+    ctx.fillStyle=ex.color; ctx.fill();
+    ctx.strokeStyle='white'; ctx.lineWidth=2.2; ctx.stroke();
+  });
+
+  document.getElementById('r-info').innerHTML =
+    `<span style="color:${ex.color};font-family:'Nunito',sans-serif;font-weight:900;font-size:1.15rem">${ex.label} → ${ex.desc}</span>` +
+    `<br><span style="font-size:.95rem;font-weight:600;color:#64748B;display:block;margin-top:.3rem">${ex.nuvem}</span>`;
+}
+
+// ══════════════════════════════════════════════════════
+// SECTION 3 – R²
+// ══════════════════════════════════════════════════════
+const R2_KEYS   = ['turmaA','turmaB','turmaC'];
+const R2_COLORS = ['#3B82F6','#10B981','#EC4899'];
+
+function initS3() {
+  const wrap = document.getElementById('r2-btns');
+  R2_KEYS.forEach((k, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'ds-btn';
+    btn.textContent = DS[k].label;
+    btn.style.borderColor = R2_COLORS[i];
+    btn.style.color = R2_COLORS[i];
+    btn.onclick = () => { setR2Active(i); showR2(k); };
+    wrap.appendChild(btn);
+  });
+}
+function setR2Active(idx) {
+  document.querySelectorAll('#r2-btns .ds-btn').forEach((b, i) => {
+    const a = i===idx;
+    b.style.background = a ? R2_COLORS[i] : 'white';
+    b.style.color = a ? 'white' : R2_COLORS[i];
+  });
+}
+function showR2(key) {
+  const ds = DS[key];
+  const pct = (ds.r2 * 100).toFixed(1);
+  const rest = (100 - ds.r2 * 100).toFixed(1);
+
+  // show scatter graph
+  const r2cv = document.getElementById('r2-cv');
+  r2cv.style.display = 'block';
+  drawScatter('r2-cv', ds, {showLine: true});
+
+  // hide waiting, show bar
+  document.getElementById('r2-waiting').style.display = 'none';
+  const wrap = document.getElementById('r2-bar-wrap');
+  wrap.style.alignItems = 'stretch';
+  wrap.style.justifyContent = 'flex-start';
+  const expl = document.getElementById('r2-expl');
+  const rst  = document.getElementById('r2-rest');
+  expl.style.display = 'flex'; rst.style.display = 'flex';
+  expl.style.width  = pct  + '%';
+  expl.style.background = ds.color;
+  rst.style.width   = rest + '%';
+  expl.innerHTML = `<span style="font-size:1.25rem">${pct}%</span>`;
+  rst.innerHTML  = rest > 10 ? `<span style="font-size:.85rem">${rest}%<br>outros<br>fatores</span>` : '';
+  document.getElementById('r2-info').innerHTML =
+    `<span style="color:${ds.color};font-size:1rem"><strong>${pct}%</strong> da variação da nota é explicado pelas horas de estudo</span>`;
+}
+
+// ══════════════════════════════════════════════════════
+// SECTION 4 – PREDICTION
+// ══════════════════════════════════════════════════════
+const PRED_KEYS   = ['turmaA','turmaC'];
+const PRED_COLORS = ['#3B82F6','#EC4899'];
+let predKey = 'turmaA';
+
+function initS4() {
+  const wrap = document.getElementById('pred-btns');
+  wrap.style.justifyContent = 'center';
+  PRED_KEYS.forEach((k, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'ds-btn';
+    btn.textContent = DS[k].label;
+    btn.style.borderColor = PRED_COLORS[i];
+    btn.style.color = PRED_COLORS[i];
+    btn.onclick = () => { predKey = k; syncPredBtns(); updatePred(); };
+    wrap.appendChild(btn);
+  });
+  syncPredBtns(); updatePred();
+}
+function syncPredBtns() {
+  document.querySelectorAll('#pred-btns .ds-btn').forEach((b, i) => {
+    const a = PRED_KEYS[i] === predKey;
+    b.style.background = a ? PRED_COLORS[i] : 'white';
+    b.style.color = a ? 'white' : PRED_COLORS[i];
+  });
+  const ds = DS[predKey];
+  const sl = document.getElementById('pred-sl');
+  sl.min = ds.slMin; sl.max = ds.slMax; sl.step = ds.slStep;
+  sl.value = Math.round((ds.slMin + ds.slMax) / 2 * 2) / 2;
+}
+function updatePred() {
+  const ds = DS[predKey];
+  const x = parseFloat(document.getElementById('pred-sl').value);
+  document.getElementById('pred-x-val').textContent = x;
+  const y = ds.line ? (Math.round((ds.line.a * x + ds.line.b) * 10) / 10) : 0;
+  const a = ds.line.a, b = ds.line.b;
+  const bStr = b < 0 ? `− ${Math.abs(b)}` : `+ ${b}`;
+  const step = `(${a} × <span style="color:#10B981;font-size:1.4rem;font-weight:900">${x}</span>)`;
+  const result = `<span style="color:#3B82F6;font-size:1.5rem;font-weight:900">${y}</span>`;
+  document.getElementById('pred-eq').innerHTML =
+    `<span style="font-size:1.1rem;font-weight:900;color:${ds.color}">y = ${step} ${bStr} = ${result}</span>`;
+  document.getElementById('pred-res').innerHTML = '';
+  drawScatter('pred-cv', ds, {showLine: true, predX: x, predY: y, noRBadge: true});
+}
+
+// ══════════════════════════════════════════════════════
+// QUESTIONS
+// ══════════════════════════════════════════════════════
+const QS = [
+  {q:'Observe o gráfico. Veja que os pontos sobem da esquerda para a direita — à medida que as <span style="color:#3B82F6;font-weight:900">horas de estudo</span> aumentam, a <span style="color:#3B82F6;font-weight:900">nota</span> também tende a subir. Que tipo de relação entre as variáveis isso indica?',
+   cv:{pts:[{x:1,y:2},{x:2,y:4},{x:3,y:5},{x:4,y:7},{x:5,y:8}],
+       color:'#3B82F6', xLabel:'Horas de estudo', yLabel:'Nota da prova',
+       xRange:[0,6], yRange:[0,10]},
+   opts:['Relação positiva','Relação negativa','Sem relação','Relação curvilinear'], ans:0,
+   fb:'✅ Correto! Quando os pontos sobem da esquerda para a direita, Y tende a aumentar junto com X — relação positiva!'},
+  {q:'Observe o gráfico. Veja que os pontos descem da esquerda para a direita — quanto maior o <span style="color:#3B82F6;font-weight:900">nível de estresse</span>, menor parece ser a <span style="color:#3B82F6;font-weight:900">qualidade do sono</span>. Cada ponto representa uma pessoa. O que cada ponto mostra?',
+   cv:{pts:[{x:2,y:12},{x:3,y:10},{x:4,y:9},{x:4,y:7},{x:5,y:6},{x:6,y:6},{x:7,y:4},{x:7,y:2}],
+       color:'#EC4899', xLabel:'Nível de estresse', yLabel:'Qualidade do sono',
+       xRange:[0,9], yRange:[0,14]},
+   opts:['A média das duas variáveis','O nível de estresse e a qualidade do sono dessa mesma pessoa','A diferença entre estresse e sono','O valor de r naquele ponto'], ans:1,
+   fb:'✅ Exato! Cada ponto mostra os dois valores de um mesmo caso — neste gráfico, o nível de estresse e a qualidade do sono de uma mesma pessoa.'},
+  {q:'Observe o gráfico. Veja que os pontos descem da esquerda para a direita — quanto maior o <span style="color:#3B82F6;font-weight:900">número de faltas</span>, menor tende a ser a <span style="color:#3B82F6;font-weight:900">nota</span>. Que tipo de relação entre as variáveis isso indica?',
+   cv:{pts:[{x:1,y:9},{x:2,y:8},{x:3,y:7},{x:4,y:5},{x:5,y:4},{x:6,y:3},{x:7,y:2}],
+       color:'#F59E0B', xLabel:'Número de faltas', yLabel:'Nota da prova',
+       xRange:[0,8], yRange:[0,10]},
+   opts:['Relação positiva','Relação negativa','Sem relação','Não é possível dizer'], ans:1,
+   fb:'✅ Correto! Os pontos descem da esquerda para a direita — quando X aumenta, Y diminui. Isso é uma relação negativa.'},
+  {q:'Observe o gráfico. Veja que os pontos estão espalhados de forma aleatória — não há nenhuma tendência de subida ou descida. Que tipo de relação entre as variáveis <span style="color:#3B82F6;font-weight:900">tamanho do sapato</span> e <span style="color:#3B82F6;font-weight:900">nota na prova</span> isso indica?',
+   cv:{pts:[{x:1,y:6},{x:2,y:2},{x:3,y:8},{x:4,y:3},{x:5,y:7},{x:6,y:4},{x:7,y:9},{x:3,y:5},{x:5,y:2},{x:6,y:8}],
+       color:'#94A3B8', xLabel:'Tamanho do sapato', yLabel:'Nota da prova',
+       xRange:[0,8], yRange:[0,10]},
+   opts:['Relação positiva','Relação negativa','Sem relação aparente','Relação muito forte'], ans:2,
+   fb:'✅ Exato! Quando os pontos estão espalhados sem nenhuma tendência, dizemos que não há relação aparente entre as variáveis.'},
+  {q:'Um estudo encontrou r = −0,85. Como interpretar essa correlação?',
+   opts:['Fraca e negativa','Moderada e negativa','Forte e negativa','Muito forte e positiva'], ans:2,
+   fb:'✅ |−0,85| = 0,85 → entre 0,70 e 0,89 → correlação forte. O sinal negativo indica direção negativa.'},
+  {q:'Qual valor de r indica a correlação MAIS FRACA?',
+   opts:['r = 0,72','r = −0,91','r = 0,08','r = −0,55'], ans:2,
+   fb:'✅ O valor mais próximo de zero é r = 0,08 — correlação bem fraca, quase inexistente.'},
+  {q:'O que significa r = +0,98?',
+   opts:['Correlação muito forte e positiva — as variáveis variam no mesmo sentido com pouquíssima dispersão','Correlação moderada e positiva — as variáveis variam no mesmo sentido com bastante dispersão','Correlação muito forte e negativa — as variáveis variam em sentidos opostos','Correlação fraca — os pontos estão muito espalhados'], ans:0,
+   fb:'✅ Correto! O sinal (+) indica direção positiva — variáveis variam no mesmo sentido. O valor 0,98 está entre 0,90 e 1,00 → correlação muito forte.'},
+  {q:'Um nutricionista estudou a relação entre a ingestão diária de fibras (g) e o índice glicêmico pós-refeição de 80 pacientes. O modelo de regressão encontrou R² = 0,64. O que isso significa?',
+   opts:['r = 0,64','64% da variação no índice glicêmico é explicada pela ingestão de fibras','64% dos pacientes tiveram melhora glicêmica','A correlação entre fibras e glicemia é muito forte'], ans:1,
+   fb:'✅ R² = 0,64 significa que 64% das diferenças no índice glicêmico entre os pacientes são explicadas pelas diferenças na ingestão de fibras. Os outros 36% dependem de outros fatores.'},
+  {q:'Uma fisioterapeuta analisou a relação entre o número de sessões de reabilitação (X) e o nível de dor relatado pelos pacientes (Y). O R² encontrado foi 0,7627, e a relação é negativa — mais sessões, menos dor. Qual é o valor de r?',
+   opts:['r = +0,87','r = −0,7627','r = −0,87','r = 0,58'], ans:2,
+   fb:'✅ √0,7627 = 0,8733 ≈ 0,87. Como a relação é negativa (mais sessões → menos dor), r = −0,87 — correlação forte e negativa.'},
+  {q:'Observe o gráfico da Turma A. Com y = 2x − 0,5, qual a nota estimada para quem estudou 3 horas?',
+   cv:{pts:[{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:6}],
+       color:'#3B82F6', xLabel:'Horas de estudo', yLabel:'Nota da prova',
+       xRange:[0,5], yRange:[0,10], xStep:1, yStep:2, showR:'r = +0,98'},
+   opts:['4,5','5,5','6,5','3,5'], ans:1,
+   fb:'✅ y = (2×3) − 0,5 = 6 − 0,5 = 5,5.'},
+  {q:'Observe o gráfico da Turma C. Com y = −0,94x + 11,1, qual a nota estimada para x = 5 horas?',
+   cv:{pts:[{x:1,y:9},{x:2,y:10},{x:5,y:7},{x:8,y:5},{x:9,y:1}],
+       color:'#EC4899', xLabel:'Horas de estudo', yLabel:'Nota da prova',
+       xRange:[0,10], yRange:[0,11], xStep:1, yStep:2, showR:'r = −0,87'},
+   opts:['6,4','4,0','5,0','7,5'], ans:0,
+   fb:'✅ y = (−0,94×5) + 11,1 = −4,7 + 11,1 = 6,4.'},
+  {q:'Observe o gráfico de dispersão abaixo. Como você interpreta a correlação entre idade e tempo de reação?',
+   cv:{pts:[{x:20,y:210},{x:25,y:250},{x:30,y:230},{x:35,y:280},{x:40,y:310},{x:45,y:290},{x:50,y:340},{x:55,y:370},{x:60,y:350},{x:65,y:410},{x:70,y:430},{x:75,y:460},{x:80,y:490}],
+       color:'#3B82F6', xLabel:'Idade (anos)', yLabel:'Tempo de reação (ms)',
+       xRange:[15,85], yRange:[150,550], xStep:10, yStep:50, pl:90, showR:'r ≈ +0,97'},
+   opts:['Forte e negativa — quanto mais velho, menor o tempo de reação','Sem relação — os pontos estão espalhados aleatoriamente','Muito forte e positiva — quanto mais velho, maior o tempo de reação','Moderada e positiva — há pouca relação entre as variáveis'], ans:2,
+   fb:'✅ Correto! Os pontos sobem com pouquíssima dispersão → correlação muito forte e positiva. r ≈ +0,97 está entre 0,90 e 1,00 → muito forte. O sinal positivo indica que quanto maior a idade, maior o tempo de reação.'},
+  {q:'Observe o gráfico de dispersão abaixo. Como você interpreta a correlação entre idade e velocidade de reação?',
+   cv:{pts:[{x:20,y:8.8},{x:25,y:6.0},{x:30,y:8.2},{x:35,y:7.5},{x:40,y:5.5},{x:45,y:7.8},{x:50,y:6.5},{x:55,y:4.5},{x:60,y:6.8},{x:65,y:3.8},{x:70,y:5.5},{x:75,y:4.2},{x:80,y:3.0}],
+       color:'#EC4899', xLabel:'Idade (anos)', yLabel:'Velocidade de reação (m/s)',
+       xRange:[15,85], yRange:[2,10], xStep:10, yStep:1, showR:'r ≈ −0,82'},
+   opts:['Muito forte e negativa — os pontos seguem quase uma reta','Sem relação — os pontos estão espalhados aleatoriamente','Moderada e positiva — quanto mais velho, maior a velocidade','Forte e negativa — quanto mais velho, menor tende a ser a velocidade'], ans:3,
+   fb:'✅ Correto! Os pontos descem com pouca dispersão → correlação forte e negativa. r ≈ −0,82 está entre 0,70 e 0,89 → forte. O sinal negativo indica que quanto maior a idade, menor a velocidade de reação.'},
+  {q:'Como você interpreta a correlação do gráfico abaixo?',
+   cv:{pts:[{x:3,y:4},{x:4,y:9},{x:5,y:2},{x:3,y:7},{x:6,y:5},{x:7,y:8},{x:8,y:3},{x:4,y:6},{x:6,y:2},{x:7,y:7},{x:5,y:9},{x:8,y:5}],
+       color:'#94A3B8', xLabel:'Nº de letras no nome', yLabel:'Nota na prova',
+       xRange:[2,9], yRange:[0,10], xStep:1, yStep:2},
+   opts:['Sem relação — r ≈ 0, os pontos não seguem nenhuma tendência','Forte e positiva — os pontos sobem da esquerda para a direita','Forte e negativa — os pontos descem da esquerda para a direita','Moderada e positiva — há uma tendência leve de subida'], ans:0,
+   fb:'✅ Correto! Quando os pontos estão espalhados aleatoriamente sem tendência, a correlação é nula ou muito próxima de zero. Número de letras no nome não tem relação com nota na prova!'},
+  {q:'Um professor de educação física mediu a relação entre o número de treinos semanais (X) e o VO₂ máximo dos alunos (Y). O R² encontrado foi 0,81 e a relação é positiva. Qual é o valor de r?',
+   opts:['r = +0,81','r = +0,90','r = −0,90','r = +0,66'], ans:1,
+   fb:'✅ Correto! √0,81 = 0,90. Como a relação é positiva (mais treinos → maior VO₂), r = +0,90 — correlação muito forte e positiva.'},
+  {q:'Uma pesquisadora encontrou r = −0,65 entre o nível de ansiedade (X) e o desempenho em provas (Y). Qual é o R² e o que ele significa?',
+   opts:['R² = 0,65 → 65% da variação no desempenho é explicada pela ansiedade','R² = 0,81 → 81% da variação no desempenho é explicada pela ansiedade','R² = 0,42 → 42% da variação no desempenho é explicada pela ansiedade','R² = 0,33 → 33% da variação no desempenho é explicada pela ansiedade'], ans:2,
+   fb:'✅ Correto! R² = (−0,65)² = 0,4225 ≈ 0,42. Isso significa que 42% da variação no desempenho em provas é explicada pelo nível de ansiedade. Os outros 58% dependem de outros fatores.'},
+  {q:'Observe o gráfico abaixo. O R² encontrado foi 0,49. Qual é o valor de r e como interpretar essa correlação?',
+   cv:{pts:[{x:1,y:8},{x:2,y:6},{x:2,y:9},{x:3,y:5},{x:4,y:7},{x:4,y:3},{x:5,y:6},{x:6,y:4},{x:6,y:2},{x:7,y:5},{x:8,y:2},{x:8,y:4}],
+       color:'#F59E0B', xLabel:'Horas de TV por dia', yLabel:'Nota na prova',
+       xRange:[0,9], yRange:[0,10], xStep:1, yStep:2},
+   opts:['r = +0,70 — moderada e positiva','r = −0,70 — moderada e negativa','r = +0,49 — fraca e positiva','r = −0,49 — fraca e negativa'], ans:1,
+   fb:'✅ Correto! √0,49 = 0,70. Os pontos descem da esquerda para a direita → sinal negativo. Portanto r = −0,70 — correlação moderada e negativa. Mais TV tende a estar associado a notas menores.'},
+  {q:'Uma nutricionista encontrou r = +0,72 entre a ingestão diária de proteínas (X) e a massa muscular dos pacientes (Y). Qual é o R² e o que ele significa?',
+   opts:['R² = 0,72 → a correlação é forte','R² = 0,52 → 52% da variação na massa muscular é explicada pela ingestão de proteínas','R² = 0,36 → 36% da variação na massa muscular é explicada pela ingestão de proteínas','R² = 0,85 → a relação é muito forte'], ans:1,
+   fb:'✅ Correto! R² = 0,72² = 0,5184 ≈ 0,52. Isso significa que 52% da variação na massa muscular entre os pacientes é explicada pela ingestão de proteínas.'},
+  {q:'Observe o gráfico abaixo. O R² encontrado foi 0,64. Qual é o valor de r e como interpretar essa correlação?',
+   cv:{pts:[{x:1,y:2},{x:2,y:3},{x:2,y:1},{x:3,y:5},{x:4,y:4},{x:4,y:7},{x:5,y:6},{x:6,y:8},{x:6,y:5},{x:7,y:9},{x:8,y:7},{x:8,y:10}],
+       color:'#10B981', xLabel:'Sessões de fisioterapia', yLabel:'Amplitude de movimento (°)',
+       xRange:[0,9], yRange:[0,11], xStep:1, yStep:2},
+   opts:['r = +0,64 — moderada e positiva','r = +0,80 — forte e positiva','r = −0,80 — forte e negativa','r = +0,41 — moderada e positiva'], ans:1,
+   fb:'✅ Correto! √0,64 = 0,80. Os pontos sobem da esquerda para a direita → sinal positivo. r = +0,80 — correlação forte e positiva. Mais sessões de fisioterapia → maior amplitude de movimento.'},
+  {q:'"Correlação não implica causalidade" significa que:',
+   opts:['Toda correlação é falsa','Correlação forte prova causa','Duas variáveis podem ser correlacionadas sem que uma cause a outra','Só há correlação entre variáveis que se causam'], ans:2,
+   fb:'✅ Podem existir fatores ocultos (variáveis de confusão) que explicam a correlação sem causalidade direta.'},
+  {q:'O coeficiente de Pearson mede apenas correlações do tipo:',
+   opts:['Quadráticas','Exponenciais','Lineares','Qualquer tipo de relação'], ans:2,
+   fb:'✅ Pearson detecta apenas relações lineares. Uma relação em U pode ter r ≈ 0 mesmo com relação clara.'},
+  {q:'Um nutricionista estuda a relação entre o <span style="color:#7C3AED;font-weight:900">consumo diário de açúcar (g)</span> e o <span style="color:#7C3AED;font-weight:900">índice de massa corporal (IMC)</span> dos seus pacientes. Qual é a variável independente e qual é a dependente?',
+   opts:['Independente: IMC | Dependente: consumo de açúcar','Independente: consumo de açúcar | Dependente: IMC','As duas são independentes','Não é possível determinar sem calcular r'], ans:1,
+   fb:'✅ Correto! O consumo de açúcar (X) é o fator explicativo — variável independente. O IMC (Y) é o resultado que pode variar em função do consumo — variável dependente.'},
+  {q:'Uma enfermeira estuda a relação entre o <span style="color:#7C3AED;font-weight:900">número de horas de sono</span> (X) e a <span style="color:#7C3AED;font-weight:900">pressão arterial sistólica</span> (Y) dos pacientes. Qual é a variável independente e qual é a dependente?',
+   opts:['As duas são dependentes','Independente: pressão arterial | Dependente: horas de sono','As duas são independentes','Independente: horas de sono | Dependente: pressão arterial'], ans:3,
+   fb:'✅ Correto! As horas de sono (X) são o fator explicativo — variável independente. A pressão arterial (Y) é o resultado que pode variar em função do sono — variável dependente.'},
+  {q:'Um estudo relacionou os anos de escolaridade (X) com o salário mensal (Y) de 100 pessoas. O resultado foi R² = 0,70. O que isso significa?',
+   opts:['70% dos salários são altos por causa da escolaridade','70% da variação nos salários entre as pessoas é explicada pela diferença nos anos de escolaridade','A correlação entre escolaridade e salário é de 0,70','Quem tem mais escolaridade ganha 70% a mais'], ans:1,
+   fb:'✅ Correto! R² = 0,70 significa que 70% das diferenças de salário entre as pessoas são explicadas pelas diferenças nos anos de escolaridade. Os outros 30% dependem de outros fatores — experiência, área de atuação, etc.'},
+  {q:'No gráfico de dispersão que relaciona <span style="color:#7C3AED;font-weight:900">horas de estudo</span> (X) com <span style="color:#7C3AED;font-weight:900">nota da prova</span> (Y), qual é a variável independente e qual é a dependente?',
+   cv:{pts:[{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:6}],
+       color:'#7C3AED', xLabel:'Horas de estudo', yLabel:'Nota da prova',
+       xRange:[0,5], yRange:[0,10], xStep:1, yStep:2},
+   opts:['Independente: nota da prova | Dependente: horas de estudo','As duas são independentes','Independente: horas de estudo | Dependente: nota da prova','As duas são dependentes'], ans:2,
+   fb:'✅ Correto! A variável independente (X) é o fator explicativo — horas de estudo. A variável dependente (Y) é o resultado que pode variar em função dela — a nota.'},
+  {q:'Para que serve a reta de regressão?',
+   opts:['Para calcular a média das duas variáveis','Para estimar o valor de Y dado um valor de X','Para medir a força da correlação','Para identificar se a relação é positiva ou negativa'], ans:1,
+   fb:'✅ Correto! A reta de regressão é usada para estimar (prever) o valor da variável dependente (Y) a partir de um valor conhecido da variável independente (X).'},
+  {q:'Na equação y = 2x − 0,5 da Turma A, onde x são as horas de estudo e y é a nota, quem é a variável dependente?',
+   cv:{pts:[{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:6}],
+       color:'#3B82F6', xLabel:'Horas de estudo', yLabel:'Nota da prova',
+       xRange:[0,5], yRange:[0,10], xStep:1, yStep:2, showR:'r = +0,98'},
+   opts:['x — as horas de estudo','y — a nota da prova','O número 2 (a inclinação)','O valor −0,5'], ans:1,
+   fb:'✅ Correto! A variável dependente é y (nota da prova) — ela depende de x. A equação nos diz como a nota varia em função das horas de estudo.'},
+  {q:'Observe o gráfico. Uma nutricionista usa a equação y = 1,2x + 3, onde x é a ingestão de proteínas (g) e y é a massa muscular (kg). Qual é a variável independente e qual é a dependente?',
+   cv:{pts:[{x:2,y:5},{x:3,y:6},{x:4,y:8},{x:4,y:7},{x:5,y:9},{x:6,y:10},{x:7,y:11},{x:8,y:12}],
+       color:'#10B981', xLabel:'Proteínas (g)', yLabel:'Massa muscular (kg)',
+       xRange:[0,9], yRange:[3,14], xStep:1, yStep:2, showR:'r = +0,97'},
+   opts:['Independente: massa muscular | Dependente: proteínas','As duas são dependentes','Independente: proteínas | Dependente: massa muscular','Não é possível determinar'], ans:2,
+   fb:'✅ Correto! A ingestão de proteínas (X) é o fator explicativo — variável independente. A massa muscular (Y) é o resultado — variável dependente.'},
+  {q:'Observe o gráfico. Um fisioterapeuta usa a equação y = 1,5x + 2, onde x é o número de sessões e y é a amplitude de movimento (°). Estime y para x = 4 sessões.',
+   cv:{pts:[{x:1,y:3},{x:2,y:5},{x:3,y:6},{x:4,y:8},{x:5,y:9},{x:6,y:11},{x:7,y:12}],
+       color:'#8B5CF6', xLabel:'Sessões de fisioterapia', yLabel:'Amplitude (°)',
+       xRange:[0,8], yRange:[0,14], xStep:1, yStep:2, showR:'r = +0,99'},
+   opts:['6°','8°','10°','12°'], ans:1,
+   fb:'✅ y = (1,5 × 4) + 2 = 6 + 2 = 8°.'},
+  {q:'Observe o gráfico. Os pontos estão muito dispersos e r = +0,10. Vale a pena usar a reta de regressão para fazer previsões?',
+   cv:{pts:[{x:1,y:7},{x:2,y:2},{x:3,y:9},{x:4,y:4},{x:5,y:6},{x:6,y:1},{x:7,y:8},{x:3,y:3},{x:5,y:9},{x:6,y:5},{x:7,y:2},{x:4,y:8}],
+       color:'#94A3B8', xLabel:'Variável X', yLabel:'Variável Y',
+       xRange:[0,8], yRange:[0,10], xStep:1, yStep:2, showR:'r = +0,10'},
+   opts:['Sim, qualquer reta positiva é útil','Não — r = +0,10 indica correlação bem fraca, as previsões seriam pouco confiáveis','Sim, desde que o gráfico tenha mais de 10 pontos','Não, porque a correlação é negativa'], ans:1,
+   fb:'✅ Correto! Com r = +0,10 a correlação é bem fraca (0,00 a 0,19). Os pontos estão tão dispersos que qualquer previsão seria muito imprecisa. Não vale a pena usar regressão aqui!'},
+  {q:'Um estudo mostrou que países com mais TVs por habitante têm maior expectativa de vida. Isso significa que ter TV aumenta a expectativa de vida?',
+   opts:['Sim, a correlação é forte e isso prova a causa','Não — ambas dependem do nível de riqueza do país, que é um fator oculto','Não, porque a correlação entre TVs e expectativa de vida é fraca','Sim, mas apenas em países desenvolvidos'], ans:1,
+   fb:'✅ Correto! Esse é um exemplo clássico de correlação espúria. Países mais ricos têm mais TVs E maior expectativa de vida — mas é a riqueza que explica os dois, não a TV causando longevidade.'}
+];
+
+const SEC_QS = {s1:[0,2,3,1,24,21,22], s2:[4,5,13,6,11,12], s3g1:[23,7], s3g2:[15,17], s3g3:[8,14], s3g4:[16,18], s4:[25,26,27,9,10,28,29], s5:[30,19,20]};
+
+// ══════════════════════════════════════════════════════
+// MINI SCATTER (for exercises)
+// ══════════════════════════════════════════════════════
+function drawMiniScatter(id, d) {
+  const cv = document.getElementById(id);
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = '#F8FAFC'; ctx.fillRect(0,0,W,H);
+
+  const PL=d.pl||52, PR=20, PT=20, PB=48;
+  const pw=W-PL-PR, ph=H-PT-PB;
+  const [xMin,xMax] = d.xRange, [yMin,yMax] = d.yRange;
+  const tx = x => PL + (x-xMin)/(xMax-xMin)*pw;
+  const ty = y => H - PB - (y-yMin)/(yMax-yMin)*ph;
+
+  const xStep = d.xStep || 1;
+  const yStep = d.yStep || 2;
+
+  // grid
+  ctx.strokeStyle='#E8EFF6'; ctx.lineWidth=1;
+  for(let gx=xMin; gx<=xMax; gx+=xStep){ctx.beginPath();ctx.moveTo(tx(gx),PT);ctx.lineTo(tx(gx),H-PB);ctx.stroke();}
+  for(let gy=yMin; gy<=yMax; gy+=yStep){ctx.beginPath();ctx.moveTo(PL,ty(gy));ctx.lineTo(W-PR,ty(gy));ctx.stroke();}
+
+  // axes
+  ctx.strokeStyle='#475569'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(PL,PT); ctx.lineTo(PL,H-PB); ctx.lineTo(W-PR,H-PB); ctx.stroke();
+
+  // x ticks
+  ctx.fillStyle='#64748B'; ctx.font='bold 26px Nunito'; ctx.textAlign='center';
+  for(let gx=xMin; gx<=xMax; gx+=xStep) ctx.fillText(gx, tx(gx), H-PB+18);
+  // y ticks
+  ctx.textAlign='right';
+  for(let gy=yMin; gy<=yMax; gy+=yStep) ctx.fillText(gy, PL-6, ty(gy)+5);
+
+  // axis labels
+  ctx.textAlign='center'; ctx.font='bold 26px Nunito'; ctx.fillStyle='#475569';
+  ctx.fillText(d.xLabel, PL+pw/2, H-2);
+  const yLabelX = (d.pl||52) > 60 ? 16 : 12;
+  ctx.save(); ctx.translate(yLabelX, PT+ph/2); ctx.rotate(-Math.PI/2);
+  ctx.fillText(d.yLabel, 0, 0); ctx.restore();
+
+  // points
+  d.pts.forEach(p=>{
+    ctx.beginPath(); ctx.arc(tx(p.x),ty(p.y),8,0,Math.PI*2);
+    ctx.fillStyle=d.color; ctx.fill();
+    ctx.strokeStyle='white'; ctx.lineWidth=2; ctx.stroke();
+  });
+
+  // r badge
+  if (d.showR) {
+    ctx.font = 'bold 26px Nunito';
+    const bw = ctx.measureText(d.showR).width + 24;
+    ctx.fillStyle = d.color + 'DD';
+    roundRect(ctx, PL+8, PT+6, bw, 32, 9);
+    ctx.fill();
+    ctx.fillStyle = 'white'; ctx.textAlign = 'left';
+    ctx.fillText(d.showR, PL+16, PT+26);
+  }
+}
+
+// ══════════════════════════════════════════════════════
+// BUILD EXERCISES (section-level)
+// ══════════════════════════════════════════════════════
+function buildQs(cid, indices) {
+  const c = document.getElementById(cid);
+  indices.forEach((qi, order) => {
+    const q = QS[qi];
+    const wrap = document.createElement('div');
+    wrap.style.marginBottom = '1.6rem';
+    const uid = `${cid}-${order}`;
+    const cvHtml = q.cv
+      ? `<canvas id="cv-${uid}" width="560" height="400" style="max-width:100%;border-radius:14px;background:#F8FAFC;box-shadow:0 2px 8px rgba(0,0,0,.08);display:block;margin:.7rem auto 1rem"></canvas>`
+      : '';
+    wrap.innerHTML = `<div class="quiz-q">Q${order+1}. ${q.q}</div>
+      ${cvHtml}
+      <div class="quiz-opts" id="opts-${uid}"></div>
+      <div class="feedback" id="fb-${uid}"></div>`;
+    c.appendChild(wrap);
+    if (q.cv) drawMiniScatter(`cv-${uid}`, q.cv);
+    const opts = wrap.querySelector(`#opts-${uid}`);
+    const fb   = wrap.querySelector(`#fb-${uid}`);
+    let done = false;
+    q.opts.forEach((opt, j) => {
+      const btn = document.createElement('button');
+      btn.textContent = opt;
+      btn.onclick = () => {
+        if (done) return; done = true;
+        opts.querySelectorAll('button').forEach((b, k) => {
+          b.disabled = true;
+          if (k === q.ans) b.classList.add('correct');
+          else if (k === j) b.classList.add('wrong');
+        });
+        fb.textContent = j === q.ans ? q.fb : `❌ Não exatamente. ${q.fb}`;
+        fb.className = 'feedback ' + (j === q.ans ? 'ok' : 'err');
+      };
+      opts.appendChild(btn);
+    });
+  });
+}
+
+// ══════════════════════════════════════════════════════
+// FULL QUIZ (section 6)
+// ══════════════════════════════════════════════════════
+let qz = {n:0, score:0};
+function buildQuiz() { showQ(0); }
+function showQ(n) {
+  qz.n = n; const box = document.getElementById('quiz-box');
+  if (n >= QS.length) {
+    const pct = Math.round(qz.score / QS.length * 100);
+    const em = pct >= 80 ? '🏆' : pct >= 60 ? '👏' : '📚';
+    const msg = pct >= 80 ? 'Excelente! Você domina correlação e regressão!'
+              : pct >= 60 ? 'Muito bem! Revise os tópicos com menor acerto.'
+              : 'Continue estudando! Revise as abas anteriores.';
+    box.innerHTML = `<div style="text-align:center;padding:1.5rem">
+      <div style="font-size:3.5rem">${em}</div>
+      <div style="font-family:'Fredoka One',cursive;font-size:2rem;color:${pct>=80?'#10B981':'#F59E0B'};margin:.5rem 0">${qz.score}/${QS.length} acertos (${pct}%)</div>
+      <div style="font-size:1.05rem;font-weight:700;color:#475569;margin-bottom:1.4rem">${msg}</div>
+      <button onclick="restartQuiz()" style="font-family:'Nunito',sans-serif;font-weight:900;font-size:1rem;background:#3B82F6;color:white;border:none;border-radius:12px;padding:.75rem 2rem;cursor:pointer">🔄 Refazer Quiz</button>
+    </div>`; return;
+  }
+  const q = QS[n], pct = (n / QS.length * 100).toFixed(0);
+  const cvHtml = q.cv
+    ? `<canvas id="qz-cv-${n}" width="560" height="340" style="max-width:100%;border-radius:14px;background:#F8FAFC;box-shadow:0 2px 8px rgba(0,0,0,.08);display:block;margin:.7rem auto 1rem"></canvas>`
+    : '';
+  box.innerHTML = `
+    <div style="font-size:.88rem;font-weight:700;color:#64748B;margin-bottom:.4rem">Questão ${n+1} de ${QS.length}</div>
+    <div style="height:7px;background:#E2E8F0;border-radius:99px;margin-bottom:1.2rem;overflow:hidden">
+      <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,#10B981,#3B82F6);border-radius:99px;transition:width .4s"></div>
+    </div>
+    <div class="quiz-q">${q.q}</div>
+    ${cvHtml}
+    <div class="quiz-opts" id="qz-opts"></div>
+    <div class="feedback" id="qz-fb"></div>
+    <button class="next-btn" id="qz-next" onclick="showQ(${n+1})">Próxima →</button>`;
+  if (q.cv) drawMiniScatter(`qz-cv-${n}`, q.cv);
+  const opts = document.getElementById('qz-opts');
+  q.opts.forEach((opt, j) => {
+    const btn = document.createElement('button');
+    btn.textContent = opt;
+    btn.onclick = () => {
+      opts.querySelectorAll('button').forEach((b, k) => {
+        b.disabled = true;
+        if (k === q.ans) b.classList.add('correct');
+        else if (k === j) b.classList.add('wrong');
+      });
+      const fb = document.getElementById('qz-fb');
+      if (j === q.ans) { qz.score++; fb.textContent = q.fb; fb.className='feedback ok'; }
+      else { fb.textContent = `❌ Não exatamente. ${q.fb}`; fb.className='feedback err'; }
+      document.getElementById('qz-next').style.display = 'block';
+    };
+    opts.appendChild(btn);
+  });
+}
+function restartQuiz() { qz = {n:0, score:0}; showQ(0); }
+
+// ══════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById(SECS[0].id).classList.add('active');
+  updateNav();
+  initS1();
+  initS2();
+  initS3();
+  initS4();
+  ['s1','s2','s4','s5'].forEach(s => buildQs(`ex-${s}`, SEC_QS[s]));
+  exS2Observer.observe(document.querySelector('#s2 .card:last-child'));
+  buildQs('ex-s3-g1', SEC_QS.s3g1);
+  buildQs('ex-s3-g2', SEC_QS.s3g2);
+  buildQs('ex-s3-g3', SEC_QS.s3g3);
+  buildQs('ex-s3-g4', SEC_QS.s3g4);
+  onActivate(0);
+});
+// ══════════════════════════════════════════════════════
+// GUESS THE CORRELATION GAME
+// ══════════════════════════════════════════════════════
+let guessTarget = 0, guessAttempts = 0, guessCorrect = 0, guessTotal = 0;
+
+function randNorm() {
+  let u = 0, v = 0;
+  while (!u) u = Math.random();
+  while (!v) v = Math.random();
+  return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+}
+
+function generateCorrelated(r, n) {
+  const pts = [];
+  for (let i = 0; i < n; i++) {
+    const x = randNorm();
+    const z = randNorm();
+    const y = r * x + Math.sqrt(1 - r * r) * z;
+    pts.push({x, y});
+  }
+  // Scale both axes to range 1–9 so axes always start near 0
+  const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+  const xMin = Math.min(...xs), xMax = Math.max(...xs);
+  const yMin = Math.min(...ys), yMax = Math.max(...ys);
+  return pts.map(p => ({
+    x: 1 + (p.x - xMin) / (xMax - xMin) * 8,
+    y: 1 + (p.y - yMin) / (yMax - yMin) * 8
+  }));
+}
+
+function drawGuessScatter(pts, color) {
+  const cv = document.getElementById('guess-cv');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  const W = cv.width, H = cv.height;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#F8FAFC'; ctx.fillRect(0, 0, W, H);
+
+  const PL = 50, PR = 20, PT = 20, PB = 50;
+  const pw = W - PL - PR, ph = H - PT - PB;
+  const xMin = 0, xMax = 10, yMin = 0, yMax = 10;
+  const tx = x => PL + (x - xMin) / (xMax - xMin) * pw;
+  const ty = y => H - PB - (y - yMin) / (yMax - yMin) * ph;
+
+  // grid
+  ctx.strokeStyle = '#E2E8F0'; ctx.lineWidth = 1;
+  for (let i = 0; i <= 10; i++) {
+    ctx.beginPath(); ctx.moveTo(tx(i), PT); ctx.lineTo(tx(i), H - PB); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(PL, ty(i)); ctx.lineTo(W - PR, ty(i)); ctx.stroke();
+  }
+
+  // axes
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(PL, PT); ctx.lineTo(PL, H - PB); ctx.lineTo(W - PR, H - PB); ctx.stroke();
+
+  // tick labels
+  ctx.fillStyle = '#64748B'; ctx.font = 'bold 18px Nunito'; ctx.textAlign = 'center';
+  for (let i = 0; i <= 10; i += 2) {
+    ctx.fillText(i, tx(i), H - PB + 18);
+    ctx.textAlign = 'right';
+    ctx.fillText(i, PL - 6, ty(i) + 5);
+    ctx.textAlign = 'center';
+  }
+
+  // points
+  pts.forEach(p => {
+    ctx.beginPath(); ctx.arc(tx(p.x), ty(p.y), 9, 0, Math.PI * 2);
+    ctx.fillStyle = color; ctx.fill();
+    ctx.strokeStyle = 'white'; ctx.lineWidth = 2; ctx.stroke();
+  });
+}
+
+function calcR(pts) {
+  const n = pts.length;
+  const mx = pts.reduce((s,p) => s+p.x, 0) / n;
+  const my = pts.reduce((s,p) => s+p.y, 0) / n;
+  const num = pts.reduce((s,p) => s+(p.x-mx)*(p.y-my), 0);
+  const dx  = Math.sqrt(pts.reduce((s,p) => s+(p.x-mx)**2, 0));
+  const dy  = Math.sqrt(pts.reduce((s,p) => s+(p.y-my)**2, 0));
+  return dx && dy ? num / (dx * dy) : 0;
+}
+
+function newGuessGame() {
+  const targets = [-0.95, -0.80, -0.65, -0.50, -0.30, -0.10, 0.10, 0.30, 0.50, 0.65, 0.80, 0.95];
+  const target = targets[Math.floor(Math.random() * targets.length)];
+  const pts = generateCorrelated(target, 10);
+  guessTarget = calcR(pts); // use the REAL r of the generated points
+  const color = guessTarget > 0.1 ? '#3B82F6' : guessTarget < -0.1 ? '#EC4899' : '#94A3B8';
+  drawGuessScatter(pts, color);
+  document.getElementById('guess-input').value = '';
+  document.getElementById('guess-fb').textContent = '';
+  document.getElementById('guess-fb').style.background = 'transparent';
+  guessAttempts = 0;
+  updateGuessScore();
+}
+
+function checkGuess() {
+  const input = document.getElementById('guess-input');
+  const fb = document.getElementById('guess-fb');
+  const val = parseFloat(input.value.replace(',', '.'));
+  if (isNaN(val) || val < -1 || val > 1) {
+    fb.textContent = '⚠️ Digite um número entre −1 e +1';
+    fb.style.background = '#FEF3C7'; fb.style.color = '#92400E';
+    return;
+  }
+  guessAttempts++;
+  const diff = Math.abs(val - guessTarget);
+  const rStr = guessTarget.toFixed(2).replace('.', ',');
+  if (diff <= 0.10) {
+    guessCorrect++; guessTotal++;
+    fb.textContent = `✅ Muito bem! O r era ${rStr}. Você errou só ${diff.toFixed(2).replace('.',',')}!`;
+    fb.style.background = '#D1FAE5'; fb.style.color = '#065F46';
+    input.disabled = true;
+    setTimeout(() => { input.disabled = false; newGuessGame(); }, 4000);
+  } else if (diff <= 0.20) {
+    fb.textContent = `🤏 Quase! Tente de novo. Dica: o r real é ${val > guessTarget ? 'menor' : 'maior'} do que você digitou.`;
+    fb.style.background = '#FEF3C7'; fb.style.color = '#92400E';
+  } else {
+    if (guessAttempts >= 3) {
+      guessTotal++;
+      fb.textContent = `❌ O r era ${rStr}. Observe bem a dispersão dos pontos e tente no próximo!`;
+      fb.style.background = '#FEE2E2'; fb.style.color = '#DC2626';
+      input.disabled = true;
+      setTimeout(() => { input.disabled = false; newGuessGame(); }, 4500);
+    } else {
+      fb.textContent = `❌ Longe ainda! O r real é ${val > guessTarget ? 'menor' : 'maior'}. Tentativa ${guessAttempts}/3.`;
+      fb.style.background = '#FEE2E2'; fb.style.color = '#DC2626';
+    }
+  }
+  updateGuessScore();
+}
+
+function updateGuessScore() {
+  const sc = document.getElementById('guess-score');
+  if (guessTotal > 0) sc.textContent = `Placar: ${guessCorrect} acerto(s) em ${guessTotal} rodada(s)`;
+}
+
+</script>
+</body>
+</html>
