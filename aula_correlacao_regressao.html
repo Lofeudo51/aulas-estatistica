@@ -556,13 +556,14 @@ function onActivate(i) {
   document.getElementById('ref-btn').textContent = '📋 Tabela de r';
 
   if (i === 0) { showS1('turmaA'); redrawExCanvases('ex-s1', [0,2,3,1,24,21,22]); }
-  if (i === 1) { drawRWaiting(); redrawExCanvases('ex-s2', [4,5,13,6,11,12]); newGuessGame(); }
+  if (i === 1) { drawRWaiting(); drawGuessWaiting(); redrawExCanvases('ex-s2', [4,5,13,6,11,12]); }
   if (i === 2) {
     redrawExCanvases('ex-s3-g1', SEC_QS.s3g1);
     redrawExCanvases('ex-s3-g2', SEC_QS.s3g2);
     redrawExCanvases('ex-s3-g3', SEC_QS.s3g3);
     redrawExCanvases('ex-s3-g4', SEC_QS.s3g4);
-    exS3Observer.observe(document.querySelector('#s3 .card:last-child'));
+    const s3card = document.querySelector('#s3 .card:last-child');
+    if (s3card) exS3Observer.observe(s3card);
   }
   if (i === 3) { predKey = 'turmaA'; syncPredBtns(); updatePred(); }
   if (i === 4) redrawExCanvases('ex-s5', [30,19,20]);
@@ -1050,18 +1051,18 @@ const QS = [
   {q:'O que significa r = +0,98?',
    opts:['Correlação muito forte e positiva — as variáveis variam no mesmo sentido com pouquíssima dispersão','Correlação moderada e positiva — as variáveis variam no mesmo sentido com bastante dispersão','Correlação muito forte e negativa — as variáveis variam em sentidos opostos','Correlação fraca — os pontos estão muito espalhados'], ans:0,
    fb:'✅ Correto! O sinal (+) indica direção positiva — variáveis variam no mesmo sentido. O valor 0,98 está entre 0,90 e 1,00 → correlação muito forte.'},
-  {q:'Um nutricionista estudou a relação entre a ingestão diária de fibras (g) e o índice glicêmico pós-refeição de 80 pacientes. O modelo de regressão encontrou R² = 0,64. O que isso significa?',
+  {q:'Um nutricionista estudou a relação entre a <span style="color:#3B82F6;font-weight:900">ingestão diária de fibras (g)</span> e o <span style="color:#3B82F6;font-weight:900">índice glicêmico pós-refeição</span> de 80 pacientes. O modelo de regressão encontrou R² = 0,64. O que isso significa?',
    opts:['r = 0,64','64% da variação no índice glicêmico é explicada pela ingestão de fibras','64% dos pacientes tiveram melhora glicêmica','A correlação entre fibras e glicemia é muito forte'], ans:1,
    fb:'✅ R² = 0,64 significa que 64% das diferenças no índice glicêmico entre os pacientes são explicadas pelas diferenças na ingestão de fibras. Os outros 36% dependem de outros fatores.'},
   {q:'Uma fisioterapeuta analisou a relação entre o número de sessões de reabilitação (X) e o nível de dor relatado pelos pacientes (Y). O R² encontrado foi 0,7627, e a relação é negativa — mais sessões, menos dor. Qual é o valor de r?',
    opts:['r = +0,87','r = −0,7627','r = −0,87','r = 0,58'], ans:2,
    fb:'✅ √0,7627 = 0,8733 ≈ 0,87. Como a relação é negativa (mais sessões → menos dor), r = −0,87 — correlação forte e negativa.'},
-  {q:'Observe o gráfico da Turma A. Com y = 2x − 0,5, qual a nota estimada para quem estudou 3 horas?',
+  {q:'Observe o gráfico da Turma A. Com y = 2x − 0,5, se o aluno estudar 4 horas e meia, qual deve ser a nota estimada?',
    cv:{pts:[{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:6}],
        color:'#3B82F6', xLabel:'Horas de estudo', yLabel:'Nota da prova',
        xRange:[0,5], yRange:[0,10], xStep:1, yStep:2, showR:'r = +0,98'},
-   opts:['4,5','5,5','6,5','3,5'], ans:1,
-   fb:'✅ y = (2×3) − 0,5 = 6 − 0,5 = 5,5.'},
+   opts:['8,0','8,5','9,0','7,5'], ans:1,
+   fb:'✅ y = (2 × 4,5) − 0,5 = 9 − 0,5 = 8,5.'},
   {q:'Observe o gráfico da Turma C. Com y = −0,94x + 11,1, qual a nota estimada para x = 5 horas?',
    cv:{pts:[{x:1,y:9},{x:2,y:10},{x:5,y:7},{x:8,y:5},{x:9,y:1}],
        color:'#EC4899', xLabel:'Horas de estudo', yLabel:'Nota da prova',
@@ -1086,19 +1087,19 @@ const QS = [
        xRange:[2,9], yRange:[0,10], xStep:1, yStep:2},
    opts:['Sem relação — r ≈ 0, os pontos não seguem nenhuma tendência','Forte e positiva — os pontos sobem da esquerda para a direita','Forte e negativa — os pontos descem da esquerda para a direita','Moderada e positiva — há uma tendência leve de subida'], ans:0,
    fb:'✅ Correto! Quando os pontos estão espalhados aleatoriamente sem tendência, a correlação é nula ou muito próxima de zero. Número de letras no nome não tem relação com nota na prova!'},
-  {q:'Um professor de educação física mediu a relação entre o número de treinos semanais (X) e o VO₂ máximo dos alunos (Y). O R² encontrado foi 0,81 e a relação é positiva. Qual é o valor de r?',
+  {q:'Um professor de educação física mediu a relação entre o <span style="color:#3B82F6;font-weight:900">número de treinos semanais</span> (X) e o <span style="color:#3B82F6;font-weight:900">VO₂ máximo dos alunos</span> (Y). O R² encontrado foi 0,81 e a relação é positiva. Qual é o valor de r?',
    opts:['r = +0,81','r = +0,90','r = −0,90','r = +0,66'], ans:1,
    fb:'✅ Correto! √0,81 = 0,90. Como a relação é positiva (mais treinos → maior VO₂), r = +0,90 — correlação muito forte e positiva.'},
-  {q:'Uma pesquisadora encontrou r = −0,65 entre o nível de ansiedade (X) e o desempenho em provas (Y). Qual é o R² e o que ele significa?',
+  {q:'Uma pesquisadora encontrou r = −0,65 entre o <span style="color:#3B82F6;font-weight:900">nível de ansiedade</span> (X) e o <span style="color:#3B82F6;font-weight:900">desempenho em provas</span> (Y). Qual é o R² e o que ele significa?',
    opts:['R² = 0,65 → 65% da variação no desempenho é explicada pela ansiedade','R² = 0,81 → 81% da variação no desempenho é explicada pela ansiedade','R² = 0,42 → 42% da variação no desempenho é explicada pela ansiedade','R² = 0,33 → 33% da variação no desempenho é explicada pela ansiedade'], ans:2,
    fb:'✅ Correto! R² = (−0,65)² = 0,4225 ≈ 0,42. Isso significa que 42% da variação no desempenho em provas é explicada pelo nível de ansiedade. Os outros 58% dependem de outros fatores.'},
   {q:'Observe o gráfico abaixo. O R² encontrado foi 0,49. Qual é o valor de r e como interpretar essa correlação?',
    cv:{pts:[{x:1,y:8},{x:2,y:6},{x:2,y:9},{x:3,y:5},{x:4,y:7},{x:4,y:3},{x:5,y:6},{x:6,y:4},{x:6,y:2},{x:7,y:5},{x:8,y:2},{x:8,y:4}],
        color:'#F59E0B', xLabel:'Horas de TV por dia', yLabel:'Nota na prova',
        xRange:[0,9], yRange:[0,10], xStep:1, yStep:2},
-   opts:['r = +0,70 — moderada e positiva','r = −0,70 — moderada e negativa','r = +0,49 — fraca e positiva','r = −0,49 — fraca e negativa'], ans:1,
-   fb:'✅ Correto! √0,49 = 0,70. Os pontos descem da esquerda para a direita → sinal negativo. Portanto r = −0,70 — correlação moderada e negativa. Mais TV tende a estar associado a notas menores.'},
-  {q:'Uma nutricionista encontrou r = +0,72 entre a ingestão diária de proteínas (X) e a massa muscular dos pacientes (Y). Qual é o R² e o que ele significa?',
+   opts:['r = +0,70 — forte e positiva','r = −0,70 — forte e negativa','r = +0,49 — moderada e positiva','r = −0,49 — moderada e negativa'], ans:1,
+   fb:'✅ Correto! √0,49 = 0,70. Os pontos descem → sinal negativo. r = −0,70 está entre 0,70 e 0,89 → correlação forte e negativa. Mais TV tende a estar associado a notas menores.'},
+  {q:'Uma nutricionista encontrou r = +0,72 entre a <span style="color:#3B82F6;font-weight:900">ingestão diária de proteínas</span> (X) e a <span style="color:#3B82F6;font-weight:900">massa muscular dos pacientes</span> (Y). Qual é o R² e o que ele significa?',
    opts:['R² = 0,72 → a correlação é forte','R² = 0,52 → 52% da variação na massa muscular é explicada pela ingestão de proteínas','R² = 0,36 → 36% da variação na massa muscular é explicada pela ingestão de proteínas','R² = 0,85 → a relação é muito forte'], ans:1,
    fb:'✅ Correto! R² = 0,72² = 0,5184 ≈ 0,52. Isso significa que 52% da variação na massa muscular entre os pacientes é explicada pela ingestão de proteínas.'},
   {q:'Observe o gráfico abaixo. O R² encontrado foi 0,64. Qual é o valor de r e como interpretar essa correlação?',
@@ -1119,7 +1120,7 @@ const QS = [
   {q:'Uma enfermeira estuda a relação entre o <span style="color:#7C3AED;font-weight:900">número de horas de sono</span> (X) e a <span style="color:#7C3AED;font-weight:900">pressão arterial sistólica</span> (Y) dos pacientes. Qual é a variável independente e qual é a dependente?',
    opts:['As duas são dependentes','Independente: pressão arterial | Dependente: horas de sono','As duas são independentes','Independente: horas de sono | Dependente: pressão arterial'], ans:3,
    fb:'✅ Correto! As horas de sono (X) são o fator explicativo — variável independente. A pressão arterial (Y) é o resultado que pode variar em função do sono — variável dependente.'},
-  {q:'Um estudo relacionou os anos de escolaridade (X) com o salário mensal (Y) de 100 pessoas. O resultado foi R² = 0,70. O que isso significa?',
+  {q:'Um estudo relacionou os <span style="color:#3B82F6;font-weight:900">anos de escolaridade</span> (X) com o <span style="color:#3B82F6;font-weight:900">salário mensal</span> (Y) de 100 pessoas. O resultado foi R² = 0,70. O que isso significa?',
    opts:['70% dos salários são altos por causa da escolaridade','70% da variação nos salários entre as pessoas é explicada pela diferença nos anos de escolaridade','A correlação entre escolaridade e salário é de 0,70','Quem tem mais escolaridade ganha 70% a mais'], ans:1,
    fb:'✅ Correto! R² = 0,70 significa que 70% das diferenças de salário entre as pessoas são explicadas pelas diferenças nos anos de escolaridade. Os outros 30% dependem de outros fatores — experiência, área de atuação, etc.'},
   {q:'No gráfico de dispersão que relaciona <span style="color:#7C3AED;font-weight:900">horas de estudo</span> (X) com <span style="color:#7C3AED;font-weight:900">nota da prova</span> (Y), qual é a variável independente e qual é a dependente?',
@@ -1131,19 +1132,19 @@ const QS = [
   {q:'Para que serve a reta de regressão?',
    opts:['Para calcular a média das duas variáveis','Para estimar o valor de Y dado um valor de X','Para medir a força da correlação','Para identificar se a relação é positiva ou negativa'], ans:1,
    fb:'✅ Correto! A reta de regressão é usada para estimar (prever) o valor da variável dependente (Y) a partir de um valor conhecido da variável independente (X).'},
-  {q:'Na equação y = 2x − 0,5 da Turma A, onde x são as horas de estudo e y é a nota, quem é a variável dependente?',
+  {q:'Na equação y = 2x − 0,5 da Turma A, onde x são as <span style="color:#3B82F6;font-weight:900">horas de estudo</span> e y é a <span style="color:#3B82F6;font-weight:900">nota</span>, qual a nota prevista para o aluno que estuda 5 horas?',
    cv:{pts:[{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:6}],
        color:'#3B82F6', xLabel:'Horas de estudo', yLabel:'Nota da prova',
        xRange:[0,5], yRange:[0,10], xStep:1, yStep:2, showR:'r = +0,98'},
-   opts:['x — as horas de estudo','y — a nota da prova','O número 2 (a inclinação)','O valor −0,5'], ans:1,
-   fb:'✅ Correto! A variável dependente é y (nota da prova) — ela depende de x. A equação nos diz como a nota varia em função das horas de estudo.'},
-  {q:'Observe o gráfico. Uma nutricionista usa a equação y = 1,2x + 3, onde x é a ingestão de proteínas (g) e y é a massa muscular (kg). Qual é a variável independente e qual é a dependente?',
+   opts:['8,5','9,5','7,5','10,0'], ans:1,
+   fb:'✅ y = (2 × 5) − 0,5 = 10 − 0,5 = 9,5.'},
+  {q:'Observe o gráfico. Uma nutricionista usa a equação y = 1,2x + 3, onde x é a <span style="color:#3B82F6;font-weight:900">ingestão de proteínas (g)</span> e y é a <span style="color:#3B82F6;font-weight:900">massa muscular (kg)</span>. Se a paciente ingerir 5g de proteína, qual é a massa muscular estimada?',
    cv:{pts:[{x:2,y:5},{x:3,y:6},{x:4,y:8},{x:4,y:7},{x:5,y:9},{x:6,y:10},{x:7,y:11},{x:8,y:12}],
        color:'#10B981', xLabel:'Proteínas (g)', yLabel:'Massa muscular (kg)',
        xRange:[0,9], yRange:[3,14], xStep:1, yStep:2, showR:'r = +0,97'},
-   opts:['Independente: massa muscular | Dependente: proteínas','As duas são dependentes','Independente: proteínas | Dependente: massa muscular','Não é possível determinar'], ans:2,
-   fb:'✅ Correto! A ingestão de proteínas (X) é o fator explicativo — variável independente. A massa muscular (Y) é o resultado — variável dependente.'},
-  {q:'Observe o gráfico. Um fisioterapeuta usa a equação y = 1,5x + 2, onde x é o número de sessões e y é a amplitude de movimento (°). Estime y para x = 4 sessões.',
+   opts:['7,0 kg','9,0 kg','8,5 kg','10,0 kg'], ans:1,
+   fb:'✅ y = (1,2 × 5) + 3 = 6 + 3 = 9,0 kg.'},
+  {q:'Observe o gráfico. Um fisioterapeuta usa a equação y = 1,5x + 2, onde x é o <span style="color:#3B82F6;font-weight:900">número de sessões</span> e y é a <span style="color:#3B82F6;font-weight:900">amplitude de movimento (°)</span>. Estime y para x = 4 sessões.',
    cv:{pts:[{x:1,y:3},{x:2,y:5},{x:3,y:6},{x:4,y:8},{x:5,y:9},{x:6,y:11},{x:7,y:12}],
        color:'#8B5CF6', xLabel:'Sessões de fisioterapia', yLabel:'Amplitude (°)',
        xRange:[0,8], yRange:[0,14], xStep:1, yStep:2, showR:'r = +0,99'},
@@ -1323,6 +1324,7 @@ function restartQuiz() { qz = {n:0, score:0}; showQ(0); }
 // INIT
 // ══════════════════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', () => {
+  try {
   document.getElementById(SECS[0].id).classList.add('active');
   updateNav();
   initS1();
@@ -1330,12 +1332,16 @@ window.addEventListener('DOMContentLoaded', () => {
   initS3();
   initS4();
   ['s1','s2','s4','s5'].forEach(s => buildQs(`ex-${s}`, SEC_QS[s]));
-  exS2Observer.observe(document.querySelector('#s2 .card:last-child'));
+  const s2card = document.querySelector('#s2 .card:last-child');
+  if (s2card) exS2Observer.observe(s2card);
   buildQs('ex-s3-g1', SEC_QS.s3g1);
   buildQs('ex-s3-g2', SEC_QS.s3g2);
   buildQs('ex-s3-g3', SEC_QS.s3g3);
   buildQs('ex-s3-g4', SEC_QS.s3g4);
   onActivate(0);
+  } catch(e) {
+    document.body.innerHTML += '<div style="background:red;color:white;padding:1rem;font-size:1rem">ERRO: '+e.message+'</div>';
+  }
 });
 // ══════════════════════════════════════════════════════
 // GUESS THE CORRELATION GAME
@@ -1357,13 +1363,13 @@ function generateCorrelated(r, n) {
     const y = r * x + Math.sqrt(1 - r * r) * z;
     pts.push({x, y});
   }
-  // Scale both axes to range 1–9 so axes always start near 0
+  // Scale both axes to range 1–50
   const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
   const xMin = Math.min(...xs), xMax = Math.max(...xs);
   const yMin = Math.min(...ys), yMax = Math.max(...ys);
   return pts.map(p => ({
-    x: 1 + (p.x - xMin) / (xMax - xMin) * 8,
-    y: 1 + (p.y - yMin) / (yMax - yMin) * 8
+    x: 1 + (p.x - xMin) / (xMax - xMin) * 49,
+    y: 1 + (p.y - yMin) / (yMax - yMin) * 49
   }));
 }
 
@@ -1375,15 +1381,15 @@ function drawGuessScatter(pts, color) {
   ctx.clearRect(0, 0, W, H);
   ctx.fillStyle = '#F8FAFC'; ctx.fillRect(0, 0, W, H);
 
-  const PL = 50, PR = 20, PT = 20, PB = 50;
+  const PL = 55, PR = 20, PT = 20, PB = 50;
   const pw = W - PL - PR, ph = H - PT - PB;
-  const xMin = 0, xMax = 10, yMin = 0, yMax = 10;
+  const xMin = 0, xMax = 55, yMin = 0, yMax = 55;
   const tx = x => PL + (x - xMin) / (xMax - xMin) * pw;
   const ty = y => H - PB - (y - yMin) / (yMax - yMin) * ph;
 
   // grid
   ctx.strokeStyle = '#E2E8F0'; ctx.lineWidth = 1;
-  for (let i = 0; i <= 10; i++) {
+  for (let i = 0; i <= 50; i += 10) {
     ctx.beginPath(); ctx.moveTo(tx(i), PT); ctx.lineTo(tx(i), H - PB); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(PL, ty(i)); ctx.lineTo(W - PR, ty(i)); ctx.stroke();
   }
@@ -1394,8 +1400,8 @@ function drawGuessScatter(pts, color) {
 
   // tick labels
   ctx.fillStyle = '#64748B'; ctx.font = 'bold 18px Nunito'; ctx.textAlign = 'center';
-  for (let i = 0; i <= 10; i += 2) {
-    ctx.fillText(i, tx(i), H - PB + 18);
+  for (let i = 0; i <= 50; i += 10) {
+    ctx.fillText(i, tx(i), H - PB + 20);
     ctx.textAlign = 'right';
     ctx.fillText(i, PL - 6, ty(i) + 5);
     ctx.textAlign = 'center';
@@ -1419,10 +1425,23 @@ function calcR(pts) {
   return dx && dy ? num / (dx * dy) : 0;
 }
 
+function drawGuessWaiting() {
+  const cv = document.getElementById('guess-cv');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  ctx.fillStyle = '#F8FAFC'; ctx.fillRect(0, 0, cv.width, cv.height);
+  ctx.fillStyle = '#CBD5E1';
+  ctx.font = 'bold 66px Nunito'; ctx.textAlign = 'center';
+  ctx.fillText('🔀', cv.width/2, cv.height/2 - 20);
+  ctx.font = 'bold 24px Nunito';
+  ctx.fillText('Toque em "Novo gráfico" para começar', cv.width/2, cv.height/2 + 40);
+}
+
 function newGuessGame() {
   const targets = [-0.95, -0.80, -0.65, -0.50, -0.30, -0.10, 0.10, 0.30, 0.50, 0.65, 0.80, 0.95];
   const target = targets[Math.floor(Math.random() * targets.length)];
-  const pts = generateCorrelated(target, 10);
+  const pts = generateCorrelated(target, 25);
   guessTarget = calcR(pts); // use the REAL r of the generated points
   const color = guessTarget > 0.1 ? '#3B82F6' : guessTarget < -0.1 ? '#EC4899' : '#94A3B8';
   drawGuessScatter(pts, color);
@@ -1447,20 +1466,18 @@ function checkGuess() {
   const rStr = guessTarget.toFixed(2).replace('.', ',');
   if (diff <= 0.10) {
     guessCorrect++; guessTotal++;
-    fb.textContent = `✅ Muito bem! O r era ${rStr}. Você errou só ${diff.toFixed(2).replace('.',',')}!`;
+    fb.textContent = `✅ Muito bem! O r era ${rStr}. Você errou só ${diff.toFixed(2).replace('.',',')}! Toque em "Novo gráfico" para continuar.`;
     fb.style.background = '#D1FAE5'; fb.style.color = '#065F46';
-    input.disabled = true;
-    setTimeout(() => { input.disabled = false; newGuessGame(); }, 4000);
+    input.disabled = false;
   } else if (diff <= 0.20) {
     fb.textContent = `🤏 Quase! Tente de novo. Dica: o r real é ${val > guessTarget ? 'menor' : 'maior'} do que você digitou.`;
     fb.style.background = '#FEF3C7'; fb.style.color = '#92400E';
   } else {
     if (guessAttempts >= 3) {
       guessTotal++;
-      fb.textContent = `❌ O r era ${rStr}. Observe bem a dispersão dos pontos e tente no próximo!`;
+      fb.textContent = `❌ O r era ${rStr}. Observe bem a dispersão dos pontos e tente no próximo! Toque em "Novo gráfico" para continuar.`;
       fb.style.background = '#FEE2E2'; fb.style.color = '#DC2626';
-      input.disabled = true;
-      setTimeout(() => { input.disabled = false; newGuessGame(); }, 4500);
+      input.disabled = false;
     } else {
       fb.textContent = `❌ Longe ainda! O r real é ${val > guessTarget ? 'menor' : 'maior'}. Tentativa ${guessAttempts}/3.`;
       fb.style.background = '#FEE2E2'; fb.style.color = '#DC2626';
