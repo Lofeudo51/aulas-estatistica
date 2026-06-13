@@ -254,8 +254,7 @@ TYPE html>
       <div class="quiz-opts" id="ex1b-opts">
         <button onclick="chkMC('ex1b',0,1,'Improvável, mas não impossível — por acaso uma nova amostra poderia gerar x̄₂ = 6,2. Mas o mais provável é que seja diferente.')">A) x̄<sub style="font-size:.8em">2</sub> será exatamente 6,2 novamente</button>
         <button onclick="chkMC('ex1b',1,1,'✅ Correto! O mais provável é que cada amostra gere uma x̄₂ diferente — é a variabilidade amostral. As médias variam, mas tendem a se agrupar em torno de μ.')">B) x̄<sub style="font-size:.8em">2</sub> provavelmente será um valor diferente, próximo de 6,2</button>
-        <button onclick="chkMC('ex1b',2,1,'A variabilidade amostral é pequena — x̄₂ tende a ficar próxima de μ, não a assumir qualquer valor.')">C) x̄<sub style="font-size:.8em">2</sub> pode ser qualquer valor entre 0 e 10</button>
-        <button onclick="chkMC('ex1b',3,1,'João não conhece μ da nova escola — é exatamente por isso que ele precisa do IC.')">D) x̄<sub style="font-size:.8em">2</sub> sempre será igual a μ</button>
+        <button onclick="chkMC('ex1b',2,1,'João não conhece μ da nova escola — é exatamente por isso que ele precisa do IC.')">D) x̄<sub style="font-size:.8em">2</sub> sempre será igual a μ</button>
       </div>
       <div id="ex1b-fb" class="feedback"></div>
     </div>
@@ -356,6 +355,61 @@ TYPE html>
     </div>
   </div>
 
+  <div style="padding:1.2rem 0;border-top:2px solid #E2E8F0;margin-top:2rem">
+    <div style="font-size:1.25rem;font-weight:900;color:#1E40AF;margin-bottom:.7rem">✏️ Exercício 1</div>
+    <p class="quiz-q" style="font-size:1.1rem;font-weight:700;margin-bottom:.8rem">
+      Uma pesquisadora calcula <strong>20 ICs</strong> com <strong>90% de confiança</strong> para estimar a média de ansiedade de estudantes universitários. Quantos desses intervalos <strong>deverão conter</strong> a média populacional μ?
+    </p>
+    <div class="quiz-opts" id="ex2game-opts">
+      <button onclick="chkMC('ex2game',0,1,'❌ Quase! "Exatamente 18" é preciso demais — o correto é "aproximadamente 18". Em algumas repetições pode dar 17 ou 19.')">A) Exatamente 18</button>
+      <button onclick="chkMC('ex2game',1,1,'✅ Correto! 90% de 20 = 18. Não significa exatamente 18, mas é o valor esperado — em média, 18 dos 20 ICs conterão μ.')">B) Aproximadamente 18, pois 90% de 20 = 18</button>
+      <button onclick="chkMC('ex2game',2,1,'❌ Errado. O IC de 90% não captura μ em 100% dos casos — é exatamente por isso que existe o nível de confiança.')">C) Exatamente 20, pois o IC sempre captura μ</button>
+      <button onclick="chkMC('ex2game',3,1,'❌ Errado. O nível de confiança nos diz exatamente o que esperar: ~90% dos ICs conterão μ, ou seja, ~18 de 20.')">D) Não é possível saber — o IC não garante nada</button>
+    </div>
+    <div id="ex2game-fb" class="feedback"></div>
+  </div>
+
+  <div style="padding:1.2rem 0;border-top:2px solid #E2E8F0;margin-top:1.5rem">
+    <div style="font-size:1.25rem;font-weight:900;color:#1E40AF;margin-bottom:.7rem">✏️ Exercício 2</div>
+    <p class="quiz-q" style="font-size:1.1rem;font-weight:700;margin-bottom:.8rem">
+      Um pesquisador calcula <strong>40 ICs</strong> com <strong>95% de confiança</strong>. Quantos desses intervalos deverão <strong>conter</strong> a média populacional μ?
+    </p>
+    <div class="quiz-opts" id="ex2b-opts">
+      <button onclick="chkMC('ex2b',0,1,'2 é o número que não captura μ, não o que captura. 95% de 40 = 38.')">A) 2 ICs</button>
+      <button onclick="chkMC('ex2b',1,1,'Correto! 95% de 40 = 38. Em média, 38 dos 40 ICs conterão μ.')">B) 38 ICs</button>
+      <button onclick="chkMC('ex2b',2,1,'20 seria 50% — mas o nível de confiança é 95%, muito maior.')">C) 20 ICs</button>
+      <button onclick="chkMC('ex2b',3,1,'Nenhum IC garante capturar μ 100% das vezes — por isso usamos níveis de confiança.')">D) 40 ICs</button>
+    </div>
+    <div id="ex2b-fb" class="feedback"></div>
+  </div>
+
+  <div style="padding:1.2rem 0;border-top:2px solid #E2E8F0;margin-top:1.5rem">
+    <div style="font-size:1.25rem;font-weight:900;color:#1E40AF;margin-bottom:.7rem">✏️ Exercício 3</div>
+    <p class="quiz-q" style="font-size:1.1rem;font-weight:700;margin-bottom:.8rem">
+      Uma pesquisadora calcula <strong>40 ICs</strong> com <strong>80% de confiança</strong>. Quantos desses intervalos deverão <strong>não conter</strong> a média populacional μ?
+    </p>
+    <div class="quiz-opts" id="ex2c-opts">
+      <button onclick="chkMC('ex2c',0,2,'32 é o número que captura μ, não o que erra. 20% de 40 = 8.')">A) 32 ICs</button>
+      <button onclick="chkMC('ex2c',1,2,'2 seria 5% — mas com 80% de confiança, 20% dos ICs erram μ.')">B) 2 ICs</button>
+      <button onclick="chkMC('ex2c',2,2,'Correto! 20% não capturam μ, e 20% de 40 = 8 ICs.')">C) 8 ICs</button>
+      <button onclick="chkMC('ex2c',3,2,'40 significaria que nenhum captura μ — impossível com IC de 80%.')">D) 40 ICs</button>
+    </div>
+    <div id="ex2c-fb" class="feedback"></div>
+  </div>
+
+  <div style="padding:1.2rem 0;border-top:2px solid #E2E8F0;margin-top:1.5rem">
+    <div style="font-size:1.25rem;font-weight:900;color:#1E40AF;margin-bottom:.7rem">✏️ Exercício 4</div>
+    <p class="quiz-q" style="font-size:1.1rem;font-weight:700;margin-bottom:.8rem">
+      Os <strong>10 ICs</strong> que capturaram a média populacional correspondem a <strong>85%</strong> dos ICs calculados. Qual foi a quantidade total de ICs calculados?
+    </p>
+    <div class="quiz-opts" id="ex2d-opts">
+      <button onclick="chkMC('ex2d',0,1,'10 é a quantidade que capturou μ, não o total.')">A) 10 ICs</button>
+      <button onclick="chkMC('ex2d',1,1,'Correto! 10 ÷ 0,85 ≈ 12 ICs no total.')">B) 12 ICs</button>
+      <button onclick="chkMC('ex2d',2,1,'85 seria o total se cada IC fosse 1% — confundiu porcentagem com quantidade.')">C) 85 ICs</button>
+      <button onclick="chkMC('ex2d',3,1,'20 ÷ 0,85 ≠ 10. Lembre: total = capturados ÷ nível de confiança.')">D) 20 ICs</button>
+    </div>
+    <div id="ex2d-fb" class="feedback"></div>
+  </div>
 
 </section>
 
@@ -2650,7 +2704,7 @@ function drawInterpretCanvas() {
 
   // Legenda
   ctx.font = 'bold 18px Nunito'; ctx.textAlign = 'left';
-  [['#10B981', '19 intervalos capturam μ (95%)'], ['#EF4444', '1 intervalo erra μ (5%)']].forEach(([col, label], i) => {
+  [['#10B981', '18 intervalos capturam μ (90%)'], ['#EF4444', '2 intervalos erram μ (10%)']].forEach(([col, label], i) => {
     const lx = padL + 10, ly = H - padB + 22 + i*0;
     ctx.fillStyle = col; ctx.fillRect(lx, H - 36 + i * 20, 18, 14);
     ctx.fillStyle = '#1E293B'; ctx.fillText(label, lx + 24, H - 36 + i * 20 + 12);
