@@ -300,6 +300,28 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     </ul>
   </div>
 
+  <div class="card laranja">
+    <h2>🤖 Uso de IA</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.7">
+      De acordo com a Política para o Uso Responsável da Inteligência Artificial da instituição, para as atividades avaliativas da disciplina, deverá ser utilizado o <strong>nível 1</strong>, isto é, <strong>sem assistência de qualquer ferramenta de Inteligência Artificial (IA)</strong> em qualquer etapa do processo. O uso inadequado ou não declarado será considerado violação da integridade acadêmica, sujeito às sanções do código institucional.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>📚 Bibliografia Básica</h2>
+    <ul style="font-size:.92rem;font-weight:700;color:#334155;line-height:1.9;margin-left:1.2rem">
+      <li style="margin-bottom:1rem">MORETTIN, Pedro Alberto; BUSSAB, Wilton de Oliveira. <strong><em>Estatística básica</em></strong>. 10. ed. São Paulo: Saraiva, 2024. 593 p. (Métodos Quantitativos). ISBN 9786587958491.</li>
+      <li style="margin-bottom:1rem">FEUDO, André; BONILHA, Eliana A; GASPARINI, Renan. <strong><em>Estatística descritiva aplicada à epidemiologia</em></strong>. 1. ed. São Paulo: Setor de Publicações - Centro Universitário São Camilo, 2024. 79 p. ISBN 978-65-86702-82-8. Disponível em: <a href="https://pergamum.saocamilo-sp.br/pergamumweb/vinculos/00000c/00000cad.pdf" target="_blank" style="color:#1E3A8A">https://pergamum.saocamilo-sp.br/pergamumweb/vinculos/00000c/00000cad.pdf</a>. Acesso em: 11 nov. 2024.</li>
+      <li>MEDRONHO, Roberto de Andrade (ed.). <strong><em>Epidemiologia</em></strong>. 3. ed. Rio de Janeiro: Atheneu, 2025. 781 p. ISBN 9786555868562.</li>
+    </ul>
+  </div>
+
+  <div class="card roxo">
+    <p style="text-align:center;font-size:1.4rem;font-weight:900;color:#334155;line-height:1.4">
+      📌 Veja o plano de ensino completo e o cronograma no menu "Compartilhado" na nossa sala no Teams.
+    </p>
+  </div>
+
 </section>
 
 <!-- ═══════ ABA 1 · POPULAÇÃO E AMOSTRA ═══════ -->
@@ -1402,7 +1424,7 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
 
 </section>
 
-<!-- ═══════ ABA 7 · GRÁFICOS POR TIPO DE TABELA ═══════ -->
+<!-- ═══════ ABA 7 · GRÁFICOS INDICADOS POR TIPO DE TABELA E/OU VARIÁVEL ═══════ -->
 <section id="s7">
 
   <div class="card">
@@ -1414,105 +1436,302 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     <div style="display:flex;flex-direction:column;gap:.6rem">
 
       <div>
-        <button class="btn-sortear" onclick="toggleGraf('g1')" style="width:100%;text-align:left;background:#3B82F6">📋 Tab. Frequência sem Classe (TDF) - Variável Qualitativa <span id="g1-arrow" style="float:right">▾</span></button>
+        <button class="btn-sortear" onclick="toggleGraf('g1')" style="width:100%;text-align:left;background:#3B82F6">📋 TDF sem Classe (Variável Qualitativa) → Barras ou Setores <span id="g1-arrow" style="float:right">▾</span></button>
         <div id="g1-box" style="display:none;margin-top:.5rem;padding:.8rem;background:#EFF6FF;border-radius:10px">
-          <p style="font-weight:700;color:#1E3A8A;margin-bottom:.5rem">Gráfico indicado: <strong>Barras</strong> ou <strong>Setores (pizza)</strong></p>
-          <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Preferência de Gênero de Filme</p>
-          <div style="display:flex;align-items:center;gap:.2rem">
-            <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pessoas)</span>
-            <canvas id="chartG1" width="260" height="160" style="max-width:100%"></canvas>
-          </div>
-          <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Gênero de Filme</p>
-          <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:1rem">
 
-          <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B;margin-top:1rem;border-top:1px dashed #BFDBFE;padding-top:.7rem">Mesmos dados em Setores (pizza)</p>
-          <canvas id="chartG1pizza" width="260" height="170" style="max-width:100%;display:block;margin:0 auto"></canvas>
-          <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.2rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+            <div style="flex:1 1 120px;min-width:110px">
+              <p style="text-align:center;font-weight:900;font-size:.8rem;color:#1E293B;margin-bottom:.4rem">Tabela de Frequência</p>
+              <table style="border-collapse:collapse;font-size:.72rem;margin:0 auto">
+                <thead><tr style="background:#BFDBFE">
+                  <th style="padding:.3rem .5rem;text-align:center">Gênero</th>
+                  <th style="padding:.3rem .5rem;text-align:center">fi</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BFDBFE">Ação</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BFDBFE">20</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BFDBFE">Comédia</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BFDBFE">30</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center">Drama</td><td style="padding:.25rem .5rem;text-align:center">15</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="flex:1 1 260px;min-width:260px">
+              <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Preferência de Gênero de Filme</p>
+              <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+                <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pessoas)</span>
+                <canvas id="chartG1" width="260" height="160" style="max-width:100%"></canvas>
+              </div>
+              <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Gênero de Filme</p>
+              <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+            </div>
+
+          </div>
+
+          <div style="display:flex;flex-wrap:wrap;gap:1rem;margin-top:1rem;border-top:1px dashed #BFDBFE;padding-top:.7rem">
+
+            <div style="flex:1 1 130px;min-width:120px">
+              <p style="text-align:center;font-weight:900;font-size:.8rem;color:#1E293B;margin-bottom:.4rem">Tabela de Frequência</p>
+              <table style="border-collapse:collapse;font-size:.72rem;margin:0 auto">
+                <thead><tr style="background:#BFDBFE">
+                  <th style="padding:.3rem .5rem;text-align:center">Gênero</th>
+                  <th style="padding:.3rem .5rem;text-align:center">fi</th>
+                  <th style="padding:.3rem .5rem;text-align:center">fri (%)</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BFDBFE">Ação</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BFDBFE">20</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BFDBFE">30,8</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BFDBFE">Comédia</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BFDBFE">30</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BFDBFE">46,2</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center">Drama</td><td style="padding:.25rem .5rem;text-align:center">15</td><td style="padding:.25rem .5rem;text-align:center">23,1</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="flex:1 1 260px;min-width:260px">
+              <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Mesmos dados em Setores (pizza)</p>
+              <canvas id="chartG1pizza" width="260" height="170" style="max-width:100%;display:block;margin:0 auto"></canvas>
+              <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.2rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+            </div>
+
+          </div>
         </div>
       </div>
 
       <div>
-        <button class="btn-sortear" onclick="toggleGraf('g2')" style="width:100%;text-align:left;background:#10B981">🔢 TDF sem Classe - Quantitativa Discreta <span id="g2-arrow" style="float:right">▾</span></button>
+        <button class="btn-sortear" onclick="toggleGraf('g2')" style="width:100%;text-align:left;background:#10B981">🔢 TDF sem Classe (Quantitativa Discreta) → Bastões <span id="g2-arrow" style="float:right">▾</span></button>
         <div id="g2-box" style="display:none;margin-top:.5rem;padding:.8rem;background:#ECFDF5;border-radius:10px">
-          <p style="font-weight:700;color:#166534;margin-bottom:.5rem">Gráfico indicado: <strong>Gráfico de Bastões</strong> (linhas verticais, sem barras "gordas")</p>
-          <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Consumo Diário de Porções de Frutas</p>
-          <div style="display:flex;align-items:center;gap:.2rem">
-            <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pessoas)</span>
-            <canvas id="chartG2" width="260" height="160" style="max-width:100%"></canvas>
+          <div style="display:flex;flex-wrap:wrap;gap:1rem">
+            <div style="flex:1 1 120px;min-width:110px">
+              <p style="text-align:center;font-weight:900;font-size:.8rem;color:#1E293B;margin-bottom:.4rem">Tabela de Frequência</p>
+              <table style="border-collapse:collapse;font-size:.72rem;margin:0 auto">
+                <thead><tr style="background:#A7F3D0">
+                  <th style="padding:.3rem .5rem;text-align:center">xi</th>
+                  <th style="padding:.3rem .5rem;text-align:center">fi</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #A7F3D0">0</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #A7F3D0">4</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #A7F3D0">1</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #A7F3D0">9</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #A7F3D0">2</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #A7F3D0">12</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #A7F3D0">3</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #A7F3D0">7</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center">4</td><td style="padding:.25rem .5rem;text-align:center">3</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="flex:1 1 260px;min-width:260px">
+              <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Consumo Diário de Porções de Frutas</p>
+              <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+                <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pessoas)</span>
+                <canvas id="chartG2" width="260" height="160" style="max-width:100%"></canvas>
+              </div>
+              <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Porções de Fruta por Dia</p>
+              <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+            </div>
           </div>
-          <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Porções de Fruta por Dia</p>
-          <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
         </div>
       </div>
 
       <div>
-        <button class="btn-sortear" onclick="toggleGraf('g3')" style="width:100%;text-align:left;background:#F59E0B" >📐 TDF com Classe - Quantitativa Contínua <span id="g3-arrow" style="float:right">▾</span></button>
+        <button class="btn-sortear" onclick="toggleGraf('g3')" style="width:100%;text-align:left;background:#F59E0B" >📐 TDF com Classe → Histograma ou Polígono de Frequência <span id="g3-arrow" style="float:right">▾</span></button>
         <div id="g3-box" style="display:none;margin-top:.5rem;padding:.8rem;background:#FEF3C7;border-radius:10px">
-          <p style="font-weight:700;color:#92400E;margin-bottom:.5rem">Gráfico indicado: <strong>Histograma</strong> e/ou <strong>Polígono de Frequência</strong></p>
-          <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Distribuição do Escore de Ansiedade (GAD-7)</p>
-          <div style="display:flex;align-items:center;gap:.2rem">
-            <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pacientes)</span>
-            <canvas id="chartG3" width="260" height="160" style="max-width:100%"></canvas>
+          <div style="display:flex;flex-wrap:wrap;gap:1rem">
+            <div style="flex:1 1 130px;min-width:120px">
+              <p style="text-align:center;font-weight:900;font-size:.8rem;color:#1E293B;margin-bottom:.4rem">Tabela de Frequência</p>
+              <table style="border-collapse:collapse;font-size:.72rem;margin:0 auto">
+                <thead><tr style="background:#FDE68A">
+                  <th style="padding:.3rem .5rem;text-align:center">Classe</th>
+                  <th style="padding:.3rem .5rem;text-align:center">fi</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FDE68A">0 ⊢ 5</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FDE68A">8</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FDE68A">5 ⊢ 10</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FDE68A">15</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FDE68A">10 ⊢ 15</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FDE68A">12</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center">15 ⊢ 20</td><td style="padding:.25rem .5rem;text-align:center">5</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="flex:1 1 260px;min-width:260px">
+              <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Distribuição do Escore de Ansiedade (GAD-7)</p>
+              <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+                <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pacientes)</span>
+                <canvas id="chartG3" width="260" height="160" style="max-width:100%"></canvas>
+              </div>
+              <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Escore de Ansiedade (pontos)</p>
+              <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+            </div>
           </div>
-          <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Escore de Ansiedade (pontos)</p>
-          <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
         </div>
       </div>
 
       <div>
-        <button class="btn-sortear" onclick="toggleGraf('g4')" style="width:100%;text-align:left;background:#EC4899">🔀 Tabela de Dupla Entrada <span id="g4-arrow" style="float:right">▾</span></button>
+        <button class="btn-sortear" onclick="toggleGraf('g4')" style="width:100%;text-align:left;background:#EC4899">🔀 Tabela de Dupla Entrada → Barras Agrupadas ou Empilhadas <span id="g4-arrow" style="float:right">▾</span></button>
         <div id="g4-box" style="display:none;margin-top:.5rem;padding:.8rem;background:#FCE7F3;border-radius:10px">
-          <p style="font-weight:700;color:#9D174D;margin-bottom:.5rem">Gráfico indicado: <strong>Barras Agrupadas</strong> ou <strong>Empilhadas</strong></p>
-          <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Situação (Aprovado/Reprovado) por Turno</p>
-          <div style="display:flex;align-items:center;gap:.2rem">
-            <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de alunos)</span>
-            <canvas id="chartG4" width="260" height="160" style="max-width:100%"></canvas>
+          <div style="display:flex;flex-wrap:wrap;gap:1rem">
+
+            <div style="flex:1 1 150px;min-width:140px">
+              <p style="text-align:center;font-weight:900;font-size:.8rem;color:#1E293B;margin-bottom:.4rem">Tabela de Dupla Entrada</p>
+              <table style="border-collapse:collapse;font-size:.7rem;margin:0 auto">
+                <thead><tr style="background:#FBCFE8">
+                  <th style="padding:.3rem .4rem;text-align:center"></th>
+                  <th style="padding:.3rem .4rem;text-align:center">Aprov.</th>
+                  <th style="padding:.3rem .4rem;text-align:center">Reprov.</th>
+                  <th style="padding:.3rem .4rem;text-align:center">Total</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td style="padding:.25rem .4rem;text-align:center;font-weight:900;border-bottom:1px solid #FBCFE8">Manhã</td><td style="padding:.25rem .4rem;text-align:center;border-bottom:1px solid #FBCFE8">12</td><td style="padding:.25rem .4rem;text-align:center;border-bottom:1px solid #FBCFE8">8</td><td style="padding:.25rem .4rem;text-align:center;border-bottom:1px solid #FBCFE8">20</td></tr>
+                  <tr><td style="padding:.25rem .4rem;text-align:center;font-weight:900;border-bottom:1px solid #FBCFE8">Noite</td><td style="padding:.25rem .4rem;text-align:center;border-bottom:1px solid #FBCFE8">15</td><td style="padding:.25rem .4rem;text-align:center;border-bottom:1px solid #FBCFE8">5</td><td style="padding:.25rem .4rem;text-align:center;border-bottom:1px solid #FBCFE8">20</td></tr>
+                  <tr style="font-weight:900;background:#F9FAFB"><td style="padding:.25rem .4rem;text-align:center">Total</td><td style="padding:.25rem .4rem;text-align:center">27</td><td style="padding:.25rem .4rem;text-align:center">13</td><td style="padding:.25rem .4rem;text-align:center">40</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div style="flex:1 1 260px;min-width:260px">
+              <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Situação (Aprovado/Reprovado) por Turno</p>
+              <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+                <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de alunos)</span>
+                <canvas id="chartG4" width="260" height="160" style="max-width:100%"></canvas>
+              </div>
+              <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Turno</p>
+              <p style="text-align:center;font-size:.68rem;margin-top:.3rem"><span style="color:#EC4899;font-weight:900">■</span> Aprovado &nbsp; <span style="color:#F9A8D4;font-weight:900">■</span> Reprovado</p>
+              <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.2rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+
+              <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B;margin-top:1rem;border-top:1px dashed #FBCFE8;padding-top:.7rem">Mesmos dados em Barras Empilhadas</p>
+              <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+                <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de alunos)</span>
+                <canvas id="chartG4b" width="260" height="160" style="max-width:100%"></canvas>
+              </div>
+              <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Turno</p>
+              <p style="text-align:center;font-size:.68rem;margin-top:.3rem"><span style="color:#EC4899;font-weight:900">■</span> Aprovado &nbsp; <span style="color:#F9A8D4;font-weight:900">■</span> Reprovado</p>
+              <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.2rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+            </div>
+
           </div>
-          <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Turno</p>
-          <p style="text-align:center;font-size:.68rem;margin-top:.3rem"><span style="color:#EC4899;font-weight:900">■</span> Aprovado &nbsp; <span style="color:#F9A8D4;font-weight:900">■</span> Reprovado</p>
-          <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.2rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
         </div>
       </div>
 
       <div>
-        <button class="btn-sortear" onclick="toggleGraf('g5')" style="width:100%;text-align:left;background:#8B5CF6">📅 Série Temporal <span id="g5-arrow" style="float:right">▾</span></button>
+        <button class="btn-sortear" onclick="toggleGraf('g5')" style="width:100%;text-align:left;background:#8B5CF6">📅 Série Temporal → Gráfico de Linhas <span id="g5-arrow" style="float:right">▾</span></button>
         <div id="g5-box" style="display:none;margin-top:.5rem;padding:.8rem;background:#F5F3FF;border-radius:10px">
-          <p style="font-weight:700;color:#5B21B6;margin-bottom:.5rem">Gráfico indicado: <strong>Gráfico de Linhas</strong></p>
-          <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Vendas de Bicicletas por Ano</p>
-          <div style="display:flex;align-items:center;gap:.2rem">
-            <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Vendas (unidades)</span>
-            <canvas id="chartG5" width="260" height="160" style="max-width:100%"></canvas>
+          <div style="display:flex;flex-wrap:wrap;gap:1rem">
+            <div style="flex:1 1 110px;min-width:100px">
+              <p style="text-align:center;font-weight:900;font-size:.8rem;color:#1E293B;margin-bottom:.4rem">Série Temporal</p>
+              <table style="border-collapse:collapse;font-size:.72rem;margin:0 auto">
+                <thead><tr style="background:#DDD6FE">
+                  <th style="padding:.3rem .5rem;text-align:center">Ano</th>
+                  <th style="padding:.3rem .5rem;text-align:center">Vendas</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #DDD6FE">2021</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #DDD6FE">120</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #DDD6FE">2022</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #DDD6FE">145</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #DDD6FE">2023</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #DDD6FE">160</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #DDD6FE">2024</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #DDD6FE">190</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center">2025</td><td style="padding:.25rem .5rem;text-align:center">210</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="flex:1 1 260px;min-width:260px">
+              <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Vendas de Bicicletas por Ano</p>
+              <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+                <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Vendas (unidades)</span>
+                <canvas id="chartG5" width="260" height="160" style="max-width:100%"></canvas>
+              </div>
+              <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Ano</p>
+              <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+            </div>
           </div>
-          <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Ano</p>
-          <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
         </div>
       </div>
 
       <div>
-        <button class="btn-sortear" onclick="toggleGraf('g6')" style="width:100%;text-align:left;background:#0EA5E9">🗺️ Série Geográfica <span id="g6-arrow" style="float:right">▾</span></button>
+        <button class="btn-sortear" onclick="toggleGraf('g6')" style="width:100%;text-align:left;background:#0EA5E9">🗺️ Série Geográfica → Barras ou Mapa Temático <span id="g6-arrow" style="float:right">▾</span></button>
         <div id="g6-box" style="display:none;margin-top:.5rem;padding:.8rem;background:#E0F2FE;border-radius:10px">
-          <p style="font-weight:700;color:#075985;margin-bottom:.5rem">Gráfico indicado: <strong>Barras</strong> (comparando locais) ou <strong>Mapa Temático</strong></p>
-          <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">População Estimada por Região (2024)</p>
-          <div style="display:flex;align-items:center;gap:.2rem">
-            <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">População (milhões)</span>
-            <canvas id="chartG6" width="260" height="160" style="max-width:100%"></canvas>
+          <div style="display:flex;flex-wrap:wrap;gap:1rem">
+            <div style="flex:1 1 130px;min-width:120px">
+              <p style="text-align:center;font-weight:900;font-size:.8rem;color:#1E293B;margin-bottom:.4rem">Série Geográfica</p>
+              <table style="border-collapse:collapse;font-size:.72rem;margin:0 auto">
+                <thead><tr style="background:#BAE6FD">
+                  <th style="padding:.3rem .5rem;text-align:center">Região</th>
+                  <th style="padding:.3rem .5rem;text-align:center">Pop. (mi)</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BAE6FD">Norte</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BAE6FD">18,9</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BAE6FD">Nordeste</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BAE6FD">57,1</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BAE6FD">C-Oeste</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BAE6FD">16,8</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BAE6FD">Sudeste</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #BAE6FD">89,6</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center">Sul</td><td style="padding:.25rem .5rem;text-align:center">30,4</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="flex:1 1 260px;min-width:260px">
+              <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">População Estimada por Região (2024)</p>
+              <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+                <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">População (milhões)</span>
+                <canvas id="chartG6" width="260" height="160" style="max-width:100%"></canvas>
+              </div>
+              <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Região</p>
+              <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+            </div>
           </div>
-          <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Região</p>
-          <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
         </div>
       </div>
 
       <div>
-        <button class="btn-sortear" onclick="toggleGraf('g7')" style="width:100%;text-align:left;background:#DC2626">🏷️ Série Específica <span id="g7-arrow" style="float:right">▾</span></button>
+        <button class="btn-sortear" onclick="toggleGraf('g7')" style="width:100%;text-align:left;background:#DC2626">🏷️ Série Específica → Barras <span id="g7-arrow" style="float:right">▾</span></button>
         <div id="g7-box" style="display:none;margin-top:.5rem;padding:.8rem;background:#FEE2E2;border-radius:10px">
-          <p style="font-weight:700;color:#991B1B;margin-bottom:.5rem">Gráfico indicado: <strong>Barras</strong></p>
-          <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Matrículas por Curso (2024)</p>
-          <div style="display:flex;align-items:center;gap:.2rem">
-            <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Matrículas</span>
-            <canvas id="chartG7" width="260" height="160" style="max-width:100%"></canvas>
+          <div style="display:flex;flex-wrap:wrap;gap:1rem">
+            <div style="flex:1 1 120px;min-width:110px">
+              <p style="text-align:center;font-weight:900;font-size:.8rem;color:#1E293B;margin-bottom:.4rem">Série Específica</p>
+              <table style="border-collapse:collapse;font-size:.72rem;margin:0 auto">
+                <thead><tr style="background:#FECACA">
+                  <th style="padding:.3rem .5rem;text-align:center">Curso</th>
+                  <th style="padding:.3rem .5rem;text-align:center">Matríc.</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FECACA">Adm.</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FECACA">320</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FECACA">Direito</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FECACA">280</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FECACA">Enferm.</td><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #FECACA">195</td></tr>
+                  <tr><td style="padding:.25rem .5rem;text-align:center">Engenh.</td><td style="padding:.25rem .5rem;text-align:center">410</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="flex:1 1 260px;min-width:260px">
+              <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B">Matrículas por Curso (2024)</p>
+              <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+                <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Matrículas</span>
+                <canvas id="chartG7" width="260" height="160" style="max-width:100%"></canvas>
+              </div>
+              <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Curso</p>
+              <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+            </div>
           </div>
-          <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Curso</p>
-          <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+        </div>
+      </div>
+
+      <div>
+        <button class="btn-sortear" onclick="toggleGraf('g8')" style="width:100%;text-align:left;background:#0891B2">📊 Relação de Duas Variáveis → Gráfico de Dispersão <span id="g8-arrow" style="float:right">▾</span></button>
+        <div id="g8-box" style="display:none;margin-top:.5rem;padding:.8rem;background:#CFFAFE;border-radius:10px">
+          <div style="display:flex;flex-wrap:wrap;gap:1rem">
+
+            <div style="flex:1 1 160px;min-width:150px">
+              <p style="text-align:center;font-weight:900;font-size:.8rem;color:#1E293B;margin-bottom:.4rem">Dados Coletados</p>
+              <table style="border-collapse:collapse;font-size:.72rem;margin:0 auto">
+                <thead><tr style="background:#A5F3FC">
+                  <th style="padding:.3rem .5rem;text-align:center">Pessoa</th>
+                  <th style="padding:.3rem .5rem;text-align:center">Sono (h)</th>
+                  <th style="padding:.3rem .5rem;text-align:center">Estresse</th>
+                </tr></thead>
+                <tbody id="g8-tabela"></tbody>
+              </table>
+            </div>
+
+            <div style="flex:1 1 260px;min-width:260px">
+              <p style="text-align:center;font-weight:900;font-size:.8rem;color:#1E293B;margin-bottom:.4rem">Horas de Sono × Nível de Estresse</p>
+              <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+                <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Nível de Estresse (0-10)</span>
+                <canvas id="chartG8" width="260" height="160" style="max-width:100%"></canvas>
+              </div>
+              <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Horas de Sono por Noite</p>
+              <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.3rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+            </div>
+
+          </div>
         </div>
       </div>
 
@@ -1530,6 +1749,81 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     <p style="font-size:.85rem;color:#64748B;margin-top:.8rem;font-weight:700">
       <span class="tag" style="background:#FEE2E2;color:#991B1B">Observação</span> os <strong>rótulos de dados</strong> (o valor escrito em cima de cada barra/ponto) são opcionais.
     </p>
+  </div>
+
+  <div class="card">
+    <h2>🔍 Exercícios de Interpretação</h2>
+
+    <p style="font-weight:900;color:#1E3A8A">1) Gráfico de Linha</p>
+    <p style="font-size:.85rem;font-weight:700;color:#475569;margin:.3rem 0 .6rem">De janeiro até junho, qual foi a diferença percentual entre os atendimentos, usando janeiro como base de comparação (janeiro = 100%)?</p>
+    <p style="text-align:center;font-weight:900;font-size:1rem;color:#1E293B;margin-top:.3rem">Atendimentos de Fisioterapia por Mês</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+      <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:1rem;font-weight:700;color:#475569;white-space:nowrap">Atendimentos</span>
+      <canvas id="chartQi1" width="260" height="160" style="max-width:100%"></canvas>
+    </div>
+    <p style="text-align:center;font-size:1.1rem;font-weight:700;color:#475569;margin-top:.2rem">Mês</p>
+    <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.2rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+    <div class="quiz-opts" id="qi1-opts" style="margin-top:.6rem">
+      <button onclick="conferirQi1(0)">A) 32%</button>
+      <button onclick="conferirQi1(1)">B) 44,4%</button>
+      <button onclick="conferirQi1(2)">C) 55,6%</button>
+      <button onclick="conferirQi1(3)">D) 80%</button>
+      <button onclick="conferirQi1(4)">E) 180%</button>
+    </div>
+    <div id="qi1-fb" class="feedback"></div>
+
+    <p style="font-weight:900;color:#1E3A8A;margin-top:1.2rem">2) Histograma</p>
+    <p style="font-size:.85rem;font-weight:700;color:#475569;margin:.3rem 0 .6rem">Qual o percentual de pacientes com escore entre 10 e 15 pontos (classe 10 ⊢ 15)?</p>
+    <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B;margin-top:.3rem">Distribuição do Escore de Ansiedade (GAD-7)</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+      <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pacientes)</span>
+      <canvas id="chartQi2" width="260" height="160" style="max-width:100%"></canvas>
+    </div>
+    <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Escore de Ansiedade (pontos)</p>
+    <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.2rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+    <div class="quiz-opts" id="qi2-opts" style="margin-top:.6rem">
+      <button onclick="conferirQi2(0)">A) 20%</button>
+      <button onclick="conferirQi2(1)">B) 37,5%</button>
+      <button onclick="conferirQi2(2)">C) 30%</button>
+      <button onclick="conferirQi2(3)">D) 12,5%</button>
+      <button onclick="conferirQi2(4)">E) 12%</button>
+    </div>
+    <div id="qi2-fb" class="feedback"></div>
+
+    <p style="font-weight:900;color:#1E3A8A;margin-top:1.2rem">3) Histograma (continuação)</p>
+    <p style="font-size:.85rem;font-weight:700;color:#475569;margin:.3rem 0 .6rem">Qual o percentual de pacientes com escore ABAIXO de 10 pontos (classes 0 ⊢ 5 e 5 ⊢ 10 somadas)?</p>
+    <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B;margin-top:.3rem">Distribuição do Escore de Ansiedade (GAD-7)</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+      <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pacientes)</span>
+      <canvas id="chartQi3" width="260" height="160" style="max-width:100%"></canvas>
+    </div>
+    <p style="text-align:center;font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Escore de Ansiedade (pontos)</p>
+    <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.2rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+    <div class="quiz-opts" id="qi3-opts" style="margin-top:.6rem">
+      <button onclick="conferirQi3(0)">A) 20%</button>
+      <button onclick="conferirQi3(1)">B) 37,5%</button>
+      <button onclick="conferirQi3(2)">C) 57,5%</button>
+      <button onclick="conferirQi3(3)">D) 42,5%</button>
+      <button onclick="conferirQi3(4)">E) 87,5%</button>
+    </div>
+    <div id="qi3-fb" class="feedback"></div>
+
+    <p style="font-weight:900;color:#1E3A8A;margin-top:1.2rem">4) Gráfico de Dispersão</p>
+    <p style="font-size:.85rem;font-weight:700;color:#475569;margin:.3rem 0 .6rem">Observando a tendência dos pontos, podemos dizer que eles estão:</p>
+    <p style="text-align:center;font-weight:900;font-size:1.2rem;color:#1E293B;margin-top:.3rem">Horas de Sono × Nível de Estresse</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
+      <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.95rem;font-weight:700;color:#475569;white-space:nowrap">Nível de Estresse (0-10)</span>
+      <canvas id="chartQi4" width="364" height="224" style="max-width:100%"></canvas>
+    </div>
+    <p style="text-align:center;font-size:1.05rem;font-weight:700;color:#475569;margin-top:.2rem">Horas de Sono por Noite</p>
+    <p style="text-align:center;font-size:.9rem;color:#94A3B8;margin-top:.2rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+    <div class="quiz-opts" id="qi4-opts" style="margin-top:.6rem">
+      <button onclick="chkMC('qi4',0,2,'Não é crescendo: veja que quanto mais horas de sono, menor o nível de estresse — os pontos descem, não sobem.')">A) Crescendo juntinhos (próximos um do outro)</button>
+      <button onclick="chkMC('qi4',1,2,'Não é crescendo, e além disso os pontos seguem um padrão próximo uns dos outros, não espalhado.')">B) Crescendo afastados (bem espalhados)</button>
+      <button onclick="chkMC('qi4',2,2,'Correto! Conforme as horas de sono aumentam, o nível de estresse diminui (decrescendo), e os pontos seguem esse padrão bem de perto, próximos um do outro.')">C) Decrescendo juntinhos (próximos um do outro)</button>
+      <button onclick="chkMC('qi4',3,2,'A tendência é decrescendo mesmo, mas os pontos estão próximos do padrão — não afastados/espalhados.')">D) Decrescendo afastados (bem espalhados)</button>
+    </div>
+    <div id="qi4-fb" class="feedback"></div>
   </div>
 
 </section>
@@ -1609,26 +1903,41 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     <div id="ex8d-fb" class="feedback"></div>
 
     <!-- 5) GRÁFICO -->
-    <p style="font-weight:900;color:#5B21B6;margin-top:1.2rem">e) Qual gráfico é o mais indicado pra essa distribuição?</p>
-    <div class="quiz-opts" id="ex8graf-opts">
-      <button onclick="chkMC('ex8graf',0,2,'Barras é usado para variável qualitativa, não é o caso aqui.')">A) Gráfico de Barras</button>
-      <button onclick="chkMC('ex8graf',1,2,'Setores (pizza) também é para variável qualitativa.')">B) Gráfico de Setores (pizza)</button>
-      <button onclick="chkMC('ex8graf',2,2,'Correto! Mesmo sendo uma variável discreta, como foi agrupada em classes, o gráfico indicado é o Histograma.'); revelarHistEx8()">C) Histograma</button>
-      <button onclick="chkMC('ex8graf',3,2,'Bastões é usado para variável quantitativa discreta sem classe.')">D) Gráfico de Bastões</button>
-    </div>
-    <div id="ex8graf-fb" class="feedback"></div>
-    <div id="ex8graf-viz" style="display:none;margin-top:.8rem;padding:.8rem;background:#F5F3FF;border-radius:10px;text-align:center">
+    <p style="font-weight:900;color:#5B21B6;margin-top:1.2rem">Observe o histograma abaixo, e responda as letras "e" e "f".</p>
+    <div style="margin-top:.4rem;padding:.8rem;background:#F5F3FF;border-radius:10px;text-align:center">
       <p style="font-weight:900;font-size:.85rem;color:#1E293B;margin-bottom:.4rem">Escores de Ansiedade (GAD-7) — Amostra de Pacientes</p>
       <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
         <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pacientes)</span>
         <canvas id="chartEx8Hist" width="260" height="160" style="max-width:100%"></canvas>
       </div>
       <p style="font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Escore GAD-7 (pontos)</p>
-      <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+      <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
     </div>
 
-    <!-- 6) DUPLA ENTRADA -->
-    <p style="font-weight:900;color:#5B21B6;margin-top:1.2rem">f) Tabela de Dupla Entrada</p>
+    <!-- 6) e) PERCENTUAL DE UMA CLASSE -->
+    <p style="font-weight:900;color:#5B21B6;margin-top:1.2rem">e) Qual o percentual de pacientes com escore entre 15 e 20 pontos (classe 15 ⊢ 20)?</p>
+    <div class="quiz-opts" id="ex8classe-opts" style="margin-top:.6rem">
+      <button onclick="conferirEx8classe(0)">A) 20%</button>
+      <button onclick="conferirEx8classe(1)">B) 40%</button>
+      <button onclick="conferirEx8classe(2)">C) 26,7%</button>
+      <button onclick="conferirEx8classe(3)">D) 13,3%</button>
+      <button onclick="conferirEx8classe(4)">E) 4%</button>
+    </div>
+    <div id="ex8classe-fb" class="feedback"></div>
+
+    <!-- 7) f) PERCENTUAL SOMADO -->
+    <p style="font-weight:900;color:#5B21B6;margin-top:1.2rem">f) Qual o percentual de pacientes com escore ACIMA de 5 pontos?</p>
+    <div class="quiz-opts" id="ex8soma-opts" style="margin-top:.6rem">
+      <button onclick="conferirEx8soma(0)">A) 13,3%</button>
+      <button onclick="conferirEx8soma(1)">B) 20%</button>
+      <button onclick="conferirEx8soma(2)">C) 26,7%</button>
+      <button onclick="conferirEx8soma(3)">D) 40%</button>
+      <button onclick="conferirEx8soma(4)">E) 80%</button>
+    </div>
+    <div id="ex8soma-fb" class="feedback"></div>
+
+    <!-- 8) DUPLA ENTRADA -->
+    <p style="font-weight:900;color:#5B21B6;margin-top:1.2rem">g) Tabela de Dupla Entrada</p>
     <p style="font-size:.95rem;font-weight:700;color:#334155;margin-bottom:.6rem">
       Voltando aos mesmos 30 pacientes da amostra, agora classificados por gênero e nível de ansiedade: 7 homens tinham ansiedade leve, 5 homens moderada, 3 homens severa, 5 mulheres leve, 7 mulheres moderada e 3 mulheres severa. Monte a tabela abaixo:
     </p>
@@ -1721,26 +2030,41 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     <div id="exfd-fb" class="feedback"></div>
 
     <!-- 5) GRÁFICO -->
-    <p style="font-weight:900;color:#0369A1;margin-top:1.2rem">e) Qual gráfico é o mais indicado pra essa distribuição?</p>
-    <div class="quiz-opts" id="exfgraf-opts">
-      <button onclick="chkMC('exfgraf',0,2,'Barras é usado para variável qualitativa, não é o caso aqui.')">A) Gráfico de Barras</button>
-      <button onclick="chkMC('exfgraf',1,2,'Setores (pizza) também é para variável qualitativa.')">B) Gráfico de Setores (pizza)</button>
-      <button onclick="chkMC('exfgraf',2,2,'Correto! É uma variável quantitativa contínua agrupada em classes, então o gráfico indicado é o Histograma.'); revelarHistExf()">C) Histograma</button>
-      <button onclick="chkMC('exfgraf',3,2,'Bastões é usado para variável quantitativa discreta sem classe.')">D) Gráfico de Bastões</button>
-    </div>
-    <div id="exfgraf-fb" class="feedback"></div>
-    <div id="exfgraf-viz" style="display:none;margin-top:.8rem;padding:.8rem;background:#F0F9FF;border-radius:10px;text-align:center">
+    <p style="font-weight:900;color:#0369A1;margin-top:1.2rem">Observe o histograma abaixo, e responda as letras "e" e "f".</p>
+    <div style="margin-top:.4rem;padding:.8rem;background:#F0F9FF;border-radius:10px;text-align:center">
       <p style="font-weight:900;font-size:.85rem;color:#1E293B;margin-bottom:.4rem">Amplitude de Flexão do Joelho — Amostra de Pacientes</p>
       <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
         <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pacientes)</span>
         <canvas id="chartExfHist" width="260" height="160" style="max-width:100%"></canvas>
       </div>
       <p style="font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Amplitude de flexão (graus)</p>
-      <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+      <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
     </div>
 
-    <!-- 6) DUPLA ENTRADA -->
-    <p style="font-weight:900;color:#0369A1;margin-top:1.2rem">f) Tabela de Dupla Entrada</p>
+    <!-- 6) e) PERCENTUAL DE UMA CLASSE -->
+    <p style="font-weight:900;color:#0369A1;margin-top:1.2rem">e) Qual o percentual de pacientes com amplitude de flexão entre 80 e 90 graus (classe 80 ⊢ 90)?</p>
+    <div class="quiz-opts" id="exfclasse-opts" style="margin-top:.6rem">
+      <button onclick="conferirExfClasse(0)">A) 20%</button>
+      <button onclick="conferirExfClasse(1)">B) 40%</button>
+      <button onclick="conferirExfClasse(2)">C) 26,7%</button>
+      <button onclick="conferirExfClasse(3)">D) 13,3%</button>
+      <button onclick="conferirExfClasse(4)">E) 8%</button>
+    </div>
+    <div id="exfclasse-fb" class="feedback"></div>
+
+    <!-- 7) f) PERCENTUAL SOMADO -->
+    <p style="font-weight:900;color:#0369A1;margin-top:1.2rem">f) Qual o percentual de pacientes com amplitude de flexão ABAIXO de 80 graus?</p>
+    <div class="quiz-opts" id="exfsoma-opts" style="margin-top:.6rem">
+      <button onclick="conferirExfSoma(0)">A) 20%</button>
+      <button onclick="conferirExfSoma(1)">B) 40%</button>
+      <button onclick="conferirExfSoma(2)">C) 60%</button>
+      <button onclick="conferirExfSoma(3)">D) 86,7%</button>
+      <button onclick="conferirExfSoma(4)">E) 18%</button>
+    </div>
+    <div id="exfsoma-fb" class="feedback"></div>
+
+    <!-- 8) DUPLA ENTRADA -->
+    <p style="font-weight:900;color:#0369A1;margin-top:1.2rem">g) Tabela de Dupla Entrada</p>
     <p style="font-size:.95rem;font-weight:700;color:#334155;margin-bottom:.6rem">
       Voltando aos mesmos 30 pacientes da amostra, agora classificados por gênero e nível de recuperação: 6 homens tinham recuperação lenta, 5 homens moderada, 4 homens rápida, 4 mulheres lenta, 6 mulheres moderada e 5 mulheres rápida. Monte a tabela abaixo:
     </p>
@@ -1833,26 +2157,41 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     <div id="exnd-fb" class="feedback"></div>
 
     <!-- 5) GRÁFICO -->
-    <p style="font-weight:900;color:#15803D;margin-top:1.2rem">e) Qual gráfico é o mais indicado pra essa distribuição?</p>
-    <div class="quiz-opts" id="exngraf-opts">
-      <button onclick="chkMC('exngraf',0,2,'Barras é usado para variável qualitativa, não é o caso aqui.')">A) Gráfico de Barras</button>
-      <button onclick="chkMC('exngraf',1,2,'Setores (pizza) também é para variável qualitativa.')">B) Gráfico de Setores (pizza)</button>
-      <button onclick="chkMC('exngraf',2,2,'Correto! É uma variável quantitativa contínua agrupada em classes, então o gráfico indicado é o Histograma.'); revelarHistExn()">C) Histograma</button>
-      <button onclick="chkMC('exngraf',3,2,'Bastões é usado para variável quantitativa discreta sem classe.')">D) Gráfico de Bastões</button>
-    </div>
-    <div id="exngraf-fb" class="feedback"></div>
-    <div id="exngraf-viz" style="display:none;margin-top:.8rem;padding:.8rem;background:#F0FDF4;border-radius:10px;text-align:center">
+    <p style="font-weight:900;color:#15803D;margin-top:1.2rem">Observe o histograma abaixo, e responda as letras "e" e "f".</p>
+    <div style="margin-top:.4rem;padding:.8rem;background:#F0FDF4;border-radius:10px;text-align:center">
       <p style="font-weight:900;font-size:.85rem;color:#1E293B;margin-bottom:.4rem">Ingestão Calórica Diária — Amostra de Pacientes</p>
       <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
         <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pacientes)</span>
         <canvas id="chartExnHist" width="260" height="160" style="max-width:100%"></canvas>
       </div>
       <p style="font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Ingestão calórica diária (kcal)</p>
-      <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+      <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
     </div>
 
-    <!-- 6) DUPLA ENTRADA -->
-    <p style="font-weight:900;color:#15803D;margin-top:1.2rem">f) Tabela de Dupla Entrada</p>
+    <!-- 6) e) PERCENTUAL DE UMA CLASSE -->
+    <p style="font-weight:900;color:#15803D;margin-top:1.2rem">e) Qual o percentual de pacientes com ingestão calórica entre 2000 e 2300 kcal (classe 2000 ⊢ 2300)?</p>
+    <div class="quiz-opts" id="exnclasse-opts" style="margin-top:.6rem">
+      <button onclick="conferirExnClasse(0)">A) 12%</button>
+      <button onclick="conferirExnClasse(1)">B) 20%</button>
+      <button onclick="conferirExnClasse(2)">C) 28%</button>
+      <button onclick="conferirExnClasse(3)">D) 40%</button>
+      <button onclick="conferirExnClasse(4)">E) 7%</button>
+    </div>
+    <div id="exnclasse-fb" class="feedback"></div>
+
+    <!-- 7) f) PERCENTUAL SOMADO -->
+    <p style="font-weight:900;color:#15803D;margin-top:1.2rem">f) Qual o percentual de pacientes com ingestão calórica ABAIXO de 2000 kcal?</p>
+    <div class="quiz-opts" id="exnsoma-opts" style="margin-top:.6rem">
+      <button onclick="conferirExnSoma(0)">A) 20%</button>
+      <button onclick="conferirExnSoma(1)">B) 40%</button>
+      <button onclick="conferirExnSoma(2)">C) 60%</button>
+      <button onclick="conferirExnSoma(3)">D) 88%</button>
+      <button onclick="conferirExnSoma(4)">E) 15%</button>
+    </div>
+    <div id="exnsoma-fb" class="feedback"></div>
+
+    <!-- 8) DUPLA ENTRADA -->
+    <p style="font-weight:900;color:#15803D;margin-top:1.2rem">g) Tabela de Dupla Entrada</p>
     <p style="font-size:.95rem;font-weight:700;color:#334155;margin-bottom:.6rem">
       Voltando aos mesmos 25 pacientes da amostra, agora classificados por gênero e estado nutricional: 3 homens com baixo peso, 7 homens eutróficos, 2 homens com sobrepeso, 4 mulheres com baixo peso, 6 mulheres eutróficas e 3 mulheres com sobrepeso. Monte a tabela abaixo:
     </p>
@@ -1946,26 +2285,41 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     <div id="exed-fb" class="feedback"></div>
 
     <!-- 5) GRÁFICO -->
-    <p style="font-weight:900;color:#B91C1C;margin-top:1.2rem">e) Qual gráfico é o mais indicado pra essa distribuição?</p>
-    <div class="quiz-opts" id="exegraf-opts">
-      <button onclick="chkMC('exegraf',0,2,'Barras é usado para variável qualitativa, não é o caso aqui.')">A) Gráfico de Barras</button>
-      <button onclick="chkMC('exegraf',1,2,'Setores (pizza) também é para variável qualitativa.')">B) Gráfico de Setores (pizza)</button>
-      <button onclick="chkMC('exegraf',2,2,'Correto! É uma variável quantitativa contínua agrupada em classes, então o gráfico indicado é o Histograma.'); revelarHistExe()">C) Histograma</button>
-      <button onclick="chkMC('exegraf',3,2,'Bastões é usado para variável quantitativa discreta sem classe.')">D) Gráfico de Bastões</button>
-    </div>
-    <div id="exegraf-fb" class="feedback"></div>
-    <div id="exegraf-viz" style="display:none;margin-top:.8rem;padding:.8rem;background:#FEF2F2;border-radius:10px;text-align:center">
+    <p style="font-weight:900;color:#B91C1C;margin-top:1.2rem">Observe o histograma abaixo, e responda as letras "e" e "f".</p>
+    <div style="margin-top:.4rem;padding:.8rem;background:#FEF2F2;border-radius:10px;text-align:center">
       <p style="font-weight:900;font-size:.85rem;color:#1E293B;margin-bottom:.4rem">Pressão Arterial Sistólica — Amostra de Pacientes</p>
       <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
         <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pacientes)</span>
         <canvas id="chartExeHist" width="260" height="160" style="max-width:100%"></canvas>
       </div>
       <p style="font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Pressão arterial sistólica (mmHg)</p>
-      <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+      <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
     </div>
 
-    <!-- 6) DUPLA ENTRADA -->
-    <p style="font-weight:900;color:#B91C1C;margin-top:1.2rem">f) Tabela de Dupla Entrada</p>
+    <!-- 6) e) PERCENTUAL DE UMA CLASSE -->
+    <p style="font-weight:900;color:#B91C1C;margin-top:1.2rem">e) Qual o percentual de pacientes com pressão entre 110 e 120 mmHg (classe 110 ⊢ 120)?</p>
+    <div class="quiz-opts" id="execlasse-opts" style="margin-top:.6rem">
+      <button onclick="conferirExeClasse(0)">A) 10%</button>
+      <button onclick="conferirExeClasse(1)">B) 20%</button>
+      <button onclick="conferirExeClasse(2)">C) 25%</button>
+      <button onclick="conferirExeClasse(3)">D) 35%</button>
+      <button onclick="conferirExeClasse(4)">E) 5%</button>
+    </div>
+    <div id="execlasse-fb" class="feedback"></div>
+
+    <!-- 7) f) PERCENTUAL SOMADO -->
+    <p style="font-weight:900;color:#B91C1C;margin-top:1.2rem">f) Qual o percentual de pacientes com pressão ACIMA de 130 mmHg?</p>
+    <div class="quiz-opts" id="exesoma-opts" style="margin-top:.6rem">
+      <button onclick="conferirExeSoma(0)">A) 10%</button>
+      <button onclick="conferirExeSoma(1)">B) 20%</button>
+      <button onclick="conferirExeSoma(2)">C) 30%</button>
+      <button onclick="conferirExeSoma(3)">D) 65%</button>
+      <button onclick="conferirExeSoma(4)">E) 6%</button>
+    </div>
+    <div id="exesoma-fb" class="feedback"></div>
+
+    <!-- 8) DUPLA ENTRADA -->
+    <p style="font-weight:900;color:#B91C1C;margin-top:1.2rem">g) Tabela de Dupla Entrada</p>
     <p style="font-size:.95rem;font-weight:700;color:#334155;margin-bottom:.6rem">
       Voltando aos mesmos 20 pacientes da amostra, agora classificados por gênero e classificação da pressão: 3 homens com pressão normal, 4 homens com pressão elevada, 2 homens com hipertensão, 4 mulheres com pressão normal, 4 mulheres com pressão elevada e 3 mulheres com hipertensão. Monte a tabela abaixo:
     </p>
@@ -2058,26 +2412,41 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     <div id="expd-fb" class="feedback"></div>
 
     <!-- 5) GRÁFICO -->
-    <p style="font-weight:900;color:#C2410C;margin-top:1.2rem">e) Qual gráfico é o mais indicado pra essa distribuição?</p>
-    <div class="quiz-opts" id="expgraf-opts">
-      <button onclick="chkMC('expgraf',0,2,'Barras é usado para variável qualitativa, não é o caso aqui.')">A) Gráfico de Barras</button>
-      <button onclick="chkMC('expgraf',1,2,'Setores (pizza) também é para variável qualitativa.')">B) Gráfico de Setores (pizza)</button>
-      <button onclick="chkMC('expgraf',2,2,'Correto! É uma variável quantitativa contínua agrupada em classes, então o gráfico indicado é o Histograma.'); revelarHistExp()">C) Histograma</button>
-      <button onclick="chkMC('expgraf',3,2,'Bastões é usado para variável quantitativa discreta sem classe.')">D) Gráfico de Bastões</button>
-    </div>
-    <div id="expgraf-fb" class="feedback"></div>
-    <div id="expgraf-viz" style="display:none;margin-top:.8rem;padding:.8rem;background:#FFF7ED;border-radius:10px;text-align:center">
+    <p style="font-weight:900;color:#C2410C;margin-top:1.2rem">Observe o histograma abaixo, e responda as letras "e" e "f".</p>
+    <div style="margin-top:.4rem;padding:.8rem;background:#FFF7ED;border-radius:10px;text-align:center">
       <p style="font-weight:900;font-size:.85rem;color:#1E293B;margin-bottom:.4rem">Salário Mensal — Amostra de Farmacêuticos</p>
       <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
         <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de farmacêuticos)</span>
         <canvas id="chartExpHist" width="260" height="160" style="max-width:100%"></canvas>
       </div>
       <p style="font-size:.75rem;font-weight:700;color:#475569;margin-top:.2rem">Salário mensal (R$)</p>
-      <p style="text-align:right;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
+      <p style="text-align:center;font-size:.65rem;color:#94A3B8;margin-top:.4rem">Fonte: dados fictícios elaborados com apoio de IA, para fins didáticos.</p>
     </div>
 
-    <!-- 6) DUPLA ENTRADA -->
-    <p style="font-weight:900;color:#C2410C;margin-top:1.2rem">f) Tabela de Dupla Entrada</p>
+    <!-- 6) e) PERCENTUAL DE UMA CLASSE -->
+    <p style="font-weight:900;color:#C2410C;margin-top:1.2rem">e) Qual o percentual de farmacêuticos com salário entre R$ 3000 e R$ 3700 (classe 3000 ⊢ 3700)?</p>
+    <div class="quiz-opts" id="expclasse-opts" style="margin-top:.6rem">
+      <button onclick="conferirExpClasse(0)">A) 12,5%</button>
+      <button onclick="conferirExpClasse(1)">B) 37,5%</button>
+      <button onclick="conferirExpClasse(2)">C) 6%</button>
+      <button onclick="conferirExpClasse(3)">D) 2%</button>
+      <button onclick="conferirExpClasse(4)">E) 2,5%</button>
+    </div>
+    <div id="expclasse-fb" class="feedback"></div>
+
+    <!-- 7) f) PERCENTUAL SOMADO -->
+    <p style="font-weight:900;color:#C2410C;margin-top:1.2rem">f) Qual o percentual de farmacêuticos com salário ACIMA de R$ 4400?</p>
+    <div class="quiz-opts" id="expsoma-opts" style="margin-top:.6rem">
+      <button onclick="conferirExpSoma(0)">A) 12,5%</button>
+      <button onclick="conferirExpSoma(1)">B) 37,5%</button>
+      <button onclick="conferirExpSoma(2)">C) 50%</button>
+      <button onclick="conferirExpSoma(3)">D) 87,5%</button>
+      <button onclick="conferirExpSoma(4)">E) 8%</button>
+    </div>
+    <div id="expsoma-fb" class="feedback"></div>
+
+    <!-- 8) DUPLA ENTRADA -->
+    <p style="font-weight:900;color:#C2410C;margin-top:1.2rem">g) Tabela de Dupla Entrada</p>
     <p style="font-size:.95rem;font-weight:700;color:#334155;margin-bottom:.6rem">
       Voltando aos mesmos 16 farmacêuticos da amostra, agora classificados por gênero e nível de carreira: 2 homens iniciantes, 3 homens plenos, 2 homens sêniores, 3 mulheres iniciantes, 4 mulheres plenas e 2 mulheres sêniores. Monte a tabela abaixo:
     </p>
@@ -2110,15 +2479,15 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
 
 <script>
 const sections = [
-  { id:'scrono', label:'Cronograma e Notas' },
+  { id:'scrono', label:'Cronograma, Notas e bibliografia básica' },
   { id:'s0', label:'Revisão: Regra de Três' },
   { id:'s1', label:'1 · População e Amostra' },
   { id:'s2', label:'2 · Dados Brutos e Tabelas' },
-  { id:'s3', label:'3 · Tabela de Frequência sem Classe' },
-  { id:'s4', label:'4 · Tabela de Frequência com Classe' },
+  { id:'s3', label:'3 · Tabela de Frequência sem Classe (TDF sem classe)' },
+  { id:'s4', label:'4 · Tabela de Frequência com Classe (TDF com classe)' },
   { id:'s5', label:'5 · Tabela de Dupla Entrada' },
   { id:'s6', label:'6 · Tabelas de Séries' },
-  { id:'s7', label:'7 · Gráficos por Tipo de Tabela' },
+  { id:'s7', label:'7 - Gráficos indicados por tipo de tabela e/ou variável' },
   { id:'s8', label:'8 · Exercícios para Treinar' },
 ];
 let currentIdx = 0;
@@ -2139,6 +2508,16 @@ function navigateSection(dir) {
 document.getElementById('scrono').classList.add('active');
 document.getElementById('nav-label').textContent = sections[0].label;
 document.getElementById('nav-prev').disabled = true;
+
+lineChartSimple(document.getElementById('chartQi1').getContext('2d'), ['Jan','Fev','Mar','Abr','Mai','Jun'], [40,45,52,58,65,72], '#8B5CF6', 260, 160);
+histChart(document.getElementById('chartQi2').getContext('2d'), ['0','5','10','15','20'], [8,15,12,5], '#F59E0B', 260, 160);
+histChart(document.getElementById('chartQi3').getContext('2d'), ['0','5','10','15','20'], [8,15,12,5], '#F59E0B', 260, 160);
+histChart(document.getElementById('chartEx8Hist').getContext('2d'), ['0','5','10','15','20'], [6,12,8,4], '#8B5CF6', 260, 160);
+histChart(document.getElementById('chartExfHist').getContext('2d'), ['60','70','80','90','100'], [6,12,8,4], '#0EA5E9', 260, 160);
+histChart(document.getElementById('chartExnHist').getContext('2d'), ['1400','1700','2000','2300','2600'], [5,10,7,3], '#16A34A', 260, 160);
+histChart(document.getElementById('chartExeHist').getContext('2d'), ['100','110','120','130','140','150'], [2,5,7,4,2], '#DC2626', 260, 160);
+histChart(document.getElementById('chartExpHist').getContext('2d'), ['3000','3700','4400','5100','5800'], [2,6,6,2], '#EA580C', 260, 160);
+scatterChart(document.getElementById('chartQi4').getContext('2d'), [[4,9],[5,8],[5,9],[6,7],[6,6],[7,5],[7,6],[8,4],[8,3],[9,2],[9,3],[6,8]], '#0EA5E9', 364, 224, 1.4);
 
 // ── ANIMAÇÃO ──
 function psvg(color, size) {
@@ -2812,6 +3191,397 @@ function chkMC(id, chosen, correct, explain) {
   fb.innerHTML = (acertou?'✅ ':'❌ ')+explain+(acertou?'':retryBtn(id));
   fb.className = 'feedback '+(acertou?'ok':'err');
 }
+function conferirQi1(chosen) {
+  const correct = 3;
+  const btns = Array.from(document.querySelectorAll('#qi1-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('qi1-fb');
+  const msgsErro = {
+    0: 'Essa é a diferença em número absoluto de atendimentos (72 − 40 = 32), não em percentual. Não vem de uma regra de três — é só a subtração direta.',
+    1: 'Essa conta usaria Junho como base, não Janeiro (que foi o que a pergunta pediu):',
+    2: 'Essa é quanto Janeiro representa em relação a Junho, usando Junho como base — não é o que foi pedido:',
+    4: 'Isso mostra quanto Junho representa em relação a Janeiro (o total, não a diferença):'
+  };
+  const visuaisErro = {
+    1: regraTresVisualHTML('atendimentos', '72', '32', '100%', 'x%', '72 · x = 32 · 100', 'x = 3200 ÷ 72 ≈ 44,4%'),
+    2: regraTresVisualHTML('atendimentos', '72', '40', '100%', 'x%', '72 · x = 40 · 100', 'x = 4000 ÷ 72 ≈ 55,6%'),
+    4: regraTresVisualHTML('atendimentos', '40', '72', '100%', 'x%', '40 · x = 72 · 100', 'x = 7200 ÷ 40 = 180%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('atendimentos', '40', '32', '100%', 'x%', '40 · x = 32 · 100', 'x = 3200 ÷ 40 = 80%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! Usando Janeiro como base (= 100%), a diferença de 32 atendimentos representa 80% a mais.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três — diferença percentual com Janeiro como base:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('qi1');
+  }
+}
+function conferirQi2(chosen) {
+  const correct = 2;
+  const btns = Array.from(document.querySelectorAll('#qi2-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('qi2-fb');
+  const msgsErro = {
+    0: 'Esse é o percentual da classe 0⊢5 (8 pacientes), não da classe 10⊢15 perguntada:',
+    1: 'Esse é o percentual da classe 5⊢10 (15 pacientes), não da classe 10⊢15 perguntada:',
+    3: 'Esse é o percentual da classe 15⊢20 (5 pacientes), não da classe 10⊢15 perguntada:',
+    4: 'Esse é só o valor de fi (12 pacientes) escrito como se já fosse o percentual — mas fi não é fr. Não vem de uma regra de três, é confundir contagem com percentual.'
+  };
+  const visuaisErro = {
+    0: regraTresVisualHTML('pacientes', '40', '8', '100%', 'x%', '40 · x = 8 · 100', 'x = 800 ÷ 40 = 20%'),
+    1: regraTresVisualHTML('pacientes', '40', '15', '100%', 'x%', '40 · x = 15 · 100', 'x = 1500 ÷ 40 = 37,5%'),
+    3: regraTresVisualHTML('pacientes', '40', '5', '100%', 'x%', '40 · x = 5 · 100', 'x = 500 ÷ 40 = 12,5%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('pacientes', '40', '12', '100%', 'x%', '40 · x = 12 · 100', 'x = 1200 ÷ 40 = 30%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! A classe 10⊢15 tem 12 pacientes de um total de 40.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('qi2');
+  }
+}
+function conferirQi3(chosen) {
+  const correct = 2;
+  const btns = Array.from(document.querySelectorAll('#qi3-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('qi3-fb');
+  const msgsErro = {
+    0: 'Essa é só a classe 0⊢5 (8 pacientes) — faltou somar a classe 5⊢10:',
+    1: 'Essa é só a classe 5⊢10 (15 pacientes) — faltou somar a classe 0⊢5:',
+    3: 'Esse é o percentual de quem tem escore ACIMA de 10 (o complemento) — não abaixo, que foi o pedido:',
+    4: 'Essa soma incluiu também a classe 10⊢15 a mais do que deveria:'
+  };
+  const visuaisErro = {
+    0: regraTresVisualHTML('pacientes', '40', '8', '100%', 'x%', '40 · x = 8 · 100', 'x = 800 ÷ 40 = 20%'),
+    1: regraTresVisualHTML('pacientes', '40', '15', '100%', 'x%', '40 · x = 15 · 100', 'x = 1500 ÷ 40 = 37,5%'),
+    3: regraTresVisualHTML('pacientes', '40', '17', '100%', 'x%', '40 · x = 17 · 100', 'x = 1700 ÷ 40 = 42,5%'),
+    4: regraTresVisualHTML('pacientes', '40', '35', '100%', 'x%', '40 · x = 35 · 100', 'x = 3500 ÷ 40 = 87,5%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('pacientes', '40', '23', '100%', 'x%', '40 · x = 23 · 100', 'x = 2300 ÷ 40 = 57,5%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! Somando as classes 0⊢5 (8) e 5⊢10 (15), são 23 pacientes de 40 com escore abaixo de 10.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('qi3');
+  }
+}
+function conferirEx8classe(chosen) {
+  const correct = 3;
+  const btns = Array.from(document.querySelectorAll('#ex8classe-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('ex8classe-fb');
+  const msgsErro = {
+    0: 'Esse é o percentual da classe 0⊢5 (6 pacientes), não da classe 15⊢20 perguntada:',
+    1: 'Esse é o percentual da classe 5⊢10 (12 pacientes), não da classe 15⊢20 perguntada:',
+    2: 'Esse é o percentual da classe 10⊢15 (8 pacientes), não da classe 15⊢20 perguntada:',
+    4: 'Esse é só o valor de fi (4 pacientes) escrito como se já fosse o percentual — mas fi não é fr. Não vem de uma regra de três, é confundir contagem com percentual.'
+  };
+  const visuaisErro = {
+    0: regraTresVisualHTML('pacientes', '30', '6', '100%', 'x%', '30 · x = 6 · 100', 'x = 600 ÷ 30 = 20%'),
+    1: regraTresVisualHTML('pacientes', '30', '12', '100%', 'x%', '30 · x = 12 · 100', 'x = 1200 ÷ 30 = 40%'),
+    2: regraTresVisualHTML('pacientes', '30', '8', '100%', 'x%', '30 · x = 8 · 100', 'x = 800 ÷ 30 = 26,7%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('pacientes', '30', '4', '100%', 'x%', '30 · x = 4 · 100', 'x = 400 ÷ 30 = 13,3%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! A classe 15⊢20 tem 4 pacientes de um total de 30.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('ex8classe');
+  }
+}
+function conferirEx8soma(chosen) {
+  const correct = 4;
+  const btns = Array.from(document.querySelectorAll('#ex8soma-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('ex8soma-fb');
+  const msgsErro = {
+    0: 'Essa é só a classe 15⊢20 (4 pacientes) — faltou somar as classes 5⊢10 e 10⊢15:',
+    1: 'Essa é a classe 0⊢5 (6 pacientes) — é a classe ABAIXO de 5, não faz parte de "acima de 5":',
+    2: 'Essa é só a classe 10⊢15 (8 pacientes) — faltou somar as classes 5⊢10 e 15⊢20:',
+    3: 'Essa é só a classe 5⊢10 (12 pacientes) — faltou somar as classes 10⊢15 e 15⊢20:'
+  };
+  const visuaisErro = {
+    0: regraTresVisualHTML('pacientes', '30', '4', '100%', 'x%', '30 · x = 4 · 100', 'x = 400 ÷ 30 = 13,3%'),
+    1: regraTresVisualHTML('pacientes', '30', '6', '100%', 'x%', '30 · x = 6 · 100', 'x = 600 ÷ 30 = 20%'),
+    2: regraTresVisualHTML('pacientes', '30', '8', '100%', 'x%', '30 · x = 8 · 100', 'x = 800 ÷ 30 = 26,7%'),
+    3: regraTresVisualHTML('pacientes', '30', '12', '100%', 'x%', '30 · x = 12 · 100', 'x = 1200 ÷ 30 = 40%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('pacientes', '30', '24', '100%', 'x%', '30 · x = 24 · 100', 'x = 2400 ÷ 30 = 80%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! Somando as classes 5⊢10 (12), 10⊢15 (8) e 15⊢20 (4), são 24 pacientes de 30 com escore acima de 5.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('ex8soma');
+  }
+}
+function conferirExfClasse(chosen) {
+  const correct = 2;
+  const btns = Array.from(document.querySelectorAll('#exfclasse-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('exfclasse-fb');
+  const msgsErro = {
+    0: 'Esse é o percentual da classe 60⊢70 (6 pacientes), não da classe 80⊢90 perguntada:',
+    1: 'Esse é o percentual da classe 70⊢80 (12 pacientes), não da classe 80⊢90 perguntada:',
+    3: 'Esse é o percentual da classe 90⊢100 (4 pacientes), não da classe 80⊢90 perguntada:',
+    4: 'Esse é só o valor de fi (8 pacientes) escrito como se já fosse o percentual — mas fi não é fr. Não vem de uma regra de três, é confundir contagem com percentual.'
+  };
+  const visuaisErro = {
+    0: regraTresVisualHTML('pacientes', '30', '6', '100%', 'x%', '30 · x = 6 · 100', 'x = 600 ÷ 30 = 20%'),
+    1: regraTresVisualHTML('pacientes', '30', '12', '100%', 'x%', '30 · x = 12 · 100', 'x = 1200 ÷ 30 = 40%'),
+    3: regraTresVisualHTML('pacientes', '30', '4', '100%', 'x%', '30 · x = 4 · 100', 'x = 400 ÷ 30 = 13,3%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('pacientes', '30', '8', '100%', 'x%', '30 · x = 8 · 100', 'x = 800 ÷ 30 = 26,7%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! A classe 80⊢90 tem 8 pacientes de um total de 30.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('exfclasse');
+  }
+}
+function conferirExfSoma(chosen) {
+  const correct = 2;
+  const btns = Array.from(document.querySelectorAll('#exfsoma-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('exfsoma-fb');
+  const msgsErro = {
+    0: 'Essa é só a classe 60⊢70 (6 pacientes) — faltou somar a classe 70⊢80:',
+    1: 'Essa é só a classe 70⊢80 (12 pacientes) — faltou somar a classe 60⊢70:',
+    3: 'Essa soma incluiu também a classe 80⊢90 a mais do que deveria:',
+    4: 'Essa é só a contagem de pacientes (18) escrita como se já fosse o percentual — mas contagem não é percentual. Não vem de uma regra de três, é confundir os dois.'
+  };
+  const visuaisErro = {
+    0: regraTresVisualHTML('pacientes', '30', '6', '100%', 'x%', '30 · x = 6 · 100', 'x = 600 ÷ 30 = 20%'),
+    1: regraTresVisualHTML('pacientes', '30', '12', '100%', 'x%', '30 · x = 12 · 100', 'x = 1200 ÷ 30 = 40%'),
+    3: regraTresVisualHTML('pacientes', '30', '26', '100%', 'x%', '30 · x = 26 · 100', 'x = 2600 ÷ 30 = 86,7%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('pacientes', '30', '18', '100%', 'x%', '30 · x = 18 · 100', 'x = 1800 ÷ 30 = 60%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! Somando as classes 60⊢70 (6) e 70⊢80 (12), são 18 pacientes de 30 com amplitude de flexão abaixo de 80 graus.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('exfsoma');
+  }
+}
+function conferirExnClasse(chosen) {
+  const correct = 2;
+  const btns = Array.from(document.querySelectorAll('#exnclasse-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('exnclasse-fb');
+  const msgsErro = {
+    0: 'Esse é o percentual da classe 2300⊢2600 (3 pacientes), não da classe 2000⊢2300 perguntada:',
+    1: 'Esse é o percentual da classe 1400⊢1700 (5 pacientes), não da classe 2000⊢2300 perguntada:',
+    3: 'Esse é o percentual da classe 1700⊢2000 (10 pacientes), não da classe 2000⊢2300 perguntada:',
+    4: 'Esse é só o valor de fi (7 pacientes) escrito como se já fosse o percentual — mas fi não é fr. Não vem de uma regra de três, é confundir contagem com percentual.'
+  };
+  const visuaisErro = {
+    0: regraTresVisualHTML('pacientes', '25', '3', '100%', 'x%', '25 · x = 3 · 100', 'x = 300 ÷ 25 = 12%'),
+    1: regraTresVisualHTML('pacientes', '25', '5', '100%', 'x%', '25 · x = 5 · 100', 'x = 500 ÷ 25 = 20%'),
+    3: regraTresVisualHTML('pacientes', '25', '10', '100%', 'x%', '25 · x = 10 · 100', 'x = 1000 ÷ 25 = 40%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('pacientes', '25', '7', '100%', 'x%', '25 · x = 7 · 100', 'x = 700 ÷ 25 = 28%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! A classe 2000⊢2300 tem 7 pacientes de um total de 25.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('exnclasse');
+  }
+}
+function conferirExnSoma(chosen) {
+  const correct = 2;
+  const btns = Array.from(document.querySelectorAll('#exnsoma-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('exnsoma-fb');
+  const msgsErro = {
+    0: 'Essa é só a classe 1400⊢1700 (5 pacientes) — faltou somar a classe 1700⊢2000:',
+    1: 'Essa é só a classe 1700⊢2000 (10 pacientes) — faltou somar a classe 1400⊢1700:',
+    3: 'Essa soma incluiu também a classe 2000⊢2300 a mais do que deveria:',
+    4: 'Essa é só a contagem de pacientes (15) escrita como se já fosse o percentual — mas contagem não é percentual. Não vem de uma regra de três, é confundir os dois.'
+  };
+  const visuaisErro = {
+    0: regraTresVisualHTML('pacientes', '25', '5', '100%', 'x%', '25 · x = 5 · 100', 'x = 500 ÷ 25 = 20%'),
+    1: regraTresVisualHTML('pacientes', '25', '10', '100%', 'x%', '25 · x = 10 · 100', 'x = 1000 ÷ 25 = 40%'),
+    3: regraTresVisualHTML('pacientes', '25', '22', '100%', 'x%', '25 · x = 22 · 100', 'x = 2200 ÷ 25 = 88%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('pacientes', '25', '15', '100%', 'x%', '25 · x = 15 · 100', 'x = 1500 ÷ 25 = 60%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! Somando as classes 1400⊢1700 (5) e 1700⊢2000 (10), são 15 pacientes de 25 com ingestão calórica abaixo de 2000 kcal.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('exnsoma');
+  }
+}
+function conferirExeClasse(chosen) {
+  const correct = 2;
+  const btns = Array.from(document.querySelectorAll('#execlasse-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('execlasse-fb');
+  const msgsErro = {
+    0: 'Esse é o percentual da classe 100⊢110 (2 pacientes), não da classe 110⊢120 perguntada:',
+    1: 'Esse é o percentual da classe 130⊢140 (4 pacientes), não da classe 110⊢120 perguntada:',
+    3: 'Esse é o percentual da classe 120⊢130 (7 pacientes), não da classe 110⊢120 perguntada:',
+    4: 'Esse é só o valor de fi (5 pacientes) escrito como se já fosse o percentual — mas fi não é fr. Não vem de uma regra de três, é confundir contagem com percentual.'
+  };
+  const visuaisErro = {
+    0: regraTresVisualHTML('pacientes', '20', '2', '100%', 'x%', '20 · x = 2 · 100', 'x = 200 ÷ 20 = 10%'),
+    1: regraTresVisualHTML('pacientes', '20', '4', '100%', 'x%', '20 · x = 4 · 100', 'x = 400 ÷ 20 = 20%'),
+    3: regraTresVisualHTML('pacientes', '20', '7', '100%', 'x%', '20 · x = 7 · 100', 'x = 700 ÷ 20 = 35%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('pacientes', '20', '5', '100%', 'x%', '20 · x = 5 · 100', 'x = 500 ÷ 20 = 25%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! A classe 110⊢120 tem 5 pacientes de um total de 20.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('execlasse');
+  }
+}
+function conferirExeSoma(chosen) {
+  const correct = 2;
+  const btns = Array.from(document.querySelectorAll('#exesoma-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('exesoma-fb');
+  const msgsErro = {
+    0: 'Essa é só a classe 140⊢150 (2 pacientes) — faltou somar a classe 130⊢140:',
+    1: 'Essa é só a classe 130⊢140 (4 pacientes) — faltou somar a classe 140⊢150:',
+    3: 'Essa soma incluiu também a classe 120⊢130 a mais do que deveria:',
+    4: 'Essa é só a contagem de pacientes (6) escrita como se já fosse o percentual — mas contagem não é percentual. Não vem de uma regra de três, é confundir os dois.'
+  };
+  const visuaisErro = {
+    0: regraTresVisualHTML('pacientes', '20', '2', '100%', 'x%', '20 · x = 2 · 100', 'x = 200 ÷ 20 = 10%'),
+    1: regraTresVisualHTML('pacientes', '20', '4', '100%', 'x%', '20 · x = 4 · 100', 'x = 400 ÷ 20 = 20%'),
+    3: regraTresVisualHTML('pacientes', '20', '13', '100%', 'x%', '20 · x = 13 · 100', 'x = 1300 ÷ 20 = 65%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('pacientes', '20', '6', '100%', 'x%', '20 · x = 6 · 100', 'x = 600 ÷ 20 = 30%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! Somando as classes 130⊢140 (4) e 140⊢150 (2), são 6 pacientes de 20 com pressão acima de 130 mmHg.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('exesoma');
+  }
+}
+function conferirExpClasse(chosen) {
+  const correct = 0;
+  const btns = Array.from(document.querySelectorAll('#expclasse-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('expclasse-fb');
+  const msgsErro = {
+    1: 'Esse é o percentual da classe 3700⊢4400 (6 farmacêuticos), não da classe 3000⊢3700 perguntada:',
+    2: 'Esse é só o valor de fi de outra classe (6 farmacêuticos, como 3700⊢4400 ou 4400⊢5100) escrito como se já fosse o percentual. Não vem de uma regra de três, é confundir contagem com percentual.',
+    3: 'Esse é só o valor de fi da própria classe (2 farmacêuticos) escrito como se já fosse o percentual — mas fi não é fr. Não vem de uma regra de três, é confundir contagem com percentual.',
+    4: 'Essa conta usou a população (80) no lugar da amostra (16) como base — mas pra achar o fr, a base tem que ser o tamanho da amostra:'
+  };
+  const visuaisErro = {
+    1: regraTresVisualHTML('farmacêuticos', '16', '6', '100%', 'x%', '16 · x = 6 · 100', 'x = 600 ÷ 16 = 37,5%'),
+    4: regraTresVisualHTML('farmacêuticos', '80', '2', '100%', 'x%', '80 · x = 2 · 100', 'x = 200 ÷ 80 = 2,5%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('farmacêuticos', '16', '2', '100%', 'x%', '16 · x = 2 · 100', 'x = 200 ÷ 16 = 12,5%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! A classe 3000⊢3700 tem 2 farmacêuticos de um total de 16.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('expclasse');
+  }
+}
+function conferirExpSoma(chosen) {
+  const correct = 2;
+  const btns = Array.from(document.querySelectorAll('#expsoma-opts button'));
+  const acertou = chosen === correct;
+  const fb = document.getElementById('expsoma-fb');
+  const msgsErro = {
+    0: 'Essa é só a classe 5100⊢5800 (2 farmacêuticos) — faltou somar a classe 4400⊢5100:',
+    1: 'Essa é só a classe 4400⊢5100 (6 farmacêuticos) — faltou somar a classe 5100⊢5800:',
+    3: 'Essa soma incluiu também a classe 3700⊢4400 a mais do que deveria:',
+    4: 'Essa é só a contagem de farmacêuticos (8) escrita como se já fosse o percentual — mas contagem não é percentual. Não vem de uma regra de três, é confundir os dois.'
+  };
+  const visuaisErro = {
+    0: regraTresVisualHTML('farmacêuticos', '16', '2', '100%', 'x%', '16 · x = 2 · 100', 'x = 200 ÷ 16 = 12,5%'),
+    1: regraTresVisualHTML('farmacêuticos', '16', '6', '100%', 'x%', '16 · x = 6 · 100', 'x = 600 ÷ 16 = 37,5%'),
+    3: regraTresVisualHTML('farmacêuticos', '16', '14', '100%', 'x%', '16 · x = 14 · 100', 'x = 1400 ÷ 16 = 87,5%')
+  };
+  if (acertou) {
+    btns.forEach(b => b.disabled = true);
+    btns[correct].classList.add('correct');
+    const visual = regraTresVisualHTML('farmacêuticos', '16', '8', '100%', 'x%', '16 · x = 8 · 100', 'x = 800 ÷ 16 = 50%');
+    fb.className = 'feedback ok';
+    fb.innerHTML = '✅ Isso mesmo! Somando as classes 4400⊢5100 (6) e 5100⊢5800 (2), são 8 farmacêuticos de 16 com salário acima de R$ 4400.'
+      + '<p style="font-weight:900;margin:.6rem 0 0">Regra de três:</p>' + visual;
+  } else {
+    btns.forEach(b => b.disabled = true);
+    btns[chosen].classList.add('wrong');
+    fb.className = 'feedback err';
+    fb.innerHTML = '❌ ' + msgsErro[chosen] + (visuaisErro[chosen] || '') + retryBtn('expsoma');
+  }
+}
 function chkVF(id, wrapId, chosen, correct, explain) {
   const btns = document.querySelectorAll('#'+wrapId+' button');
   btns.forEach(b => b.disabled = true);
@@ -2821,13 +3591,6 @@ function chkVF(id, wrapId, chosen, correct, explain) {
   const fb = document.getElementById(id+'-fb');
   fb.innerHTML = (isOk?'✅ ':'❌ ')+explain+(isOk?'':retryBtn(id));
   fb.className = 'feedback '+(isOk?'ok':'err');
-}
-
-function revelarHistEx8() {
-  const box = document.getElementById('ex8graf-viz');
-  box.style.display = 'block';
-  const ctx = document.getElementById('chartEx8Hist').getContext('2d');
-  histChart(ctx, ['0','5','10','15','20'], [6,12,8,4], '#8B5CF6', 260, 160);
 }
 
 function marcarCampo(id, ok) {
@@ -2944,13 +3707,6 @@ function conferirExfD() {
   fb.innerHTML = '<p style="margin:0 0 .2rem">' + (ok ? '✅ Isso mesmo! fr da classe 90⊢100 é 13,3%. Como essa fração é uma dízima, usamos a regra de três direto com os 4 pacientes da amostra (mais preciso que arredondar o percentual). E como paciente é número inteiro, arredondamos pra 27:' : '❌ Confira: fr da classe 90⊢100 é 13,3%. Monte a regra de três com os 4 pacientes da amostra e arredonde pro inteiro (paciente é discreto):') + '</p>' + visual;
 }
 
-function revelarHistExf() {
-  const box = document.getElementById('exfgraf-viz');
-  box.style.display = 'block';
-  const ctx = document.getElementById('chartExfHist').getContext('2d');
-  histChart(ctx, ['60','70','80','90','100'], [6,12,8,4], '#0EA5E9', 260, 160);
-}
-
 function conferirExfF() {
   const answers = { 'exf-hl':'6','exf-hm':'5','exf-hs':'4','exf-htot':'15','exf-fl':'4','exf-fm':'6','exf-fs':'5','exf-ftot':'15','exf-tl':'10','exf-tm':'11','exf-ts':'9','exf-tt':'30','exf-margin':'30','exf-cond':'44.4' };
   let allOk = true;
@@ -3012,13 +3768,6 @@ function conferirExnD() {
   const visual = regraTresVisualHTML('', '250 pacientes', 'x', '100%', '40%', '250 · 40 = x · 100', 'x = 10000 ÷ 100 = 100');
   fb.className = 'feedback ' + (ok ? 'ok' : 'err');
   fb.innerHTML = '<p style="margin:0 0 .2rem">' + (ok ? '✅ Isso mesmo! fr da classe 1700⊢2000 é 40%. Agora a regra de três pra projetar na população:' : '❌ Confira: fr da classe 1700⊢2000 é 40%. Monte a regra de três pra projetar na população:') + '</p>' + visual;
-}
-
-function revelarHistExn() {
-  const box = document.getElementById('exngraf-viz');
-  box.style.display = 'block';
-  const ctx = document.getElementById('chartExnHist').getContext('2d');
-  histChart(ctx, ['1400','1700','2000','2300','2600'], [5,10,7,3], '#16A34A', 260, 160);
 }
 
 function conferirExnF() {
@@ -3084,13 +3833,6 @@ function conferirExeD() {
   fb.innerHTML = '<p style="margin:0 0 .2rem">' + (ok ? '✅ Isso mesmo! fr da classe 120⊢130 é 35%. Agora a regra de três pra projetar na população:' : '❌ Confira: fr da classe 120⊢130 é 35%. Monte a regra de três pra projetar na população:') + '</p>' + visual;
 }
 
-function revelarHistExe() {
-  const box = document.getElementById('exegraf-viz');
-  box.style.display = 'block';
-  const ctx = document.getElementById('chartExeHist').getContext('2d');
-  histChart(ctx, ['100','110','120','130','140','150'], [2,5,7,4,2], '#DC2626', 260, 160);
-}
-
 function conferirExeF() {
   const answers = { 'exe-hl':'3','exe-hm':'4','exe-hs':'2','exe-htot':'9','exe-fl':'4','exe-fm':'4','exe-fs':'3','exe-ftot':'11','exe-tl':'7','exe-tm':'8','exe-ts':'5','exe-tt':'20','exe-margin':'25','exe-cond':'40' };
   let allOk = true;
@@ -3154,13 +3896,6 @@ function conferirExpD() {
   fb.innerHTML = '<p style="margin:0 0 .2rem">' + (ok ? '✅ Isso mesmo! fr da classe 3700⊢4400 é 37,5%. Agora a regra de três pra projetar na população:' : '❌ Confira: fr da classe 3700⊢4400 é 37,5%. Monte a regra de três pra projetar na população:') + '</p>' + visual;
 }
 
-function revelarHistExp() {
-  const box = document.getElementById('expgraf-viz');
-  box.style.display = 'block';
-  const ctx = document.getElementById('chartExpHist').getContext('2d');
-  histChart(ctx, ['3000','3700','4400','5100','5800'], [2,6,6,2], '#EA580C', 260, 160);
-}
-
 function conferirExpF() {
   const answers = { 'exp-hl':'2','exp-hm':'3','exp-hs':'2','exp-htot':'7','exp-fl':'3','exp-fm':'4','exp-fs':'2','exp-ftot':'9','exp-tl':'5','exp-tm':'7','exp-ts':'4','exp-tt':'16','exp-margin':'25','exp-cond':'50' };
   let allOk = true;
@@ -3189,6 +3924,7 @@ const r3PassosI = [
   { titulo: 'Passo 3 — Resolver a equação', texto: '<p style="text-align:center;font-weight:900;font-size:1.05rem">6 × 4 = 8 × x</p><p style="text-align:center;font-weight:900;font-size:1.1rem;margin-top:.4rem">24 = 8x</p><p style="text-align:center;font-weight:900;font-size:1.1rem;margin-top:.3rem">x = 24 ÷ 8 = 3 horas</p>' },
   { titulo: 'Resultado', texto: 'Com <strong>8 torneiras</strong>, a piscina encheria em <strong>3 horas</strong>.' }
 ];
+const r3State = { d: 0, i: 0 };
 function proximoPassoR3(tipo, btn) {
   const passos = tipo === 'd' ? r3PassosD : r3PassosI;
   const el = document.getElementById('r3-passos-' + tipo);
@@ -3354,9 +4090,9 @@ function barChart(ctx, labels, values, color, w, h) {
     const y = h - padB - barH;
     ctx.fillStyle = color;
     ctx.fillRect(x, y, barW, barH);
-    ctx.fillStyle = '#1E293B'; ctx.font = '900 10px Nunito'; ctx.textAlign = 'center';
+    ctx.fillStyle = '#1E293B'; ctx.font = '900 12px Nunito'; ctx.textAlign = 'center';
     ctx.fillText(v, x + barW/2, y - 4);
-    ctx.fillStyle = '#334155'; ctx.font = '10px Nunito';
+    ctx.fillStyle = '#334155'; ctx.font = '11px Nunito';
     ctx.fillText(labels[i], x + barW/2, h - padB + 12);
   });
 }
@@ -3377,16 +4113,70 @@ function histChart(ctx, boundaries, values, color, w, h) {
     ctx.fillRect(x, y, barW, barH);
     ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 2;
     ctx.strokeRect(x, y, barW, barH);
-    ctx.fillStyle = '#1E293B'; ctx.font = '900 10px Nunito'; ctx.textAlign = 'center';
+    ctx.fillStyle = '#1E293B'; ctx.font = '900 12px Nunito'; ctx.textAlign = 'center';
     ctx.fillText(v, x + barW/2, y - 4);
   });
   boundaries.forEach((b,i) => {
     const x = padL + i*barW;
     ctx.strokeStyle = '#CBD5E1'; ctx.lineWidth = 1;
     ctx.beginPath(); ctx.moveTo(x, h-padB); ctx.lineTo(x, h-padB+4); ctx.stroke();
-    ctx.fillStyle = '#334155'; ctx.font = '9px Nunito'; ctx.textAlign = 'center';
+    ctx.fillStyle = '#334155'; ctx.font = '10.5px Nunito'; ctx.textAlign = 'center';
     ctx.fillText(b, x, h - padB + 13);
   });
+}
+
+function lineChartSimple(ctx, labels, values, color, w, h) {
+  const padL = 30, padB = 25, padT = 16;
+  const chartW = w - padL - 10, chartH = h - padB - padT;
+  const max = Math.max(...values) * 1.15, min = Math.min(...values) * 0.85;
+  const gap = chartW / (values.length - 1);
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle = '#94A3B8'; ctx.beginPath();
+  ctx.moveTo(padL, padT); ctx.lineTo(padL, h-padB); ctx.lineTo(w-5, h-padB); ctx.stroke();
+  ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.beginPath();
+  values.forEach((v,i) => {
+    const x = padL + i*gap, y = h - padB - ((v-min)/(max-min))*chartH;
+    if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+  });
+  ctx.stroke();
+  values.forEach((v,i) => {
+    const x = padL + i*gap, y = h - padB - ((v-min)/(max-min))*chartH;
+    ctx.beginPath(); ctx.arc(x,y,3,0,7); ctx.fillStyle = color; ctx.fill();
+    ctx.fillStyle = '#1E293B'; ctx.font = '900 13px Nunito'; ctx.textAlign = 'center';
+    ctx.fillText(v, x, y-7);
+    ctx.fillStyle = '#334155'; ctx.font = '15px Nunito';
+    ctx.fillText(labels[i], x, h-padB+12);
+  });
+}
+
+function scatterChart(ctx, points, color, w, h, scale) {
+  scale = scale || 1;
+  const padL = 30*scale, padB = 25*scale, padT = 16*scale;
+  const chartW = w - padL - 10*scale, chartH = h - padB - padT;
+  const xs = points.map(p=>p[0]), ys = points.map(p=>p[1]);
+  const xMinData = Math.min(...xs), xMaxData = Math.max(...xs);
+  const xMin = xMinData - 1, xMax = xMaxData + 1;
+  const yMinData = Math.min(...ys), yMaxData = Math.max(...ys);
+  const yMin = yMinData - 1, yMax = yMaxData + 1;
+  ctx.clearRect(0,0,w,h);
+  ctx.strokeStyle = '#94A3B8'; ctx.lineWidth = scale; ctx.beginPath();
+  ctx.moveTo(padL, padT); ctx.lineTo(padL, h-padB); ctx.lineTo(w-5*scale, h-padB); ctx.stroke();
+  points.forEach(([x,y]) => {
+    const px = padL + ((x-xMin)/(xMax-xMin))*chartW;
+    const py = h - padB - ((y-yMin)/(yMax-yMin))*chartH;
+    ctx.beginPath(); ctx.arc(px,py,4*scale,0,7); ctx.fillStyle = color; ctx.globalAlpha = 0.8; ctx.fill(); ctx.globalAlpha = 1;
+  });
+  const yStep = (yMaxData - yMinData) > 8 ? 2 : 1;
+  for (let t = yMinData; t <= yMaxData; t += yStep) {
+    const y = h - padB - ((t-yMin)/(yMax-yMin))*chartH;
+    ctx.fillStyle = '#334155'; ctx.font = (10.5*scale) + 'px Nunito'; ctx.textAlign = 'right';
+    ctx.fillText(t, padL-6*scale, y+3*scale);
+  }
+  for (let t = xMinData; t <= xMaxData; t++) {
+    const x = padL + ((t-xMin)/(xMax-xMin))*chartW;
+    ctx.fillStyle = '#334155'; ctx.font = (10.5*scale) + 'px Nunito'; ctx.textAlign = 'center';
+    ctx.fillText(t, x, h-padB+12*scale);
+  }
 }
 
 function pieChart(ctx, labels, values, colors, w, h) {
@@ -3413,7 +4203,7 @@ function pieChart(ctx, labels, values, colors, w, h) {
   const legY = cy + r + 24;
   const totalW = labels.reduce((a,l,i)=> a + ctx.measureText(l+' ('+values[i]+')').width + 26, 0);
   let lx = cx - totalW/2;
-  ctx.font = '10px Nunito'; ctx.textAlign = 'left';
+  ctx.font = '11px Nunito'; ctx.textAlign = 'left';
   labels.forEach((lb,i) => {
     ctx.fillStyle = colors[i];
     ctx.fillRect(lx, legY-8, 10, 10);
@@ -3445,9 +4235,9 @@ const drawGraf = {
       ctx.strokeStyle='#10B981'; ctx.lineWidth=3;
       ctx.beginPath(); ctx.moveTo(x,h-padB); ctx.lineTo(x,y); ctx.stroke();
       ctx.beginPath(); ctx.arc(x,y,3,0,7); ctx.fillStyle='#10B981'; ctx.fill();
-      ctx.fillStyle='#1E293B'; ctx.font='900 10px Nunito'; ctx.textAlign='center';
+      ctx.fillStyle='#1E293B'; ctx.font='900 12px Nunito'; ctx.textAlign='center';
       ctx.fillText(v, x, y-7);
-      ctx.fillStyle='#334155'; ctx.font='10px Nunito';
+      ctx.fillStyle='#334155'; ctx.font='11px Nunito';
       ctx.fillText(labels[i], x, h-padB+12);
     });
   },
@@ -3469,11 +4259,29 @@ const drawGraf = {
       const h1=(m[i]/max)*chartH, h2=(f[i]/max)*chartH;
       ctx.fillStyle='#EC4899'; ctx.fillRect(x0, h-padB-h1, bw, h1);
       ctx.fillStyle='#F9A8D4'; ctx.fillRect(x0+bw+4, h-padB-h2, bw, h2);
-      ctx.fillStyle='#1E293B'; ctx.font='900 9px Nunito'; ctx.textAlign='center';
+      ctx.fillStyle='#1E293B'; ctx.font='900 11px Nunito'; ctx.textAlign='center';
       ctx.fillText(m[i], x0+bw/2, h-padB-h1-4);
       ctx.fillText(f[i], x0+bw+4+bw/2, h-padB-h2-4);
-      ctx.fillStyle='#334155'; ctx.font='10px Nunito';
+      ctx.fillStyle='#334155'; ctx.font='11px Nunito';
       ctx.fillText(lb, x0+bw+2, h-padB+12);
+    });
+    const ctxb = document.getElementById('chartG4b').getContext('2d');
+    const wb=260,hb=160,padLb=30,padBb=25,padTb=16;
+    const maxb=Math.max(m[0]+f[0], m[1]+f[1])*1.15;
+    const chartWb=wb-padLb-10, chartHb=hb-padBb-padTb, gapb=chartWb/labels.length;
+    ctxb.clearRect(0,0,wb,hb);
+    ctxb.strokeStyle='#94A3B8'; ctxb.beginPath();
+    ctxb.moveTo(padLb,padTb); ctxb.lineTo(padLb,hb-padBb); ctxb.lineTo(wb-5,hb-padBb); ctxb.stroke();
+    labels.forEach((lb,i)=>{
+      const bw=gapb*0.45, x0=padLb+i*gapb+gapb*0.28;
+      const h1=(m[i]/maxb)*chartHb, h2=(f[i]/maxb)*chartHb;
+      ctxb.fillStyle='#EC4899'; ctxb.fillRect(x0, hb-padBb-h1, bw, h1);
+      ctxb.fillStyle='#F9A8D4'; ctxb.fillRect(x0, hb-padBb-h1-h2, bw, h2);
+      ctxb.fillStyle='#FFFFFF'; ctxb.font='900 11px Nunito'; ctxb.textAlign='center';
+      ctxb.fillText(m[i], x0+bw/2, hb-padBb-h1/2+3);
+      ctxb.fillText(f[i], x0+bw/2, hb-padBb-h1-h2/2+3);
+      ctxb.fillStyle='#334155'; ctxb.font='11px Nunito';
+      ctxb.fillText(lb, x0+bw/2, hb-padBb+12);
     });
   },
   g5: () => {
@@ -3494,9 +4302,9 @@ const drawGraf = {
     values.forEach((v,i)=>{
       const x=padL+i*gap, y=h-padB-((v-min)/(max-min))*chartH;
       ctx.beginPath(); ctx.arc(x,y,3,0,7); ctx.fillStyle='#8B5CF6'; ctx.fill();
-      ctx.fillStyle='#1E293B'; ctx.font='900 9px Nunito'; ctx.textAlign='center';
+      ctx.fillStyle='#1E293B'; ctx.font='900 11px Nunito'; ctx.textAlign='center';
       ctx.fillText(v, x, y-7);
-      ctx.fillStyle='#334155'; ctx.font='9px Nunito';
+      ctx.fillStyle='#334155'; ctx.font='10.5px Nunito';
       ctx.fillText(labels[i], x, h-padB+12);
     });
   },
@@ -3507,6 +4315,17 @@ const drawGraf = {
   g7: () => {
     const ctx = document.getElementById('chartG7').getContext('2d');
     barChart(ctx, ['Adm.','Direito','Enferm.','Engenh.'], [320,280,195,410], '#DC2626', 260, 160);
+  },
+  g8: () => {
+    const ctx = document.getElementById('chartG8').getContext('2d');
+    const dadosG8 = [[4,9],[5,8],[5,9],[6,7],[6,6],[7,5],[7,6],[8,4],[8,3],[9,2],[9,3],[6,8]];
+    scatterChart(ctx, dadosG8, '#0891B2', 260, 160);
+    const tbody = document.getElementById('g8-tabela');
+    tbody.innerHTML = dadosG8.map((d,i) =>
+      '<tr><td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #A5F3FC">' + (i+1) + '</td>' +
+      '<td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #A5F3FC">' + d[0] + '</td>' +
+      '<td style="padding:.25rem .5rem;text-align:center;border-bottom:1px solid #A5F3FC">' + d[1] + '</td></tr>'
+    ).join('');
   }
 };
 </script>
