@@ -2896,7 +2896,7 @@ function conferirLacunasAba3() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    const correct = val === answers[id];
+    const correct = numEq(val, answers[id]);
     el.classList.remove('ok', 'err');
     el.classList.add(correct ? 'ok' : 'err');
     if (!correct) allOk = false;
@@ -2929,7 +2929,7 @@ function conferirLacunasAba5() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    const correct = val === answers[id];
+    const correct = numEq(val, answers[id]);
     el.classList.remove('ok', 'err');
     el.classList.add(correct ? 'ok' : 'err');
     if (!correct) allOk = false;
@@ -2953,7 +2953,7 @@ function conferirLacunasAba3b() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    const correct = val === answers[id];
+    const correct = numEq(val, answers[id]);
     el.classList.remove('ok', 'err');
     el.classList.add(correct ? 'ok' : 'err');
     if (!correct) allOk = false;
@@ -2987,7 +2987,7 @@ function conferirLacunas() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    const correct = val === answers[id];
+    const correct = numEq(val, answers[id]);
     el.classList.remove('ok', 'err');
     el.classList.add(correct ? 'ok' : 'err');
     if (!correct) allOk = false;
@@ -3020,7 +3020,7 @@ function conferirLacunasPadaria() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    const correct = val === answers[id];
+    const correct = numEq(val, answers[id]);
     el.classList.remove('ok', 'err');
     el.classList.add(correct ? 'ok' : 'err');
     if (!correct) allOk = false;
@@ -3593,6 +3593,18 @@ function chkVF(id, wrapId, chosen, correct, explain) {
   fb.className = 'feedback '+(isOk?'ok':'err');
 }
 
+function numEq(raw, expected) {
+  const clean = s => parseFloat(String(s).trim().replace(',', '.').replace('%', ''));
+  const a = clean(raw), b = clean(expected);
+  if (isNaN(a) || isNaN(b)) return false;
+  if (Number.isInteger(b)) {
+    // Resposta esperada é um número redondo — exige precisão exata (só tolera erro de ponto flutuante)
+    return Math.abs(a - b) < 0.005;
+  }
+  // Resposta esperada já tem casas decimais (normalmente arredondada de uma dízima) — tolera até 1 casa decimal
+  return Math.round(a * 10) === Math.round(b * 10);
+}
+
 function marcarCampo(id, ok) {
   const el = document.getElementById(id);
   el.classList.remove('ok','err'); el.classList.add(ok ? 'ok' : 'err');
@@ -3602,7 +3614,7 @@ function marcarCampo(id, ok) {
 function conferirEx8a() {
   const ok1 = marcarCampo('ex8-pop', /\b300\b/.test(document.getElementById('ex8-pop').value));
   const ok2 = marcarCampo('ex8-amostra', /\b30\b/.test(document.getElementById('ex8-amostra').value) && !/\b300\b/.test(document.getElementById('ex8-amostra').value));
-  const ok3 = marcarCampo('ex8-amostra-pct', document.getElementById('ex8-amostra-pct').value.trim().replace(',', '.').replace('%','') === '10');
+  const ok3 = marcarCampo('ex8-amostra-pct', numEq(document.getElementById('ex8-amostra-pct').value, '10'));
   const fb = document.getElementById('ex8a-fb');
   const ok = ok1 && ok2 && ok3;
   const visual = regraTresVisualHTML('pacientes', '300', '30', '100%', 'x%', '300 · x = 30 · 100', 'x = 3000 ÷ 300 = 10%');
@@ -3627,7 +3639,7 @@ function conferirEx8c() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    if (!marcarCampo(id, val === answers[id])) allOk = false;
+    if (!marcarCampo(id, numEq(val, answers[id]))) allOk = false;
   });
   const fb = document.getElementById('ex8c-fb');
   fb.className = 'feedback ' + (allOk ? 'ok' : 'err');
@@ -3635,8 +3647,8 @@ function conferirEx8c() {
 }
 
 function conferirEx8d() {
-  const ok1 = marcarCampo('ex8-pct', document.getElementById('ex8-pct').value.trim().replace(',','.') === '40');
-  const ok2 = marcarCampo('ex8-proj', document.getElementById('ex8-proj').value.trim().replace(',','.') === '120');
+  const ok1 = marcarCampo('ex8-pct', numEq(document.getElementById('ex8-pct').value, '40'));
+  const ok2 = marcarCampo('ex8-proj', numEq(document.getElementById('ex8-proj').value, '120'));
   const fb = document.getElementById('ex8d-fb');
   const ok = ok1 && ok2;
   const visual = regraTresVisualHTML('pacientes', '300', 'x', '100%', '40%', '300 · 40 = x · 100', 'x = 12000 ÷ 100 = 120');
@@ -3650,7 +3662,7 @@ function conferirEx8f() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    if (!marcarCampo(id, val === answers[id])) allOk = false;
+    if (!marcarCampo(id, numEq(val, answers[id]))) allOk = false;
   });
   const fb = document.getElementById('ex8f-fb');
   const visualMargin = regraTresVisualHTML('', '30 pacientes', '15 homens', '100%', 'x%', '30 · x = 15 · 100', 'x = 1500 ÷ 30 = 50%');
@@ -3665,7 +3677,7 @@ function conferirEx8f() {
 function conferirExfA() {
   const ok1 = marcarCampo('exf-pop', /\b200\b/.test(document.getElementById('exf-pop').value));
   const ok2 = marcarCampo('exf-amostra', /\b30\b/.test(document.getElementById('exf-amostra').value) && !/\b200\b/.test(document.getElementById('exf-amostra').value));
-  const ok3 = marcarCampo('exf-amostra-pct', document.getElementById('exf-amostra-pct').value.trim().replace(',', '.').replace('%','') === '15');
+  const ok3 = marcarCampo('exf-amostra-pct', numEq(document.getElementById('exf-amostra-pct').value, '15'));
   const fb = document.getElementById('exfa-fb');
   const ok = ok1 && ok2 && ok3;
   const visual = regraTresVisualHTML('pacientes', '200', '30', '100%', 'x%', '200 · x = 30 · 100', 'x = 3000 ÷ 200 = 15%');
@@ -3690,7 +3702,7 @@ function conferirExfC() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    if (!marcarCampo(id, val === answers[id])) allOk = false;
+    if (!marcarCampo(id, numEq(val, answers[id]))) allOk = false;
   });
   const fb = document.getElementById('exfc-fb');
   fb.className = 'feedback ' + (allOk ? 'ok' : 'err');
@@ -3698,8 +3710,8 @@ function conferirExfC() {
 }
 
 function conferirExfD() {
-  const ok1 = marcarCampo('exf-pct', document.getElementById('exf-pct').value.trim().replace(',','.') === '13.3');
-  const ok2 = marcarCampo('exf-proj', document.getElementById('exf-proj').value.trim().replace(',','.') === '27');
+  const ok1 = marcarCampo('exf-pct', numEq(document.getElementById('exf-pct').value, '13.3'));
+  const ok2 = marcarCampo('exf-proj', numEq(document.getElementById('exf-proj').value, '27'));
   const fb = document.getElementById('exfd-fb');
   const ok = ok1 && ok2;
   const visual = regraTresVisualHTML('pacientes', '30', '200', '4', 'x', '30 · x = 200 · 4', 'x = 800 ÷ 30 ≈ 26,7 ≈ 27 pacientes');
@@ -3713,7 +3725,7 @@ function conferirExfF() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    if (!marcarCampo(id, val === answers[id])) allOk = false;
+    if (!marcarCampo(id, numEq(val, answers[id]))) allOk = false;
   });
   const fb = document.getElementById('exff-fb');
   const visualMargin = regraTresVisualHTML('', '30 pacientes', '9 rápida', '100%', 'x%', '30 · x = 9 · 100', 'x = 900 ÷ 30 = 30%');
@@ -3728,7 +3740,7 @@ function conferirExfF() {
 function conferirExnA() {
   const ok1 = marcarCampo('exn-pop', /\b250\b/.test(document.getElementById('exn-pop').value));
   const ok2 = marcarCampo('exn-amostra', /\b25\b/.test(document.getElementById('exn-amostra').value) && !/\b250\b/.test(document.getElementById('exn-amostra').value));
-  const ok3 = marcarCampo('exn-amostra-pct', document.getElementById('exn-amostra-pct').value.trim().replace(',', '.').replace('%','') === '10');
+  const ok3 = marcarCampo('exn-amostra-pct', numEq(document.getElementById('exn-amostra-pct').value, '10'));
   const fb = document.getElementById('exna-fb');
   const ok = ok1 && ok2 && ok3;
   const visual = regraTresVisualHTML('pacientes', '250', '25', '100%', 'x%', '250 · x = 25 · 100', 'x = 2500 ÷ 250 = 10%');
@@ -3753,7 +3765,7 @@ function conferirExnC() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    if (!marcarCampo(id, val === answers[id])) allOk = false;
+    if (!marcarCampo(id, numEq(val, answers[id]))) allOk = false;
   });
   const fb = document.getElementById('exnc-fb');
   fb.className = 'feedback ' + (allOk ? 'ok' : 'err');
@@ -3761,8 +3773,8 @@ function conferirExnC() {
 }
 
 function conferirExnD() {
-  const ok1 = marcarCampo('exn-pct', document.getElementById('exn-pct').value.trim().replace(',','.') === '40');
-  const ok2 = marcarCampo('exn-proj', document.getElementById('exn-proj').value.trim().replace(',','.') === '100');
+  const ok1 = marcarCampo('exn-pct', numEq(document.getElementById('exn-pct').value, '40'));
+  const ok2 = marcarCampo('exn-proj', numEq(document.getElementById('exn-proj').value, '100'));
   const fb = document.getElementById('exnd-fb');
   const ok = ok1 && ok2;
   const visual = regraTresVisualHTML('', '250 pacientes', 'x', '100%', '40%', '250 · 40 = x · 100', 'x = 10000 ÷ 100 = 100');
@@ -3776,7 +3788,7 @@ function conferirExnF() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    if (!marcarCampo(id, val === answers[id])) allOk = false;
+    if (!marcarCampo(id, numEq(val, answers[id]))) allOk = false;
   });
   const fb = document.getElementById('exnf-fb');
   const visualMargin = regraTresVisualHTML('', '25 pacientes', '5 sobrepeso', '100%', 'x%', '25 · x = 5 · 100', 'x = 500 ÷ 25 = 20%');
@@ -3791,7 +3803,7 @@ function conferirExnF() {
 function conferirExeA() {
   const ok1 = marcarCampo('exe-pop', /\b100\b/.test(document.getElementById('exe-pop').value));
   const ok2 = marcarCampo('exe-amostra', /\b20\b/.test(document.getElementById('exe-amostra').value) && !/\b100\b/.test(document.getElementById('exe-amostra').value));
-  const ok3 = marcarCampo('exe-amostra-pct', document.getElementById('exe-amostra-pct').value.trim().replace(',', '.').replace('%','') === '20');
+  const ok3 = marcarCampo('exe-amostra-pct', numEq(document.getElementById('exe-amostra-pct').value, '20'));
   const fb = document.getElementById('exea-fb');
   const ok = ok1 && ok2 && ok3;
   const visual = regraTresVisualHTML('pacientes', '100', '20', '100%', 'x%', '100 · x = 20 · 100', 'x = 2000 ÷ 100 = 20%');
@@ -3816,7 +3828,7 @@ function conferirExeC() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    if (!marcarCampo(id, val === answers[id])) allOk = false;
+    if (!marcarCampo(id, numEq(val, answers[id]))) allOk = false;
   });
   const fb = document.getElementById('exec-fb');
   fb.className = 'feedback ' + (allOk ? 'ok' : 'err');
@@ -3824,8 +3836,8 @@ function conferirExeC() {
 }
 
 function conferirExeD() {
-  const ok1 = marcarCampo('exe-pct', document.getElementById('exe-pct').value.trim().replace(',','.') === '35');
-  const ok2 = marcarCampo('exe-proj', document.getElementById('exe-proj').value.trim().replace(',','.') === '35');
+  const ok1 = marcarCampo('exe-pct', numEq(document.getElementById('exe-pct').value, '35'));
+  const ok2 = marcarCampo('exe-proj', numEq(document.getElementById('exe-proj').value, '35'));
   const fb = document.getElementById('exed-fb');
   const ok = ok1 && ok2;
   const visual = regraTresVisualHTML('', '100 pacientes', 'x', '100%', '35%', '100 · 35 = x · 100', 'x = 3500 ÷ 100 = 35');
@@ -3839,7 +3851,7 @@ function conferirExeF() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    if (!marcarCampo(id, val === answers[id])) allOk = false;
+    if (!marcarCampo(id, numEq(val, answers[id]))) allOk = false;
   });
   const fb = document.getElementById('exef-fb');
   const visualMargin = regraTresVisualHTML('', '20 pacientes', '5 hipertensão', '100%', 'x%', '20 · x = 5 · 100', 'x = 500 ÷ 20 = 25%');
@@ -3854,7 +3866,7 @@ function conferirExeF() {
 function conferirExpA() {
   const ok1 = marcarCampo('exp-pop', /\b80\b/.test(document.getElementById('exp-pop').value));
   const ok2 = marcarCampo('exp-amostra', /\b16\b/.test(document.getElementById('exp-amostra').value) && !/\b80\b/.test(document.getElementById('exp-amostra').value));
-  const ok3 = marcarCampo('exp-amostra-pct', document.getElementById('exp-amostra-pct').value.trim().replace(',', '.').replace('%','') === '20');
+  const ok3 = marcarCampo('exp-amostra-pct', numEq(document.getElementById('exp-amostra-pct').value, '20'));
   const fb = document.getElementById('expa-fb');
   const ok = ok1 && ok2 && ok3;
   const visual = regraTresVisualHTML('farmacêuticos', '80', '16', '100%', 'x%', '80 · x = 16 · 100', 'x = 1600 ÷ 80 = 20%');
@@ -3879,7 +3891,7 @@ function conferirExpC() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    if (!marcarCampo(id, val === answers[id])) allOk = false;
+    if (!marcarCampo(id, numEq(val, answers[id]))) allOk = false;
   });
   const fb = document.getElementById('expc-fb');
   fb.className = 'feedback ' + (allOk ? 'ok' : 'err');
@@ -3887,8 +3899,8 @@ function conferirExpC() {
 }
 
 function conferirExpD() {
-  const ok1 = marcarCampo('exp-pct', document.getElementById('exp-pct').value.trim().replace(',','.') === '37.5');
-  const ok2 = marcarCampo('exp-proj', document.getElementById('exp-proj').value.trim().replace(',','.') === '30');
+  const ok1 = marcarCampo('exp-pct', numEq(document.getElementById('exp-pct').value, '37.5'));
+  const ok2 = marcarCampo('exp-proj', numEq(document.getElementById('exp-proj').value, '30'));
   const fb = document.getElementById('expd-fb');
   const ok = ok1 && ok2;
   const visual = regraTresVisualHTML('', '80 farmacêuticos', 'x', '100%', '37,5%', '80 · 37,5 = x · 100', 'x = 3000 ÷ 100 = 30');
@@ -3902,7 +3914,7 @@ function conferirExpF() {
   Object.keys(answers).forEach(id => {
     const el = document.getElementById(id);
     const val = el.value.trim().replace(',', '.');
-    if (!marcarCampo(id, val === answers[id])) allOk = false;
+    if (!marcarCampo(id, numEq(val, answers[id]))) allOk = false;
   });
   const fb = document.getElementById('expf-fb');
   const visualMargin = regraTresVisualHTML('', '16 farmacêuticos', '4 sêniores', '100%', 'x%', '16 · x = 4 · 100', 'x = 400 ÷ 16 = 25%');
@@ -3951,7 +3963,7 @@ function recolherR3(tipo) {
 function conferirR3() {
   const el = document.getElementById('r3-resp');
   const val = el.value.trim().replace(',', '.');
-  const correct = val === '324';
+  const correct = numEq(val, '324');
   el.classList.remove('ok','err'); el.classList.add(correct ? 'ok' : 'err');
   const fb = document.getElementById('r3-fb');
   const visual = '<div style="display:flex;justify-content:center;align-items:center;gap:.8rem;font-weight:900;font-size:1.05rem;margin:.5rem 0"><div style="text-align:right;line-height:1.8">5 sessões<br>3 sessões</div><div style="font-size:1.5rem;color:#10B981">✕</div><div style="text-align:left;line-height:1.8">R$ 540<br>x</div></div><p style="text-align:center;font-weight:900;font-size:1.05rem;margin-top:.2rem">5 · x = 540 · 3</p><p style="text-align:center;font-weight:900;font-size:1.05rem;margin-top:.2rem">5x = 1620</p><p style="text-align:center;font-weight:900;font-size:1.05rem;margin-top:.2rem">x = 1620 ÷ 5 = R$ 324</p>';
@@ -4044,7 +4056,7 @@ function conferirBifeItem(n) {
   };
   const el = document.getElementById('bife' + n);
   const val = el.value.trim().replace(',', '.');
-  const correct = val === answers[n];
+  const correct = numEq(val, answers[n]);
   el.classList.remove('ok','err'); el.classList.add(correct ? 'ok' : 'err');
   const fb = document.getElementById('bife' + n + '-fb');
   fb.className = 'feedback ' + (correct ? 'ok' : 'err');
