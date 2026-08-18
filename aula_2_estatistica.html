@@ -1,0 +1,2587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estatística Descritiva</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Fredoka+One&display=swap" rel="stylesheet">
+<style>
+:root {
+  --azul:   #3B82F6;
+  --verde:  #10B981;
+  --laranja:#F59E0B;
+  --rosa:   #EC4899;
+  --roxo:   #8B5CF6;
+  --fundo:  #F0F9FF;
+  --card:   #FFFFFF;
+  --texto:  #1E293B;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Nunito', sans-serif; background: var(--fundo); color: var(--texto); min-height: 100vh; }
+
+header {
+  background: linear-gradient(135deg, #10B981 0%, #3B82F6 100%);
+  color: white; text-align: center; padding: 1.2rem 1rem 1.8rem;
+  position: relative; overflow: hidden;
+}
+header::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at 20% 80%, rgba(255,255,255,.15) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(255,255,255,.10) 0%, transparent 50%);
+}
+header h1 { font-family: 'Fredoka One', cursive; font-size: clamp(2rem, 6vw, 3.5rem); letter-spacing: .5px; position: relative; }
+header p  { font-size: 1.1rem; margin-top: .5rem; opacity: .9; position: relative; }
+
+nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .8rem 1rem; background: white; box-shadow: 0 2px 12px rgba(0,0,0,.07);
+  position: sticky; top: 0; z-index: 100; gap: .5rem;
+}
+.nav-arrow {
+  font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.3rem;
+  border: none; border-radius: 12px; padding: .5rem 1rem;
+  cursor: pointer; transition: all .15s; background: #E2E8F0; color: #475569; flex-shrink: 0;
+}
+.nav-arrow:hover:not(:disabled) { background: var(--azul); color: white; }
+.nav-arrow:disabled { opacity: 0.3; cursor: default; }
+.nav-label {
+  font-family: 'Nunito', sans-serif; font-weight: 900; font-size: .82rem; line-height: 1.2;
+  color: white; background: var(--azul); border-radius: 12px; padding: .5rem .6rem;
+  text-align: center; flex: 1; white-space: normal; overflow: visible; word-break: break-word;
+}
+
+section { display: none; padding: 1.5rem 1rem 3rem; max-width: 860px; margin: 0 auto; }
+section.active { display: block; animation: fadeUp .4s ease; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+.card {
+  background: var(--card); border-radius: 20px; padding: 1.5rem 1.6rem;
+  margin-bottom: 1.2rem; box-shadow: 0 4px 20px rgba(0,0,0,.07);
+  border-left: 6px solid var(--azul);
+}
+.card.verde   { border-color: var(--verde); }
+.card.laranja { border-color: var(--laranja); }
+.card.roxo    { border-color: var(--roxo); }
+.card.rosa    { border-color: var(--rosa); }
+.card.azul    { border-color: var(--azul); }
+.card h2 { font-family: 'Fredoka One', cursive; font-size: 1.5rem; margin-bottom: .6rem; display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+
+/* ── DOIS BLOCOS LADO A LADO ── */
+.duo {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.2rem;
+}
+@media (max-width: 540px) { .duo { grid-template-columns: 1fr; } }
+
+.duo-block {
+  border-radius: 18px; padding: 1.3rem 1.4rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,.07);
+}
+.duo-block h3 { font-family: 'Fredoka One', cursive; font-size: 1.6rem; margin-bottom: .5rem; }
+.duo-block p  { font-size: 1rem; line-height: 1.6; font-weight: 700; }
+.duo-block ul { padding-left: 1.2rem; font-size: .97rem; line-height: 1.8; font-weight: 700; }
+
+.bloco-pop  { background: #EFF6FF; border: 2px solid #BFDBFE; }
+.bloco-pop h3 { color: #1D4ED8; }
+.bloco-samp { background: #ECFDF5; border: 2px solid #A7F3D0; }
+.bloco-samp h3 { color: #059669; }
+.bloco-roxo { background: #F5F3FF; border: 2px solid #DDD6FE; }
+.bloco-roxo h3 { color: #6D28D9; }
+
+.tag {
+  display: inline-block; border-radius: 8px; font-size: 1rem;
+  font-weight: 900; padding: .15rem .7rem; margin-left: .3rem; vertical-align: middle;
+}
+.tag-azul  { background: #DBEAFE; color: #1E3A8A; }
+.tag-verde { background: #D1FAE5; color: #065F46; }
+
+/* ── FRASE DESTAQUE ── */
+.destaque {
+  background: #1E293B; color: white; border-radius: 16px;
+  padding: 1rem 1.4rem; margin-bottom: 1.2rem;
+  font-size: 1.15rem; font-weight: 900; line-height: 1.5; text-align: center;
+}
+.destaque .hl { color: #34D399; }
+.destaque .hl2 { color: #60A5FA; }
+
+/* ── ANIMAÇÃO ── */
+.slider-wrap { margin: .8rem 0 1rem; }
+.slider-wrap label { font-weight: 900; font-size: 1rem; display: block; margin-bottom: .4rem; color: #475569; }
+input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border-radius: 4px; touch-action: none; }
+.slider-val { display: inline-block; background: var(--verde); color: white; border-radius: 8px; padding: .1rem .6rem; font-weight: 900; font-size: 1.2rem; margin-left: .3rem; }
+
+.anim-panels { display: flex; gap: .7rem; margin: .8rem 0; }
+.anim-panel {
+  flex: 1; background: #F8FAFC; border-radius: 14px;
+  padding: .7rem; border: 2px solid #E2E8F0;
+}
+.anim-panel-title {
+  font-family: 'Fredoka One', cursive; font-size: .88rem;
+  text-align: center; margin-bottom: .5rem;
+}
+.anim-panel-title.azul  { color: #1D4ED8; }
+.anim-panel-title.verde { color: #059669; }
+
+.pop-grid { display: grid; grid-template-columns: repeat(6,1fr); gap: 3px; }
+.person {
+  display: flex; align-items: center; justify-content: center;
+  background: #E2E8F0; border-radius: 6px; padding: 3px 1px;
+  border: 2px solid transparent; transition: all .3s ease;
+  position: relative;
+}
+.person.selected { background: #D1FAE5; border-color: #10B981; transform: scale(1.08); }
+.person.faded    { opacity: .18; }
+.person.marcado-x::after {
+  content: '✕'; position: absolute; top: -5px; right: -5px;
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #1E293B; color: white; font-size: 9px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center; line-height: 1;
+}
+
+.sample-panel { flex: 0 0 110px; }
+.sample-grid {
+  display: flex; flex-wrap: wrap; gap: 4px; justify-content: center;
+  min-height: 60px; align-items: flex-start; padding-top: 2px;
+}
+.sample-person {
+  display: flex; align-items: center; justify-content: center;
+  background: #D1FAE5; border: 2px solid #10B981; border-radius: 6px;
+  padding: 3px 3px; animation: popIn .22s ease both;
+}
+@keyframes popIn { from { opacity:0; transform:scale(.4); } to { opacity:1; transform:scale(1); } }
+
+.anim-info {
+  text-align: center; margin: .6rem 0; font-size: .95rem; font-weight: 900;
+  color: #475569; display: none;
+}
+.chip { display:inline-block; padding:.1rem .6rem; border-radius:7px; font-weight:900; margin:0 .2rem; }
+.chip-azul  { background:#1D4ED8; color:white; }
+.chip-verde { background:#059669; color:white; }
+
+.btn-sortear {
+  display: block; margin: .4rem auto 0;
+  font-family: 'Nunito',sans-serif; font-size: 1.1rem; font-weight: 900;
+  padding: .75rem 2rem; border: none; border-radius: 14px;
+  background: var(--verde); color: white; cursor: pointer;
+  transition: transform .15s, box-shadow .15s;
+  box-shadow: 0 4px 14px rgba(16,185,129,.35);
+}
+.btn-sortear:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(16,185,129,.45); }
+
+/* ── TABELA PARAM × ESTAT ── */
+.comp-table { width:100%; border-collapse:collapse; margin-top:.8rem; }
+.comp-table th, .comp-table td { padding:.6rem .9rem; text-align:left; font-size:.97rem; border-bottom:1px solid #E2E8F0; }
+.comp-table th { background:#F1F5F9; font-weight:900; font-size:.88rem; color:#475569; }
+.comp-table td:first-child { font-weight:700; font-size:.9rem; color:#64748B; }
+.comp-table tr:last-child td { border-bottom:none; }
+.pop-cell  { color:#1D4ED8; font-weight:900 !important; }
+.samp-cell { color:#059669; font-weight:900 !important; }
+
+/* ── EXERCÍCIOS ── */
+.ex-sep { padding: 1.1rem 0; border-top: 2px solid #E2E8F0; }
+.ex-num { font-size: .9rem; font-weight: 900; color: #94A3B8; margin-bottom: .4rem; letter-spacing: .3px; }
+.ex-q   { font-size: 1.05rem; font-weight: 700; margin-bottom: .8rem; line-height: 1.55; }
+
+.quiz-opts { display:flex; flex-direction:column; gap:.5rem; }
+.quiz-opts button {
+  font-family:'Nunito',sans-serif; font-size:.97rem; font-weight:700;
+  text-align:left; padding:.7rem 1.1rem;
+  border:2px solid #CBD5E1; border-radius:12px;
+  background:white; cursor:pointer; transition:all .18s;
+}
+.quiz-opts button.correct { background:#D1FAE5; border-color:var(--verde); }
+.quiz-opts button.wrong   { background:#FEE2E2; border-color:#EF4444; }
+@media (hover:hover) { .quiz-opts button:hover:not(:disabled) { border-color:var(--azul); background:#EFF6FF; } }
+
+.vof-wrap { display:flex; gap:.8rem; margin-bottom:.7rem; }
+.vof-wrap button {
+  font-family:'Nunito',sans-serif; font-size:1.05rem; font-weight:900;
+  padding:.8rem 1.5rem; border:2px solid #CBD5E1; border-radius:14px;
+  background:white; cursor:pointer; flex:1; transition:all .18s;
+}
+.vof-wrap button.correct { background:#D1FAE5; border-color:var(--verde); }
+.vof-wrap button.wrong   { background:#FEE2E2; border-color:#EF4444; }
+
+.feedback {
+  margin-top:.7rem; font-size:.97rem; font-weight:700;
+  padding:.55rem 1rem; border-radius:10px; display:none; line-height:1.5;
+}
+.feedback.ok  { background:#D1FAE5; color:#059669; display:block; }
+.feedback.err { background:#FEE2E2; color:#DC2626; display:block; }
+
+.pm-input {
+  width:64px; padding:.3rem .2rem; border:2px solid #CBD5E1; border-radius:8px;
+  text-align:center; font-family:'Nunito',sans-serif; font-size:.9rem; font-weight:700;
+  background:white;
+}
+.pm-input.pm-correct { border-color:var(--verde); background:#D1FAE5; }
+.pm-input.pm-wrong   { border-color:#EF4444; background:#FEE2E2; }
+.btn-conferir {
+  font-family:'Nunito',sans-serif; font-size:.95rem; font-weight:900;
+  padding:.6rem 1.3rem; border:none; border-radius:12px;
+  background:var(--azul); color:white; cursor:pointer; margin-top:.3rem;
+}
+.btn-conferir:disabled { background:#94A3B8; cursor:default; }
+
+/* ── ACCORDION · EXERCÍCIOS CONTEXTUALIZADOS POR CURSO ── */
+.acc-item {
+  border-radius: 16px; margin-bottom: .9rem; overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
+.acc-item summary {
+  list-style: none; cursor: pointer; padding: 1rem 1.2rem;
+  display: flex; align-items: center; gap: .6rem;
+  font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.02rem;
+  color: white; user-select: none;
+}
+.acc-item summary::-webkit-details-marker { display: none; }
+.acc-item summary::marker { content: ""; }
+.acc-item summary .acc-icon { font-size: 1.15rem; }
+.acc-item summary .acc-title { flex: 1; }
+.acc-item summary .acc-chevron { font-size: .85rem; transition: transform .2s ease; }
+.acc-item[open] summary .acc-chevron { transform: rotate(180deg); }
+.acc-item .acc-body { background: white; padding: 1.2rem 1.2rem 1.4rem; }
+
+.acc-roxo    summary { background: #7C3AED; }
+.acc-azulc   summary { background: #0EA5E9; }
+.acc-verdec  summary { background: #16A34A; }
+.acc-vermelho summary { background: #DC2626; }
+.acc-laranjac summary { background: #F97316; }
+
+/* ── ABA 1 · MÉDIA E EFEITO DOS EXTREMOS (gráfico de pontos) ── */
+.dot-chart-wrap { margin: 1rem 0 1.6rem; }
+.dot-chart {
+  position: relative; height: 180px; margin: 0 3rem 0 2.7rem;
+  border-left: 3px solid #CBD5E1; border-bottom: 3px solid #1E293B;
+  overflow: visible;
+}
+.dot-gridline { position: absolute; left: 0; right: 0; border-top: 1px dashed #E2E8F0; }
+.dot-tick {
+  position: absolute; left: -2.9rem; width: 2.5rem; text-align: right;
+  font-size: .74rem; font-weight: 800; color: #94A3B8; transform: translateY(50%);
+}
+.dot-chart-row { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: space-around; padding: 0 .6rem; }
+.dot-item { position: relative; height: 100%; flex: 1; display: flex; justify-content: center; }
+.dot-circle {
+  position: absolute; left: 50%; bottom: 0; transform: translate(-50%, 50%);
+  width: 31px; height: 31px; border-radius: 50%; background: #3B82F6; color: white;
+  display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: .9rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,.18); transition: bottom .35s ease, background .35s ease; z-index: 2;
+}
+.dot-circle.outlier { background: #EF4444; width: 50px; height: 50px; font-size: .98rem; }
+.dot-label {
+  position: absolute; bottom: -1.7rem; left: 50%; transform: translateX(-50%);
+  font-size: .95rem; font-weight: 900; color: #475569; white-space: nowrap;
+}
+.mean-line {
+  position: absolute; left: 0; right: 0; height: 0; border-top: 3px dashed #10B981;
+  transition: bottom .35s ease; z-index: 1;
+}
+.mean-line span {
+  position: absolute; right: -2.8rem; top: 0; transform: translateY(-50%);
+  background: #10B981; color: white; font-weight: 900; font-size: 1rem;
+  border-radius: 8px; padding: .2rem .55rem; z-index: 3; white-space: nowrap;
+}
+.mean-line.plain span {
+  background: none; color: #10B981; font-style: italic; font-weight: 900;
+  font-size: 1.05rem; padding: 0; border-radius: 0; box-shadow: none;
+}
+.media-readout {
+  display: flex; gap: .6rem; justify-content: center; margin: 1rem 0 .4rem; flex-wrap: wrap;
+}
+.media-readout .chip-media {
+  background: #1E293B; color: white; border-radius: 12px; padding: .6rem 1.1rem;
+  font-weight: 900; text-align: center; min-width: 130px;
+}
+.media-readout .chip-media .lbl { display:block; font-size: .72rem; opacity: .75; font-weight:700; margin-bottom:.15rem; }
+.media-readout .chip-media .val { font-size: 1.3rem; }
+.media-readout .chip-media.destaque-verde { background: #059669; }
+.media-readout.compact .chip-media { padding: .4rem .7rem; min-width: auto; }
+.media-readout.compact .chip-media .lbl { font-size: .6rem; margin-bottom: .1rem; }
+.media-readout.compact .chip-media .val { font-size: .95rem; }
+/* ── ABA 2 · DISPERSÃO E DESVIO PADRÃO ── */
+.sd-band {
+  position: absolute; left: 0; right: 0; background: rgba(16,185,129,.16);
+  border-top: 2px solid rgba(16,185,129,.5); border-bottom: 2px solid rgba(16,185,129,.5);
+  transition: bottom .35s ease, height .35s ease; z-index: 0;
+}
+.sd-devline {
+  position: absolute; left: 50%; width: 0; border-left: 2px dashed #94A3B8;
+  transform: translateX(-50%); transition: bottom .35s ease, height .35s ease; z-index: 1;
+}
+.dot-circle.salario { width: 40px; height: 40px; font-size: .6rem; }
+/* ── ABA 3 · GRÁFICO DE BARRAS "A MÉDIA MENTIROSA" ── */
+.grafico-com-eixo { display: flex; align-items: stretch; gap: .1rem; }
+.grafico-com-eixo .dot-chart { flex: 1; min-width: 0; }
+.eixo-y-titulo {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-size: .62rem; font-weight: 900; color: #475569;
+  display: flex; align-items: center; justify-content: center;
+  white-space: nowrap; flex-shrink: 0; width: 12px;
+}
+.eixo-y-titulo.lg { font-size: .95rem; width: 18px; }
+.bar-chart2 {
+  display: flex; align-items: flex-end; justify-content: space-around;
+  gap: 4px; height: 190px; margin: 1.4rem .2rem 0 2rem; padding: 0 .1rem;
+  border-left: 3px solid #CBD5E1; border-bottom: 3px solid #1E293B; position: relative;
+  flex: 1; min-width: 0;
+}
+.bar-chart2 .dot-tick { left: -1.9rem; width: 1.7rem; font-size: .68rem; }
+.bar-col2-wrap { position: relative; flex: 1; max-width: 56px; height: 100%; }
+.bar-col2 {
+  position: absolute; left: 50%; bottom: 0; transform: translateX(-50%);
+  width: 24px; border-radius: 6px 6px 0 0; background: #3B82F6;
+  transition: height .35s ease; min-height: 3px;
+}
+.bar-col2.nuvem {
+  background-color: #BFDBFE;
+  background-image: radial-gradient(circle, rgba(255,255,255,.85) 18%, transparent 19%);
+  background-size: 9px 9px;
+}
+.bar-col2 .bar-val {
+  position: absolute; top: .25rem; left: 50%; transform: translateX(-50%);
+  font-weight: 900; font-size: .68rem; color: white; white-space: nowrap;
+}
+.bar-col2.nuvem .bar-val { color: #1E3A8A; }
+.bar-col2.outlier2 { background: #F97316; }
+.bar-name2 {
+  position: absolute; bottom: -1.6rem; left: 50%; transform: translateX(-50%);
+  font-size: .78rem; font-weight: 900; color: #475569; white-space: nowrap;
+}
+.bar-anotacao {
+  position: absolute; left: 48%; bottom: 65%; transform: translateX(-50%);
+  background: white; border-radius: 10px;
+  padding: .45rem .65rem; font-size: .9rem; font-weight: 900; color: #1E293B;
+  line-height: 1.5; white-space: nowrap; z-index: 3;
+}
+.bar-anotacao .linha-mediana { color: #64748B; }
+.em-construcao {
+  text-align: center; padding: 3rem 1rem; color: #94A3B8; font-weight: 900; font-size: 1.1rem;
+}
+.frac {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  vertical-align: middle; margin: 0 .4rem; font-size: .78em; line-height: 1.35;
+}
+.frac .num { padding: 0 .3rem .15rem; border-bottom: 3px solid currentColor; }
+.frac .den { padding: .15rem .3rem 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📊 Medidas de Tendência Central e Dispersão</h1>
+  <p>Média, Mediana, Moda, Desvio Padrão e Coeficiente de Variação</p>
+  <p style="font-size:.8rem;opacity:.65;margin-top:.4rem;font-weight:600">Desenvolvido por André Lo Feudo com apoio do Claude</p>
+</header>
+
+<nav>
+  <button class="nav-arrow" id="nav-prev" onclick="navigateSection(-1)">←</button>
+  <span class="nav-label" id="nav-label"></span>
+  <button class="nav-arrow" id="nav-next" onclick="navigateSection(1)">→</button>
+</nav>
+
+<!-- ═══════ ABA 1 · MÉDIA SIMPLES E EFEITO DOS EXTREMOS ═══════ -->
+<section id="s1">
+
+  <div class="card">
+    <h2>➕ O que é a Média?</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      A <strong>média aritmética</strong> é a medida mais usada para resumir um conjunto de dados em <strong>um único número</strong> que representa o "valor típico" do grupo.
+    </p>
+    <div class="destaque" style="margin-top:1rem">
+      Média = <span class="frac"><span class="num hl">Soma de todos os valores</span><span class="den hl2">Quantidade de valores</span></span>
+    </div>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:1rem">
+      Exemplo simples: um grupo de <strong>5 amigos</strong> tem as seguintes idades: <strong>20, 21, 22, 23 e 24</strong> anos.
+    </p>
+    <div class="dot-chart-wrap">
+      <div class="grafico-com-eixo">
+        <span class="eixo-y-titulo lg">Idades</span>
+        <div class="dot-chart" id="barChartBase" style="height:150px"></div>
+      </div>
+    </div>
+    <div class="media-readout">
+      <div class="chip-media destaque-verde">
+        <span class="lbl">MÉDIA</span>
+        <span class="val">(20+21+22+23+24) ÷ 5 = 22</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card rosa">
+    <h2>🎲 Veja na Prática: O Efeito dos Valores Extremos</h2>
+    <p style="font-size:1rem;font-weight:700;color:#475569;margin-bottom:.6rem">
+      Vamos manter 4 dos 5 amigos com <strong>20, 21, 22 e 23 anos</strong>. Agora arraste o controle abaixo para mudar a idade do <strong>5º amigo</strong> e observe o que acontece com a média.
+    </p>
+
+    <div class="dot-chart-wrap">
+      <div class="grafico-com-eixo">
+        <span class="eixo-y-titulo lg">Idades</span>
+        <div class="dot-chart" id="barChartOutlier" style="height:190px"></div>
+      </div>
+    </div>
+
+    <div class="media-readout">
+      <div class="chip-media">
+        <span class="lbl">MÉDIA ANTES</span>
+        <span class="val">22 anos</span>
+      </div>
+      <div class="chip-media destaque-verde" id="chipMediaAtual">
+        <span class="lbl">MÉDIA AGORA</span>
+        <span class="val" id="mediaAtualVal">22 anos</span>
+      </div>
+    </div>
+
+    <div class="slider-wrap" style="margin-top:1rem">
+      <label>Idade do 5º amigo: <span class="slider-val" id="sliderVal">24</span> anos</label>
+      <input type="range" id="sliderOutlier" min="24" max="90" value="24" oninput="atualizarOutlier(this.value)">
+    </div>
+
+    <div id="outlierMsg" style="display:none;margin-top:.8rem;background:#1E293B;color:white;border-radius:12px;padding:.8rem 1rem;font-size:.95rem;font-weight:700;line-height:1.6"></div>
+  </div>
+
+  <div class="card laranja">
+    <h2>⚠️ Por que isso importa?</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      Um valor muito diferente dos demais — chamado de <strong>outlier</strong> (valor extremo/discrepante) — <strong>puxa a média</strong> para perto dele, mesmo sendo só 1 elemento entre vários. Isso pode fazer a média <strong>não representar bem</strong> o grupo.
+    </p>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
+      É por isso que, mais adiante, vamos conhecer outras medidas — como a <strong>mediana</strong> — que resistem melhor a esse efeito.
+    </p>
+  </div>
+
+  <!-- EXERCÍCIOS -->
+  <h2 style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#1E293B;margin:1.4rem 0 .2rem">✏️ Exercícios — Aba 1</h2>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q1 de 4</div>
+    <p class="ex-q">"Um valor de escala GAD-7 (ansiedade) muito acima dos demais em um pequeno grupo de <strong>Psicologia</strong> pode alterar significativamente a média do grupo, mesmo sendo de apenas 1 pessoa." — Verdadeiro ou falso?</p>
+    <div class="vof-wrap" id="ex1b-vof">
+      <button onclick="chkVF('ex1b','ex1b-vof',true,true,'Verdadeiro! Esse é justamente o efeito do outlier: com poucos elementos, 1 valor extremo tem peso proporcional grande sobre a média.')">✅ Verdadeiro</button>
+      <button onclick="chkVF('ex1b','ex1b-vof',false,true,'Falso. Na verdade, quanto menor o grupo, maior o peso relativo de um valor extremo sobre a média.')">❌ Falso</button>
+    </div>
+    <div id="ex1b-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q2 de 4</div>
+    <p class="ex-q">Uma farmácia possui 5 farmacêuticos com os seguintes salários: <strong>R$ 4.000, R$ 4.200, R$ 4.100, R$ 4.300 e R$ 15.000</strong> (o dono, que também atua como farmacêutico). Qual é a média salarial da equipe, e o que ela representa?</p>
+    <div class="quiz-opts" id="ex1c-opts">
+      <button onclick="chkMC('ex1c',0,1,'R\$ 4.150 é a média excluindo o dono — mas a média tem que somar TODOS os 5 salários (o do dono incluso) e dividir por 5. Nenhum valor pode ficar de fora do cálculo.')">A) R$ 4.150 — calculando a média só dos 4 farmacêuticos, sem contar o dono</button>
+      <button onclick="chkMC('ex1c',1,1,'Correto! (4.000+4.200+4.100+4.300+15.000) ÷ 5 = R\$ 6.320. Esse valor fica bem acima do que 4 dos 5 funcionários realmente recebem (~R\$ 4.150) — o salário do dono é um outlier que distorce a média.')">B) R$ 6.320 — puxada para cima pelo outlier, não representa bem o salário típico</button>
+      <button onclick="chkMC('ex1c',2,1,'R\$ 4.200 é o valor central da lista (a mediana), não a média — a média soma todos os valores e divide por 5.')">C) R$ 4.200 — valor do meio da lista de salários</button>
+      <button onclick="chkMC('ex1c',3,1,'O outlier entra normalmente na soma — ele não é excluído nem impede o cálculo da média.')">D) Não é possível calcular a média, pois há um valor muito diferente dos demais</button>
+      <button onclick="chkMC('ex1c',4,1,'R\$ 6.450 está perto do valor certo, mas não bate com a divisão exata — confira a soma total (31.600) antes de dividir por 5.')">E) R$ 6.450 — puxada para cima pelo outlier, não representa bem o salário típico</button>
+    </div>
+    <div id="ex1c-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q3 de 4</div>
+    <p class="ex-q">Uma equipe multiprofissional registrou o tempo de atendimento (em minutos) de 20 pacientes ao longo de um turno. Os dados foram organizados na TDF abaixo. Qual o tempo médio de atendimento?</p>
+    <table style="width:100%;max-width:280px;margin:.6rem auto;border-collapse:collapse;font-size:.86rem;text-align:center">
+      <thead>
+        <tr style="background:#F1F5F9">
+          <th style="padding:.2rem .4rem;text-align:center;line-height:1.3">Tempo<br>(min)</th>
+          <th style="padding:.2rem .4rem;text-align:center">f</th>
+          <th style="padding:.2rem .4rem;text-align:center">fr</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">10</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">8</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">40%</td></tr>
+        <tr><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">15</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">2</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">10%</td></tr>
+        <tr><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">20</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">6</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">30%</td></tr>
+        <tr><td style="padding:.2rem .4rem;text-align:center">25</td><td style="padding:.2rem .4rem;text-align:center">4</td><td style="padding:.2rem .4rem;text-align:center">20%</td></tr>
+      </tbody>
+      <tfoot>
+        <tr style="font-weight:900;background:#F1F5F9">
+          <td style="padding:.2rem .4rem;text-align:center">Total</td>
+          <td style="padding:.2rem .4rem;text-align:center">20</td>
+          <td style="padding:.2rem .4rem;text-align:center">100%</td>
+        </tr>
+      </tfoot>
+    </table>
+    <div class="quiz-opts" id="ex1d-opts">
+      <button onclick="chkMC('ex1d',0,2,'Esse valor esquece o último tempo (25 min, 4 pacientes) tanto na soma quanto na contagem total. Deve ser calculada a média ponderada, usando todos os valores e o total de 20 pacientes.')">A) 14,4 minutos</button>
+      <button onclick="chkMC('ex1d',1,2,'Esse valor é a média simples dos quatro tempos (10, 15, 20 e 25), sem levar em conta quantos pacientes tiveram cada tempo. Como os tempos aparecem com frequências diferentes, deve ser calculada a média ponderada.')">B) 17,5 minutos</button>
+      <button onclick="chkMC('ex1d',2,2,'Isso mesmo! (10×8 + 15×2 + 20×6 + 25×4) ÷ 20 = 330 ÷ 20 = 16,5 minutos. Você acabou de calcular a média ponderada.')">C) 16,5 minutos</button>
+      <button onclick="chkMC('ex1d',3,2,'Aqui a soma total (330) foi dividida pelo número de classes (4) em vez do número total de pacientes (20). Deve ser calculada a média ponderada, dividindo pela soma das frequências.')">D) 82,5 minutos</button>
+      <button onclick="chkMC('ex1d',4,2,'10 minutos é a moda (o tempo que mais se repete, com 8 pacientes), não a média. Deve ser calculada a média ponderada.')">E) 10 minutos</button>
+    </div>
+    <div id="ex1d-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q4 de 4</div>
+    <p class="ex-q">Uma equipe multiprofissional registrou a idade de 20 pacientes atendidos ao longo de uma semana. Os dados foram organizados na TDF abaixo. Calcule a idade média dos pacientes.</p>
+    <p style="font-size:.9rem;color:#DC2626;font-weight:700;margin:-.5rem 0 .8rem">Dica: use o ponto médio de cada classe como idade estimada dos pacientes daquela classe.</p>
+    <table style="width:100%;max-width:300px;margin:.6rem auto;border-collapse:collapse;font-size:.86rem;text-align:center">
+      <thead>
+        <tr style="background:#F1F5F9">
+          <th style="padding:.2rem .4rem;text-align:center">Classe (anos)</th>
+          <th style="padding:.2rem .4rem;text-align:center">f</th>
+          <th style="padding:.2rem .4rem;text-align:center;line-height:1.3">PM</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">20 ⊢ 30</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0"><input type="text" inputmode="decimal" class="pm-input" id="ex1e-pm0"></td></tr>
+        <tr><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">30 ⊢ 40</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">7</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0"><input type="text" inputmode="decimal" class="pm-input" id="ex1e-pm1"></td></tr>
+        <tr><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">40 ⊢ 50</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0">6</td><td style="padding:.2rem .4rem;text-align:center;border-bottom:1px solid #E2E8F0"><input type="text" inputmode="decimal" class="pm-input" id="ex1e-pm2"></td></tr>
+        <tr><td style="padding:.2rem .4rem;text-align:center">50 ⊢ 60</td><td style="padding:.2rem .4rem;text-align:center">3</td><td style="padding:.2rem .4rem;text-align:center"><input type="text" inputmode="decimal" class="pm-input" id="ex1e-pm3"></td></tr>
+      </tbody>
+      <tfoot>
+        <tr style="font-weight:900;background:#F1F5F9">
+          <td style="padding:.2rem .4rem;text-align:center">Total</td>
+          <td style="padding:.2rem .4rem;text-align:center">20</td>
+          <td style="padding:.2rem .4rem;text-align:center"></td>
+        </tr>
+      </tfoot>
+    </table>
+    <div style="text-align:center">
+      <button class="btn-conferir" id="ex1e-confbtn" onclick="chkPM('ex1e',[25,35,45,55])">Conferir pontos médios</button>
+    </div>
+    <div id="ex1e-pmfb" class="feedback"></div>
+
+    <div id="ex1e-altswrap" data-unlocked="false" style="margin-top:1rem">
+      <div class="quiz-opts" id="ex1e-opts">
+        <button onclick="chkMCGate('ex1e-altswrap','ex1e',0,3,'Esse valor é a média simples dos quatro pontos médios (25, 35, 45 e 55), sem levar em conta quantos pacientes há em cada classe. Deve ser calculada a média ponderada.')">A) 40 anos</button>
+        <button onclick="chkMCGate('ex1e-altswrap','ex1e',1,3,'Esse valor foi calculado usando os limites inferiores das classes (20, 30, 40 e 50) em vez dos pontos médios. Deve ser calculada a média ponderada, usando o ponto médio de cada classe.')">B) 34 anos</button>
+        <button onclick="chkMCGate('ex1e-altswrap','ex1e',2,3,'35 anos é o ponto médio da classe mais frequente (30 ⊢ 40), mas isso é a moda, não a média. Deve ser calculada a média ponderada.')">C) 35 anos</button>
+        <button onclick="chkMCGate('ex1e-altswrap','ex1e',3,3,'Isso mesmo! (25×4 + 35×7 + 45×6 + 55×3) ÷ 20 = 780 ÷ 20 = 39 anos. Você acabou de calcular a média ponderada.')">D) 39 anos</button>
+        <button onclick="chkMCGate('ex1e-altswrap','ex1e',4,3,'Esse valor inverteu a associação entre frequências e classes, atribuindo o peso errado a cada ponto médio. Deve ser calculada a média ponderada, associando corretamente cada frequência à sua classe.')">E) 41 anos</button>
+      </div>
+      <div id="ex1e-fb" class="feedback"></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══════ ABA 2 · POR QUE SÓ A MÉDIA NÃO BASTA ═══════ -->
+<section id="s2">
+
+  <div class="card">
+    <h2>🤔 Uma Média Pode Enganar?</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      A média resume um grupo de dados em um único número, mas ela sozinha <strong>não conta toda a história</strong>. Dois grupos podem ter exatamente a mesma média e, ainda assim, serem bem diferentes entre si.
+    </p>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
+      Veja um exemplo com salários:
+    </p>
+  </div>
+
+  <div class="card verde">
+    <h2>💰 Mesmo Salário Médio, Dispersões Diferentes</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      Em uma pequena empresa, 3 funcionários do <strong>Grupo X</strong> ganham <strong>R$ 2.000, R$ 2.200 e R$ 2.400</strong>. Em outra empresa, 3 funcionários do <strong>Grupo Y</strong> ganham <strong>R$ 1.200, R$ 2.200 e R$ 3.200</strong>. As duas empresas têm a <strong>mesma média salarial: R$ 2.200</strong>.
+    </p>
+
+    <div class="duo" style="margin-top:1rem">
+      <div>
+        <p style="text-align:center;font-weight:900;color:#1E293B;margin-bottom:.3rem">Grupo X</p>
+        <div class="dot-chart-wrap"><div class="dot-chart" id="chartSalarioX" style="height:170px"></div></div>
+      </div>
+      <div>
+        <p style="text-align:center;font-weight:900;color:#1E293B;margin-bottom:.3rem">Grupo Y</p>
+        <div class="dot-chart-wrap"><div class="dot-chart" id="chartSalarioY" style="height:170px"></div></div>
+      </div>
+    </div>
+
+    <div class="media-readout">
+      <div class="chip-media">
+        <span class="lbl">GRUPO X · DESVIO PADRÃO</span>
+        <span class="val" id="sdXVal">≈ R$ 163</span>
+      </div>
+      <div class="chip-media" style="background:#EF4444">
+        <span class="lbl">GRUPO Y · DESVIO PADRÃO</span>
+        <span class="val" id="sdYVal">≈ R$ 816</span>
+      </div>
+    </div>
+
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
+      A média não diferencia os dois grupos — só o desvio padrão mostra que os salários do Grupo Y estão muito mais espalhados.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>📏 Por que só a Média não Basta</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      Você acabou de ver isso com os salários: dois grupos com <strong>exatamente a mesma média</strong>, mas bem diferentes entre si. O que muda é o quanto os valores <strong>se afastam</strong> dessa média.
+    </p>
+    <div class="destaque" style="margin-top:1rem">
+      Desvio Padrão = o quanto os valores, <span class="hl">em média</span>, se <span class="hl2">afastam</span> da média do grupo
+    </div>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:1rem">
+      Quanto mais os pontos se espalham, <strong>maior</strong> o desvio padrão. Quanto mais os pontos estão perto da média, <strong>menor</strong> o desvio padrão.
+    </p>
+  </div>
+
+  <div class="card roxo">
+    <h2>🎯 Veja na Prática: Afastando e Aproximando os Dados</h2>
+    <p style="font-size:1rem;font-weight:700;color:#475569;margin-bottom:.6rem">
+      Os 4 pontos abaixo (A, B, D e E) sempre têm <strong>média fixa em 100</strong>. Arraste o controle para afastar ou aproximar os pontos da média e observe a faixa verde (o "corredor" do desvio padrão) e o desvio padrão mudando.
+    </p>
+
+    <div class="dot-chart-wrap"><div class="dot-chart" id="chartDispersao" style="height:220px"></div></div>
+
+    <div class="media-readout">
+      <div class="chip-media">
+        <span class="lbl">MÉDIA (fixa)</span>
+        <span class="val">100</span>
+      </div>
+      <div class="chip-media destaque-verde" id="chipDP">
+        <span class="lbl">DESVIO PADRÃO</span>
+        <span class="val" id="dpVal">4,2</span>
+      </div>
+    </div>
+
+    <div class="slider-wrap" style="margin-top:1rem">
+      <label>Dispersão dos dados: <span class="slider-val" id="sliderDispVal">bem próximos</span></label>
+      <input type="range" id="sliderDispersao" min="1" max="15" value="3" oninput="atualizarDispersao(this.value)">
+    </div>
+
+    <div id="dispersaoMsg" style="margin-top:.8rem;background:#1E293B;color:white;border-radius:12px;padding:.8rem 1rem;font-size:.95rem;font-weight:700;line-height:1.6"></div>
+  </div>
+
+  <div class="card laranja">
+    <h2>💡 Média e Desvio Padrão Andam Juntos</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      A média sozinha diz <strong>onde</strong> os dados estão centrados. O desvio padrão diz <strong>o quanto</strong> eles variam em torno desse centro. Um grupo homogêneo tem desvio padrão baixo; um grupo heterogêneo tem desvio padrão alto — mesmo com a mesma média.
+    </p>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
+      Nesta disciplina, o desvio padrão será <strong>calculado no Excel</strong> ou fornecido pronto — o cálculo manual não será cobrado.
+    </p>
+  </div>
+
+  <!-- EXERCÍCIOS -->
+  <h2 style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#1E293B;margin:1.4rem 0 .2rem">✏️ Exercícios — Aba 2</h2>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q1 de 3</div>
+    <p class="ex-q">Duas turmas de <strong>Nutrição</strong> fizeram a mesma prova e tiveram a <strong>mesma média</strong> de notas: 7,0. Na Turma X, as notas variaram entre 6,5 e 7,5. Na Turma Y, as notas variaram entre 3,0 e 10,0. Qual turma tem o <strong>maior</strong> desvio padrão?</p>
+    <div class="quiz-opts" id="ex2a-opts">
+      <button onclick="chkMC('ex2a',0,1,'A Turma X tem notas bem próximas da média (6,5 a 7,5) — isso é sinal de desvio padrão baixo, não alto.')">A) Turma X</button>
+      <button onclick="chkMC('ex2a',1,1,'Correto! A Turma Y tem notas muito mais espalhadas (de 3,0 a 10,0), então os valores se afastam mais da média — desvio padrão maior.')">B) Turma Y</button>
+      <button onclick="chkMC('ex2a',2,1,'Não é possível ter desvio padrão igual — os intervalos de notas são bem diferentes entre as turmas.')">C) As duas têm o mesmo desvio padrão, pois a média é igual</button>
+    </div>
+    <div id="ex2a-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q2 de 3</div>
+    <p class="ex-q">"Em um posto de <strong>Enfermagem</strong>, se a pressão arterial sistólica de 5 pacientes está bem próxima entre si (todas entre 118 e 122 mmHg), o desvio padrão desse grupo é baixo." — Verdadeiro ou falso?</p>
+    <div class="vof-wrap" id="ex2b-vof">
+      <button onclick="chkVF('ex2b','ex2b-vof',true,true,'Verdadeiro! Valores bem próximos entre si (e da própria média) significam pouco afastamento — ou seja, desvio padrão baixo.')">✅ Verdadeiro</button>
+      <button onclick="chkVF('ex2b','ex2b-vof',false,true,'Falso. Quando os valores estão próximos entre si, o desvio padrão é justamente baixo, não alto.')">❌ Falso</button>
+    </div>
+    <div id="ex2b-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q3 de 3</div>
+    <p class="ex-q">Dois grupos de pacientes (30 pacientes cada) fizeram exame de <strong>glicemia de jejum (mg/dL)</strong>.</p>
+
+    <div class="duo" style="margin-top:1rem">
+      <div>
+        <p style="text-align:center;font-weight:900;color:#1E293B;margin-bottom:.3rem">Grupo 1 — Desvio padrão: 4,50 mg/dL</p>
+        <div class="dot-chart-wrap"><div id="chartGlicemiaA" style="height:90px"></div></div>
+        <p style="text-align:center;font-size:.78rem;font-weight:700;color:#64748B;margin-top:.2rem">Glicemia (mg/dL)</p>
+      </div>
+      <div>
+        <p style="text-align:center;font-weight:900;color:#1E293B;margin-bottom:.3rem">Grupo 2 — Desvio padrão: 5,79 mg/dL</p>
+        <div class="dot-chart-wrap"><div id="chartGlicemiaB" style="height:90px"></div></div>
+        <p style="text-align:center;font-size:.78rem;font-weight:700;color:#64748B;margin-top:.2rem">Glicemia (mg/dL)</p>
+      </div>
+    </div>
+
+    <p class="ex-q" style="margin-top:1rem">Com base nas informações fornecidas, avalie cada afirmação e marque Verdadeiro ou Falso:</p>
+
+    <div class="ex-sep" style="border:none;padding:.6rem 0 0">
+      <p class="ex-q" style="font-size:.92rem">1) O Grupo 2 apresenta maior dispersão que o Grupo 1.</p>
+      <div class="vof-wrap" id="ex2c1-vof">
+        <button onclick="chkVF('ex2c1','ex2c1-vof',true,true,'Verdadeiro! O desvio padrão do Grupo 2 (5,79 mg/dL) é maior que o do Grupo 1 (4,50 mg/dL), então o Grupo 2 tem maior dispersão.')">✅ Verdadeiro</button>
+        <button onclick="chkVF('ex2c1','ex2c1-vof',false,true,'Falso não — o desvio padrão do Grupo 2 (5,79) é realmente maior que o do Grupo 1 (4,50), então a afirmação é verdadeira.')">❌ Falso</button>
+      </div>
+      <div id="ex2c1-fb" class="feedback"></div>
+    </div>
+
+    <div class="ex-sep" style="border:none;padding:.6rem 0 0">
+      <p class="ex-q" style="font-size:.92rem">2) Quanto menor o desvio padrão, mais os dados se afastam da média.</p>
+      <div class="vof-wrap" id="ex2c2-vof">
+        <button onclick="chkVF('ex2c2','ex2c2-vof',true,false,'Falso. É o contrário: quanto MENOR o desvio padrão, mais os dados ficam PRÓXIMOS da média — não mais afastados.')">✅ Verdadeiro</button>
+        <button onclick="chkVF('ex2c2','ex2c2-vof',false,false,'Correto, é falso! Desvio padrão pequeno significa dados próximos da média, não afastados.')">❌ Falso</button>
+      </div>
+      <div id="ex2c2-fb" class="feedback"></div>
+    </div>
+
+    <div class="ex-sep" style="border:none;padding:.6rem 0 0">
+      <p class="ex-q" style="font-size:.92rem">3) Os valores de glicemia do Grupo 1 estão, em média, mais próximos entre si do que os do Grupo 2.</p>
+      <div class="vof-wrap" id="ex2c3-vof">
+        <button onclick="chkVF('ex2c3','ex2c3-vof',true,true,'Verdadeiro! Um desvio padrão menor (4,50 contra 5,79) indica exatamente isso: valores mais próximos entre si e da média.')">✅ Verdadeiro</button>
+        <button onclick="chkVF('ex2c3','ex2c3-vof',false,true,'Falso não — o Grupo 1 tem desvio padrão menor (4,50), o que indica valores mais próximos entre si. A afirmação é verdadeira.')">❌ Falso</button>
+      </div>
+      <div id="ex2c3-fb" class="feedback"></div>
+    </div>
+
+    <div class="ex-sep" style="border:none;padding:.6rem 0 0">
+      <p class="ex-q" style="font-size:.92rem">4) Um desvio padrão mais alto indica que a média foi calculada incorretamente.</p>
+      <div class="vof-wrap" id="ex2c4-vof">
+        <button onclick="chkVF('ex2c4','ex2c4-vof',true,false,'Falso. O desvio padrão mede dispersão dos dados, não erro no cálculo da média. Uma média pode estar perfeitamente correta mesmo com desvio padrão alto — isso só indica que os dados são mais espalhados.')">✅ Verdadeiro</button>
+        <button onclick="chkVF('ex2c4','ex2c4-vof',false,false,'Correto, é falso! O desvio padrão não avalia se a média foi calculada certa ou errada — ele mede o quanto os dados se espalham em torno dela.')">❌ Falso</button>
+      </div>
+      <div id="ex2c4-fb" class="feedback"></div>
+    </div>
+
+    <div class="ex-sep" style="border:none;padding:.6rem 0 0">
+      <p class="ex-q" style="font-size:.92rem">5) Se o desvio padrão do Grupo 2 fosse igual a zero, isso significaria que todos os pacientes desse grupo têm exatamente a mesma glicemia.</p>
+      <div class="vof-wrap" id="ex2c5-vof">
+        <button onclick="chkVF('ex2c5','ex2c5-vof',true,true,'Verdadeiro! Desvio padrão zero significa que não há nenhum afastamento em relação à média — ou seja, todos os valores são idênticos.')">✅ Verdadeiro</button>
+        <button onclick="chkVF('ex2c5','ex2c5-vof',false,true,'Falso não — desvio padrão igual a zero só ocorre quando todos os valores do grupo são exatamente iguais entre si. A afirmação é verdadeira.')">❌ Falso</button>
+      </div>
+      <div id="ex2c5-fb" class="feedback"></div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ═══════ ABA 3 · MEDIANA ═══════ -->
+<section id="s3">
+
+  <div class="card">
+    <h2>🎯 O que é a Mediana</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      A <strong>mediana</strong> é o valor que fica exatamente no <strong>meio</strong> de um conjunto de dados, quando eles estão organizados em ordem crescente.
+    </p>
+    <div class="destaque" style="margin-top:1rem">
+      Mediana = <span class="hl">valor do meio</span>, com os dados em <span class="hl2">ordem crescente</span>
+    </div>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:1rem">
+      Lembra dos 5 amigos da Aba 1, com idades <strong>20, 21, 22, 23 e 24</strong> anos? Já estão em ordem crescente, e o valor do meio (o 3º) é <strong>22</strong> — a mediana. Nesse caso, coincide com a média.
+    </p>
+  </div>
+
+  <div class="card laranja">
+    <h2>😅 A Média Mentirosa</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      4 amigos estão num bar, cada um com pouco dinheiro no bolso. De repente, chega uma <strong>5ª pessoa com muita grana no bolso</strong> e senta na mesa.
+    </p>
+
+    <p style="text-align:center;font-weight:900;color:#1E293B;font-size:1rem;margin:1.2rem 0 .2rem">💰 Quanto Cada Pessoa Tem no Bolso</p>
+    <div class="dot-chart-wrap">
+      <div class="grafico-com-eixo">
+        <span class="eixo-y-titulo">Valor no bolso das pessoas</span>
+        <div class="bar-chart2" id="chartBarMentira" style="height:190px"></div>
+      </div>
+    </div>
+
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:1rem">
+      Mova o slider e veja as mudanças.
+    </p>
+
+    <div class="slider-wrap">
+      <label><span class="slider-val" id="sliderBarVal">R$ 23</span></label>
+      <input type="range" id="sliderBarMentira" min="23" max="100" value="23" oninput="atualizarBarMentira(this.value)">
+    </div>
+
+    <button onclick="document.getElementById('revelaBarMentira').style.display='block'; this.style.display='none';"
+      style="margin-top:1rem;width:100%;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;padding:.8rem 1rem;border:none;border-radius:14px;background:#1E293B;color:white;cursor:pointer;">
+      🔎 Clique e descubra se concluiu corretamente
+    </button>
+    <p id="revelaBarMentira" style="display:none;font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
+      Quanto mais dinheiro no bolso a 5ª pessoa tem, a média no bolso de TODOS aumenta, mas a mediana não é afetada.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>🧮 Quando o Número de Valores é Par</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      Com uma <strong>quantidade par</strong> de valores, não existe um único "valor do meio" — existem dois. A mediana é a <strong>média entre os dois valores centrais</strong>.
+    </p>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
+      Exemplo: apenas 4 amigos, com idades <strong>20, 21, 23 e 24</strong> anos (em ordem crescente). Os dois valores centrais são <strong>21 e 23</strong>.
+    </p>
+    <div class="destaque" style="margin-top:1rem">
+      Mediana = <span class="frac"><span class="num hl">21 + 23</span><span class="den hl2">2</span></span> = 22
+    </div>
+  </div>
+
+  <!-- EXERCÍCIOS -->
+  <h2 style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#1E293B;margin:1.4rem 0 .2rem">✏️ Exercícios — Aba 3</h2>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q1 de 3</div>
+    <p class="ex-q">Lembra da <strong>Fisioterapia</strong> na Aba 1? A amplitude de flexão do joelho de 5 pacientes foi: <strong>90, 95, 100, 100, 105</strong> graus. Qual é a mediana?</p>
+    <div class="quiz-opts" id="ex3a-opts">
+      <button onclick="chkMC('ex3a',0,2,'98 graus é a média desse conjunto, não a mediana.')">A) 98 graus</button>
+      <button onclick="chkMC('ex3a',1,2,'95 é o segundo valor da lista ordenada, não o valor central.')">B) 95 graus</button>
+      <button onclick="chkMC('ex3a',2,2,'Correto! Com os dados já em ordem (90, 95, 100, 100, 105), o valor central (3º de 5) é 100.')">C) 100 graus</button>
+      <button onclick="chkMC('ex3a',3,2,'105 é o maior valor do conjunto, não o valor central.')">D) 105 graus</button>
+    </div>
+    <div id="ex3a-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q2 de 3</div>
+    <p class="ex-q">Lembra da <strong>Farmácia</strong> na Aba 1? Os salários eram: <strong>R$ 4.000, R$ 4.100, R$ 4.200, R$ 4.300 e R$ 15.000</strong> (a média ficava em R$ 6.320, distorcida pelo dono). "A mediana desse grupo (R$ 4.200) representa melhor o salário típico da equipe do que a média." — Verdadeiro ou falso?</p>
+    <div class="vof-wrap" id="ex3b-vof">
+      <button onclick="chkVF('ex3b','ex3b-vof',true,true,'Verdadeiro! A mediana (R\$ 4.200) não é puxada pelo outlier do dono, e fica bem próxima do que 4 dos 5 funcionários realmente recebem.')">✅ Verdadeiro</button>
+      <button onclick="chkVF('ex3b','ex3b-vof',false,true,'Falso. A mediana (R\$ 4.200) resiste ao outlier e representa melhor o salário típico do que a média (R\$ 6.320).')">❌ Falso</button>
+    </div>
+    <div id="ex3b-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q3 de 3</div>
+    <p class="ex-q">Em um posto de <strong>Enfermagem</strong>, a pressão arterial sistólica (mmHg) de 4 pacientes foi: <strong>118, 120, 122 e 124</strong>. Qual é a mediana?</p>
+    <div class="quiz-opts" id="ex3c-opts">
+      <button onclick="chkMC('ex3c',0,2,'120 é apenas o 2º valor da lista — com 4 valores, a mediana é a média dos dois centrais.')">A) 120 mmHg</button>
+      <button onclick="chkMC('ex3c',1,2,'122 é apenas o 3º valor da lista — com 4 valores, a mediana é a média dos dois centrais.')">B) 122 mmHg</button>
+      <button onclick="chkMC('ex3c',2,2,'Correto! Com 4 valores, a mediana é a média dos dois centrais: (120+122) ÷ 2 = 121 mmHg.')">C) 121 mmHg</button>
+      <button onclick="chkMC('ex3c',3,2,'124 é o maior valor do conjunto, não a mediana.')">D) 124 mmHg</button>
+    </div>
+    <div id="ex3c-fb" class="feedback"></div>
+  </div>
+
+</section>
+
+<!-- ═══════ ABA 4 · MODA ═══════ -->
+<section id="s4">
+
+  <div class="card">
+    <h2>🎯 O que é a Moda</h2>
+    <div class="destaque">
+      Moda = o valor que <span class="hl">mais se repete</span> no conjunto de dados
+    </div>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:1rem">
+      Pergunta a 20 colegas quantos irmãos cada um tem. Veja a tabela de frequência:
+    </p>
+
+    <div style="overflow-x:auto;margin-top:.8rem">
+    <table style="width:100%;border-collapse:collapse;font-size:.92rem">
+      <thead>
+        <tr style="background:#DCFCE7">
+          <th style="padding:.5rem;text-align:center">Nº de irmãos</th>
+          <th style="padding:.5rem;text-align:center">Frequência (fi)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">0</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td></tr>
+        <tr style="background:#FEF3C7"><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0;position:relative">1<span style="position:absolute;left:50%;top:50%;transform:translateY(-50%);margin-left:.55em;color:#DC2626;white-space:nowrap;font-size:.85em">(moda)</span></td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">8</td></tr>
+        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">2</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">5</td></tr>
+        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td></tr>
+        <tr><td style="padding:.5rem;text-align:center">4</td><td style="padding:.5rem;text-align:center">1</td></tr>
+      </tbody>
+      <tfoot>
+        <tr style="font-weight:900;background:#F1F5F9">
+          <td style="padding:.5rem;text-align:center">Total</td>
+          <td style="padding:.5rem;text-align:center">20</td>
+        </tr>
+      </tfoot>
+    </table>
+    </div>
+
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
+      A moda é <strong>1 irmão</strong> — é o valor com maior frequência (8 colegas).
+    </p>
+  </div>
+
+  <div class="card laranja">
+    <h2>🤔 Qual a Melhor Medida pra Representar Esses Dados?</h2>
+    <div style="display:flex;flex-direction:column;gap:.7rem;margin-top:.8rem">
+      <div style="display:flex;align-items:center;gap:.8rem;background:white;border-radius:12px;padding:.7rem .9rem">
+        <span style="font-size:1.6rem">🏷️</span>
+        <span style="font-size:.95rem;font-weight:700;color:#334155;flex:1">Dados qualitativos</span>
+        <span style="font-size:1.2rem">→</span>
+        <span style="font-size:.95rem;font-weight:900;color:#F97316">Moda</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.8rem;background:white;border-radius:12px;padding:.7rem .9rem">
+        <span style="font-size:1.6rem">📏</span>
+        <span style="font-size:.95rem;font-weight:700;color:#334155;flex:1">Baixo desvio padrão</span>
+        <span style="font-size:1.2rem">→</span>
+        <span style="font-size:.95rem;font-weight:900;color:#10B981">Média</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.8rem;background:white;border-radius:12px;padding:.7rem .9rem">
+        <span style="font-size:1.6rem">⚠️</span>
+        <span style="font-size:.95rem;font-weight:700;color:#334155;flex:1">Com um ou mais valores extremos</span>
+        <span style="font-size:1.2rem">→</span>
+        <span style="font-size:.95rem;font-weight:900;color:#3B82F6">Mediana</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXERCÍCIOS -->
+  <h2 style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#1E293B;margin:1.4rem 0 .2rem">✏️ Exercícios — Aba 4</h2>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q1 de 2</div>
+    <p class="ex-q">Em uma <strong>Farmácia</strong>, o número de caixas de um medicamento vendidas por dia, durante 7 dias, foi: <strong>4, 5, 4, 6, 4, 7, 5</strong>. Qual é a moda?</p>
+    <div class="quiz-opts" id="ex4a-opts">
+      <button onclick="chkMC('ex4a',0,1,'5 aparece 2 vezes — menos frequente que outro valor do conjunto.')">A) 5</button>
+      <button onclick="chkMC('ex4a',1,1,'Correto! O valor 4 aparece 3 vezes — mais que qualquer outro valor da lista.')">B) 4</button>
+      <button onclick="chkMC('ex4a',2,1,'7 aparece só 1 vez — é um dos valores menos frequentes (empatado com o 6), não a moda.')">C) 7</button>
+      <button onclick="chkMC('ex4a',3,1,'Esse seria o resultado se calculássemos a média, não a moda.')">D) 5,0</button>
+    </div>
+    <div id="ex4a-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q2 de 2</div>
+    <p class="ex-q">"Um conjunto de dados pode ter mais de uma moda, ou até nenhuma moda." — Verdadeiro ou falso?</p>
+    <div class="vof-wrap" id="ex4b-vof">
+      <button onclick="chkVF('ex4b','ex4b-vof',true,true,'Verdadeiro! Se dois valores empatam na maior frequência, o conjunto é bimodal. E se todos os valores aparecem com a mesma frequência, não existe moda (amodal).')">✅ Verdadeiro</button>
+      <button onclick="chkVF('ex4b','ex4b-vof',false,true,'Falso. É perfeitamente possível ter dois valores empatados (bimodal) ou nenhum valor se repetindo (amodal).')">❌ Falso</button>
+    </div>
+    <div id="ex4b-fb" class="feedback"></div>
+  </div>
+
+</section>
+
+<!-- ═══════ ABA 5 · MÉDIA x MEDIANA x MODA ═══════ -->
+<section id="s5">
+
+  <div class="card">
+    <h2>📊 Resumo Rápido</h2>
+    <div style="overflow-x:auto">
+    <table style="width:100%;border-collapse:collapse;font-size:.88rem">
+      <thead>
+        <tr style="background:#DCFCE7">
+          <th style="padding:.5rem;text-align:left">Medida</th>
+          <th style="padding:.5rem;text-align:left">Usar quando...</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:.5rem;border-bottom:1px solid #E2E8F0;font-weight:900">Média</td><td style="padding:.5rem;border-bottom:1px solid #E2E8F0">os dados quantitativos são simétricos, sem outliers (extremos)</td></tr>
+        <tr><td style="padding:.5rem;border-bottom:1px solid #E2E8F0;font-weight:900">Mediana</td><td style="padding:.5rem;border-bottom:1px solid #E2E8F0">há outliers ou os dados são assimétricos</td></tr>
+        <tr><td style="padding:.5rem;font-weight:900">Moda</td><td style="padding:.5rem">o dado é categórico (qualitativo), ou você quer o valor mais comum</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="card verde">
+    <h2>💼 As Três Medidas, um Salário Bem Diferente</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      7 funcionários de uma padaria ganham: <strong>R$ 1.800, R$ 1.800, R$ 1.900, R$ 2.000, R$ 2.100, R$ 2.200 e R$ 9.000</strong> (o dono).
+    </p>
+    <div class="media-readout" style="margin-top:1rem">
+      <div class="chip-media">
+        <span class="lbl">MÉDIA</span>
+        <span class="val">R$ 2.971</span>
+      </div>
+      <div class="chip-media destaque-verde">
+        <span class="lbl">MEDIANA</span>
+        <span class="val">R$ 2.000</span>
+      </div>
+      <div class="chip-media" style="background:#F97316">
+        <span class="lbl">MODA</span>
+        <span class="val">R$ 1.800</span>
+      </div>
+    </div>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:1rem">
+      Três respostas bem diferentes pra mesma pergunta: "quanto ganha um funcionário dessa padaria?" Qual delas você usaria?
+    </p>
+    <details style="margin-top:.8rem">
+      <summary class="btn-conferir" style="display:inline-block;list-style:none;text-align:center">👁️ Ver resposta</summary>
+      <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
+        Usaria a <strong>mediana</strong>, porque ela representa a maioria dos valores de salário. Dos 7 funcionários, 6 ganham entre R$ 1.800 e R$ 2.200 — bem perto dos R$ 2.000 da mediana. Já a média (R$ 2.971) fica distorcida pelo salário do dono, um outlier que puxa o resultado pra cima e não representa o que a maioria realmente recebe.
+      </p>
+    </details>
+  </div>
+
+  <!-- EXERCÍCIOS -->
+  <h2 style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#1E293B;margin:1.4rem 0 .2rem">✏️ Exercícios — Aba 5</h2>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q1 de 4</div>
+    <p class="ex-q">Em uma UBS de <strong>Enfermagem</strong>, o número de retornos para curativo de 18 pacientes foi registrado nesta TDF sem classes:</p>
+    <div style="overflow-x:auto;margin:.6rem 0">
+    <table style="width:100%;max-width:340px;margin:0 auto;border-collapse:collapse;font-size:.86rem;text-align:center">
+      <thead>
+        <tr style="background:#DCFCE7">
+          <th style="padding:.4rem;text-align:center;line-height:1.3">Número de<br>retornos (xi)</th>
+          <th style="padding:.4rem;text-align:center">fi</th>
+          <th style="padding:.4rem;text-align:center">fri</th>
+          <th style="padding:.4rem;text-align:center">fra</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">0</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">2</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">11,1%</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">11,1%</td></tr>
+        <tr><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">1</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">22,2%</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">33,3%</td></tr>
+        <tr><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">2</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">6</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">33,3%</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">66,7%</td></tr>
+        <tr><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">22,2%</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">88,9%</td></tr>
+        <tr><td style="padding:.4rem;text-align:center">4</td><td style="padding:.4rem;text-align:center">2</td><td style="padding:.4rem;text-align:center">11,1%</td><td style="padding:.4rem;text-align:center">100%</td></tr>
+      </tbody>
+      <tfoot>
+        <tr style="font-weight:900;background:#F1F5F9"><td style="padding:.4rem;text-align:center">Total</td><td style="padding:.4rem;text-align:center">18</td><td style="padding:.4rem;text-align:center">100%</td><td style="padding:.4rem;text-align:center"></td></tr>
+      </tfoot>
+    </table>
+    </div>
+    <p class="ex-q">Qual é a <strong>melhor medida para representar</strong> o número de retornos desses pacientes?</p>
+    <div class="quiz-opts" id="ex5c-opts">
+      <button onclick="chkMC('ex5c',0,3,'A média real é 2 retornos: (0×2 + 1×4 + 2×6 + 3×4 + 4×2) ÷ 18 = 36 ÷ 18 = 2 — não 2,5.')">A) Média de 2,5 retornos</button>
+      <button onclick="chkMC('ex5c',1,3,'A mediana real é 2 retornos — olhando a distribuição acumulada (fra), o valor central (9º/10º de 18) cai no xi=2, não em 3.')">B) Mediana de 3 retornos</button>
+      <button onclick="chkMC('ex5c',2,3,'A moda real é 2 retornos — é o valor com maior frequência (fi=6), não 3.')">C) Moda de 3 retornos</button>
+      <button onclick="chkMC('ex5c',3,3,'Isso mesmo! Como a distribuição é simétrica em torno do valor 2 (frequências 2, 4, 6, 4, 2), a média, a mediana e a moda coincidem em 2 retornos — qualquer uma das três representa bem os dados desse grupo.')">D) Média, mediana e moda são iguais a 2 retornos, pois a distribuição é simétrica</button>
+    </div>
+    <details style="margin-top:.8rem">
+      <summary class="btn-conferir" style="display:inline-block;list-style:none;text-align:center">👁️ Veja o gráfico — veja a simetria</summary>
+      <div class="bar-chart2" id="chartSimetriaRetornos" style="height:190px;margin-top:.8rem"></div>
+    </details>
+    <div id="ex5c-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q2 de 4</div>
+    <p class="ex-q">Numa maternidade, o peso (kg) de 20 recém-nascidos foi agrupado em classes, com o ponto médio (xi) de cada uma:</p>
+    <div style="overflow-x:auto;margin:.6rem 0">
+    <table style="width:100%;border-collapse:collapse;font-size:.88rem">
+      <thead>
+        <tr style="background:#DCFCE7">
+          <th style="padding:.4rem;text-align:center">Classe (kg)</th>
+          <th style="padding:.4rem;text-align:center">Ponto médio (xi)</th>
+          <th style="padding:.4rem;text-align:center">fi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">2 ⊢ 3</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">2,5</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td></tr>
+        <tr><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">3 ⊢ 4</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">3,5</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">12</td></tr>
+        <tr><td style="padding:.4rem;text-align:center">4 ⊢ 5</td><td style="padding:.4rem;text-align:center">4,5</td><td style="padding:.4rem;text-align:center">4</td></tr>
+      </tbody>
+      <tfoot>
+        <tr style="font-weight:900;background:#F1F5F9"><td style="padding:.4rem;text-align:center">Total</td><td></td><td style="padding:.4rem;text-align:center">20</td></tr>
+      </tfoot>
+    </table>
+    </div>
+    <p class="ex-q">Qual é o peso médio desses recém-nascidos?</p>
+    <div class="quiz-opts" id="ex5d-opts">
+      <button onclick="chkMC('ex5d',0,1,'3,0 kg está abaixo do valor real — os pesos mais altos (classe 3⊢4, com 12 bebês) puxam a média pra cima desse valor.')">A) 3,0 kg</button>
+      <button onclick="chkMC('ex5d',1,1,'Correto! (2,5×4 + 3,5×12 + 4,5×4) ÷ 20 = 70 ÷ 20 = 3,5 kg.')">B) 3,5 kg</button>
+      <button onclick="chkMC('ex5d',2,1,'4,0 kg é o limite entre a 2ª e a 3ª classe, não um ponto médio — o ponto médio de cada classe fica bem no centro do intervalo (2,5 / 3,5 / 4,5).')">C) 4,0 kg</button>
+      <button onclick="chkMC('ex5d',3,1,'3,2 kg não corresponde ao cálculo — confira a multiplicação de cada ponto médio pela sua frequência.')">D) 3,2 kg</button>
+    </div>
+    <div id="ex5d-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q3 de 4</div>
+    <p class="ex-q">No distrito do <strong>Ipiranga</strong>, em São Paulo, o coeficiente de mortalidade por doença respiratória (por 100 mil habitantes) foi registrado em 20 postos de saúde da região, nesta TDF sem classes:</p>
+    <div style="overflow-x:auto;margin:.6rem 0">
+    <table style="width:100%;max-width:400px;margin:0 auto;border-collapse:collapse;font-size:.84rem;text-align:center">
+      <thead>
+        <tr style="background:#DCFCE7">
+          <th style="padding:.4rem;text-align:center;line-height:1.3">Coeficiente<br>(xi)</th>
+          <th style="padding:.4rem;text-align:center">fi</th>
+          <th style="padding:.4rem;text-align:center">fa</th>
+          <th style="padding:.4rem;text-align:center">fri</th>
+          <th style="padding:.4rem;text-align:center">fra</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">10</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">2</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">2</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">10%</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">10%</td></tr>
+        <tr><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">15</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">5</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">15%</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">25%</td></tr>
+        <tr><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">20</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">9</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">20%</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">45%</td></tr>
+        <tr><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">25</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">5</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">14</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">25%</td><td style="padding:.4rem;text-align:center;border-bottom:1px solid #E2E8F0">70%</td></tr>
+        <tr><td style="padding:.4rem;text-align:center">30</td><td style="padding:.4rem;text-align:center">6</td><td style="padding:.4rem;text-align:center">20</td><td style="padding:.4rem;text-align:center">30%</td><td style="padding:.4rem;text-align:center">100%</td></tr>
+      </tbody>
+      <tfoot>
+        <tr style="font-weight:900;background:#F1F5F9"><td style="padding:.4rem;text-align:center">Total</td><td style="padding:.4rem;text-align:center">20</td><td></td><td style="padding:.4rem;text-align:center">100%</td><td></td></tr>
+      </tfoot>
+    </table>
+    </div>
+    <p class="ex-q">Qual é o coeficiente médio de mortalidade por doença respiratória (por 100 mil habitantes) nesse distrito?</p>
+    <div class="quiz-opts" id="ex5f-opts">
+      <button onclick="chkMC('ex5f',0,1,'20 seria a média simples dos 5 valores de xi (10,15,20,25,30), ignorando quantos postos registraram cada um — mas é preciso multiplicar cada xi pela sua frequência (fi).')">A) 20</button>
+      <button onclick="chkMC('ex5f',1,1,'Correto! (10×2 + 15×3 + 20×4 + 25×5 + 30×6) ÷ 20 = 450 ÷ 20 = 22,5.')">B) 22,5</button>
+      <button onclick="chkMC('ex5f',2,1,'25 é o valor central da tabela (a mediana, olhando a fa acumulada) — não a média.')">C) 25</button>
+      <button onclick="chkMC('ex5f',3,1,'30 é o valor com maior frequência (a moda, com fi=6) — não a média.')">D) 30</button>
+      <button onclick="chkMC('ex5f',4,1,'18 seria o resultado se você dividisse 450 por um total errado (25 em vez de 20) — confira a soma da coluna fi.')">E) 18</button>
+    </div>
+    <div id="ex5f-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q4 de 4</div>
+    <p class="ex-q">O tempo de espera (em minutos) de 9 pacientes numa clínica de <strong>Nutrição</strong> foi: <strong>5, 6, 6, 7, 8, 9, 10, 11 e 60</strong> (esse último esperou muito mais que os outros, por um imprevisto). Qual é a <strong>melhor medida para representar</strong> esses dados?</p>
+    <div class="quiz-opts" id="ex5e-opts">
+      <button onclick="chkMC('ex5e',0,2,'≈13,6 minutos é a média — mas ela é fortemente puxada pra cima pelo valor de 60, não representando bem o tempo típico de espera dos 9 pacientes.')">A) Média de ≈13,6 minutos</button>
+      <button onclick="chkMC('ex5e',1,2,'6 minutos é a moda (valor mais frequente), mas ela ignora a maior parte da distribuição dos dados, olhando só pra repetição.')">B) Moda de 6 minutos</button>
+      <button onclick="chkMC('ex5e',2,2,'Correto! A mediana (8 minutos) não é afetada pelo outlier de 60 minutos, e reflete melhor o tempo de espera típico dos pacientes — com 8 dos 9 valores entre 5 e 11 minutos.')">C) Mediana de 8 minutos</button>
+      <button onclick="chkMC('ex5e',3,2,'≈16,5 minutos é o desvio padrão — ele mede dispersão dos dados, não representa um valor típico central do conjunto.')">D) Desvio padrão de ≈16,5 minutos</button>
+    </div>
+    <div id="ex5e-fb" class="feedback"></div>
+  </div>
+
+</section>
+
+<!-- ═══════ ABA 6 · COEFICIENTE DE VARIAÇÃO ═══════ -->
+<section id="s6">
+
+  <div class="card">
+    <h2>🤔 Por que Precisamos do CV?</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      Um grupo de pessoas tem <strong>peso médio de 70 kg</strong>, com desvio padrão de <strong>5 kg</strong>. O mesmo grupo tem <strong>altura média de 170 cm</strong>, com desvio padrão de <strong>6 cm</strong>.
+    </p>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
+      Qual variável é <strong>mais dispersa</strong>: o peso ou a altura? Não dá pra comparar 5 kg com 6 cm direto — são unidades diferentes. É pra isso que existe o <strong>Coeficiente de Variação (CV)</strong>: para comparar a dispersão de variáveis diferentes, ou de uma mesma variável com médias muito diferentes.
+    </p>
+  </div>
+
+  <div class="card verde">
+    <h2>📐 A Fórmula</h2>
+    <div class="destaque">
+      CV = <span class="frac"><span class="num hl">Desvio Padrão</span><span class="den hl2">Média</span></span> × 100
+    </div>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:1rem">
+      O CV transforma o desvio padrão em uma <strong>porcentagem da média</strong> — por isso ele não tem unidade, e permite comparar variáveis diferentes (ou até com escalas bem distintas) em pé de igualdade.
+    </p>
+  </div>
+
+  <div class="card roxo">
+    <h2>⚖️ Voltando ao Exemplo: Peso x Altura</h2>
+    <div class="media-readout">
+      <div class="chip-media">
+        <span class="lbl">PESO · CV</span>
+        <span class="val">7,1%</span>
+      </div>
+      <div class="chip-media" style="background:#F97316">
+        <span class="lbl">ALTURA · CV</span>
+        <span class="val">3,5%</span>
+      </div>
+    </div>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
+      CV do peso = (5 ÷ 70) × 100 = 7,1%. CV da altura = (6 ÷ 170) × 100 = 3,5%. Mesmo a altura tendo desvio padrão maior em número absoluto (6 > 5), o <strong>peso é relativamente mais disperso</strong> — 7,1% > 3,5%.
+    </p>
+  </div>
+
+  <div class="card laranja">
+    <h2>📏 Lendo o Resultado</h2>
+    <div style="display:flex;flex-direction:column;gap:.6rem;margin-top:.6rem">
+      <div style="display:flex;align-items:center;gap:.8rem;background:white;border-radius:12px;padding:.7rem .9rem">
+        <span style="font-size:.95rem;font-weight:900;color:#10B981;min-width:70px">CV ≤ 10%</span>
+        <span style="font-size:.9rem;font-weight:700;color:#334155">baixa dispersão — grupo homogêneo</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.8rem;background:white;border-radius:12px;padding:.7rem .9rem">
+        <span style="font-size:.95rem;font-weight:900;color:#F97316;min-width:70px">10% &lt; CV ≤ 20%</span>
+        <span style="font-size:.9rem;font-weight:700;color:#334155">dispersão moderada</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:.8rem;background:white;border-radius:12px;padding:.7rem .9rem">
+        <span style="font-size:.95rem;font-weight:900;color:#EF4444;min-width:70px">CV > 20%</span>
+        <span style="font-size:.9rem;font-weight:700;color:#334155">alta dispersão — grupo heterogêneo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXERCÍCIOS -->
+  <h2 style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#1E293B;margin:1.4rem 0 .2rem">✏️ Exercícios — Aba 6</h2>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q1 de 3</div>
+    <p class="ex-q">Numa turma de <strong>Nutrição</strong>, o Excel mostrou: notas com média de 7,0 e desvio padrão de 0,7. Qual é o CV?</p>
+    <div class="quiz-opts" id="ex6a-opts">
+      <button onclick="chkMCr('ex6a',0,1,'0,7% é só o valor do desvio padrão com um % colado — falta dividir pela média e multiplicar por 100.')">A) 0,7%</button>
+      <button onclick="chkMCr('ex6a',1,1,'Correto! (0,7 ÷ 7,0) × 100 = 10%.')">B) 10%</button>
+      <button onclick="chkMCr('ex6a',2,1,'70% seria o resultado de multiplicar só o desvio padrão por 100, sem dividir pela média antes (0,7 × 100 = 70).')">C) 70%</button>
+      <button onclick="chkMCr('ex6a',3,1,'4,9% seria o resultado de multiplicar o desvio padrão pela média (0,7 × 7 = 4,9), em vez de dividir um pelo outro.')">D) 4,9%</button>
+    </div>
+    <div id="ex6a-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q2 de 3</div>
+    <p class="ex-q">Uma <strong>Farmácia</strong> comparou dois medicamentos quanto ao tempo de validade (em meses). Medicamento A: média 24, desvio padrão 6. Medicamento B: média 12, desvio padrão 4,2. Qual medicamento tem prazo de validade relativamente mais variável?</p>
+    <div class="quiz-opts" id="ex6b-opts">
+      <button onclick="chkMCr('ex6b',0,1,'O desvio padrão absoluto do A (6) é maior que o do B (4,2), mas comparar desvios padrão direto só funciona quando as médias são parecidas — aqui as médias são bem diferentes (24 x 12), então isso não vale.')">A) Medicamento A, pois seu desvio padrão (6) é maior que o do B (4,2)</button>
+      <button onclick="chkMCr('ex6b',1,1,'Correto! CV do A = (6 ÷ 24) × 100 = 25%. CV do B = (4,2 ÷ 12) × 100 = 35%. O Medicamento B é relativamente mais variável, mesmo com desvio padrão absoluto menor.')">B) Medicamento B, pois seu CV (35%) é maior que o do A (25%)</button>
+      <button onclick="chkMCr('ex6b',2,1,'Confira a divisão: CV do B = (4,2 ÷ 12) × 100 = 35%, não 4,2%. Parece que a fórmula foi aplicada errada.')">C) Medicamento A, pois seu CV (25%) é maior que os 4,2% do B</button>
+      <button onclick="chkMCr('ex6b',3,1,'A diferença entre os desvios padrão (1,8) não é o critério certo — o que importa é a proporção de cada desvio padrão em relação à sua própria média (o CV).')">D) Os dois são igualmente variáveis, pois a diferença entre os desvios padrão é pequena</button>
+    </div>
+    <div id="ex6b-fb" class="feedback"></div>
+  </div>
+
+  <div class="ex-sep">
+    <div class="ex-num">Q3 de 3</div>
+    <p class="ex-q">"O CV é útil justamente porque permite comparar a dispersão de variáveis com unidades diferentes, como peso (kg) e altura (cm)." — Verdadeiro ou falso?</p>
+    <div class="vof-wrap" id="ex6c-vof">
+      <button onclick="chkVF('ex6c','ex6c-vof',true,true,'Verdadeiro! Como o CV é uma porcentagem (sem unidade), ele coloca variáveis de escalas ou unidades diferentes em pé de igualdade.')">✅ Verdadeiro</button>
+      <button onclick="chkVF('ex6c','ex6c-vof',false,true,'Falso. Essa é exatamente a principal utilidade do CV — comparar dispersões relativas entre variáveis diferentes.')">❌ Falso</button>
+    </div>
+    <div id="ex6c-fb" class="feedback"></div>
+  </div>
+
+</section>
+
+<!-- ═══════ ABA 7 · EXERCÍCIOS FINAIS CONTEXTUALIZADOS ═══════ -->
+<section id="s7">
+
+  <div class="card azul">
+    <h2>🎯 Exercícios para Treinar</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      Questões mais complexas, no estilo do que cai em prova — combinando vários assuntos da aula num mesmo enunciado.
+    </p>
+  </div>
+
+  <details class="acc-item acc-roxo">
+    <summary>
+      <span class="acc-icon">📋</span>
+      <span class="acc-title">Exercício 1 — Contexto: Psicologia</span>
+      <span class="acc-chevron">▾</span>
+    </summary>
+    <div class="acc-body">
+
+      <p class="ex-q"><strong>a)</strong> Em Campinas, foram registrados os nascidos vivos e os óbitos infantis associados a fatores psicossociais gestacionais entre 2016 e 2025. Calcule o Coeficiente de Mortalidade Infantil (CMI) no ano de 2025, com duas casas decimais.</p>
+      <p style="font-size:.9rem;color:#DC2626;font-weight:700;margin:-.4rem 0 .8rem">Dica: CMI = (óbitos infantis ÷ nascidos vivos) × 1.000.</p>
+
+      <div style="overflow-x:auto">
+        <table style="width:100%;min-width:280px;border-collapse:collapse;font-size:.82rem;text-align:center">
+          <thead>
+            <tr style="background:#F1F5F9">
+              <th style="padding:.2rem .3rem;text-align:center">Ano</th>
+              <th style="padding:.2rem .3rem;text-align:center;line-height:1.2">Óbitos<br>Infantis</th>
+              <th style="padding:.2rem .3rem;text-align:center;line-height:1.2">Nascidos<br>Vivos</th>
+              <th style="padding:.2rem .3rem;text-align:center">CMI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2016</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.200</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,92</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2017</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">12</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.350</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,78</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2018</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">16</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.100</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">1,06</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2019</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">11</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.480</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,71</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2020</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">18</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14.900</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">1,21</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2021</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14.750</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">1,02</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2022</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">10</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.600</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,64</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2023</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">13</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.820</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,82</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2024</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">9</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">16.050</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,56</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;font-weight:900">2025</td><td style="padding:.2rem .3rem;font-weight:900">12</td><td style="padding:.2rem .3rem;font-weight:900">16.200</td><td style="padding:.2rem .3rem"><input type="text" inputmode="decimal" class="pm-input" style="width:58px" id="ex7a-cmi-b0"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="text-align:center">
+        <button class="btn-conferir" id="ex7a-cmi-confbtn" onclick="chkBlanks('ex7a-cmi', ex7aCmiSpecs, 'ex7a-q1wrap')">Conferir CMI</button>
+      </div>
+      <div id="ex7a-cmi-fb" class="feedback"></div>
+
+      <div id="ex7a-q1wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>b)</strong> Calcule o CMI médio anual, com duas casas decimais.</p>
+        <div style="text-align:center;margin:.6rem 0">
+          <input type="text" inputmode="decimal" class="pm-input" style="width:80px" id="ex7a-q1-b0">
+        </div>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7a-q1-confbtn" onclick="chkBlanksGated('ex7a-q1wrap','ex7a-q1', ex7aQ1Specs, 'ex7a-q2wrap')">Conferir</button>
+        </div>
+        <div id="ex7a-q1-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7a-q2wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>c)</strong> Sabendo que o desvio padrão do CMI nesses 10 anos é 0,19, calcule o Coeficiente de Variação (CV) usando a média que você calculou na questão anterior, e responda:</p>
+        <div class="quiz-opts" id="ex7a-q2-opts">
+          <button onclick="chkMCChain('ex7a-q2wrap','ex7a-q2',0,2,'0,22 é o resultado da divisão (0,19 ÷ 0,85), mas falta multiplicar por 100 para expressar o CV em porcentagem.','ex7a-q3wrap')">A) 0,22</button>
+          <button onclick="chkMCChain('ex7a-q2wrap','ex7a-q2',1,2,'19% é apenas o desvio padrão multiplicado por 100, sem dividir pela média — assim não se obtém o CV.','ex7a-q3wrap')">B) 19%</button>
+          <button onclick="chkMCChain('ex7a-q2wrap','ex7a-q2',2,2,'Isso mesmo! CV = (0,19 ÷ 0,85) × 100 = 22,4%.','ex7a-q3wrap')">C) 22,4%</button>
+          <button onclick="chkMCChain('ex7a-q2wrap','ex7a-q2',3,2,'447,4% inverteu a fórmula, dividindo a média pelo desvio padrão em vez do contrário.','ex7a-q3wrap')">D) 447,4%</button>
+          <button onclick="chkMCChain('ex7a-q2wrap','ex7a-q2',4,2,'85% é a própria média (0,85) reescrita como porcentagem — não é o CV.','ex7a-q3wrap')">E) 85%</button>
+        </div>
+        <div id="ex7a-q2-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7a-q3wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>d)</strong> Dado que o desvio padrão do CMI de Campinas é 0,19 (já calculado) e que o desvio padrão do CMI de São Paulo é 0,28, compare o CMI médio das duas cidades.</p>
+        <p style="font-size:.9rem;color:#DC2626;font-weight:700;margin:-.4rem 0 .8rem">Dica: comparar médias também significa avaliar a dispersão. Pense em qual medida — desvio padrão ou CV — faz mais sentido usar aqui.</p>
+        <div style="overflow-x:auto">
+          <table style="width:100%;min-width:620px;border-collapse:collapse;font-size:.78rem;text-align:center">
+            <thead>
+              <tr style="background:#F1F5F9">
+                <th style="padding:.2rem .3rem;text-align:left">Cidade</th>
+                <th style="padding:.2rem .3rem">2016</th><th style="padding:.2rem .3rem">2017</th><th style="padding:.2rem .3rem">2018</th><th style="padding:.2rem .3rem">2019</th><th style="padding:.2rem .3rem">2020</th><th style="padding:.2rem .3rem">2021</th><th style="padding:.2rem .3rem">2022</th><th style="padding:.2rem .3rem">2023</th><th style="padding:.2rem .3rem">2024</th><th style="padding:.2rem .3rem">2025</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:.2rem .3rem;text-align:left;font-weight:900;border-bottom:1px solid #E2E8F0">Campinas</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,92</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,78</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">1,06</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,71</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">1,21</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">1,02</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,64</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,82</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,56</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,74</td></tr>
+              <tr><td style="padding:.2rem .3rem;text-align:left;font-weight:900">São Paulo</td><td style="padding:.2rem .3rem">2,10</td><td style="padding:.2rem .3rem">2,45</td><td style="padding:.2rem .3rem">1,95</td><td style="padding:.2rem .3rem">2,60</td><td style="padding:.2rem .3rem">2,20</td><td style="padding:.2rem .3rem">2,35</td><td style="padding:.2rem .3rem">1,85</td><td style="padding:.2rem .3rem">2,70</td><td style="padding:.2rem .3rem">2,15</td><td style="padding:.2rem .3rem">2,65</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="ex-q" style="margin-top:1rem">Complete a frase:</p>
+        <p style="font-size:.95rem;font-weight:700;line-height:2.6;color:#334155">
+          Como as médias são <input type="text" class="pm-input" style="width:110px" id="ex7a-q3-b0"> <span style="font-weight:600;color:#64748B;font-size:.82rem">(diferentes ou iguais)</span>, <strong style="color:#1E293B">não</strong> podemos comparar os desvios padrões diretamente. O <strong style="color:#1E293B">CV</strong> de SP é <input type="text" class="pm-input" style="width:70px" id="ex7a-q3-b1"> que o <input type="text" class="pm-input" style="width:55px" id="ex7a-q3-b2"> de Campinas, portanto os CMIs de <input type="text" class="pm-input" style="width:100px" id="ex7a-q3-b3"> são mais dispersos que os CMIs de <input type="text" class="pm-input" style="width:100px" id="ex7a-q3-b4">.
+        </p>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7a-q3-confbtn" onclick="chkBlanksGated('ex7a-q3wrap','ex7a-q3', ex7aQ3Specs, 'ex7a-q4wrap')">Conferir</button>
+        </div>
+        <div id="ex7a-q3-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7a-q4wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>e)</strong> Observe o gráfico com o CMI de Campinas e São Paulo ao longo dos anos:</p>
+        <div id="ex7a-chart" style="margin:.6rem 0"></div>
+        <p class="ex-q">Observando o gráfico, calcule a variação percentual do CMI de 2025 em relação a 2016, de cada cidade.</p>
+        <div style="display:flex;justify-content:center;gap:1.4rem;margin:.8rem 0;flex-wrap:wrap">
+          <label style="text-align:center;font-size:.85rem;font-weight:700;color:#334155">Campinas (%)<br><input type="text" inputmode="decimal" class="pm-input" style="width:80px;margin-top:.3rem" id="ex7a-q4-b0"></label>
+          <label style="text-align:center;font-size:.85rem;font-weight:700;color:#334155">São Paulo (%)<br><input type="text" inputmode="decimal" class="pm-input" style="width:80px;margin-top:.3rem" id="ex7a-q4-b1"></label>
+        </div>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7a-q4-confbtn" onclick="chkBlanksGated('ex7a-q4wrap','ex7a-q4', ex7aQ4Specs, 'ex7a-q5wrap')">Conferir</button>
+        </div>
+        <div id="ex7a-q4-fb" class="feedback"></div>
+
+        <div id="ex7a-q5wrap" data-unlocked="false" style="margin-top:1.2rem">
+          <p class="ex-q"><strong>f)</strong> Com base nessas variações percentuais, o que se pode concluir sobre a evolução do CMI nas duas cidades entre 2016 e 2025?</p>
+          <div class="quiz-opts" id="ex7a-q5-opts">
+            <button onclick="chkMCChain('ex7a-q5wrap','ex7a-q5',0,1,'Confira o sinal da variação de São Paulo: ela foi positiva (+26,2%), ou seja, o CMI aumentou, não diminuiu.', null)">A) As duas cidades tiveram queda no CMI, mas Campinas melhorou mais que São Paulo.</button>
+            <button onclick="chkMCChain('ex7a-q5wrap','ex7a-q5',1,1,'Isso mesmo! Campinas caiu de 0,92 para 0,74 (−19,6%, melhora), enquanto São Paulo subiu de 2,10 para 2,65 (+26,2%, piora) — movimentos opostos no mesmo período.', null)">B) Campinas teve queda no CMI (melhora), enquanto São Paulo teve aumento (piora) — trajetórias opostas.</button>
+            <button onclick="chkMCChain('ex7a-q5wrap','ex7a-q5',2,1,'Confira o sinal da variação de Campinas: ela foi negativa (−19,6%), ou seja, o CMI caiu, não aumentou.', null)">C) As duas cidades tiveram aumento no CMI, mas São Paulo piorou mais que Campinas.</button>
+            <button onclick="chkMCChain('ex7a-q5wrap','ex7a-q5',3,1,'O CV mede dispersão entre os anos, não tendência de melhora ou piora ao longo do tempo — são conceitos diferentes. O CV maior de Campinas não implica que ela piorou mais nesse período.', null)">D) Como o CV de Campinas é maior que o de São Paulo, o CMI de Campinas necessariamente piorou mais.</button>
+            <button onclick="chkMCChain('ex7a-q5wrap','ex7a-q5',4,1,'O sinal da variação percentual indica exatamente isso: negativo é queda (melhora do indicador), positivo é aumento (piora).', null)">E) Não é possível concluir nada, pois a variação percentual não indica se a situação melhorou ou piorou.</button>
+          </div>
+          <div id="ex7a-q5-fb" class="feedback"></div>
+        </div>
+      </div>
+
+    </div>
+  </details>
+
+  <details class="acc-item acc-azulc">
+    <summary>
+      <span class="acc-icon">📋</span>
+      <span class="acc-title">Exercício 2 — Contexto: Fisioterapia</span>
+      <span class="acc-chevron">▾</span>
+    </summary>
+    <div class="acc-body">
+
+      <p class="ex-q"><strong>a)</strong> Em Campinas, foram registrados os nascidos vivos e os óbitos infantis associados a cardiopatia congênita entre 2016 e 2025. Calcule o Coeficiente de Mortalidade Infantil (CMI) no ano de 2025, com duas casas decimais.</p>
+      <p style="font-size:.9rem;color:#DC2626;font-weight:700;margin:-.4rem 0 .8rem">Dica: CMI = (óbitos infantis ÷ nascidos vivos) × 1.000.</p>
+
+      <div style="overflow-x:auto">
+        <table style="width:100%;min-width:280px;border-collapse:collapse;font-size:.82rem;text-align:center">
+          <thead>
+            <tr style="background:#F1F5F9">
+              <th style="padding:.2rem .3rem;text-align:center">Ano</th>
+              <th style="padding:.2rem .3rem;text-align:center;line-height:1.2">Óbitos<br>Infantis</th>
+              <th style="padding:.2rem .3rem;text-align:center;line-height:1.2">Nascidos<br>Vivos</th>
+              <th style="padding:.2rem .3rem;text-align:center">CMI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2016</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">10</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.200</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,66</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2017</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">9</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.350</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,59</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2018</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">13</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.100</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,86</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2019</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">8</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.480</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,52</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2020</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14.900</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">1,01</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2021</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">11</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14.750</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,75</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2022</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">7</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.600</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,45</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2023</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">10</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.820</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,63</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2024</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">6</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">16.050</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,37</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;font-weight:900">2025</td><td style="padding:.2rem .3rem;font-weight:900">9</td><td style="padding:.2rem .3rem;font-weight:900">16.200</td><td style="padding:.2rem .3rem"><input type="text" inputmode="decimal" class="pm-input" style="width:58px" id="ex7b-cmi-b0"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="text-align:center">
+        <button class="btn-conferir" id="ex7b-cmi-confbtn" onclick="chkBlanks('ex7b-cmi', ex7bCmiSpecs, 'ex7b-q1wrap')">Conferir CMI</button>
+      </div>
+      <div id="ex7b-cmi-fb" class="feedback"></div>
+
+      <div id="ex7b-q1wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>b)</strong> Calcule o CMI médio anual, com duas casas decimais.</p>
+        <div style="text-align:center;margin:.6rem 0">
+          <input type="text" inputmode="decimal" class="pm-input" style="width:80px" id="ex7b-q1-b0">
+        </div>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7b-q1-confbtn" onclick="chkBlanksGated('ex7b-q1wrap','ex7b-q1', ex7bQ1Specs, 'ex7b-q2wrap')">Conferir</button>
+        </div>
+        <div id="ex7b-q1-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7b-q2wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>c)</strong> Sabendo que o desvio padrão do CMI nesses 10 anos é 0,18, calcule o Coeficiente de Variação (CV) usando a média que você calculou na questão anterior, e responda:</p>
+        <div class="quiz-opts" id="ex7b-q2-opts">
+          <button onclick="chkMCChain('ex7b-q2wrap','ex7b-q2',0,3,'0,28 é o resultado da divisão (0,18 ÷ 0,64), mas falta multiplicar por 100 para expressar o CV em porcentagem.','ex7b-q3wrap')">A) 0,28</button>
+          <button onclick="chkMCChain('ex7b-q2wrap','ex7b-q2',1,3,'18% é apenas o desvio padrão multiplicado por 100, sem dividir pela média — assim não se obtém o CV.','ex7b-q3wrap')">B) 18%</button>
+          <button onclick="chkMCChain('ex7b-q2wrap','ex7b-q2',2,3,'355,6% inverteu a fórmula, dividindo a média pelo desvio padrão em vez do contrário.','ex7b-q3wrap')">C) 355,6%</button>
+          <button onclick="chkMCChain('ex7b-q2wrap','ex7b-q2',3,3,'Isso mesmo! CV = (0,18 ÷ 0,64) × 100 = 28,1%.','ex7b-q3wrap')">D) 28,1%</button>
+          <button onclick="chkMCChain('ex7b-q2wrap','ex7b-q2',4,3,'64% é a própria média (0,64) reescrita como porcentagem — não é o CV.','ex7b-q3wrap')">E) 64%</button>
+        </div>
+        <div id="ex7b-q2-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7b-q3wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>d)</strong> Dado que o desvio padrão do CMI de Campinas é 0,18 (já calculado) e que o desvio padrão do CMI de São Paulo é 0,20, compare o CMI médio das duas cidades.</p>
+        <p style="font-size:.9rem;color:#DC2626;font-weight:700;margin:-.4rem 0 .8rem">Dica: comparar médias também significa avaliar a dispersão. Pense em qual medida — desvio padrão ou CV — faz mais sentido usar aqui.</p>
+        <div style="overflow-x:auto">
+          <table style="width:100%;min-width:620px;border-collapse:collapse;font-size:.78rem;text-align:center">
+            <thead>
+              <tr style="background:#F1F5F9">
+                <th style="padding:.2rem .3rem;text-align:left">Cidade</th>
+                <th style="padding:.2rem .3rem">2016</th><th style="padding:.2rem .3rem">2017</th><th style="padding:.2rem .3rem">2018</th><th style="padding:.2rem .3rem">2019</th><th style="padding:.2rem .3rem">2020</th><th style="padding:.2rem .3rem">2021</th><th style="padding:.2rem .3rem">2022</th><th style="padding:.2rem .3rem">2023</th><th style="padding:.2rem .3rem">2024</th><th style="padding:.2rem .3rem">2025</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:.2rem .3rem;text-align:left;font-weight:900;border-bottom:1px solid #E2E8F0">Campinas</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,66</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,59</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,86</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,52</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">1,01</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,75</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,45</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,63</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,37</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,56</td></tr>
+              <tr><td style="padding:.2rem .3rem;text-align:left;font-weight:900">São Paulo</td><td style="padding:.2rem .3rem">1,85</td><td style="padding:.2rem .3rem">2,05</td><td style="padding:.2rem .3rem">1,70</td><td style="padding:.2rem .3rem">2,15</td><td style="padding:.2rem .3rem">1,95</td><td style="padding:.2rem .3rem">2,10</td><td style="padding:.2rem .3rem">1,65</td><td style="padding:.2rem .3rem">2,20</td><td style="padding:.2rem .3rem">1,90</td><td style="padding:.2rem .3rem">2,25</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="ex-q" style="margin-top:1rem">Complete a frase:</p>
+        <p style="font-size:.95rem;font-weight:700;line-height:2.6;color:#334155">
+          Como as médias são <input type="text" class="pm-input" style="width:110px" id="ex7b-q3-b0"> <span style="font-weight:600;color:#64748B;font-size:.82rem">(diferentes ou iguais)</span>, <strong style="color:#1E293B">não</strong> podemos comparar os desvios padrões diretamente. O <strong style="color:#1E293B">CV</strong> de SP é <input type="text" class="pm-input" style="width:70px" id="ex7b-q3-b1"> que o <input type="text" class="pm-input" style="width:55px" id="ex7b-q3-b2"> de Campinas, portanto os CMIs de <input type="text" class="pm-input" style="width:100px" id="ex7b-q3-b3"> são mais dispersos que os CMIs de <input type="text" class="pm-input" style="width:100px" id="ex7b-q3-b4">.
+        </p>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7b-q3-confbtn" onclick="chkBlanksGated('ex7b-q3wrap','ex7b-q3', ex7bQ3Specs, 'ex7b-q4wrap')">Conferir</button>
+        </div>
+        <div id="ex7b-q3-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7b-q4wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>e)</strong> Observe o gráfico com o CMI de Campinas e São Paulo ao longo dos anos:</p>
+        <div id="ex7b-chart" style="margin:.6rem 0"></div>
+        <p class="ex-q">Observando o gráfico, calcule a variação percentual do CMI de 2025 em relação a 2016, de cada cidade.</p>
+        <div style="display:flex;justify-content:center;gap:1.4rem;margin:.8rem 0;flex-wrap:wrap">
+          <label style="text-align:center;font-size:.85rem;font-weight:700;color:#334155">Campinas (%)<br><input type="text" inputmode="decimal" class="pm-input" style="width:80px;margin-top:.3rem" id="ex7b-q4-b0"></label>
+          <label style="text-align:center;font-size:.85rem;font-weight:700;color:#334155">São Paulo (%)<br><input type="text" inputmode="decimal" class="pm-input" style="width:80px;margin-top:.3rem" id="ex7b-q4-b1"></label>
+        </div>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7b-q4-confbtn" onclick="chkBlanksGated('ex7b-q4wrap','ex7b-q4', ex7bQ4Specs, 'ex7b-q5wrap')">Conferir</button>
+        </div>
+        <div id="ex7b-q4-fb" class="feedback"></div>
+
+        <div id="ex7b-q5wrap" data-unlocked="false" style="margin-top:1.2rem">
+          <p class="ex-q"><strong>f)</strong> Com base nessas variações percentuais, o que se pode concluir sobre a evolução do CMI nas duas cidades entre 2016 e 2025?</p>
+          <div class="quiz-opts" id="ex7b-q5-opts">
+            <button onclick="chkMCChain('ex7b-q5wrap','ex7b-q5',0,2,'Confira o sinal da variação de São Paulo: ela foi positiva (+21,6%), ou seja, o CMI aumentou, não diminuiu.', null)">A) As duas cidades tiveram queda no CMI, mas Campinas melhorou mais que São Paulo.</button>
+            <button onclick="chkMCChain('ex7b-q5wrap','ex7b-q5',1,2,'O CV mede dispersão entre os anos, não tendência de melhora ou piora ao longo do tempo — são conceitos diferentes. O CV maior de Campinas não implica que ela piorou mais nesse período.', null)">B) Como o CV de Campinas é maior que o de São Paulo, o CMI de Campinas necessariamente piorou mais.</button>
+            <button onclick="chkMCChain('ex7b-q5wrap','ex7b-q5',2,2,'Isso mesmo! Campinas caiu de 0,66 para 0,56 (−15,2%, melhora), enquanto São Paulo subiu de 1,85 para 2,25 (+21,6%, piora) — movimentos opostos no mesmo período.', null)">C) Campinas teve queda no CMI (melhora), enquanto São Paulo teve aumento (piora) — trajetórias opostas.</button>
+            <button onclick="chkMCChain('ex7b-q5wrap','ex7b-q5',3,2,'Confira o sinal da variação de Campinas: ela foi negativa (−15,2%), ou seja, o CMI caiu, não aumentou.', null)">D) As duas cidades tiveram aumento no CMI, mas São Paulo piorou mais que Campinas.</button>
+            <button onclick="chkMCChain('ex7b-q5wrap','ex7b-q5',4,2,'O sinal da variação percentual indica exatamente isso: negativo é queda (melhora do indicador), positivo é aumento (piora).', null)">E) Não é possível concluir nada, pois a variação percentual não indica se a situação melhorou ou piorou.</button>
+          </div>
+          <div id="ex7b-q5-fb" class="feedback"></div>
+        </div>
+      </div>
+
+    </div>
+  </details>
+
+  <details class="acc-item acc-verdec">
+    <summary>
+      <span class="acc-icon">📋</span>
+      <span class="acc-title">Exercício 3 — Contexto: Nutrição</span>
+      <span class="acc-chevron">▾</span>
+    </summary>
+    <div class="acc-body">
+
+      <p class="ex-q"><strong>a)</strong> Em Campinas, foram registrados os nascidos vivos e os óbitos infantis associados a baixo peso ao nascer/desnutrição intrauterina entre 2016 e 2025. Calcule o Coeficiente de Mortalidade Infantil (CMI) no ano de 2025, com duas casas decimais.</p>
+      <p style="font-size:.9rem;color:#DC2626;font-weight:700;margin:-.4rem 0 .8rem">Dica: CMI = (óbitos infantis ÷ nascidos vivos) × 1.000.</p>
+
+      <div style="overflow-x:auto">
+        <table style="width:100%;min-width:280px;border-collapse:collapse;font-size:.82rem;text-align:center">
+          <thead>
+            <tr style="background:#F1F5F9">
+              <th style="padding:.2rem .3rem;text-align:center">Ano</th>
+              <th style="padding:.2rem .3rem;text-align:center;line-height:1.2">Óbitos<br>Infantis</th>
+              <th style="padding:.2rem .3rem;text-align:center;line-height:1.2">Nascidos<br>Vivos</th>
+              <th style="padding:.2rem .3rem;text-align:center">CMI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2016</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">16</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.200</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">1,05</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2017</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.350</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,91</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2018</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.100</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,99</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2019</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">12</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.480</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,78</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2020</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">13</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14.900</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,87</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2021</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">10</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14.750</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,68</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2022</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">11</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.600</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,71</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2023</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">9</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.820</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,57</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2024</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">8</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">16.050</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,50</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;font-weight:900">2025</td><td style="padding:.2rem .3rem;font-weight:900">7</td><td style="padding:.2rem .3rem;font-weight:900">16.200</td><td style="padding:.2rem .3rem"><input type="text" inputmode="decimal" class="pm-input" style="width:58px" id="ex7c-cmi-b0"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="text-align:center">
+        <button class="btn-conferir" id="ex7c-cmi-confbtn" onclick="chkBlanks('ex7c-cmi', ex7cCmiSpecs, 'ex7c-q1wrap')">Conferir CMI</button>
+      </div>
+      <div id="ex7c-cmi-fb" class="feedback"></div>
+
+      <div id="ex7c-q1wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>b)</strong> Calcule o CMI médio anual, com duas casas decimais.</p>
+        <div style="text-align:center;margin:.6rem 0">
+          <input type="text" inputmode="decimal" class="pm-input" style="width:80px" id="ex7c-q1-b0">
+        </div>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7c-q1-confbtn" onclick="chkBlanksGated('ex7c-q1wrap','ex7c-q1', ex7cQ1Specs, 'ex7c-q2wrap')">Conferir</button>
+        </div>
+        <div id="ex7c-q1-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7c-q2wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>c)</strong> Sabendo que o desvio padrão do CMI nesses 10 anos é 0,20, calcule o Coeficiente de Variação (CV) usando a média que você calculou na questão anterior, e responda:</p>
+        <div class="quiz-opts" id="ex7c-q2-opts">
+          <button onclick="chkMCChain('ex7c-q2wrap','ex7c-q2',0,1,'0,27 é o resultado da divisão (0,20 ÷ 0,75), mas falta multiplicar por 100 para expressar o CV em porcentagem.','ex7c-q3wrap')">A) 0,27</button>
+          <button onclick="chkMCChain('ex7c-q2wrap','ex7c-q2',1,1,'Isso mesmo! CV = (0,20 ÷ 0,75) × 100 = 26,7%.','ex7c-q3wrap')">B) 26,7%</button>
+          <button onclick="chkMCChain('ex7c-q2wrap','ex7c-q2',2,1,'20% é apenas o desvio padrão multiplicado por 100, sem dividir pela média — assim não se obtém o CV.','ex7c-q3wrap')">C) 20%</button>
+          <button onclick="chkMCChain('ex7c-q2wrap','ex7c-q2',3,1,'375% inverteu a fórmula, dividindo a média pelo desvio padrão em vez do contrário.','ex7c-q3wrap')">D) 375%</button>
+          <button onclick="chkMCChain('ex7c-q2wrap','ex7c-q2',4,1,'75% é a própria média (0,75) reescrita como porcentagem — não é o CV.','ex7c-q3wrap')">E) 75%</button>
+        </div>
+        <div id="ex7c-q2-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7c-q3wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>d)</strong> Dado que o desvio padrão do CMI de Campinas é 0,20 (já calculado) e que o desvio padrão do CMI de São Paulo é 0,17, compare o CMI médio das duas cidades.</p>
+        <p style="font-size:.9rem;color:#DC2626;font-weight:700;margin:-.4rem 0 .8rem">Dica: comparar médias também significa avaliar a dispersão. Pense em qual medida — desvio padrão ou CV — faz mais sentido usar aqui.</p>
+        <div style="overflow-x:auto">
+          <table style="width:100%;min-width:620px;border-collapse:collapse;font-size:.78rem;text-align:center">
+            <thead>
+              <tr style="background:#F1F5F9">
+                <th style="padding:.2rem .3rem;text-align:left">Cidade</th>
+                <th style="padding:.2rem .3rem">2016</th><th style="padding:.2rem .3rem">2017</th><th style="padding:.2rem .3rem">2018</th><th style="padding:.2rem .3rem">2019</th><th style="padding:.2rem .3rem">2020</th><th style="padding:.2rem .3rem">2021</th><th style="padding:.2rem .3rem">2022</th><th style="padding:.2rem .3rem">2023</th><th style="padding:.2rem .3rem">2024</th><th style="padding:.2rem .3rem">2025</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:.2rem .3rem;text-align:left;font-weight:900;border-bottom:1px solid #E2E8F0">Campinas</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">1,05</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,91</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,99</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,78</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,87</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,68</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,71</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,57</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,50</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,43</td></tr>
+              <tr><td style="padding:.2rem .3rem;text-align:left;font-weight:900">São Paulo</td><td style="padding:.2rem .3rem">2,50</td><td style="padding:.2rem .3rem">2,36</td><td style="padding:.2rem .3rem">2,35</td><td style="padding:.2rem .3rem">2,24</td><td style="padding:.2rem .3rem">2,26</td><td style="padding:.2rem .3rem">2,31</td><td style="padding:.2rem .3rem">2,10</td><td style="padding:.2rem .3rem">2,05</td><td style="padding:.2rem .3rem">1,97</td><td style="padding:.2rem .3rem">1,98</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="ex-q" style="margin-top:1rem">Complete a frase:</p>
+        <p style="font-size:.95rem;font-weight:700;line-height:2.6;color:#334155">
+          Como as médias são <input type="text" class="pm-input" style="width:110px" id="ex7c-q3-b0"> <span style="font-weight:600;color:#64748B;font-size:.82rem">(diferentes ou iguais)</span>, <strong style="color:#1E293B">não</strong> podemos comparar os desvios padrões diretamente. O <strong style="color:#1E293B">CV</strong> de SP é <input type="text" class="pm-input" style="width:70px" id="ex7c-q3-b1"> que o <input type="text" class="pm-input" style="width:55px" id="ex7c-q3-b2"> de Campinas, portanto os CMIs de <input type="text" class="pm-input" style="width:100px" id="ex7c-q3-b3"> são mais dispersos que os CMIs de <input type="text" class="pm-input" style="width:100px" id="ex7c-q3-b4">.
+        </p>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7c-q3-confbtn" onclick="chkBlanksGated('ex7c-q3wrap','ex7c-q3', ex7cQ3Specs, 'ex7c-q4wrap')">Conferir</button>
+        </div>
+        <div id="ex7c-q3-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7c-q4wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>e)</strong> Observe o gráfico com o CMI de Campinas e São Paulo ao longo dos anos:</p>
+        <div id="ex7c-chart" style="margin:.6rem 0"></div>
+        <p class="ex-q">Observando o gráfico, calcule a variação percentual do CMI de 2025 em relação a 2016, de cada cidade.</p>
+        <div style="display:flex;justify-content:center;gap:1.4rem;margin:.8rem 0;flex-wrap:wrap">
+          <label style="text-align:center;font-size:.85rem;font-weight:700;color:#334155">Campinas (%)<br><input type="text" inputmode="decimal" class="pm-input" style="width:80px;margin-top:.3rem" id="ex7c-q4-b0"></label>
+          <label style="text-align:center;font-size:.85rem;font-weight:700;color:#334155">São Paulo (%)<br><input type="text" inputmode="decimal" class="pm-input" style="width:80px;margin-top:.3rem" id="ex7c-q4-b1"></label>
+        </div>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7c-q4-confbtn" onclick="chkBlanksGated('ex7c-q4wrap','ex7c-q4', ex7cQ4Specs, 'ex7c-q5wrap')">Conferir</button>
+        </div>
+        <div id="ex7c-q4-fb" class="feedback"></div>
+
+        <div id="ex7c-q5wrap" data-unlocked="false" style="margin-top:1.2rem">
+          <p class="ex-q"><strong>f)</strong> Com base nessas variações percentuais, o que se pode concluir sobre a evolução do CMI nas duas cidades entre 2016 e 2025?</p>
+          <div class="quiz-opts" id="ex7c-q5-opts">
+            <button onclick="chkMCChain('ex7c-q5wrap','ex7c-q5',0,4,'Confira o sinal das duas variações: ambas foram negativas, ou seja, o CMI caiu (melhorou) nas duas cidades, não aumentou.', null)">A) As duas cidades tiveram aumento no CMI, mas São Paulo piorou mais que Campinas.</button>
+            <button onclick="chkMCChain('ex7c-q5wrap','ex7c-q5',1,4,'Confira o sinal da variação de São Paulo: ela também foi negativa (−20,8%), ou seja, o CMI caiu — não houve aumento em nenhuma das duas cidades.', null)">B) Campinas teve queda, enquanto São Paulo teve aumento — trajetórias opostas.</button>
+            <button onclick="chkMCChain('ex7c-q5wrap','ex7c-q5',2,4,'A variação percentual mostra o quanto o CMI caiu proporcionalmente, mas não determina isoladamente qual cidade tem o CMI médio mais baixo — isso depende dos valores absolutos das duas séries, não da variação relativa entre pontas.', null)">C) Como Campinas teve maior queda percentual, isso significa que seu CMI médio também é menor que o de São Paulo.</button>
+            <button onclick="chkMCChain('ex7c-q5wrap','ex7c-q5',3,4,'O sinal da variação percentual indica exatamente isso: negativo é queda (melhora do indicador), positivo é aumento (piora).', null)">D) Não é possível concluir nada, pois a variação percentual não indica se a situação melhorou ou piorou.</button>
+            <button onclick="chkMCChain('ex7c-q5wrap','ex7c-q5',4,4,'Isso mesmo! Campinas caiu de 1,05 para 0,43 (−59,0%) e São Paulo caiu de 2,50 para 1,98 (−20,8%) — as duas cidades melhoraram, mas Campinas teve uma queda proporcional bem mais expressiva.', null)">E) As duas cidades tiveram queda no CMI (melhora), mas Campinas teve uma queda percentual bem mais expressiva que São Paulo.</button>
+          </div>
+          <div id="ex7c-q5-fb" class="feedback"></div>
+        </div>
+      </div>
+
+    </div>
+  </details>
+
+  <details class="acc-item acc-vermelho">
+    <summary>
+      <span class="acc-icon">📋</span>
+      <span class="acc-title">Exercício 4 — Contexto: Enfermagem</span>
+      <span class="acc-chevron">▾</span>
+    </summary>
+    <div class="acc-body">
+
+      <p class="ex-q"><strong>a)</strong> Em Campinas, foram registrados os nascidos vivos e os óbitos infantis associados a sepse neonatal entre 2016 e 2025. Calcule o Coeficiente de Mortalidade Infantil (CMI) no ano de 2025, com duas casas decimais.</p>
+      <p style="font-size:.9rem;color:#DC2626;font-weight:700;margin:-.4rem 0 .8rem">Dica: CMI = (óbitos infantis ÷ nascidos vivos) × 1.000.</p>
+
+      <div style="overflow-x:auto">
+        <table style="width:100%;min-width:280px;border-collapse:collapse;font-size:.82rem;text-align:center">
+          <thead>
+            <tr style="background:#F1F5F9">
+              <th style="padding:.2rem .3rem;text-align:center">Ano</th>
+              <th style="padding:.2rem .3rem;text-align:center;line-height:1.2">Óbitos<br>Infantis</th>
+              <th style="padding:.2rem .3rem;text-align:center;line-height:1.2">Nascidos<br>Vivos</th>
+              <th style="padding:.2rem .3rem;text-align:center">CMI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2016</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">6</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.200</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,39</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2017</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">8</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.350</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,52</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2018</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">7</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.100</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,46</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2019</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">9</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.480</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,58</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2020</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">10</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14.900</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,67</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2021</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">9</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14.750</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,61</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2022</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">11</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.600</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,71</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2023</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">12</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.820</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,76</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2024</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">13</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">16.050</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,81</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;font-weight:900">2025</td><td style="padding:.2rem .3rem;font-weight:900">14</td><td style="padding:.2rem .3rem;font-weight:900">16.200</td><td style="padding:.2rem .3rem"><input type="text" inputmode="decimal" class="pm-input" style="width:58px" id="ex7d-cmi-b0"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="text-align:center">
+        <button class="btn-conferir" id="ex7d-cmi-confbtn" onclick="chkBlanks('ex7d-cmi', ex7dCmiSpecs, 'ex7d-q1wrap')">Conferir CMI</button>
+      </div>
+      <div id="ex7d-cmi-fb" class="feedback"></div>
+
+      <div id="ex7d-q1wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>b)</strong> Calcule o CMI médio anual, com duas casas decimais.</p>
+        <div style="text-align:center;margin:.6rem 0">
+          <input type="text" inputmode="decimal" class="pm-input" style="width:80px" id="ex7d-q1-b0">
+        </div>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7d-q1-confbtn" onclick="chkBlanksGated('ex7d-q1wrap','ex7d-q1', ex7dQ1Specs, 'ex7d-q2wrap')">Conferir</button>
+        </div>
+        <div id="ex7d-q1-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7d-q2wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>c)</strong> Sabendo que o desvio padrão do CMI nesses 10 anos é 0,15, calcule o Coeficiente de Variação (CV) usando a média que você calculou na questão anterior, e responda:</p>
+        <div class="quiz-opts" id="ex7d-q2-opts">
+          <button onclick="chkMCChain('ex7d-q2wrap','ex7d-q2',0,4,'0,23 é o resultado da divisão (0,15 ÷ 0,64), mas falta multiplicar por 100 para expressar o CV em porcentagem.','ex7d-q3wrap')">A) 0,23</button>
+          <button onclick="chkMCChain('ex7d-q2wrap','ex7d-q2',1,4,'15% é apenas o desvio padrão multiplicado por 100, sem dividir pela média — assim não se obtém o CV.','ex7d-q3wrap')">B) 15%</button>
+          <button onclick="chkMCChain('ex7d-q2wrap','ex7d-q2',2,4,'426,7% inverteu a fórmula, dividindo a média pelo desvio padrão em vez do contrário.','ex7d-q3wrap')">C) 426,7%</button>
+          <button onclick="chkMCChain('ex7d-q2wrap','ex7d-q2',3,4,'64% é a própria média (0,64) reescrita como porcentagem — não é o CV.','ex7d-q3wrap')">D) 64%</button>
+          <button onclick="chkMCChain('ex7d-q2wrap','ex7d-q2',4,4,'Isso mesmo! CV = (0,15 ÷ 0,64) × 100 = 23,4%.','ex7d-q3wrap')">E) 23,4%</button>
+        </div>
+        <div id="ex7d-q2-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7d-q3wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>d)</strong> Dado que o desvio padrão do CMI de Campinas é 0,15 (já calculado) e que o desvio padrão do CMI de São Paulo é 0,18, compare o CMI médio das duas cidades.</p>
+        <p style="font-size:.9rem;color:#DC2626;font-weight:700;margin:-.4rem 0 .8rem">Dica: comparar médias também significa avaliar a dispersão. Pense em qual medida — desvio padrão ou CV — faz mais sentido usar aqui.</p>
+        <div style="overflow-x:auto">
+          <table style="width:100%;min-width:620px;border-collapse:collapse;font-size:.78rem;text-align:center">
+            <thead>
+              <tr style="background:#F1F5F9">
+                <th style="padding:.2rem .3rem;text-align:left">Cidade</th>
+                <th style="padding:.2rem .3rem">2016</th><th style="padding:.2rem .3rem">2017</th><th style="padding:.2rem .3rem">2018</th><th style="padding:.2rem .3rem">2019</th><th style="padding:.2rem .3rem">2020</th><th style="padding:.2rem .3rem">2021</th><th style="padding:.2rem .3rem">2022</th><th style="padding:.2rem .3rem">2023</th><th style="padding:.2rem .3rem">2024</th><th style="padding:.2rem .3rem">2025</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:.2rem .3rem;text-align:left;font-weight:900;border-bottom:1px solid #E2E8F0">Campinas</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,39</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,52</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,46</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,58</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,67</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,61</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,71</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,76</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,81</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,86</td></tr>
+              <tr><td style="padding:.2rem .3rem;text-align:left;font-weight:900">São Paulo</td><td style="padding:.2rem .3rem">2,20</td><td style="padding:.2rem .3rem">2,15</td><td style="padding:.2rem .3rem">2,05</td><td style="padding:.2rem .3rem">2,10</td><td style="padding:.2rem .3rem">1,95</td><td style="padding:.2rem .3rem">1,90</td><td style="padding:.2rem .3rem">1,85</td><td style="padding:.2rem .3rem">1,75</td><td style="padding:.2rem .3rem">1,70</td><td style="padding:.2rem .3rem">1,65</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="ex-q" style="margin-top:1rem">Complete a frase:</p>
+        <p style="font-size:.95rem;font-weight:700;line-height:2.6;color:#334155">
+          Como as médias são <input type="text" class="pm-input" style="width:110px" id="ex7d-q3-b0"> <span style="font-weight:600;color:#64748B;font-size:.82rem">(diferentes ou iguais)</span>, <strong style="color:#1E293B">não</strong> podemos comparar os desvios padrões diretamente. O <strong style="color:#1E293B">CV</strong> de SP é <input type="text" class="pm-input" style="width:70px" id="ex7d-q3-b1"> que o <input type="text" class="pm-input" style="width:55px" id="ex7d-q3-b2"> de Campinas, portanto os CMIs de <input type="text" class="pm-input" style="width:100px" id="ex7d-q3-b3"> são mais dispersos que os CMIs de <input type="text" class="pm-input" style="width:100px" id="ex7d-q3-b4">.
+        </p>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7d-q3-confbtn" onclick="chkBlanksGated('ex7d-q3wrap','ex7d-q3', ex7dQ3Specs, 'ex7d-q4wrap')">Conferir</button>
+        </div>
+        <div id="ex7d-q3-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7d-q4wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>e)</strong> Observe o gráfico com o CMI de Campinas e São Paulo ao longo dos anos:</p>
+        <div id="ex7d-chart" style="margin:.6rem 0"></div>
+        <p class="ex-q">Observando o gráfico, calcule a variação percentual do CMI de 2025 em relação a 2016, de cada cidade.</p>
+        <div style="display:flex;justify-content:center;gap:1.4rem;margin:.8rem 0;flex-wrap:wrap">
+          <label style="text-align:center;font-size:.85rem;font-weight:700;color:#334155">Campinas (%)<br><input type="text" inputmode="decimal" class="pm-input" style="width:80px;margin-top:.3rem" id="ex7d-q4-b0"></label>
+          <label style="text-align:center;font-size:.85rem;font-weight:700;color:#334155">São Paulo (%)<br><input type="text" inputmode="decimal" class="pm-input" style="width:80px;margin-top:.3rem" id="ex7d-q4-b1"></label>
+        </div>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7d-q4-confbtn" onclick="chkBlanksGated('ex7d-q4wrap','ex7d-q4', ex7dQ4Specs, 'ex7d-q5wrap')">Conferir</button>
+        </div>
+        <div id="ex7d-q4-fb" class="feedback"></div>
+
+        <div id="ex7d-q5wrap" data-unlocked="false" style="margin-top:1.2rem">
+          <p class="ex-q"><strong>f)</strong> Com base nessas variações percentuais, o que se pode concluir sobre a evolução do CMI nas duas cidades entre 2016 e 2025?</p>
+          <div class="quiz-opts" id="ex7d-q5-opts">
+            <button onclick="chkMCChain('ex7d-q5wrap','ex7d-q5',0,3,'Confira o sinal da variação de Campinas: ela foi positiva (+120,5%), ou seja, o CMI aumentou (piorou), não caiu.', null)">A) As duas cidades tiveram queda no CMI, mas Campinas melhorou mais que São Paulo.</button>
+            <button onclick="chkMCChain('ex7d-q5wrap','ex7d-q5',1,3,'O CV mede dispersão entre os anos, não tendência de melhora ou piora ao longo do tempo — são conceitos diferentes. Mesmo com CV maior, isso não é a razão de Campinas ter piorado.', null)">B) Como o CV de Campinas é maior que o de São Paulo, o CMI de Campinas necessariamente piorou mais.</button>
+            <button onclick="chkMCChain('ex7d-q5wrap','ex7d-q5',2,3,'Confira o sinal da variação de São Paulo: ela foi negativa (−25,0%), ou seja, o CMI caiu (melhorou), não aumentou.', null)">C) As duas cidades tiveram aumento no CMI, mas São Paulo piorou mais que Campinas.</button>
+            <button onclick="chkMCChain('ex7d-q5wrap','ex7d-q5',3,3,'Isso mesmo! Campinas subiu de 0,39 para 0,86 (+120,5%, piora), enquanto São Paulo caiu de 2,20 para 1,65 (−25,0%, melhora) — movimentos opostos no mesmo período.', null)">D) Campinas teve aumento no CMI (piora), enquanto São Paulo teve queda (melhora) — trajetórias opostas.</button>
+            <button onclick="chkMCChain('ex7d-q5wrap','ex7d-q5',4,3,'O sinal da variação percentual indica exatamente isso: negativo é queda (melhora do indicador), positivo é aumento (piora).', null)">E) Não é possível concluir nada, pois a variação percentual não indica se a situação melhorou ou piorou.</button>
+          </div>
+          <div id="ex7d-q5-fb" class="feedback"></div>
+        </div>
+      </div>
+
+    </div>
+  </details>
+
+  <details class="acc-item acc-laranjac">
+    <summary>
+      <span class="acc-icon">📋</span>
+      <span class="acc-title">Exercício 5 — Contexto: Farmácia</span>
+      <span class="acc-chevron">▾</span>
+    </summary>
+    <div class="acc-body">
+
+      <p class="ex-q"><strong>a)</strong> Em Campinas, foram registrados os nascidos vivos e os óbitos infantis associados a sífilis congênita entre 2016 e 2025. Calcule o Coeficiente de Mortalidade Infantil (CMI) no ano de 2025, com duas casas decimais.</p>
+      <p style="font-size:.9rem;color:#DC2626;font-weight:700;margin:-.4rem 0 .8rem">Dica: CMI = (óbitos infantis ÷ nascidos vivos) × 1.000.</p>
+
+      <div style="overflow-x:auto">
+        <table style="width:100%;min-width:280px;border-collapse:collapse;font-size:.82rem;text-align:center">
+          <thead>
+            <tr style="background:#F1F5F9">
+              <th style="padding:.2rem .3rem;text-align:center">Ano</th>
+              <th style="padding:.2rem .3rem;text-align:center;line-height:1.2">Óbitos<br>Infantis</th>
+              <th style="padding:.2rem .3rem;text-align:center;line-height:1.2">Nascidos<br>Vivos</th>
+              <th style="padding:.2rem .3rem;text-align:center">CMI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2016</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">5</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.200</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,33</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2017</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">6</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.350</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,39</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2018</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">7</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.100</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,46</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2019</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">6</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.480</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,39</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2020</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">8</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14.900</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,54</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2021</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">9</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">14.750</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,61</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2022</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">10</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.600</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,64</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2023</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">11</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">15.820</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,70</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">2024</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">12</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">16.050</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0"><span class="pm-input pm-correct" style="width:58px;display:inline-block">0,75</span></td></tr>
+            <tr><td style="padding:.2rem .3rem;font-weight:900">2025</td><td style="padding:.2rem .3rem;font-weight:900">13</td><td style="padding:.2rem .3rem;font-weight:900">16.200</td><td style="padding:.2rem .3rem"><input type="text" inputmode="decimal" class="pm-input" style="width:58px" id="ex7e-cmi-b0"></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="text-align:center">
+        <button class="btn-conferir" id="ex7e-cmi-confbtn" onclick="chkBlanks('ex7e-cmi', ex7eCmiSpecs, 'ex7e-q1wrap')">Conferir CMI</button>
+      </div>
+      <div id="ex7e-cmi-fb" class="feedback"></div>
+
+      <div id="ex7e-q1wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>b)</strong> Calcule o CMI médio anual, com duas casas decimais.</p>
+        <div style="text-align:center;margin:.6rem 0">
+          <input type="text" inputmode="decimal" class="pm-input" style="width:80px" id="ex7e-q1-b0">
+        </div>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7e-q1-confbtn" onclick="chkBlanksGated('ex7e-q1wrap','ex7e-q1', ex7eQ1Specs, 'ex7e-q2wrap')">Conferir</button>
+        </div>
+        <div id="ex7e-q1-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7e-q2wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>c)</strong> Sabendo que o desvio padrão do CMI nesses 10 anos é 0,16, calcule o Coeficiente de Variação (CV) usando a média que você calculou na questão anterior, e responda:</p>
+        <div class="quiz-opts" id="ex7e-q2-opts">
+          <button onclick="chkMCChain('ex7e-q2wrap','ex7e-q2',0,0,'Isso mesmo! CV = (0,16 ÷ 0,56) × 100 = 28,6%.','ex7e-q3wrap')">A) 28,6%</button>
+          <button onclick="chkMCChain('ex7e-q2wrap','ex7e-q2',1,0,'0,29 é o resultado da divisão (0,16 ÷ 0,56), mas falta multiplicar por 100 para expressar o CV em porcentagem.','ex7e-q3wrap')">B) 0,29</button>
+          <button onclick="chkMCChain('ex7e-q2wrap','ex7e-q2',2,0,'16% é apenas o desvio padrão multiplicado por 100, sem dividir pela média — assim não se obtém o CV.','ex7e-q3wrap')">C) 16%</button>
+          <button onclick="chkMCChain('ex7e-q2wrap','ex7e-q2',3,0,'350% inverteu a fórmula, dividindo a média pelo desvio padrão em vez do contrário.','ex7e-q3wrap')">D) 350%</button>
+          <button onclick="chkMCChain('ex7e-q2wrap','ex7e-q2',4,0,'56% é a própria média (0,56) reescrita como porcentagem — não é o CV.','ex7e-q3wrap')">E) 56%</button>
+        </div>
+        <div id="ex7e-q2-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7e-q3wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>d)</strong> Dado que o desvio padrão do CMI de Campinas é 0,16 (já calculado) e que o desvio padrão do CMI de São Paulo é 0,22, compare o CMI médio das duas cidades.</p>
+        <p style="font-size:.9rem;color:#DC2626;font-weight:700;margin:-.4rem 0 .8rem">Dica: comparar médias também significa avaliar a dispersão. Pense em qual medida — desvio padrão ou CV — faz mais sentido usar aqui.</p>
+        <div style="overflow-x:auto">
+          <table style="width:100%;min-width:620px;border-collapse:collapse;font-size:.78rem;text-align:center">
+            <thead>
+              <tr style="background:#F1F5F9">
+                <th style="padding:.2rem .3rem;text-align:left">Cidade</th>
+                <th style="padding:.2rem .3rem">2016</th><th style="padding:.2rem .3rem">2017</th><th style="padding:.2rem .3rem">2018</th><th style="padding:.2rem .3rem">2019</th><th style="padding:.2rem .3rem">2020</th><th style="padding:.2rem .3rem">2021</th><th style="padding:.2rem .3rem">2022</th><th style="padding:.2rem .3rem">2023</th><th style="padding:.2rem .3rem">2024</th><th style="padding:.2rem .3rem">2025</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td style="padding:.2rem .3rem;text-align:left;font-weight:900;border-bottom:1px solid #E2E8F0">Campinas</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,33</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,39</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,46</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,39</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,54</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,61</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,64</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,70</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,75</td><td style="padding:.2rem .3rem;border-bottom:1px solid #E2E8F0">0,80</td></tr>
+              <tr><td style="padding:.2rem .3rem;text-align:left;font-weight:900">São Paulo</td><td style="padding:.2rem .3rem">1,60</td><td style="padding:.2rem .3rem">1,75</td><td style="padding:.2rem .3rem">1,68</td><td style="padding:.2rem .3rem">1,85</td><td style="padding:.2rem .3rem">1,90</td><td style="padding:.2rem .3rem">1,95</td><td style="padding:.2rem .3rem">2,05</td><td style="padding:.2rem .3rem">2,10</td><td style="padding:.2rem .3rem">2,20</td><td style="padding:.2rem .3rem">2,35</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="ex-q" style="margin-top:1rem">Complete a frase:</p>
+        <p style="font-size:.95rem;font-weight:700;line-height:2.6;color:#334155">
+          Como as médias são <input type="text" class="pm-input" style="width:110px" id="ex7e-q3-b0"> <span style="font-weight:600;color:#64748B;font-size:.82rem">(diferentes ou iguais)</span>, <strong style="color:#1E293B">não</strong> podemos comparar os desvios padrões diretamente. O <strong style="color:#1E293B">CV</strong> de SP é <input type="text" class="pm-input" style="width:70px" id="ex7e-q3-b1"> que o <input type="text" class="pm-input" style="width:55px" id="ex7e-q3-b2"> de Campinas, portanto os CMIs de <input type="text" class="pm-input" style="width:100px" id="ex7e-q3-b3"> são mais dispersos que os CMIs de <input type="text" class="pm-input" style="width:100px" id="ex7e-q3-b4">.
+        </p>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7e-q3-confbtn" onclick="chkBlanksGated('ex7e-q3wrap','ex7e-q3', ex7eQ3Specs, 'ex7e-q4wrap')">Conferir</button>
+        </div>
+        <div id="ex7e-q3-fb" class="feedback"></div>
+      </div>
+
+      <div id="ex7e-q4wrap" data-unlocked="false" style="margin-top:1.2rem">
+        <p class="ex-q"><strong>e)</strong> Observe o gráfico com o CMI de Campinas e São Paulo ao longo dos anos:</p>
+        <div id="ex7e-chart" style="margin:.6rem 0"></div>
+        <p class="ex-q">Observando o gráfico, calcule a variação percentual do CMI de 2025 em relação a 2016, de cada cidade.</p>
+        <div style="display:flex;justify-content:center;gap:1.4rem;margin:.8rem 0;flex-wrap:wrap">
+          <label style="text-align:center;font-size:.85rem;font-weight:700;color:#334155">Campinas (%)<br><input type="text" inputmode="decimal" class="pm-input" style="width:80px;margin-top:.3rem" id="ex7e-q4-b0"></label>
+          <label style="text-align:center;font-size:.85rem;font-weight:700;color:#334155">São Paulo (%)<br><input type="text" inputmode="decimal" class="pm-input" style="width:80px;margin-top:.3rem" id="ex7e-q4-b1"></label>
+        </div>
+        <div style="text-align:center">
+          <button class="btn-conferir" id="ex7e-q4-confbtn" onclick="chkBlanksGated('ex7e-q4wrap','ex7e-q4', ex7eQ4Specs, 'ex7e-q5wrap')">Conferir</button>
+        </div>
+        <div id="ex7e-q4-fb" class="feedback"></div>
+
+        <div id="ex7e-q5wrap" data-unlocked="false" style="margin-top:1.2rem">
+          <p class="ex-q"><strong>f)</strong> Com base nessas variações percentuais, o que se pode concluir sobre a evolução do CMI nas duas cidades entre 2016 e 2025?</p>
+          <div class="quiz-opts" id="ex7e-q5-opts">
+            <button onclick="chkMCChain('ex7e-q5wrap','ex7e-q5',0,0,'Isso mesmo! Campinas subiu de 0,33 para 0,80 (+142,4%) e São Paulo subiu de 1,60 para 2,35 (+46,9%) — as duas pioraram, mas Campinas teve um aumento proporcional bem mais expressivo.', null)">A) As duas cidades tiveram aumento no CMI (piora), mas Campinas teve um aumento percentual bem mais expressivo que São Paulo.</button>
+            <button onclick="chkMCChain('ex7e-q5wrap','ex7e-q5',1,0,'Confira o sinal das duas variações: ambas foram positivas, ou seja, o CMI subiu (piorou) nas duas cidades, não caiu.', null)">B) As duas cidades tiveram queda no CMI, mas São Paulo melhorou mais que Campinas.</button>
+            <button onclick="chkMCChain('ex7e-q5wrap','ex7e-q5',2,0,'Confira o sinal da variação de São Paulo: ela também foi positiva (+46,9%), ou seja, o CMI subiu — não houve queda em nenhuma das duas cidades.', null)">C) Campinas teve aumento no CMI, enquanto São Paulo teve queda — trajetórias opostas.</button>
+            <button onclick="chkMCChain('ex7e-q5wrap','ex7e-q5',3,0,'Apesar do aumento percentual maior, o CMI médio de Campinas (0,56) continua bem menor que o de São Paulo (1,94) — a variação percentual não determina isoladamente qual cidade tem o CMI médio mais alto.', null)">D) Como Campinas teve maior aumento percentual, isso significa que seu CMI médio também é maior que o de São Paulo.</button>
+            <button onclick="chkMCChain('ex7e-q5wrap','ex7e-q5',4,0,'O sinal da variação percentual indica exatamente isso: negativo é queda (melhora do indicador), positivo é aumento (piora).', null)">E) Não é possível concluir nada, pois a variação percentual não indica se a situação melhorou ou piorou.</button>
+          </div>
+          <div id="ex7e-q5-fb" class="feedback"></div>
+        </div>
+      </div>
+
+    </div>
+  </details>
+
+</section>
+
+<script>
+const sections = [
+  { id:'s1', label:'1 · Média Simples e o Efeito dos Extremos' },
+  { id:'s2', label:'2 · Desvio Padrão (Conceito)' },
+  { id:'s3', label:'3 · Mediana' },
+  { id:'s4', label:'4 · Moda' },
+  { id:'s5', label:'5 · Média x Mediana x Moda' },
+  { id:'s6', label:'6 · Coeficiente de Variação' },
+  { id:'s7', label:'7 · Exercícios Finais Contextualizados' },
+];
+let currentIdx = 0;
+
+function showSection(id) {
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  currentIdx = sections.findIndex(s => s.id === id);
+  document.getElementById('nav-label').textContent = sections[currentIdx].label;
+  document.getElementById('nav-prev').disabled = currentIdx === 0;
+  document.getElementById('nav-next').disabled = currentIdx === sections.length - 1;
+  window.scrollTo(0, 0);
+}
+function navigateSection(dir) {
+  const i = currentIdx + dir;
+  if (i >= 0 && i < sections.length) showSection(sections[i].id);
+}
+document.getElementById('s1').classList.add('active');
+document.getElementById('nav-label').textContent = sections[0].label;
+document.getElementById('nav-prev').disabled = true;
+
+// ── HELPERS DE EXERCÍCIO (múltipla escolha e verdadeiro/falso) ──
+function retryBtn(id) {
+  return ` <button onclick="resetEx('${id}')" style="margin-top:.5rem;display:inline-block;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:900;padding:.35rem .9rem;border:none;border-radius:8px;background:#1E293B;color:white;cursor:pointer;">↺ Tentar de novo</button>`;
+}
+function resetEx(id) {
+  const opts = document.getElementById(id+'-opts');
+  if (opts) {
+    Array.from(opts.querySelectorAll('button')).forEach(b => { b.disabled = false; b.classList.remove('correct','wrong'); });
+  }
+  const vof = document.getElementById(id+'-vof');
+  if (vof) {
+    Array.from(vof.querySelectorAll('button')).forEach(b => { b.disabled = false; b.classList.remove('correct','wrong'); });
+  }
+  const fb = document.getElementById(id+'-fb');
+  fb.className = 'feedback';
+  fb.innerHTML = '';
+}
+function chkMC(id, chosen, correct, explain) {
+  try {
+    const btns = Array.from(document.querySelectorAll('#'+id+'-opts button'));
+    const acertou = chosen === correct;
+    const fb = document.getElementById(id+'-fb');
+    btns.forEach(function(b){ b.disabled = true; });
+    fb.innerHTML = '';
+    if (acertou) {
+      btns[chosen].classList.add('correct');
+      const txt = document.createElement('span');
+      txt.textContent = '✅ ' + explain;
+      fb.appendChild(txt);
+      fb.className = 'feedback ok';
+    } else {
+      btns[chosen].classList.add('wrong');
+      const txt = document.createElement('span');
+      txt.textContent = '❌ ' + explain + ' ';
+      fb.appendChild(txt);
+      const btn = document.createElement('button');
+      btn.textContent = '↺ Tentar de novo';
+      btn.setAttribute('style', "margin-top:.5rem;display:inline-block;font-family:'Nunito',sans-serif;font-size:.9rem;font-weight:900;padding:.35rem .9rem;border:none;border-radius:8px;background:#1E293B;color:white;cursor:pointer;");
+      btn.addEventListener('click', function(){ resetEx(id); });
+      fb.appendChild(btn);
+      fb.className = 'feedback err';
+    }
+  } catch (e) {
+    console.error('chkMC falhou:', e);
+  }
+}
+// Variante com botão "tentar de novo" ao errar (usada na Aba 6)
+function chkMCr(id, chosen, correct, explain) {
+  chkMC(id, chosen, correct, explain);
+}
+function chkVF(id, wrapId, chosen, correct, explain) {
+  const btns = Array.from(document.querySelectorAll('#'+wrapId+' button'));
+  btns.forEach(b => b.disabled = true);
+  const acertou = chosen === correct;
+  btns.forEach(b => {
+    const isVerdadeiro = b.textContent.includes('Verdadeiro');
+    if (isVerdadeiro === correct) b.classList.add('correct');
+  });
+  if (!acertou) {
+    const isVerdadeiroChosen = chosen;
+    btns.forEach(b => {
+      const isVerdadeiro = b.textContent.includes('Verdadeiro');
+      if (isVerdadeiro === isVerdadeiroChosen) b.classList.add('wrong');
+    });
+  }
+  const fb = document.getElementById(id+'-fb');
+  fb.innerHTML = (acertou?'✅ ':'❌ ')+explain+(acertou?'':retryBtn(id));
+  fb.className = 'feedback '+(acertou?'ok':'err');
+}
+
+// ── HELPER: conferência de pontos médios (PM) com liberação das alternativas ──
+function chkPM(id, corrects) {
+  try {
+    const fb = document.getElementById(id+'-pmfb');
+    const allEmpty = corrects.every(function(val, i) {
+      const inp = document.getElementById(id+'-pm'+i);
+      return !inp.value || !inp.value.trim();
+    });
+    if (allEmpty) {
+      fb.textContent = '⚠️ Primeiro calcule os pontos médios.';
+      fb.className = 'feedback err';
+      return;
+    }
+    let allOk = true;
+    corrects.forEach(function(val, i) {
+      const inp = document.getElementById(id+'-pm'+i);
+      const raw = (inp.value || '').trim().replace(',', '.');
+      const num = parseFloat(raw);
+      const ok = !isNaN(num) && Math.abs(num - val) < 0.01;
+      inp.classList.remove('pm-correct', 'pm-wrong');
+      inp.classList.add(ok ? 'pm-correct' : 'pm-wrong');
+      if (!ok) allOk = false;
+    });
+    if (allOk) {
+      fb.textContent = '✅ Isso mesmo! Os pontos médios estão corretos.';
+      fb.className = 'feedback ok';
+      corrects.forEach(function(val, i) {
+        const inp = document.getElementById(id+'-pm'+i);
+        inp.disabled = true;
+      });
+      const btn = document.getElementById(id+'-confbtn');
+      if (btn) { btn.disabled = true; btn.textContent = '✓ Conferido'; }
+      const wrap = document.getElementById(id+'-altswrap');
+      if (wrap) wrap.dataset.unlocked = 'true';
+    } else {
+      fb.textContent = '❌ Alguns pontos médios ainda não estão corretos (em vermelho). Revise e tente novamente.';
+      fb.className = 'feedback err';
+    }
+  } catch (e) {
+    console.error('chkPM falhou:', e);
+  }
+}
+
+// ── HELPER: bloqueia alternativas até os PMs serem conferidos corretamente ──
+function chkMCGate(wrapId, id, chosen, correct, explain) {
+  const wrap = document.getElementById(wrapId);
+  if (!wrap || wrap.dataset.unlocked !== 'true') {
+    const fb = document.getElementById(id+'-pmfb');
+    fb.textContent = '⚠️ Conferir PM antes de continuar.';
+    fb.className = 'feedback err';
+    return;
+  }
+  chkMC(id, chosen, correct, explain);
+}
+
+// ── HELPERS: exercícios encadeados (preencher lacunas + múltipla escolha em cadeia) ──
+function normalizeTxt(s) {
+  return (s || '').toString().trim().toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, ' ');
+}
+function checkBlank(raw, spec) {
+  if (spec.type === 'num') {
+    const num = parseFloat(String(raw).trim().replace(',', '.'));
+    return !isNaN(num) && Math.abs(num - spec.value) <= (spec.tol != null ? spec.tol : 0.05);
+  }
+  const norm = normalizeTxt(raw);
+  return (spec.accept || []).some(function (a) { return normalizeTxt(a) === norm; });
+}
+function performBlanksCheck(id, specs, nextGateId) {
+  let allOk = true;
+  specs.forEach(function (spec, i) {
+    const inp = document.getElementById(id + '-b' + i);
+    const ok = checkBlank(inp.value, spec);
+    inp.classList.remove('pm-correct', 'pm-wrong');
+    inp.classList.add(ok ? 'pm-correct' : 'pm-wrong');
+    if (!ok) allOk = false;
+  });
+  const fb = document.getElementById(id + '-fb');
+  if (allOk) {
+    fb.textContent = '✅ Isso mesmo! Respostas corretas.';
+    fb.className = 'feedback ok';
+    specs.forEach(function (s, i) { document.getElementById(id + '-b' + i).disabled = true; });
+    const btn = document.getElementById(id + '-confbtn');
+    if (btn) { btn.disabled = true; btn.textContent = '✓ Conferido'; }
+    if (nextGateId) {
+      const nxt = document.getElementById(nextGateId);
+      if (nxt) nxt.dataset.unlocked = 'true';
+    }
+  } else {
+    fb.textContent = '❌ Algumas respostas ainda não estão corretas (em vermelho). Revise e tente novamente.';
+    fb.className = 'feedback err';
+  }
+}
+function chkBlanks(id, specs, nextGateId) {
+  try { performBlanksCheck(id, specs, nextGateId); }
+  catch (e) { console.error('chkBlanks falhou:', e); }
+}
+function chkBlanksGated(wrapId, id, specs, nextGateId) {
+  const wrap = document.getElementById(wrapId);
+  if (!wrap || wrap.dataset.unlocked !== 'true') {
+    const fb = document.getElementById(id + '-fb');
+    fb.textContent = '⚠️ Complete a etapa anterior antes de continuar.';
+    fb.className = 'feedback err';
+    return;
+  }
+  chkBlanks(id, specs, nextGateId);
+}
+function chkMCChain(wrapId, id, chosen, correct, explain, nextGateId) {
+  const wrap = document.getElementById(wrapId);
+  if (!wrap || wrap.dataset.unlocked !== 'true') {
+    const fb = document.getElementById(id + '-fb');
+    fb.textContent = '⚠️ Complete a etapa anterior antes de continuar.';
+    fb.className = 'feedback err';
+    return;
+  }
+  chkMC(id, chosen, correct, explain);
+  if (chosen === correct && nextGateId) {
+    const nxt = document.getElementById(nextGateId);
+    if (nxt) nxt.dataset.unlocked = 'true';
+  }
+}
+
+// ── GRÁFICO DE LINHAS (SVG) ──
+function renderLineChart(elId, categories, series, opts) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  opts = opts || {};
+  const w = opts.width || 320, h = opts.height || 220;
+  const padL = 32, padR = 10, padT = 24, padB = 34;
+  const allVals = series.reduce(function (acc, s) { return acc.concat(s.values); }, []);
+  const minV = Math.min.apply(null, allVals), maxV = Math.max.apply(null, allVals);
+  const yMin = Math.floor((minV - 0.15) * 10) / 10;
+  const yMax = Math.ceil((maxV + 0.15) * 10) / 10;
+  const xStep = (w - padL - padR) / (categories.length - 1);
+  const yScale = function (v) { return h - padB - ((v - yMin) / (yMax - yMin)) * (h - padT - padB); };
+  const xScale = function (i) { return padL + i * xStep; };
+  let svg = '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;height:auto;font-family:\'Nunito\',sans-serif">';
+  const ticks = 4;
+  for (let t = 0; t <= ticks; t++) {
+    const val = yMin + (yMax - yMin) * t / ticks;
+    const y = yScale(val);
+    svg += '<line x1="' + padL + '" y1="' + y + '" x2="' + (w - padR) + '" y2="' + y + '" stroke="#E2E8F0" stroke-width="1"/>';
+    svg += '<text x="' + (padL - 5) + '" y="' + (y + 3) + '" font-size="9.5" font-weight="700" fill="#334155" text-anchor="end">' + val.toFixed(1) + '</text>';
+  }
+  categories.forEach(function (cat, i) {
+    const x = xScale(i);
+    svg += '<text x="' + x + '" y="' + (h - padB + 14) + '" font-size="8.5" font-weight="700" fill="#334155" text-anchor="middle" transform="rotate(-40 ' + x + ' ' + (h - padB + 14) + ')">' + cat + '</text>';
+  });
+  series.forEach(function (s) {
+    const points = s.values.map(function (v, i) { return xScale(i) + ',' + yScale(v); }).join(' ');
+    svg += '<polyline points="' + points + '" fill="none" stroke="' + s.color + '" stroke-width="2.5"/>';
+    s.values.forEach(function (v, i) {
+      svg += '<circle cx="' + xScale(i) + '" cy="' + yScale(v) + '" r="2.8" fill="' + s.color + '"/>';
+    });
+    // rótulos nos extremos: primeiro ano (embaixo) e último ano (em cima)
+    const firstV = s.values[0], lastV = s.values[s.values.length - 1];
+    const x0 = xScale(0), y0 = yScale(firstV);
+    const xN = xScale(s.values.length - 1), yN = yScale(lastV);
+    svg += '<text x="' + x0 + '" y="' + (y0 + 13) + '" font-size="8.5" font-weight="900" fill="' + s.color + '" text-anchor="middle">' + firstV.toFixed(2).replace('.', ',') + '</text>';
+    svg += '<text x="' + xN + '" y="' + (yN - 7) + '" font-size="8.5" font-weight="900" fill="' + s.color + '" text-anchor="middle">' + lastV.toFixed(2).replace('.', ',') + '</text>';
+  });
+  svg += '</svg>';
+  let legend = '<div style="display:flex;gap:1rem;justify-content:center;margin-top:.3rem;font-size:.8rem;font-weight:900">';
+  series.forEach(function (s) {
+    legend += '<span style="display:flex;align-items:center;gap:.3rem"><span style="width:10px;height:10px;border-radius:50%;background:' + s.color + ';display:inline-block"></span>' + s.name + '</span>';
+  });
+  legend += '</div>';
+  el.innerHTML = svg + legend;
+}
+
+// ── DADOS: Exercício 1 (Psicologia) — CMI Campinas x São Paulo ──
+const ex7aCmiSpecs = [
+  { type: 'num', value: 0.74, tol: 0.005 },
+];
+const ex7aQ1Specs = [{ type: 'num', value: 0.85, tol: 0.005 }];
+const ex7aQ3Specs = [
+  { type: 'text', accept: ['diferentes', 'diferente'] },
+  { type: 'text', accept: ['menor'] },
+  { type: 'text', accept: ['cv', 'coeficiente de variação', 'coeficiente de variacao'] },
+  { type: 'text', accept: ['campinas'] },
+  { type: 'text', accept: ['sao paulo', 'são paulo', 'sp'] },
+];
+const ex7aQ4Specs = [
+  { type: 'num', value: -19.6, tol: 1.5 },
+  { type: 'num', value: 26.2, tol: 1.5 },
+];
+renderLineChart('ex7a-chart',
+  ['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'],
+  [
+    { name: 'Campinas', color: '#3B82F6', values: [0.92,0.78,1.06,0.71,1.21,1.02,0.64,0.82,0.56,0.74] },
+    { name: 'São Paulo', color: '#F59E0B', values: [2.10,2.45,1.95,2.60,2.20,2.35,1.85,2.70,2.15,2.65] },
+  ]
+);
+
+// ── DADOS: Exercício 2 (Fisioterapia) — CMI Campinas x São Paulo (cardiopatia congênita) ──
+const ex7bCmiSpecs = [
+  { type: 'num', value: 0.56, tol: 0.005 },
+];
+const ex7bQ1Specs = [{ type: 'num', value: 0.64, tol: 0.005 }];
+const ex7bQ3Specs = [
+  { type: 'text', accept: ['diferentes', 'diferente'] },
+  { type: 'text', accept: ['menor'] },
+  { type: 'text', accept: ['cv', 'coeficiente de variação', 'coeficiente de variacao'] },
+  { type: 'text', accept: ['campinas'] },
+  { type: 'text', accept: ['sao paulo', 'são paulo', 'sp'] },
+];
+const ex7bQ4Specs = [
+  { type: 'num', value: -15.2, tol: 1.5 },
+  { type: 'num', value: 21.6, tol: 1.5 },
+];
+renderLineChart('ex7b-chart',
+  ['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'],
+  [
+    { name: 'Campinas', color: '#3B82F6', values: [0.66,0.59,0.86,0.52,1.01,0.75,0.45,0.63,0.37,0.56] },
+    { name: 'São Paulo', color: '#F59E0B', values: [1.85,2.05,1.70,2.15,1.95,2.10,1.65,2.20,1.90,2.25] },
+  ]
+);
+
+// ── DADOS: Exercício 3 (Nutrição) — CMI Campinas x São Paulo (baixo peso ao nascer) ──
+const ex7cCmiSpecs = [
+  { type: 'num', value: 0.43, tol: 0.005 },
+];
+const ex7cQ1Specs = [{ type: 'num', value: 0.75, tol: 0.005 }];
+const ex7cQ3Specs = [
+  { type: 'text', accept: ['diferentes', 'diferente'] },
+  { type: 'text', accept: ['menor'] },
+  { type: 'text', accept: ['cv', 'coeficiente de variação', 'coeficiente de variacao'] },
+  { type: 'text', accept: ['campinas'] },
+  { type: 'text', accept: ['sao paulo', 'são paulo', 'sp'] },
+];
+const ex7cQ4Specs = [
+  { type: 'num', value: -59.0, tol: 1.5 },
+  { type: 'num', value: -20.8, tol: 1.5 },
+];
+renderLineChart('ex7c-chart',
+  ['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'],
+  [
+    { name: 'Campinas', color: '#3B82F6', values: [1.05,0.91,0.99,0.78,0.87,0.68,0.71,0.57,0.50,0.43] },
+    { name: 'São Paulo', color: '#F59E0B', values: [2.50,2.36,2.35,2.24,2.26,2.31,2.10,2.05,1.97,1.98] },
+  ]
+);
+
+// ── DADOS: Exercício 4 (Enfermagem) — CMI Campinas x São Paulo (sepse neonatal) ──
+const ex7dCmiSpecs = [
+  { type: 'num', value: 0.86, tol: 0.005 },
+];
+const ex7dQ1Specs = [{ type: 'num', value: 0.64, tol: 0.005 }];
+const ex7dQ3Specs = [
+  { type: 'text', accept: ['diferentes', 'diferente'] },
+  { type: 'text', accept: ['menor'] },
+  { type: 'text', accept: ['cv', 'coeficiente de variação', 'coeficiente de variacao'] },
+  { type: 'text', accept: ['campinas'] },
+  { type: 'text', accept: ['sao paulo', 'são paulo', 'sp'] },
+];
+const ex7dQ4Specs = [
+  { type: 'num', value: 120.5, tol: 2 },
+  { type: 'num', value: -25.0, tol: 1.5 },
+];
+renderLineChart('ex7d-chart',
+  ['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'],
+  [
+    { name: 'Campinas', color: '#3B82F6', values: [0.39,0.52,0.46,0.58,0.67,0.61,0.71,0.76,0.81,0.86] },
+    { name: 'São Paulo', color: '#F59E0B', values: [2.20,2.15,2.05,2.10,1.95,1.90,1.85,1.75,1.70,1.65] },
+  ]
+);
+
+// ── DADOS: Exercício 5 (Farmácia) — CMI Campinas x São Paulo (sífilis congênita) ──
+const ex7eCmiSpecs = [
+  { type: 'num', value: 0.80, tol: 0.005 },
+];
+const ex7eQ1Specs = [{ type: 'num', value: 0.56, tol: 0.005 }];
+const ex7eQ3Specs = [
+  { type: 'text', accept: ['diferentes', 'diferente'] },
+  { type: 'text', accept: ['menor'] },
+  { type: 'text', accept: ['cv', 'coeficiente de variação', 'coeficiente de variacao'] },
+  { type: 'text', accept: ['campinas'] },
+  { type: 'text', accept: ['sao paulo', 'são paulo', 'sp'] },
+];
+const ex7eQ4Specs = [
+  { type: 'num', value: 142.4, tol: 3 },
+  { type: 'num', value: 46.9, tol: 2 },
+];
+renderLineChart('ex7e-chart',
+  ['2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'],
+  [
+    { name: 'Campinas', color: '#3B82F6', values: [0.33,0.39,0.46,0.39,0.54,0.61,0.64,0.70,0.75,0.80] },
+    { name: 'São Paulo', color: '#F59E0B', values: [1.60,1.75,1.68,1.85,1.90,1.95,2.05,2.10,2.20,2.35] },
+  ]
+);
+
+
+// ── ABA 1 · GRÁFICO DE PONTOS COM EIXO Y E MÉDIA ──
+function fmtNum(v) {
+  const r = Math.round(v * 10) / 10;
+  return (r % 1 === 0) ? String(Math.round(r)) : r.toFixed(1).replace('.', ',');
+}
+
+function niceTicks(min, max, count) {
+  count = count || 5;
+  const range = max - min;
+  const roughStep = range / count;
+  const magnitude = Math.pow(10, Math.floor(Math.log10(roughStep)));
+  const residual = roughStep / magnitude;
+  let step;
+  if (residual > 5) step = 10 * magnitude;
+  else if (residual > 2) step = 5 * magnitude;
+  else if (residual > 1) step = 2 * magnitude;
+  else step = magnitude;
+  const ticks = [];
+  let t = Math.ceil(min / step) * step;
+  for (; t <= max; t += step) ticks.push(Math.round(t));
+  return ticks;
+}
+
+// ── STRIP PLOT: nuvem de pontos pura, sem média, sem faixa, sem rótulo ──
+// Usa uma pseudo-aleatoriedade fixa (seed) só para o espalhamento vertical (jitter),
+// puramente visual, sem significado estatístico.
+function seededJitter(i) {
+  const x = Math.sin(i * 12.9898) * 43758.5453;
+  return x - Math.floor(x);
+}
+function renderStripPlot(elId, values, min, max, color, opts) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  opts = opts || {};
+  const w = opts.width || 300, h = opts.height || 90;
+  const padL = 16, padR = 16, padT = 14, padB = 26;
+  const xScale = function (v) { return padL + ((v - min) / (max - min)) * (w - padL - padR); };
+  let svg = '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;height:auto;font-family:\'Nunito\',sans-serif">';
+  const axisY = h - padB;
+  svg += '<line x1="' + padL + '" y1="' + axisY + '" x2="' + (w - padR) + '" y2="' + axisY + '" stroke="#CBD5E1" stroke-width="1.5"/>';
+  niceTicks(min, max, 4).forEach(function (tv) {
+    const x = xScale(tv);
+    svg += '<line x1="' + x + '" y1="' + (axisY - 3) + '" x2="' + x + '" y2="' + (axisY + 3) + '" stroke="#94A3B8" stroke-width="1"/>';
+    svg += '<text x="' + x + '" y="' + (axisY + 15) + '" font-size="9" font-weight="700" fill="#334155" text-anchor="middle">' + tv + '</text>';
+  });
+  const jitterBand = axisY - padT;
+  values.forEach(function (v, i) {
+    const x = xScale(v);
+    const y = padT + seededJitter(i + 1) * jitterBand;
+    svg += '<circle cx="' + x + '" cy="' + y + '" r="2.6" fill="' + color + '" fill-opacity="0.75"/>';
+  });
+  svg += '</svg>';
+  el.innerHTML = svg;
+}
+
+function renderDotChart(containerId, valores, meanValue, outlierIdx, min, max, plainLabel) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  el.style.position = 'relative';
+  const range = max - min;
+
+  // eixo Y: grade e marcações
+  niceTicks(min, max).forEach(tv => {
+    const pct = ((tv - min) / range) * 100;
+    const grid = document.createElement('div');
+    grid.className = 'dot-gridline';
+    grid.style.bottom = pct + '%';
+    el.appendChild(grid);
+    const tick = document.createElement('div');
+    tick.className = 'dot-tick';
+    tick.style.bottom = pct + '%';
+    tick.textContent = tv;
+    el.appendChild(tick);
+  });
+
+  // linha da média
+  const meanPct = Math.max(0, Math.min(100, ((meanValue - min) / range) * 100));
+  const line = document.createElement('div');
+  line.className = plainLabel ? 'mean-line plain' : 'mean-line';
+  line.style.bottom = meanPct + '%';
+  line.innerHTML = `<span>${fmtNum(meanValue)}</span>`;
+  el.appendChild(line);
+
+  // pontos
+  const row = document.createElement('div');
+  row.className = 'dot-chart-row';
+  valores.forEach((v, i) => {
+    const pct = Math.max(0, Math.min(100, ((v - min) / range) * 100));
+    const isOutlier = i === outlierIdx;
+    const item = document.createElement('div');
+    item.className = 'dot-item';
+    item.innerHTML = `<div class="dot-circle${isOutlier ? ' outlier' : ''}" style="bottom:${pct}%">${v}</div>
+      <div class="dot-label">${String.fromCharCode(65 + i)}</div>`;
+    row.appendChild(item);
+  });
+  el.appendChild(row);
+}
+
+const BASE_VALORES = [20, 21, 22, 23, 24];
+renderDotChart('barChartBase', BASE_VALORES, 22, -1, 15, 30, true);
+renderDotChart('barChartOutlier', BASE_VALORES, 22, 4, 15, 95, true);
+
+function atualizarOutlier(valor) {
+  valor = parseInt(valor, 10);
+  document.getElementById('sliderVal').textContent = valor;
+  const valores = [20, 21, 22, 23, valor];
+  const soma = valores.reduce((a,b) => a+b, 0);
+  const media = soma / valores.length;
+  renderDotChart('barChartOutlier', valores, media, 4, 15, 95, true);
+  document.getElementById('mediaAtualVal').textContent = media.toFixed(1) + ' anos';
+
+  const chip = document.getElementById('chipMediaAtual');
+  const msg = document.getElementById('outlierMsg');
+  const diff = media - 22;
+  chip.className = 'chip-media destaque-verde';
+  chip.style.background = '';
+  if (Math.abs(diff) < 0.15) {
+    msg.style.display = 'none';
+  } else {
+    msg.style.display = 'block';
+    msg.innerHTML = `📌 A média subiu de <strong>22</strong> para <strong>${media.toFixed(1)}</strong> anos — um único valor (${valor} anos) puxou o resultado, mesmo os outros 4 amigos continuando com 20 a 23 anos.`;
+  }
+}
+
+// ── ABA 2 · MINI GRÁFICOS ESTÁTICOS DE COMPARAÇÃO (SALÁRIOS) ──
+function renderMiniDispersion(containerId, mean, spread, min, max) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  el.style.position = 'relative';
+  const range = max - min;
+  const sd = spread * Math.sqrt(2 / 3);
+  const pontos = [mean - spread, mean, mean + spread];
+  const letras = ['A', 'B', 'C'];
+
+  niceTicks(min, max, 4).forEach(tv => {
+    const pct = ((tv - min) / range) * 100;
+    const grid = document.createElement('div');
+    grid.className = 'dot-gridline';
+    grid.style.bottom = pct + '%';
+    el.appendChild(grid);
+    const tick = document.createElement('div');
+    tick.className = 'dot-tick';
+    tick.style.bottom = pct + '%';
+    tick.textContent = tv.toLocaleString('pt-BR');
+    el.appendChild(tick);
+  });
+
+  const bandBottomPct = Math.max(0, Math.min(100, ((mean - sd - min) / range) * 100));
+  const bandTopPct = Math.max(0, Math.min(100, ((mean + sd - min) / range) * 100));
+  const band = document.createElement('div');
+  band.className = 'sd-band';
+  band.style.bottom = bandBottomPct + '%';
+  band.style.height = (bandTopPct - bandBottomPct) + '%';
+  el.appendChild(band);
+
+  const meanPct = ((mean - min) / range) * 100;
+  const line = document.createElement('div');
+  line.className = 'mean-line';
+  line.style.bottom = meanPct + '%';
+  line.innerHTML = `<span>${mean.toLocaleString('pt-BR')}</span>`;
+  el.appendChild(line);
+
+  const row = document.createElement('div');
+  row.className = 'dot-chart-row';
+  pontos.forEach((v, i) => {
+    const pct = Math.max(0, Math.min(100, ((v - min) / range) * 100));
+    const devTop = Math.max(pct, meanPct);
+    const devBottom = Math.min(pct, meanPct);
+    const devHeight = devTop - devBottom;
+    const item = document.createElement('div');
+    item.className = 'dot-item';
+    const devHtml = devHeight > 0.3 ? `<div class="sd-devline" style="bottom:${devBottom}%;height:${devHeight}%"></div>` : '';
+    item.innerHTML = `${devHtml}<div class="dot-circle salario" style="bottom:${pct}%">${v.toLocaleString('pt-BR')}</div>
+      <div class="dot-label">${letras[i]}</div>`;
+    row.appendChild(item);
+  });
+  el.appendChild(row);
+  return sd;
+}
+
+const sdX = renderMiniDispersion('chartSalarioX', 2200, 200, 1000, 3400);
+const sdY = renderMiniDispersion('chartSalarioY', 2200, 1000, 1000, 3400);
+document.getElementById('sdXVal').textContent = '≈ R$ ' + Math.round(sdX).toLocaleString('pt-BR');
+document.getElementById('sdYVal').textContent = '≈ R$ ' + Math.round(sdY).toLocaleString('pt-BR');
+
+// ── ABA 2 · EXERCÍCIO Q3 · COMPARAÇÃO DE DISPERSÃO (GLICEMIA) ──
+const glicemiaG1 = [70,72,72,73,73,75,75,76,78,78,78,78,79,79,79,79,80,80,80,80,80,81,81,83,84,84,85,86,86,89];
+const glicemiaG2 = [70,70,71,72,72,73,73,74,74,76,76,77,78,79,79,79,79,80,80,80,80,81,81,81,85,87,89,89,89,90];
+renderStripPlot('chartGlicemiaA', glicemiaG1, 60, 100, '#3B82F6');
+renderStripPlot('chartGlicemiaB', glicemiaG2, 60, 100, '#EF4444');
+
+// ── ABA 3 · GRÁFICO DE BARRAS "A MÉDIA MENTIROSA" ──
+function renderBarMentira(containerId, fixos, quintaPessoa, escalaMax) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  el.style.position = 'relative';
+
+  const nomes = ['1', '2', '3', '4', '5'];
+  const valores = [...fixos, quintaPessoa];
+
+  const soma = valores.reduce((a, b) => a + b, 0);
+  const mean = soma / valores.length;
+  const ordenado = [...valores].sort((a, b) => a - b);
+  const n = ordenado.length;
+  const median = n % 2 === 1
+    ? ordenado[(n - 1) / 2]
+    : (ordenado[n/2 - 1] + ordenado[n/2]) / 2;
+
+  // eixo Y: grade e marcações (de 20 em 20)
+  niceTicks(0, escalaMax, 6).forEach(tv => {
+    const pct = (tv / escalaMax) * 100;
+    const grid = document.createElement('div');
+    grid.className = 'dot-gridline';
+    grid.style.bottom = pct + '%';
+    el.appendChild(grid);
+    const tick = document.createElement('div');
+    tick.className = 'dot-tick';
+    tick.style.bottom = pct + '%';
+    tick.textContent = tv;
+    el.appendChild(tick);
+  });
+
+  valores.forEach((v, i) => {
+    const alturaMinPx = 20; // altura mínima pra caber o rótulo dentro da barra
+    const pctMin = (alturaMinPx / 190) * 100;
+    const pct = Math.max(pctMin, (v / escalaMax) * 100);
+    const isOutlier = i === valores.length - 1;
+    const wrap = document.createElement('div');
+    wrap.className = 'bar-col2-wrap';
+    wrap.innerHTML = `<div class="bar-col2${isOutlier ? ' outlier2' : ' nuvem'}" style="height:${pct}%">
+        <span class="bar-val">${Math.round(v).toLocaleString('pt-BR')}</span>
+      </div>
+      <div class="bar-name2">${nomes[i]}</div>`;
+    el.appendChild(wrap);
+  });
+
+  // caixinha de anotação fixa (dentro do gráfico, faixa 80-100)
+  const anotacao = document.createElement('div');
+  anotacao.className = 'bar-anotacao';
+  anotacao.innerHTML = `Média: R$ ${Math.round(mean).toLocaleString('pt-BR')}<br>
+    <span class="linha-mediana">Mediana: R$ ${Math.round(median).toLocaleString('pt-BR')}<br>(a verdade)</span>`;
+  el.appendChild(anotacao);
+
+  return { mean, median };
+}
+
+function atualizarBarMentira(valor) {
+  valor = parseInt(valor, 10);
+  document.getElementById('sliderBarVal').textContent = 'R$ ' + valor.toLocaleString('pt-BR');
+  renderBarMentira('chartBarMentira', [18, 20, 20, 22], valor, 110);
+}
+atualizarBarMentira(23);
+
+// ── ABA 5 · GRÁFICO DE COLUNAS · SIMETRIA (RETORNOS PARA CURATIVO) ──
+function renderFreqBarChart(containerId, categorias, valores, escalaMax) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  el.style.position = 'relative';
+
+  niceTicks(0, escalaMax, 5).forEach(tv => {
+    const pct = (tv / escalaMax) * 100;
+    const grid = document.createElement('div');
+    grid.className = 'dot-gridline';
+    grid.style.bottom = pct + '%';
+    el.appendChild(grid);
+    const tick = document.createElement('div');
+    tick.className = 'dot-tick';
+    tick.style.bottom = pct + '%';
+    tick.textContent = tv;
+    el.appendChild(tick);
+  });
+
+  valores.forEach((v, i) => {
+    const alturaMinPx = 20;
+    const pctMin = (alturaMinPx / 190) * 100;
+    const pct = Math.max(pctMin, (v / escalaMax) * 100);
+    const wrap = document.createElement('div');
+    wrap.className = 'bar-col2-wrap';
+    wrap.innerHTML = `<div class="bar-col2 nuvem" style="height:${pct}%">
+        <span class="bar-val">${v}</span>
+      </div>
+      <div class="bar-name2">${categorias[i]}</div>`;
+    el.appendChild(wrap);
+  });
+}
+renderFreqBarChart('chartSimetriaRetornos', ['0','1','2','3','4'], [2,4,6,4,2], 7);
+
+// ── ABA 2 · GRÁFICO DE DISPERSÃO / DESVIO PADRÃO ──
+function renderDispersionChart(containerId, mean, k, min, max) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = '';
+  el.style.position = 'relative';
+  const range = max - min;
+  const sd = Math.sqrt(2.5) * k;
+  const pontos = [
+    { v: mean - 2*k, letra: 'A' },
+    { v: mean - k,   letra: 'B' },
+    { v: mean + k,   letra: 'D' },
+    { v: mean + 2*k, letra: 'E' },
+  ];
+
+  // eixo Y: grade e marcações
+  niceTicks(min, max).forEach(tv => {
+    const pct = ((tv - min) / range) * 100;
+    const grid = document.createElement('div');
+    grid.className = 'dot-gridline';
+    grid.style.bottom = pct + '%';
+    el.appendChild(grid);
+    const tick = document.createElement('div');
+    tick.className = 'dot-tick';
+    tick.style.bottom = pct + '%';
+    tick.textContent = tv;
+    el.appendChild(tick);
+  });
+
+  // faixa do desvio padrão
+  const bandBottomPct = Math.max(0, Math.min(100, ((mean - sd - min) / range) * 100));
+  const bandTopPct = Math.max(0, Math.min(100, ((mean + sd - min) / range) * 100));
+  const band = document.createElement('div');
+  band.className = 'sd-band';
+  band.style.bottom = bandBottomPct + '%';
+  band.style.height = (bandTopPct - bandBottomPct) + '%';
+  el.appendChild(band);
+
+  // linha da média (fixa)
+  const meanPct = ((mean - min) / range) * 100;
+  const line = document.createElement('div');
+  line.className = 'mean-line';
+  line.style.bottom = meanPct + '%';
+  line.innerHTML = `<span>${fmtNum(mean)}</span>`;
+  el.appendChild(line);
+
+  // pontos + linhas de desvio individual
+  const row = document.createElement('div');
+  row.className = 'dot-chart-row';
+  pontos.forEach(p => {
+    const pct = Math.max(0, Math.min(100, ((p.v - min) / range) * 100));
+    const devTop = Math.max(pct, meanPct);
+    const devBottom = Math.min(pct, meanPct);
+    const devHeight = devTop - devBottom;
+    const item = document.createElement('div');
+    item.className = 'dot-item';
+    const devHtml = devHeight > 0.3 ? `<div class="sd-devline" style="bottom:${devBottom}%;height:${devHeight}%"></div>` : '';
+    item.innerHTML = `${devHtml}<div class="dot-circle" style="bottom:${pct}%">${Math.round(p.v)}</div>
+      <div class="dot-label">${p.letra}</div>`;
+    row.appendChild(item);
+  });
+  el.appendChild(row);
+
+  return sd;
+}
+
+function atualizarDispersao(k) {
+  k = parseInt(k, 10);
+  const sd = renderDispersionChart('chartDispersao', 100, k, 60, 140);
+  document.getElementById('dpVal').textContent = fmtNum(sd);
+
+  let desc;
+  if (k <= 3) desc = 'bem próximos';
+  else if (k <= 8) desc = 'moderadamente espalhados';
+  else desc = 'bem espalhados';
+  document.getElementById('sliderDispVal').textContent = desc;
+
+  const msg = document.getElementById('dispersaoMsg');
+  const tendencia = k <= 3
+    ? 'Quanto mais os pontos estão perto da média, menor o desvio padrão.'
+    : 'Quanto mais afastados da média, maior o desvio padrão.';
+  msg.innerHTML = `📌 Com os pontos <strong>${desc}</strong> da média, o desvio padrão é de aproximadamente <strong>${fmtNum(sd)}</strong>. ${tendencia}`;
+}
+atualizarDispersao(3);
+</script>
+</body>
+</html>
