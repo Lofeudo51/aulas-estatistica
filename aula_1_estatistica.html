@@ -877,7 +877,7 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
 
     <div id="classSteps" style="margin-top:1rem;font-size:.95rem;font-weight:700;color:#475569;display:none">
       <p>k = <strong>5</strong> classes</p>
-      <p>h = <strong>4</strong></p>
+      <p>h = <strong>4</strong> (amplitude de cada classe)</p>
     </div>
 
     <div style="overflow-x:auto;margin-top:1rem">
@@ -1790,8 +1790,8 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     </div>
     <div id="qi2-fb" class="feedback"></div>
 
-    <p style="font-weight:900;color:#1E3A8A;margin-top:1.2rem">3) Histograma (continuação)</p>
-    <p style="font-size:.85rem;font-weight:700;color:#475569;margin:.3rem 0 .6rem">Qual o percentual de pacientes com escore ABAIXO de 10 pontos (classes 0 ⊢ 5 e 5 ⊢ 10 somadas)?</p>
+    <p style="font-weight:900;color:#1E3A8A;margin-top:1.2rem">3) Histograma</p>
+    <p style="font-size:.85rem;font-weight:700;color:#475569;margin:.3rem 0 .6rem">Qual o percentual de pacientes com escore ABAIXO de 10 pontos?</p>
     <p style="text-align:center;font-weight:900;font-size:.85rem;color:#1E293B;margin-top:.3rem">Distribuição do Escore de Ansiedade (GAD-7)</p>
     <div style="display:flex;align-items:center;justify-content:center;gap:.2rem">
       <span style="writing-mode:vertical-rl;transform:rotate(180deg);font-size:.68rem;font-weight:700;color:#475569;white-space:nowrap">Frequência (nº de pacientes)</span>
@@ -3165,9 +3165,12 @@ function chkMCEx1f(chosen) {
   const btns = Array.from(document.querySelectorAll('#ex1f-opts button'));
   btns.forEach(b => b.disabled = true);
   const correct = 2;
-  btns[correct].classList.add('correct');
-  if (chosen !== correct) btns[chosen].classList.add('wrong');
   const acertou = chosen === correct;
+  if (acertou) {
+    btns[correct].classList.add('correct');
+  } else {
+    btns[chosen].classList.add('wrong');
+  }
   const fb = document.getElementById('ex1f-fb');
   const visualAmostra = regraTresVisualHTML('elementos', '7', '2', '100%', 'x%', '7 · x = 2 · 100', 'x = 200 ÷ 7 ≈ 28,6%');
   const visualPop = regraTresVisualHTML('elementos', '24', '4', '100%', 'x%', '24 · x = 4 · 100', 'x = 400 ÷ 24 ≈ 16,7%');
@@ -3184,9 +3187,12 @@ function chkMCEx1f(chosen) {
 function chkMC(id, chosen, correct, explain) {
   const btns = Array.from(document.querySelectorAll('#'+id+'-opts button'));
   btns.forEach(b => b.disabled = true);
-  btns[correct].classList.add('correct');
-  if (chosen !== correct) btns[chosen].classList.add('wrong');
   const acertou = chosen === correct;
+  if (acertou) {
+    btns[correct].classList.add('correct');
+  } else {
+    btns[chosen].classList.add('wrong');
+  }
   const fb = document.getElementById(id+'-fb');
   fb.innerHTML = (acertou?'✅ ':'❌ ')+explain+(acertou?'':retryBtn(id));
   fb.className = 'feedback '+(acertou?'ok':'err');
@@ -3586,8 +3592,11 @@ function chkVF(id, wrapId, chosen, correct, explain) {
   const btns = document.querySelectorAll('#'+wrapId+' button');
   btns.forEach(b => b.disabled = true);
   const isOk = chosen===correct;
-  (correct?btns[0]:btns[1]).classList.add('correct');
-  if (!isOk) (chosen?btns[0]:btns[1]).classList.add('wrong');
+  if (isOk) {
+    (correct?btns[0]:btns[1]).classList.add('correct');
+  } else {
+    (chosen?btns[0]:btns[1]).classList.add('wrong');
+  }
   const fb = document.getElementById(id+'-fb');
   fb.innerHTML = (isOk?'✅ ':'❌ ')+explain+(isOk?'':retryBtn(id));
   fb.className = 'feedback '+(isOk?'ok':'err');
