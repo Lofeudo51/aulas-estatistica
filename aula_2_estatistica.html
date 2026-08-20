@@ -852,23 +852,23 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
       Moda = o valor que <span class="hl">mais se repete</span> no conjunto de dados
     </div>
     <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:1rem">
-      Pergunta a 20 colegas quantos irmãos cada um tem. Veja a tabela de frequência:
+      Em um hospital, 20 pacientes informaram seu tipo sanguíneo. Veja a tabela de frequência:
     </p>
 
     <div style="overflow-x:auto;margin-top:.8rem">
     <table style="width:100%;border-collapse:collapse;font-size:.92rem">
       <thead>
         <tr style="background:#DCFCE7">
-          <th style="padding:.5rem;text-align:center">Nº de irmãos</th>
+          <th style="padding:.5rem;text-align:center">Tipo sanguíneo</th>
           <th style="padding:.5rem;text-align:center">Frequência (fi)</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">0</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td></tr>
-        <tr style="background:#FEF3C7"><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0;position:relative">1<span style="position:absolute;left:50%;top:50%;transform:translateY(-50%);margin-left:.55em;color:#DC2626;white-space:nowrap;font-size:.85em">(moda)</span></td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">8</td></tr>
-        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">2</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">5</td></tr>
-        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td></tr>
-        <tr><td style="padding:.5rem;text-align:center">4</td><td style="padding:.5rem;text-align:center">1</td></tr>
+        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">A+</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td></tr>
+        <tr style="background:#FEF3C7"><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">O+ <span style="color:#DC2626;white-space:nowrap;font-size:.85em">(moda)</span></td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">8</td></tr>
+        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">B+</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">5</td></tr>
+        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">AB+</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td></tr>
+        <tr><td style="padding:.5rem;text-align:center">O-</td><td style="padding:.5rem;text-align:center">1</td></tr>
       </tbody>
       <tfoot>
         <tr style="font-weight:900;background:#F1F5F9">
@@ -880,32 +880,43 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     </div>
 
     <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
-      A moda é <strong>1 irmão</strong> — é o valor com maior frequência (8 colegas).
+      A moda é <strong>O+</strong>, pois é a categoria com maior frequência (8 pacientes).
     </p>
   </div>
 
-  <div class="card laranja">
-    <h2>🤔 Qual a Melhor Medida pra Representar Esses Dados?</h2>
-    <div style="display:flex;flex-direction:column;gap:.7rem;margin-top:.8rem">
-      <div style="display:flex;align-items:center;gap:.8rem;background:white;border-radius:12px;padding:.7rem .9rem">
-        <span style="font-size:1.6rem">🏷️</span>
-        <span style="font-size:.95rem;font-weight:700;color:#334155;flex:1">Dados qualitativos</span>
-        <span style="font-size:1.2rem">→</span>
-        <span style="font-size:.95rem;font-weight:900;color:#F97316">Moda</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:.8rem;background:white;border-radius:12px;padding:.7rem .9rem">
-        <span style="font-size:1.6rem">📏</span>
-        <span style="font-size:.95rem;font-weight:700;color:#334155;flex:1">Baixo desvio padrão</span>
-        <span style="font-size:1.2rem">→</span>
-        <span style="font-size:.95rem;font-weight:900;color:#10B981">Média</span>
-      </div>
-      <div style="display:flex;align-items:center;gap:.8rem;background:white;border-radius:12px;padding:.7rem .9rem">
-        <span style="font-size:1.6rem">⚠️</span>
-        <span style="font-size:.95rem;font-weight:700;color:#334155;flex:1">Com um ou mais valores extremos</span>
-        <span style="font-size:1.2rem">→</span>
-        <span style="font-size:.95rem;font-weight:900;color:#3B82F6">Mediana</span>
-      </div>
+  <div class="card">
+    <h2>🏥 Outro Exemplo</h2>
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6">
+      Em uma Unidade Básica de Saúde, 25 pacientes foram atendidos em um dia. Veja o motivo da consulta de cada um:
+    </p>
+
+    <div style="overflow-x:auto;margin-top:.8rem">
+    <table style="width:100%;border-collapse:collapse;font-size:.92rem">
+      <thead>
+        <tr style="background:#DCFCE7">
+          <th style="padding:.5rem;text-align:center">Motivo da consulta</th>
+          <th style="padding:.5rem;text-align:center">Frequência (fi)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">Check-up de rotina</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td></tr>
+        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">Dor de cabeça</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">5</td></tr>
+        <tr><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">Dor nas costas</td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td></tr>
+        <tr style="background:#FEF3C7"><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">Gripe <span style="color:#DC2626;white-space:nowrap;font-size:.85em">(moda)</span></td><td style="padding:.5rem;text-align:center;border-bottom:1px solid #E2E8F0">9</td></tr>
+        <tr><td style="padding:.5rem;text-align:center">Outros</td><td style="padding:.5rem;text-align:center">3</td></tr>
+      </tbody>
+      <tfoot>
+        <tr style="font-weight:900;background:#F1F5F9">
+          <td style="padding:.5rem;text-align:center">Total</td>
+          <td style="padding:.5rem;text-align:center">25</td>
+        </tr>
+      </tfoot>
+    </table>
     </div>
+
+    <p style="font-size:1rem;font-weight:700;color:#334155;line-height:1.6;margin-top:.8rem">
+      A moda é <strong>Gripe</strong>, pois é a categoria com maior frequência (9 pacientes).
+    </p>
   </div>
 
   <!-- EXERCÍCIOS -->
@@ -913,12 +924,12 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
 
   <div class="ex-sep">
     <div class="ex-num">Q1 de 2</div>
-    <p class="ex-q">Em uma <strong>Farmácia</strong>, o número de caixas de um medicamento vendidas por dia, durante 7 dias, foi: <strong>4, 5, 4, 6, 4, 7, 5</strong>. Qual é a moda?</p>
+    <p class="ex-q">Em uma <strong>Farmácia</strong>, o tipo de medicamento mais vendido foi registrado durante 7 dias: <strong>Analgésico, Antialérgico, Analgésico, Antibiótico, Analgésico, Antiviral, Antialérgico</strong>. Qual é a moda?</p>
     <div class="quiz-opts" id="ex4a-opts">
-      <button onclick="chkMC('ex4a',0,1,'5 aparece 2 vezes — menos frequente que outro valor do conjunto.')">A) 5</button>
-      <button onclick="chkMC('ex4a',1,1,'Correto! O valor 4 aparece 3 vezes — mais que qualquer outro valor da lista.')">B) 4</button>
-      <button onclick="chkMC('ex4a',2,1,'7 aparece só 1 vez — é um dos valores menos frequentes (empatado com o 6), não a moda.')">C) 7</button>
-      <button onclick="chkMC('ex4a',3,1,'Esse seria o resultado se calculássemos a média, não a moda.')">D) 5,0</button>
+      <button onclick="chkMC('ex4a',0,1,'Antialérgico aparece 2 vezes — menos frequente que outro medicamento da lista.')">A) Antialérgico</button>
+      <button onclick="chkMC('ex4a',1,1,'Correto! Analgésico aparece 3 vezes — mais que qualquer outro medicamento vendido.')">B) Analgésico</button>
+      <button onclick="chkMC('ex4a',2,1,'Antibiótico aparece só 1 vez — não é a moda.')">C) Antibiótico</button>
+      <button onclick="chkMC('ex4a',3,1,'Antiviral aparece só 1 vez — não é a moda.')">D) Antiviral</button>
     </div>
     <div id="ex4a-fb" class="feedback"></div>
   </div>
@@ -926,8 +937,18 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
   <div class="ex-sep">
     <div class="ex-num">Q2 de 2</div>
     <p class="ex-q">"Um conjunto de dados pode ter mais de uma moda, ou até nenhuma moda." — Verdadeiro ou falso?</p>
+    <details style="margin-top:.5rem;margin-bottom:.5rem">
+      <summary class="btn-conferir" style="display:inline-block;list-style:none;text-align:center">👁️ Ver exemplo — nível de ansiedade pré-prova (Psicologia)</summary>
+      <div class="dot-chart-wrap">
+        <div class="grafico-com-eixo">
+          <span class="eixo-y-titulo">Frequência de alunos</span>
+          <div class="bar-chart2" id="chartBimodalAnsiedade" style="height:190px"></div>
+        </div>
+      </div>
+      <p style="font-size:.85rem;color:#64748B;margin-top:.3rem;text-align:center">Nível de ansiedade (escala 0 a 10) autorrelatado por 32 estudantes antes de uma prova</p>
+    </details>
     <div class="vof-wrap" id="ex4b-vof">
-      <button onclick="chkVF('ex4b','ex4b-vof',true,true,'Verdadeiro! Se dois valores empatam na maior frequência, o conjunto é bimodal. E se todos os valores aparecem com a mesma frequência, não existe moda (amodal).')">✅ Verdadeiro</button>
+      <button onclick="chkVF('ex4b','ex4b-vof',true,true,'Verdadeiro! Veja o exemplo do gráfico de ansiedade: os níveis 2 e 7 empatam com a maior frequência (8 estudantes cada), então a distribuição tem duas modas — é bimodal.<br><br>Já quando nenhum valor se repete mais que os outros, o conjunto é amodal (sem moda).')">✅ Verdadeiro</button>
       <button onclick="chkVF('ex4b','ex4b-vof',false,true,'Falso. É perfeitamente possível ter dois valores empatados (bimodal) ou nenhum valor se repetindo (amodal).')">❌ Falso</button>
     </div>
     <div id="ex4b-fb" class="feedback"></div>
@@ -1020,7 +1041,7 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
       <button onclick="chkMC('ex5c',0,3,'A média real é 2 retornos: (0×2 + 1×4 + 2×6 + 3×4 + 4×2) ÷ 18 = 36 ÷ 18 = 2 — não 2,5.')">A) Média de 2,5 retornos</button>
       <button onclick="chkMC('ex5c',1,3,'A mediana real é 2 retornos — olhando a distribuição acumulada (fra), o valor central (9º/10º de 18) cai no xi=2, não em 3.')">B) Mediana de 3 retornos</button>
       <button onclick="chkMC('ex5c',2,3,'A moda real é 2 retornos — é o valor com maior frequência (fi=6), não 3.')">C) Moda de 3 retornos</button>
-      <button onclick="chkMC('ex5c',3,3,'Isso mesmo! Como a distribuição é simétrica em torno do valor 2 (frequências 2, 4, 6, 4, 2), a média, a mediana e a moda coincidem em 2 retornos — qualquer uma das três representa bem os dados desse grupo.')">D) Média, mediana e moda são iguais a 2 retornos, pois a distribuição é simétrica</button>
+      <button onclick="chkMC('ex5c',3,3,'Isso mesmo! Como a distribuição é simétrica em torno de 2, podemos usar a média. Além disso, em toda distribuição simétrica, moda, média e mediana têm o mesmo valor.')">D) Média de 2 retornos</button>
     </div>
     <details style="margin-top:.8rem">
       <summary class="btn-conferir" style="display:inline-block;list-style:none;text-align:center">👁️ Veja o gráfico — veja a simetria</summary>
@@ -2498,6 +2519,7 @@ function renderFreqBarChart(containerId, categorias, valores, escalaMax) {
   });
 }
 renderFreqBarChart('chartSimetriaRetornos', ['0','1','2','3','4'], [2,4,6,4,2], 7);
+renderFreqBarChart('chartBimodalAnsiedade', ['0','1','2','3','4','5','6','7','8','9'], [1,3,8,3,1,1,3,8,3,1], 8);
 
 // ── ABA 2 · GRÁFICO DE DISPERSÃO / DESVIO PADRÃO ──
 function renderDispersionChart(containerId, mean, k, min, max) {
