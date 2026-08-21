@@ -165,6 +165,14 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
 }
 .btn-sortear:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(16,185,129,.45); }
 
+.btn-check {
+  display: inline-block; font-family: 'Nunito',sans-serif; font-size: .78rem; font-weight: 900;
+  padding: .3rem .7rem; border: none; border-radius: 10px;
+  background: #7C3AED; color: white; cursor: pointer; margin-left: .4rem; vertical-align: middle;
+}
+.btn-check:hover { background: #6D28D9; }
+.lac-fb { font-size: 1.1rem; margin-left: .3rem; vertical-align: middle; }
+
 /* ── TABELA PARAM × ESTAT ── */
 .comp-table { width:100%; border-collapse:collapse; margin-top:.8rem; }
 .comp-table th, .comp-table td { padding:.6rem .9rem; text-align:left; font-size:.97rem; border-bottom:1px solid #E2E8F0; }
@@ -793,21 +801,18 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     </div>
 
     <div style="font-size:.97rem;font-weight:700;color:#334155;line-height:2.3">
-      <p>1) Quantos alunos tiraram nota MAIOR que 7? <input type="text" class="blank-input" id="lac3a"></p>
-      <p>2) Quantos alunos tiraram nota MENOR que 6? <input type="text" class="blank-input" id="lac3b"></p>
-      <p>3) Qual o percentual de alunos que tirou nota inferior a 7? <input type="text" class="blank-input" id="lac3c">%</p>
-      <p>4) Quantos alunos tiraram uma nota DIFERENTE de 9? <input type="text" class="blank-input" id="lac3d"></p>
-      <p>5) Qual é a nota mais frequente (a moda) dessa turma? <input type="text" class="blank-input" id="lac3e"></p>
-      <p>6) Qual o percentual de alunos que tiraram nota entre 5 e 8 (inclusive)? <input type="text" class="blank-input" id="lac3f">%</p>
+      <p>1) Quantos alunos tiraram nota MAIOR que 7? <input type="text" class="blank-input" id="lac3a"> <button class="btn-check" onclick="conferirLacunaNum('lac3a','4','some os fi das notas 8 e 9')">✓ Conferir</button> <span id="lac3a-fb" class="lac-fb"></span></p>
+      <p>2) Quantos alunos tiraram nota MENOR que 6? <input type="text" class="blank-input" id="lac3b"> <button class="btn-check" onclick="conferirLacunaNum('lac3b','2','é o fa da nota 5')">✓ Conferir</button> <span id="lac3b-fb" class="lac-fb"></span></p>
+      <p>3) Qual o percentual de alunos que tirou nota inferior a 7? <input type="text" class="blank-input" id="lac3c">% <button class="btn-check" onclick="conferirLacunaNum('lac3c','40','é o fra da nota 6')">✓ Conferir</button> <span id="lac3c-fb" class="lac-fb"></span></p>
+      <p>4) Quantos alunos tiraram uma nota DIFERENTE de 9? <input type="text" class="blank-input" id="lac3d"> <button class="btn-check" onclick="conferirLacunaNum('lac3d','14','é o fa da nota 8')">✓ Conferir</button> <span id="lac3d-fb" class="lac-fb"></span></p>
+      <p>5) Qual é a nota mais frequente (a moda) dessa turma? <input type="text" class="blank-input" id="lac3e"> <button class="btn-check" onclick="conferirLacunaNum('lac3e','7','é a nota com maior fi')">✓ Conferir</button> <span id="lac3e-fb" class="lac-fb"></span></p>
+      <p>6) Qual o percentual de alunos que tiraram nota entre 5 e 8 (inclusive)? <input type="text" class="blank-input" id="lac3f">% <button class="btn-check" onclick="conferirLacunaNum('lac3f','93.3','é o fra da nota 8')">✓ Conferir</button> <span id="lac3f-fb" class="lac-fb"></span></p>
     </div>
 
     <div style="font-size:.97rem;font-weight:700;color:#334155;line-height:2.3;margin-top:.6rem">
-      <p>7) Qual é a variável em questão? <input type="text" class="blank-input" id="lac3var"></p>
-      <p>8) Qual a classificação dessa variável? <input type="text" class="blank-input" id="lac3class"></p>
+      <p>7) Qual é a variável em questão? <input type="text" class="blank-input" id="lac3var"> <button class="btn-check" onclick="conferirLacunaVar('lac3var',['nota'])">✓ Conferir</button> <span id="lac3var-fb" class="lac-fb"></span></p>
+      <p>8) Qual a classificação dessa variável? <input type="text" class="blank-input" id="lac3class"> <button class="btn-check" onclick="conferirLacunaClass('lac3class')">✓ Conferir</button> <span id="lac3class-fb" class="lac-fb"></span></p>
     </div>
-
-    <button class="btn-sortear" onclick="conferirLacunasAba3()">✅ Conferir</button>
-    <div id="ex3-fb" class="feedback"></div>
   </div>
 
   <div class="ex-sep">
@@ -845,20 +850,17 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
     </div>
 
     <div style="font-size:.97rem;font-weight:700;color:#334155;line-height:2.3">
-      <p>1) Quantos pacientes fizeram <strong>pelo menos 2</strong> sessões no mês? <input type="text" class="blank-input" id="lac3g"></p>
-      <p>2) Quantos pacientes fizeram <strong>no máximo 1</strong> sessão no mês? <input type="text" class="blank-input" id="lac3h"></p>
-      <p>3) Qual o percentual de pacientes que fizeram <strong>mais de 2</strong> sessões? <input type="text" class="blank-input" id="lac3i">%</p>
-      <p>4) Quantos pacientes fizeram um número de sessões <strong>diferente da moda</strong> dessa distribuição? <input type="text" class="blank-input" id="lac3j"></p>
-      <p>5) Se cada sessão custa R$ 50, qual foi o <strong>faturamento total</strong> gerado apenas pelos pacientes que fizeram exatamente 3 sessões? R$ <input type="text" class="blank-input" id="lac3k"></p>
+      <p>1) Quantos pacientes fizeram <strong>pelo menos 2</strong> sessões no mês? <input type="text" class="blank-input" id="lac3g"> <button class="btn-check" onclick="conferirLacunaNum('lac3g','13','some os fi das sessões 2, 3 e 4')">✓ Conferir</button> <span id="lac3g-fb" class="lac-fb"></span></p>
+      <p>2) Quantos pacientes fizeram <strong>no máximo 1</strong> sessão no mês? <input type="text" class="blank-input" id="lac3h"> <button class="btn-check" onclick="conferirLacunaNum('lac3h','7','é o fa da sessão 1')">✓ Conferir</button> <span id="lac3h-fb" class="lac-fb"></span></p>
+      <p>3) Qual o percentual de pacientes que fizeram <strong>mais de 2</strong> sessões? <input type="text" class="blank-input" id="lac3i">% <button class="btn-check" onclick="conferirLacunaNum('lac3i','25','some os fri das sessões 3 e 4')">✓ Conferir</button> <span id="lac3i-fb" class="lac-fb"></span></p>
+      <p>4) Quantos pacientes fizeram um número de sessões <strong>diferente da moda</strong> dessa distribuição? <input type="text" class="blank-input" id="lac3j"> <button class="btn-check" onclick="conferirLacunaNum('lac3j','12','ache a moda (maior fi), depois é n menos esse fi')">✓ Conferir</button> <span id="lac3j-fb" class="lac-fb"></span></p>
+      <p>5) Se cada sessão custa R$ 50, qual foi o <strong>faturamento total</strong> gerado apenas pelos pacientes que fizeram exatamente 3 sessões? R$ <input type="text" class="blank-input" id="lac3k"> <button class="btn-check" onclick="conferirLacunaNum('lac3k','450','fi da sessão 3, vezes 3 sessões, vezes R$ 50')">✓ Conferir</button> <span id="lac3k-fb" class="lac-fb"></span></p>
     </div>
 
     <div style="font-size:.97rem;font-weight:700;color:#334155;line-height:2.3;margin-top:.6rem">
-      <p>7) Qual é a variável em questão? <input type="text" class="blank-input" id="lac3var2"></p>
-      <p>8) Qual a classificação dessa variável? <input type="text" class="blank-input" id="lac3class2"></p>
+      <p>7) Qual é a variável em questão? <input type="text" class="blank-input" id="lac3var2"> <button class="btn-check" onclick="conferirLacunaVar('lac3var2',['sessoes','sessao','fisioterapia'])">✓ Conferir</button> <span id="lac3var2-fb" class="lac-fb"></span></p>
+      <p>8) Qual a classificação dessa variável? <input type="text" class="blank-input" id="lac3class2"> <button class="btn-check" onclick="conferirLacunaClass('lac3class2')">✓ Conferir</button> <span id="lac3class2-fb" class="lac-fb"></span></p>
     </div>
-
-    <button class="btn-sortear" onclick="conferirLacunasAba3b()">✅ Conferir</button>
-    <div id="ex3b2-fb" class="feedback"></div>
   </div>
 
 </section>
@@ -926,7 +928,7 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
 
   <div class="ex-sep">
     <div class="ex-num">Q2 de 3</div>
-    <p class="ex-q">A tabela abaixo é a mesma do exemplo do tempo de atendimento (em minutos) da padaria, com <strong>n = 20</strong> clientes. Complete as lacunas com base nela.</p>
+    <p class="ex-q">Uma tabela com o tempo de atendimento (em minutos) na recepção de um consultório, com <strong>n = 20</strong> pacientes. Complete as lacunas com base nela.</p>
 
     <div style="overflow-x:auto;margin:.8rem 0">
     <table style="width:100%;border-collapse:collapse;font-size:.88rem">
@@ -934,47 +936,51 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
         <tr style="background:#DCFCE7">
           <th style="padding:.4rem;text-align:center">Nº</th>
           <th style="padding:.4rem;text-align:center">Classe (min)</th>
-          <th style="padding:.4rem;text-align:center">PM</th>
           <th style="padding:.4rem;text-align:center">fi</th>
           <th style="padding:.4rem;text-align:center">fri</th>
           <th style="padding:.4rem;text-align:center">fa</th>
+          <th style="padding:.4rem;text-align:center">fra</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">1ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">7 ⊢ 11</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">9</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">20%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td></tr>
-        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">2ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">11 ⊢ 15</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">13</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">20%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">8</td></tr>
-        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">3ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">15 ⊢ 19</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">17</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">20%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">12</td></tr>
-        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">19 ⊢ 23</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">21</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">15%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">15</td></tr>
-        <tr><td style="padding:.35rem;text-align:center">5ª</td><td style="padding:.35rem;text-align:center">23 ⊢ 27</td><td style="padding:.35rem;text-align:center">25</td><td style="padding:.35rem;text-align:center">5</td><td style="padding:.35rem;text-align:center">25%</td><td style="padding:.35rem;text-align:center">20</td></tr>
+        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">1ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">7 ⊢ 11</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">20%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">20%</td></tr>
+        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">2ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">11 ⊢ 15</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">20%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">8</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">40%</td></tr>
+        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">3ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">15 ⊢ 19</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">20%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">12</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">60%</td></tr>
+        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">19 ⊢ 23</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">15%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">15</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">75%</td></tr>
+        <tr><td style="padding:.35rem;text-align:center">5ª</td><td style="padding:.35rem;text-align:center">23 ⊢ 27</td><td style="padding:.35rem;text-align:center">5</td><td style="padding:.35rem;text-align:center">25%</td><td style="padding:.35rem;text-align:center">20</td><td style="padding:.35rem;text-align:center">100%</td></tr>
       </tbody>
       <tfoot>
         <tr style="font-weight:900;background:#F1F5F9">
           <td style="padding:.4rem;text-align:center">—</td>
           <td style="padding:.4rem;text-align:center">Total</td>
-          <td style="padding:.4rem;text-align:center">—</td>
           <td style="padding:.4rem;text-align:center">20</td>
           <td style="padding:.4rem;text-align:center">100%</td>
           <td style="padding:.4rem;text-align:center">—</td>
+          <td style="padding:.4rem;text-align:center">100%</td>
         </tr>
       </tfoot>
     </table>
     </div>
 
+    <div style="text-align:center;margin:.6rem 0 1rem">
+      <button class="btn-check" style="background:#16A34A" onclick="toggleHistPadaria()">📊 Ver histograma dessa tabela</button>
+      <div id="histPadaria-box" style="display:none;margin-top:.6rem;padding:.8rem;background:#F0FDF4;border-radius:10px;text-align:center">
+        <canvas id="histPadariaCanvas" width="300" height="200" style="max-width:100%"></canvas>
+      </div>
+    </div>
+
     <div style="font-size:.97rem;font-weight:700;color:#334155;line-height:2.3">
-      <p>1) A amplitude de cada classe (h) é <input type="text" class="blank-input" id="lacP1"> minutos.</p>
-      <p>2) O número de clientes com tempo de atendimento entre 15 e 27 minutos é <input type="text" class="blank-input" id="lacP2">.</p>
-      <p>3) O ponto médio (PM) da 4ª classe é <input type="text" class="blank-input" id="lacP3"> minutos.</p>
-      <p>4) O percentual de clientes na 1ª até a 2ª classe é <input type="text" class="blank-input" id="lacP4">%.</p>
-      <p>5) A frequência acumulada (fa) até a 3ª classe é <input type="text" class="blank-input" id="lacP5">.</p>
+      <p>1) A amplitude de cada classe (h) é <input type="text" class="blank-input" id="lacP1"> minutos. <button class="btn-check" onclick="conferirLacunaNum('lacP1','4','é Ls menos Li de qualquer classe (ex: 11-7)')">✓ Conferir</button> <span id="lacP1-fb" class="lac-fb"></span></p>
+      <p>2) O número de pacientes com tempo de atendimento entre 15 e 27 minutos é <input type="text" class="blank-input" id="lacP2">. <button class="btn-check" onclick="conferirLacunaNum('lacP2','12','some os fi da 3ª, 4ª e 5ª classes')">✓ Conferir</button> <span id="lacP2-fb" class="lac-fb"></span></p>
+      <p>3) O ponto médio (PM) da 4ª classe é <input type="text" class="blank-input" id="lacP3"> minutos. <button class="btn-check" onclick="conferirLacunaNum('lacP3','21','é (limite inferior + limite superior) ÷ 2 da 4ª classe')">✓ Conferir</button> <span id="lacP3-fb" class="lac-fb"></span></p>
+      <p>4) O percentual de pacientes na 1ª até a 2ª classe é <input type="text" class="blank-input" id="lacP4">%. <button class="btn-check" onclick="conferirLacunaNum('lacP4','40','está na própria coluna fra, na linha da 2ª classe')">✓ Conferir</button> <span id="lacP4-fb" class="lac-fb"></span></p>
+      <p>5) A frequência acumulada (fa) até a 3ª classe é <input type="text" class="blank-input" id="lacP5">. <button class="btn-check" onclick="conferirLacunaNum('lacP5','12','está na própria coluna fa, na linha da 3ª classe')">✓ Conferir</button> <span id="lacP5-fb" class="lac-fb"></span></p>
     </div>
 
     <div style="font-size:.97rem;font-weight:700;color:#334155;line-height:2.3;margin-top:.6rem">
-      <p>6) Qual é a variável em estudo? <input type="text" class="blank-input" id="lacPvar"></p>
-      <p>7) Qual a classificação dessa variável? <input type="text" class="blank-input" id="lacPclass"></p>
+      <p>6) Qual é a variável em estudo? <input type="text" class="blank-input" id="lacPvar"> <button class="btn-check" onclick="conferirLacunaVar('lacPvar',['tempo'])">✓ Conferir</button> <span id="lacPvar-fb" class="lac-fb"></span></p>
+      <p>7) Qual a classificação dessa variável? <input type="text" class="blank-input" id="lacPclass"> <button class="btn-check" onclick="conferirLacunaClassContinua('lacPclass')">✓ Conferir</button> <span id="lacPclass-fb" class="lac-fb"></span></p>
     </div>
-
-    <button class="btn-sortear" onclick="conferirLacunasPadaria()">✅ Conferir</button>
-    <div id="ex4padaria-fb" class="feedback"></div>
   </div>
 
   <div class="ex-sep">
@@ -987,47 +993,51 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
         <tr style="background:#DCFCE7">
           <th style="padding:.4rem;text-align:center">Nº</th>
           <th style="padding:.4rem;text-align:center">Classe (ms)</th>
-          <th style="padding:.4rem;text-align:center">PM</th>
           <th style="padding:.4rem;text-align:center">fi</th>
           <th style="padding:.4rem;text-align:center">fri</th>
           <th style="padding:.4rem;text-align:center">fa</th>
+          <th style="padding:.4rem;text-align:center">fra</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">1ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">200 ⊢ 250</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">225</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">12%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td></tr>
-        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">2ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">250 ⊢ 300</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">275</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">6</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">24%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">9</td></tr>
-        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">3ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">300 ⊢ 350</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">325</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">10</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">40%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">19</td></tr>
-        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">350 ⊢ 400</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">375</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">16%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">23</td></tr>
-        <tr><td style="padding:.35rem;text-align:center">5ª</td><td style="padding:.35rem;text-align:center">400 ⊢ 450</td><td style="padding:.35rem;text-align:center">425</td><td style="padding:.35rem;text-align:center">2</td><td style="padding:.35rem;text-align:center">8%</td><td style="padding:.35rem;text-align:center">25</td></tr>
+        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">1ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">200 ⊢ 250</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">12%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">3</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">12%</td></tr>
+        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">2ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">250 ⊢ 300</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">6</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">24%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">9</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">36%</td></tr>
+        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">3ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">300 ⊢ 350</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">10</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">40%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">19</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">76%</td></tr>
+        <tr><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4ª</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">350 ⊢ 400</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">4</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">16%</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">23</td><td style="padding:.35rem;text-align:center;border-bottom:1px solid #E2E8F0">92%</td></tr>
+        <tr><td style="padding:.35rem;text-align:center">5ª</td><td style="padding:.35rem;text-align:center">400 ⊢ 450</td><td style="padding:.35rem;text-align:center">2</td><td style="padding:.35rem;text-align:center">8%</td><td style="padding:.35rem;text-align:center">25</td><td style="padding:.35rem;text-align:center">100%</td></tr>
       </tbody>
       <tfoot>
         <tr style="font-weight:900;background:#F1F5F9">
           <td style="padding:.4rem;text-align:center">—</td>
           <td style="padding:.4rem;text-align:center">Total</td>
-          <td style="padding:.4rem;text-align:center">—</td>
           <td style="padding:.4rem;text-align:center">25</td>
           <td style="padding:.4rem;text-align:center">100%</td>
           <td style="padding:.4rem;text-align:center">—</td>
+          <td style="padding:.4rem;text-align:center">100%</td>
         </tr>
       </tfoot>
     </table>
     </div>
 
+    <div style="text-align:center;margin:.6rem 0 1rem">
+      <button class="btn-check" style="background:#16A34A" onclick="toggleHistReacao()">📊 Ver histograma dessa tabela</button>
+      <div id="histReacao-box" style="display:none;margin-top:.6rem;padding:.8rem;background:#F0FDF4;border-radius:10px;text-align:center">
+        <canvas id="histReacaoCanvas" width="300" height="200" style="max-width:100%"></canvas>
+      </div>
+    </div>
+
     <div style="font-size:.97rem;font-weight:700;color:#334155;line-height:2.3">
-      <p>1) A amplitude de cada classe (h) é <input type="text" class="blank-input" id="lac1"> ms.</p>
-      <p>2) O número de pessoas com tempo de reação entre 300 ms e 350 ms é <input type="text" class="blank-input" id="lac2">.</p>
-      <p>3) O ponto médio (PM) da 4ª classe é <input type="text" class="blank-input" id="lac3"> ms.</p>
-      <p>4) O percentual de pessoas na 2ª classe é <input type="text" class="blank-input" id="lac4">%.</p>
-      <p>5) A frequência acumulada até a 4ª classe é <input type="text" class="blank-input" id="lac5">.</p>
+      <p>1) A amplitude de cada classe (h) é <input type="text" class="blank-input" id="lac1"> ms. <button class="btn-check" onclick="conferirLacunaNum('lac1','50','é Ls menos Li de qualquer classe (ex: 250-200)')">✓ Conferir</button> <span id="lac1-fb" class="lac-fb"></span></p>
+      <p>2) O número de pessoas com tempo de reação entre 300 ms e 350 ms é <input type="text" class="blank-input" id="lac2">. <button class="btn-check" onclick="conferirLacunaNum('lac2','10','está na própria coluna fi, na linha da 3ª classe')">✓ Conferir</button> <span id="lac2-fb" class="lac-fb"></span></p>
+      <p>3) O ponto médio (PM) da 4ª classe é <input type="text" class="blank-input" id="lac3"> ms. <button class="btn-check" onclick="conferirLacunaNum('lac3','375','é (limite inferior + limite superior) ÷ 2 da 4ª classe')">✓ Conferir</button> <span id="lac3-fb" class="lac-fb"></span></p>
+      <p>4) O percentual de pessoas na 2ª classe é <input type="text" class="blank-input" id="lac4">%. <button class="btn-check" onclick="conferirLacunaNum('lac4','24','está na própria coluna fri, na linha da 2ª classe')">✓ Conferir</button> <span id="lac4-fb" class="lac-fb"></span></p>
+      <p>5) A frequência acumulada até a 4ª classe é <input type="text" class="blank-input" id="lac5">. <button class="btn-check" onclick="conferirLacunaNum('lac5','23','está na própria coluna fa, na linha da 4ª classe')">✓ Conferir</button> <span id="lac5-fb" class="lac-fb"></span></p>
     </div>
 
     <div style="font-size:.97rem;font-weight:700;color:#334155;line-height:2.3;margin-top:.6rem">
-      <p>6) Qual é a variável em estudo? <input type="text" class="blank-input" id="lac4var"></p>
-      <p>7) Qual a classificação dessa variável? <input type="text" class="blank-input" id="lac4class"></p>
+      <p>6) Qual é a variável em estudo? <input type="text" class="blank-input" id="lac4var"> <button class="btn-check" onclick="conferirLacunaVar('lac4var',['reacao'])">✓ Conferir</button> <span id="lac4var-fb" class="lac-fb"></span></p>
+      <p>7) Qual a classificação dessa variável? <input type="text" class="blank-input" id="lac4class"> <button class="btn-check" onclick="conferirLacunaClassContinua('lac4class')">✓ Conferir</button> <span id="lac4class-fb" class="lac-fb"></span></p>
     </div>
-
-    <button class="btn-sortear" onclick="conferirLacunas()">✅ Conferir</button>
-    <div id="ex4e-fb" class="feedback"></div>
   </div>
 
 </section>
@@ -2890,38 +2900,42 @@ function normalizarTexto(str) {
   return str.trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ');
 }
 
-function conferirLacunasAba3() {
-  const answers = { lac3a: '4', lac3b: '2', lac3c: '40', lac3d: '14', lac3e: '7', lac3f: '93.3' };
-  let allOk = true;
-  Object.keys(answers).forEach(id => {
-    const el = document.getElementById(id);
-    const val = el.value.trim().replace(',', '.');
-    const correct = numEq(val, answers[id]);
-    el.classList.remove('ok', 'err');
-    el.classList.add(correct ? 'ok' : 'err');
-    if (!correct) allOk = false;
-  });
-
-  const varEl = document.getElementById('lac3var');
-  const varOk = normalizarTexto(varEl.value).includes('nota');
-  varEl.classList.remove('ok', 'err'); varEl.classList.add(varOk ? 'ok' : 'err');
-  if (!varOk) allOk = false;
-
-  const classEl = document.getElementById('lac3class');
-  const classNorm = normalizarTexto(classEl.value);
-  const classOk = classNorm.includes('discreta') && !classNorm.includes('continua');
-  classEl.classList.remove('ok', 'err'); classEl.classList.add(classOk ? 'ok' : 'err');
-  if (!classOk) allOk = false;
-
-  const fb = document.getElementById('ex3-fb');
-  if (allOk) {
-    fb.className = 'feedback ok';
-    fb.innerHTML = '✅ Isso mesmo! Todas as lacunas corretas.';
-  } else {
-    fb.className = 'feedback err';
-    fb.innerHTML = '❌ Alguma resposta ainda não confere — revise os campos em vermelho.';
-  }
+function conferirLacunaNum(id, expected, dica) {
+  const el = document.getElementById(id);
+  const ok = numEq(el.value, expected);
+  el.classList.remove('ok', 'err'); el.classList.add(ok ? 'ok' : 'err');
+  const fb = document.getElementById(id + '-fb');
+  fb.innerHTML = ok ? '✅' : ('❌' + (dica ? ' <span style="font-size:.75rem;font-weight:700;color:#DC2626">' + dica + '</span>' : ''));
 }
+
+function conferirLacunaVar(id, keywords) {
+  const el = document.getElementById(id);
+  const norm = normalizarTexto(el.value);
+  const ok = keywords.some(k => norm.includes(k));
+  el.classList.remove('ok', 'err'); el.classList.add(ok ? 'ok' : 'err');
+  const fb = document.getElementById(id + '-fb');
+  fb.textContent = ok ? '✅' : '❌';
+}
+
+function conferirLacunaClass(id) {
+  const el = document.getElementById(id);
+  const norm = normalizarTexto(el.value);
+  const ok = (norm.includes('discreta') || norm.includes('discreto')) && !norm.includes('continua');
+  el.classList.remove('ok', 'err'); el.classList.add(ok ? 'ok' : 'err');
+  const fb = document.getElementById(id + '-fb');
+  fb.textContent = ok ? '✅' : '❌';
+}
+
+function conferirLacunaClassContinua(id) {
+  const el = document.getElementById(id);
+  const norm = normalizarTexto(el.value);
+  const ok = (norm.includes('continua') || norm.includes('continuo')) && !norm.includes('discreta');
+  el.classList.remove('ok', 'err'); el.classList.add(ok ? 'ok' : 'err');
+  const fb = document.getElementById(id + '-fb');
+  fb.textContent = ok ? '✅' : '❌';
+}
+
+
 
 function conferirLacunasAba5() {
   const answers = { lac5a: '25', lac5b: '25', lac5c: '20', lac5d: '30', lac5e: '50', lac5f: '60' };
@@ -2944,107 +2958,6 @@ function conferirLacunasAba5() {
     fb.className = 'feedback err';
     fb.innerHTML = '❌ Alguma resposta ainda não confere — revise os campos em vermelho.';
     gab.style.display = 'none';
-  }
-}
-
-function conferirLacunasAba3b() {
-  const answers = { lac3g: '13', lac3h: '7', lac3i: '25', lac3j: '12', lac3k: '450' };
-  let allOk = true;
-  Object.keys(answers).forEach(id => {
-    const el = document.getElementById(id);
-    const val = el.value.trim().replace(',', '.');
-    const correct = numEq(val, answers[id]);
-    el.classList.remove('ok', 'err');
-    el.classList.add(correct ? 'ok' : 'err');
-    if (!correct) allOk = false;
-  });
-
-  const varEl = document.getElementById('lac3var2');
-  const varNorm = normalizarTexto(varEl.value);
-  const varOk = varNorm.includes('sessoes') || varNorm.includes('sessao') || varNorm.includes('fisioterapia');
-  varEl.classList.remove('ok', 'err'); varEl.classList.add(varOk ? 'ok' : 'err');
-  if (!varOk) allOk = false;
-
-  const classEl = document.getElementById('lac3class2');
-  const classNorm = normalizarTexto(classEl.value);
-  const classOk = classNorm.includes('discreta') && !classNorm.includes('continua');
-  classEl.classList.remove('ok', 'err'); classEl.classList.add(classOk ? 'ok' : 'err');
-  if (!classOk) allOk = false;
-
-  const fb = document.getElementById('ex3b2-fb');
-  if (allOk) {
-    fb.className = 'feedback ok';
-    fb.innerHTML = '✅ Isso mesmo! Todas as lacunas corretas.';
-  } else {
-    fb.className = 'feedback err';
-    fb.innerHTML = '❌ Alguma resposta ainda não confere — revise os campos em vermelho.';
-  }
-}
-
-function conferirLacunas() {
-  const answers = { lac1: '50', lac2: '10', lac3: '375', lac4: '24', lac5: '23' };
-  let allOk = true;
-  Object.keys(answers).forEach(id => {
-    const el = document.getElementById(id);
-    const val = el.value.trim().replace(',', '.');
-    const correct = numEq(val, answers[id]);
-    el.classList.remove('ok', 'err');
-    el.classList.add(correct ? 'ok' : 'err');
-    if (!correct) allOk = false;
-  });
-
-  const varEl = document.getElementById('lac4var');
-  const varOk = normalizarTexto(varEl.value).includes('reacao');
-  varEl.classList.remove('ok', 'err'); varEl.classList.add(varOk ? 'ok' : 'err');
-  if (!varOk) allOk = false;
-
-  const classEl = document.getElementById('lac4class');
-  const classNorm = normalizarTexto(classEl.value);
-  const classOk = classNorm.includes('continua') && !classNorm.includes('discreta');
-  classEl.classList.remove('ok', 'err'); classEl.classList.add(classOk ? 'ok' : 'err');
-  if (!classOk) allOk = false;
-
-  const fb = document.getElementById('ex4e-fb');
-  if (allOk) {
-    fb.className = 'feedback ok';
-    fb.innerHTML = '✅ Isso mesmo! Todas as lacunas corretas.';
-  } else {
-    fb.className = 'feedback err';
-    fb.innerHTML = '❌ Alguma resposta ainda não confere — revise os campos em vermelho.';
-  }
-}
-
-function conferirLacunasPadaria() {
-  const answers = { lacP1: '4', lacP2: '12', lacP3: '21', lacP4: '40', lacP5: '12' };
-  let allOk = true;
-  Object.keys(answers).forEach(id => {
-    const el = document.getElementById(id);
-    const val = el.value.trim().replace(',', '.');
-    const correct = numEq(val, answers[id]);
-    el.classList.remove('ok', 'err');
-    el.classList.add(correct ? 'ok' : 'err');
-    if (!correct) allOk = false;
-  });
-
-  const varEl = document.getElementById('lacPvar');
-  const varNorm = normalizarTexto(varEl.value);
-  const varOk = varNorm.includes('tempo');
-  varEl.classList.remove('ok', 'err'); varEl.classList.add(varOk ? 'ok' : 'err');
-  if (!varOk) allOk = false;
-
-  const classEl = document.getElementById('lacPclass');
-  const classNorm = normalizarTexto(classEl.value);
-  const classOk = classNorm.includes('continua') && !classNorm.includes('discreta');
-  classEl.classList.remove('ok', 'err'); classEl.classList.add(classOk ? 'ok' : 'err');
-  if (!classOk) allOk = false;
-
-  const fb = document.getElementById('ex4padaria-fb');
-  if (allOk) {
-    fb.className = 'feedback ok';
-    fb.innerHTML = '✅ Isso mesmo! Todas as lacunas corretas.';
-  } else {
-    fb.className = 'feedback err';
-    fb.innerHTML = '❌ Alguma resposta ainda não confere — revise os campos em vermelho.';
   }
 }
 
@@ -4118,12 +4031,36 @@ function barChart(ctx, labels, values, color, w, h) {
   });
 }
 
-function histChart(ctx, boundaries, values, color, w, h) {
+function toggleHistPadaria() {
+  const box = document.getElementById('histPadaria-box');
+  const showing = box.style.display !== 'none';
+  box.style.display = showing ? 'none' : 'block';
+  if (!showing) {
+    histChart(document.getElementById('histPadariaCanvas').getContext('2d'), ['7','11','15','19','23','27'], [4,4,4,3,5], '#16A34A', 300, 200,
+      'Atendimento na Recepção do Consultório', 'Tempo de atendimento (min)', 'Frequência (nº de pacientes)');
+  }
+}
+
+function toggleHistReacao() {
+  const box = document.getElementById('histReacao-box');
+  const showing = box.style.display !== 'none';
+  box.style.display = showing ? 'none' : 'block';
+  if (!showing) {
+    histChart(document.getElementById('histReacaoCanvas').getContext('2d'), ['200','250','300','350','400','450'], [3,6,10,4,2], '#16A34A', 300, 200,
+      'Tempo de Reação no Teste', 'Tempo de reação (ms)', 'Frequência (nº de pessoas)');
+  }
+}
+
+function histChart(ctx, boundaries, values, color, w, h, title, xLabel, yLabel) {
   const max = Math.max(...values) * 1.25;
-  const padL = 30, padB = 25, padT = 16;
+  const padL = yLabel ? 42 : 30, padB = xLabel ? 42 : 25, padT = title ? 30 : 16;
   const chartW = w - padL - 10, chartH = h - padB - padT;
   const barW = chartW / values.length;
   ctx.clearRect(0,0,w,h);
+  if (title) {
+    ctx.fillStyle = '#1E293B'; ctx.font = '900 13px Nunito'; ctx.textAlign = 'center';
+    ctx.fillText(title, padL + chartW/2, 16);
+  }
   ctx.strokeStyle = '#94A3B8'; ctx.beginPath();
   ctx.moveTo(padL, padT); ctx.lineTo(padL, h-padB); ctx.lineTo(w-5, h-padB); ctx.stroke();
   values.forEach((v,i) => {
@@ -4144,6 +4081,18 @@ function histChart(ctx, boundaries, values, color, w, h) {
     ctx.fillStyle = '#334155'; ctx.font = '10.5px Nunito'; ctx.textAlign = 'center';
     ctx.fillText(b, x, h - padB + 13);
   });
+  if (xLabel) {
+    ctx.fillStyle = '#334155'; ctx.font = '900 11px Nunito'; ctx.textAlign = 'center';
+    ctx.fillText(xLabel, padL + chartW/2, h - 4);
+  }
+  if (yLabel) {
+    ctx.save();
+    ctx.translate(12, padT + chartH/2);
+    ctx.rotate(-Math.PI/2);
+    ctx.fillStyle = '#334155'; ctx.font = '900 11px Nunito'; ctx.textAlign = 'center';
+    ctx.fillText(yLabel, 0, 0);
+    ctx.restore();
+  }
 }
 
 function lineChartSimple(ctx, labels, values, color, w, h) {
