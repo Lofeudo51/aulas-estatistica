@@ -387,7 +387,7 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
       <p>2) O bife inteiro (200g) representa quantos % da fatia de 50g (pontilhada)? <input type="text" class="blank-input" id="bife2">%
         <button class="btn-sortear" onclick="conferirBifeItem(2)" style="display:inline-block;margin:0 0 0 .5rem;padding:.4rem 1rem;font-size:.85rem">✅</button></p>
       <div id="bife2-fb" class="feedback"></div>
-      <p>3) O pedaço que restou (150g) tem quantos % A MAIS de peso do que a fatia separada (50g)? <span style="font-size:.8rem;color:#64748B;font-weight:400">(ou seja: a diferença entre os dois, 100g, em relação à fatia separada)</span> <input type="text" class="blank-input" id="bife3">%
+      <p>3) Se no dia 10 você consumiu 120g de filé e no dia 11 consumiu 150g, quantos % A MAIS você consumiu no dia 11 em relação ao dia 10? <input type="text" class="blank-input" id="bife3">%
         <button class="btn-sortear" onclick="conferirBifeItem(3)" style="display:inline-block;margin:0 0 0 .5rem;padding:.4rem 1rem;font-size:.85rem">✅</button></p>
       <div id="bife3-fb" class="feedback"></div>
     </div>
@@ -906,7 +906,7 @@ input[type=range] { width: 100%; accent-color: var(--verde); height: 6px; border
           <td style="padding:.5rem;text-align:center" id="classNTotal"></td>
           <td style="padding:.5rem;text-align:center">100%</td>
           <td style="padding:.5rem;text-align:center">—</td>
-          <td style="padding:.5rem;text-align:center">100%</td>
+          <td style="padding:.5rem;text-align:center">—</td>
         </tr>
       </tfoot>
     </table>
@@ -3960,21 +3960,21 @@ function regraTresVisualHTML(unidade, valA1, valA2, valB1, valB2, eq1, eq2) {
 }
 
 function conferirBifeItem(n) {
-  const answers = { 1: '25', 2: '400', 3: '200' };
+  const answers = { 1: '25', 2: '400', 3: '25' };
   const visuais = {
     1: regraTresVisualHTML('g', '200', '50', '100%', 'x%', '200 · x = 50 · 100', 'x = 5000 ÷ 200 = 25%'),
     2: regraTresVisualHTML('g', '50', '200', '100%', 'x%', '50 · x = 200 · 100', 'x = 20000 ÷ 50 = 400%'),
-    3: regraTresVisualHTML('g', '50', '100', '100%', 'x%', '50 · x = 100 · 100', 'x = 10000 ÷ 50 = 200%')
+    3: regraTresVisualHTML('g', '120', '30', '100%', 'x%', '120 · x = 30 · 100', 'x = 3000 ÷ 120 = 25%')
   };
   const introOk = {
     1: '✅ Isso mesmo! A base aqui é o bife inteiro (200g):',
     2: '✅ Isso mesmo! Agora a base virou o pedaço pequeno (50g) — por isso passou de 100%:',
-    3: '✅ Isso mesmo! A diferença é 150−50=100g, e a base é o pedaço retirado (50g):'
+    3: '✅ Isso mesmo! A diferença é 150−120=30g, e a base é o dia 10 (120g):'
   };
   const introErr = {
     1: '❌ Ainda não. Monte a regra de três — a base é o bife inteiro (200g):',
     2: '❌ Ainda não. Monte a regra de três — agora a base é o pedaço pequeno (50g):',
-    3: '❌ Ainda não. Calcule a diferença (150−50=100g) e monte a regra de três com a base sendo o pedaço retirado (50g):'
+    3: '❌ Ainda não. Calcule a diferença (150−120=30g) e monte a regra de três com a base sendo o dia 10 (120g):'
   };
   const el = document.getElementById('bife' + n);
   const val = el.value.trim().replace(',', '.');
