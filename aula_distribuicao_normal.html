@@ -80,6 +80,25 @@
     border-left: 6px solid var(--azul);
   }
   .card.verde  { border-color: var(--verde); }
+
+  /* ── Exercícios accordion ── */
+  .ex-acc { margin-bottom:10px; border-radius:10px; overflow:hidden; border:1px solid var(--acc,#7C3AED); }
+  .ex-btn { width:100%; display:flex; justify-content:space-between; align-items:center;
+            padding:13px 16px; background:var(--acc,#7C3AED); color:#fff;
+            font:bold 1rem/1.3 'Nunito',sans-serif; border:none; cursor:pointer; text-align:left; gap:8px; }
+  .ex-btn:hover { filter:brightness(1.1); }
+  .ex-arr { transition:transform .3s; flex-shrink:0; }
+  .ex-btn.open .ex-arr { transform:rotate(180deg); }
+  .ex-body { display:none; padding:16px; background:#fff; font-size:.95rem; line-height:1.7; }
+  .ex-body.open { display:block; }
+  .ex-gab-btn { margin-top:10px; padding:7px 16px; background:#f3f0ff; color:#5B21B6;
+                border:1px solid #7C3AED; border-radius:8px; cursor:pointer; font-weight:700; font-size:.88rem; }
+  .ex-gab-btn:hover { background:#ede9fe; }
+  .ex-gab { display:none; margin-top:12px; padding:14px; background:#f5f3ff;
+             border-left:4px solid #7C3AED; border-radius:6px; font-size:.92rem; }
+  .ex-gab.open { display:block; }
+  .ex-concl { margin-top:10px; padding:10px 14px; background:#ede9fe; border-radius:8px;
+               font-size:.9rem; line-height:1.6; }
   .card.laranja{ border-color: var(--laranja); }
   .card.rosa   { border-color: var(--rosa); }
   .card.roxo   { border-color: var(--roxo); }
@@ -223,6 +242,15 @@
   .tag-s3 { background: #F59E0B; }
   .tag-s4 { background: #EC4899; }
   .tag-s5 { background: #8B5CF6; }
+
+/* skew card */
+.tcl-h2{font-size:1rem;font-weight:800;color:#93c5fd;margin-bottom:8px}
+.tcl-skew-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+@media(max-width:480px){.tcl-skew-grid{grid-template-columns:1fr}}
+.tcl-skew-lbl{font-size:.85rem;color:#ffffff;line-height:1.5;margin-top:6px;text-align:center}
+.tcl-skew-lbl strong{color:#93c5fd}
+.tcl-skew-intro{color:#cbd5e1;font-size:.95rem;line-height:1.6;margin-bottom:12px}
+.tcl-card.tcl-card-skew{border:1px solid #93c5fd}
 </style>
 </head>
 <body>
@@ -257,7 +285,7 @@
     <p>A <strong>curva Normal</strong> surgiu naturalmente a partir da <strong>observação de dados reais</strong>. No século XIX, o estatístico belga <strong>Adolphe Quetelet</strong> mediu a altura e o peso de <strong>milhares de pessoas</strong> na Inglaterra e na Bélgica.</p>
     <p style="margin-top:.8rem">Ele percebeu algo interessante: em muitos <strong>fenômenos naturais</strong>, os dados tendiam a formar uma <strong>curva em sino</strong> — com a maioria das pessoas concentrada no centro e poucas nos extremos.</p>
     <p style="margin-top:.8rem">O matemático <strong>Carl Friedrich Gauss</strong> já havia estudado essa forma em trabalhos anteriores, especialmente relacionados a <strong>erros de medição</strong>, e depois a formalizou matematicamente. Por isso, ela também é chamada de <strong>curva de Gauss</strong>.</p>
-    <p style="margin-top:.8rem">Na <strong>Aba 4</strong> vamos ver o que Quetelet descobriu dentro dessa curva.</p>
+    <p style="margin-top:.8rem">Na <strong>Aba 5</strong> vamos ver o que Quetelet descobriu dentro dessa curva.</p>
   </div>
 
   <!-- CONCLUSÃO ABA 1 -->
@@ -347,6 +375,556 @@
   </div>
 
 </section>
+
+<section id="sTCL">
+<div class="tcl-sim">
+<style>
+/* ═══════════════════════════════════════════════════════
+   TCL SIMULATOR — scoped under .tcl-sim
+   All CSS variables replaced with literal hex values
+   All class names prefixed with tcl- to avoid conflicts
+═══════════════════════════════════════════════════════ */
+.tcl-sim{
+  background:#0f172a;
+  border-radius:16px;
+  padding:14px 6px 20px;
+  display:flex;flex-direction:column;align-items:center;
+  gap:12px;width:100%;
+}
+
+/* cards */
+.tcl-card{
+  background:#1e293b;border:1px solid #334155;
+  border-radius:14px;padding:14px 8px;
+  width:100%;max-width:640px;
+}
+
+/* título */
+.tcl-sim .tcl-h1{
+  font-family:'Fredoka One',cursive;font-size:1.4rem;
+  color:#93c5fd;line-height:1.2;margin-bottom:6px;
+}
+.tcl-intro{color:#cbd5e1;font-size:.9rem;line-height:1.6;padding:0 6px}
+.tcl-intro strong{color:#fff}
+
+/* grade de fatores — 8 colunas */
+.tcl-factor-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;margin-bottom:8px}
+.tcl-fbtn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1px;padding:4px 2px;border-radius:6px;border:2px solid #334155;
+  background:#0f172a;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:.62rem;
+  color:#94a3b8;line-height:1.15;text-align:center;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.tcl-fbtn .tcl-fe{font-size:.9rem;line-height:1}
+.tcl-fbtn .tcl-fn{font-size:.6rem}
+.tcl-fbtn.tcl-active{background:#1e3a5f;border-color:#93c5fd;color:#fff}
+.tcl-fbtn:hover{border-color:#3b82f6;color:#cbd5e1}
+
+/* valor sorteado */
+.tcl-fval{
+  min-width:18px;height:16px;border-radius:3px;
+  background:#334155;color:#f59e0b;
+  font-weight:900;font-size:.72rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s,transform .15s;
+  margin-top:1px;
+}
+.tcl-fval.tcl-just-rolled{background:#f59e0b;color:#000;transform:scale(1.2)}
+.tcl-fbtn:not(.tcl-active) .tcl-fval{visibility:hidden}
+
+/* velocidade */
+.tcl-ctrl-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.tcl-ctrl-lbl{font-size:.75rem;color:#94a3b8;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+.tcl-ctrl-val{font-size:.85rem;font-weight:800;color:#93c5fd;white-space:nowrap}
+.tcl-sim input[type=range]{
+  -webkit-appearance:none;flex:1;height:5px;
+  border-radius:3px;background:#334155;outline:none;cursor:pointer;
+}
+.tcl-sim input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:15px;height:15px;border-radius:50%;
+  background:#3b82f6;cursor:pointer;
+}
+
+.tcl-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.tcl-btn{
+  padding:8px 16px;border-radius:9px;border:none;cursor:pointer;
+  font-family:'Nunito',sans-serif;font-weight:800;font-size:.85rem;
+  display:flex;align-items:center;gap:5px;
+  transition:transform .1s;white-space:nowrap;
+}
+.tcl-btn:active{transform:scale(.95)}
+.tcl-btn:disabled{opacity:.4;cursor:default}
+.tcl-btn-play {background:#3b82f6;color:#fff}
+.tcl-btn-auto {background:#1d4ed8;color:#fff}
+.tcl-btn-auto.tcl-running{background:#f43f5e}
+.tcl-btn-reset{background:#334155;color:#f1f5f9}
+
+/* histograma */
+.tcl-hist-hdr{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:6px;flex-wrap:wrap;gap:4px;
+}
+.tcl-hist-title{font-size:.82rem;color:#cbd5e1;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.tcl-sim canvas{display:block;width:100%;border-radius:6px}
+
+/* insight */
+.tcl-insight{
+  background:#0d2218;border:1px solid #10b981;border-radius:14px;
+  padding:14px 16px;font-size:.9rem;line-height:1.75;color:#ffffff;
+  width:100%;max-width:640px;
+  opacity:0;transition:opacity .5s;pointer-events:none;
+}
+.tcl-insight.tcl-show{opacity:1;pointer-events:auto}
+.tcl-insight strong{color:#fff}
+.tcl-insight em{color:#6ee7b7}
+</style>
+
+<!-- CARD 1: título -->
+<div class="tcl-card">
+  <p class="tcl-h1">🩺 Por que variáveis de saúde seguem a curva normal?</p>
+  <p class="tcl-intro">
+    A pressão arterial — assim como altura, glicemia e colesterol — é o resultado da
+    <strong>soma de múltiplos fatores independentes</strong>: genéticos, ambientais e comportamentais.
+    Utilize o <span style="color:#FDE047;font-style:italic;font-weight:900;font-size:1.05em;letter-spacing:.03em">SIMULADOR</span> abaixo com 1, 2, 3, até 8 fatores e veja a curva normal surgir.
+  </p>
+
+  <!-- botão modal: como funciona -->
+  <div style="margin-top:1rem;text-align:center">
+    <button onclick="document.getElementById('tclModalCF').style.display='flex'"
+      style="background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.5);border-radius:10px;color:#fff;font:bold 13px Nunito,sans-serif;padding:.5rem 1.2rem;cursor:pointer;display:inline-flex;align-items:center;gap:.5rem">
+      🔢 Como funciona o simulador?
+    </button>
+  </div>
+
+  <!-- modal flutuante -->
+  <div id="tclModalCF" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;align-items:center;justify-content:center;padding:1rem">
+    <div style="background:#fff;border-radius:16px;padding:1.4rem 1.6rem;max-width:480px;width:100%;position:relative;box-shadow:0 8px 40px rgba(0,0,0,.25)">
+      <button onclick="document.getElementById('tclModalCF').style.display='none'"
+        style="position:absolute;top:.7rem;right:.9rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:#64748b">✕</button>
+      <p style="font-weight:900;font-size:1rem;color:#1e293b;margin:0 0 .6rem">🔢 Como funciona o simulador?</p>
+      <p style="font-size:.88rem;color:#334155;line-height:1.6;margin:0 0 .8rem">Cada fator sorteia um <strong>nível de 1 a 6</strong> (como um dado <span style="font-size:1.3em">🎲</span>). A pressão final é a <strong>soma de todos os níveis</strong>, convertida para mmHg — mais fatores = mais combinações = histograma mais suave.</p>
+      <table style="width:100%;border-collapse:collapse;font-size:.85rem;color:#1e293b;table-layout:fixed">
+        <colgroup>
+          <col style="width:30%">
+          <col style="width:70%">
+        </colgroup>
+        <thead>
+          <tr style="border-bottom:2px solid #e2e8f0">
+            <th style="text-align:left;padding:.3rem .5rem;font-weight:900">Fator(es)</th>
+            <th style="text-align:left;padding:.3rem .5rem;font-weight:900">Valores possíveis (mmHg)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #f1f5f9">
+            <td style="padding:.3rem .5rem">🧂</td>
+            <td style="padding:.3rem .5rem">70, 90, 110, 130, 150, 170</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f1f5f9">
+            <td style="padding:.3rem .5rem">🧂😴</td>
+            <td style="padding:.3rem .5rem">70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f1f5f9">
+            <td style="padding:.3rem .5rem">🧂😴🍷</td>
+            <td style="padding:.3rem .5rem">70, 76,7, 83,3, 90, …, 163,3, 170</td>
+          </tr>
+          <tr style="border-bottom:1px solid #f1f5f9">
+            <td style="padding:.3rem .5rem;text-align:center;font-size:1.1em">⋮</td>
+            <td style="padding:.3rem .5rem;text-align:center;font-size:1.1em">⋮</td>
+          </tr>
+          <tr>
+            <td style="padding:.3rem .5rem;line-height:1.6"><div>🧬🧬🧂😰</div><div>🏃😴⚖️🍷</div></td>
+            <td style="padding:.3rem .5rem">70, 72,5, 75, 77,5, 80, …, 167,5, 170</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- CARD 2: simulador -->
+<div class="tcl-card">
+  <div class="tcl-btns">
+    <button class="tcl-btn tcl-btn-play" id="tclBtnRun">▶ 1 pessoa</button>
+    <button class="tcl-btn tcl-btn-auto" id="tclBtnAuto">▶▶ Acelerar</button>
+    <button class="tcl-btn tcl-btn-reset" id="tclBtnReset">↺ Reiniciar</button>
+  </div>
+
+  <div class="tcl-factor-grid" id="tclFactorGrid"></div>
+
+  <div class="tcl-ctrl-row">
+    <span class="tcl-ctrl-lbl">Velocidade</span>
+    <input type="range" id="tclSlSpeed" min="1" max="5" value="3">
+    <span class="tcl-ctrl-val" id="tclLblSpeed">Normal</span>
+  </div>
+
+  <div class="tcl-hist-hdr">
+    <span class="tcl-hist-title">Distribuição da pressão na população</span>
+  </div>
+  <canvas id="tclCv" height="230"></canvas>
+</div>
+
+<!-- CARD 3: insight -->
+<div class="tcl-insight" id="tclInsight">
+  <strong>Respondendo ao objetivo da aula:</strong> a partir de <strong>2 fatores independentes</strong> já surge a curva em sino — a <em>Distribuição Normal</em>.
+  Isso é uma regularidade empírica: foi observada na prática muito antes de ser explicada matematicamente.
+  É por isso que muitas variáveis biológicas, clínicas e comportamentais tendem a seguir a distribuição normal em populações — pressão arterial, altura, glicemia, colesterol, tempo de reação, escore de dor, força muscular, entre tantas outras — todas resultado de <strong>múltiplos fatores genéticos, ambientais e comportamentais agindo independentemente</strong>.
+  Esse padrão é o que nos autoriza a usar métodos estatísticos paramétricos.
+</div>
+
+
+<!-- CARD 4: assimetrias -->
+<div class="tcl-card tcl-card-skew">
+  <p class="tcl-h2">Nem toda variável de saúde é simétrica</p>
+  <p class="tcl-skew-intro">
+    Quando múltiplos fatores <strong>não atuam de forma independente e balanceada</strong>, a distribuição perde a simetria.
+    Nesses casos, a curva normal <strong>não é uma boa aproximação</strong> e outros métodos estatísticos são necessários.
+  </p>
+  <div class="tcl-skew-grid">
+    <div>
+      <canvas id="tclCvPos" height="175"></canvas>
+      <p class="tcl-skew-lbl">
+        <em>ex.: tempo de internação, carga viral, creatinina sérica</em>
+      </p>
+    </div>
+    <div>
+      <canvas id="tclCvNeg" height="175"></canvas>
+      <p class="tcl-skew-lbl">
+        <em>ex.: idade ao óbito (países desenvolvidos), saturação de O₂ em adultos saudáveis</em>
+      </p>
+    </div>
+  </div>
+</div>
+</div><!-- .tcl-sim -->
+</section>
+
+<script>
+(function(){
+const TCL_FACTORS=[
+  {e:'🧬',n:'G. Paterna'},{e:'🧬',n:'G. Materna'},
+  {e:'🧂',n:'Sódio'},{e:'😰',n:'Estresse'},
+  {e:'🏃',n:'Atividade'},{e:'😴',n:'Sono'},
+  {e:'⚖️',n:'Peso'},{e:'🍷',n:'Álcool'},
+];
+const TCL_SP={1:900,2:400,3:170,4:65,5:15};
+const TCL_SPL={1:'Lenta',2:'Devagar',3:'Normal',4:'Rápido',5:'Muito rápido'};
+
+let tclN=8, tclCounts=[], tclTotal=0, tclHist=[], tclLastMmhg=null, tclAutoTmr=null, tclIsAuto=false;
+let tclAnnotAlpha=0, tclAnnotShown=false;
+function tclHideAnnot(){
+  tclAnnotAlpha=0; tclAnnotShown=false; tclDrawHist();
+}
+const tclG=id=>document.getElementById(id);
+
+function tclBuildFactorGrid(){
+  const grid=tclG('tclFactorGrid'); grid.innerHTML='';
+  TCL_FACTORS.forEach((f,i)=>{
+    const btn=document.createElement('button');
+    btn.className='tcl-fbtn'+(i<tclN?' tcl-active':'');
+    btn.id=`tclFb${i}`;
+    btn.innerHTML=
+      `<span class="tcl-fe">${f.e}</span>`+
+      `<span class="tcl-fn">${f.n}</span>`+
+      `<span class="tcl-fval" id="tclFv${i}">—</span>`;
+    btn.addEventListener('click',()=>tclSetN(i+1));
+    grid.appendChild(btn);
+  });
+}
+
+function tclSetN(newN){
+  tclN=newN;
+  TCL_FACTORS.forEach((_,i)=>{
+    tclG(`tclFb${i}`).classList.toggle('tcl-active',i<tclN);
+    tclG(`tclFv${i}`).textContent='—';
+    tclG(`tclFv${i}`).classList.remove('tcl-just-rolled');
+  });
+  tclResetCounts();
+  tclG('tclInsight').classList.remove('tcl-show');
+  const cv=tclG('tclCv'); cv.getContext('2d').clearRect(0,0,cv.width,cv.height);
+  if(tclIsAuto){tclStopAuto();tclStartAuto();}
+}
+
+function tclFlashVal(i,dice){
+  const mmhg=Math.round(70/tclN+(dice-1)*20/tclN);
+  const v=tclG(`tclFv${i}`); if(!v) return;
+  v.textContent=mmhg;
+  v.classList.add('tcl-just-rolled');
+  setTimeout(()=>v.classList.remove('tcl-just-rolled'),280);
+}
+
+function tclResetCounts(){ tclCounts=new Array(tclN*6+2).fill(0); tclTotal=0; tclHist=[]; tclLastMmhg=null; }
+
+function tclToMmhg(s){ return Math.round(70+(s-tclN)/(tclN*5)*100); }
+
+function tclDrawHist(){
+  const canvas=tclG('tclCv');
+  const ctx=canvas.getContext('2d');
+  const W=canvas.offsetWidth||canvas.width;
+  canvas.width=W;
+  const H=canvas.height;
+  const PL=44,PR=10,PT=58,PB=36;
+  const cW=W-PL-PR, cH=H-PT-PB;
+  ctx.clearRect(0,0,W,H);
+
+  ctx.textAlign='left';
+  ctx.font='bold 13px Nunito'; ctx.fillStyle='#1e293b';
+  ctx.fillText(`${tclTotal} pessoa${tclTotal!==1?'s':''} simulada${tclTotal!==1?'s':''}`, PL, 15);
+  if(tclLastMmhg!==null){
+    ctx.font='bold 13px Nunito'; ctx.fillStyle='#2563eb';
+    ctx.fillText(`${tclLastMmhg} mmHg sistólica`, PL, 30);
+  }
+
+  const sLo=tclN, sHi=tclN*6, nBars=sHi-sLo+1;
+  const bW=cW/nBars;
+  const maxC=Math.max(...tclCounts.slice(sLo,sHi+1),1);
+
+  for(let s=sLo;s<=sHi;s++){
+    const c=tclCounts[s]||0;
+    if(!c) continue;
+    const bH=(c/maxC)*cH;
+    const x=PL+(s-sLo)*bW, y=PT+cH-bH;
+    const t=c/maxC;
+    ctx.fillStyle=`rgba(${Math.round(59+(16-59)*t)},${Math.round(130+(185-130)*t)},${Math.round(246+(129-246)*t)},.9)`;
+    ctx.fillRect(x+.5,y,bW-1,bH);
+  }
+
+  const refS=tclN*3.5;
+  const refX=PL+(refS-sLo+0.5)*bW;
+  ctx.save();
+  ctx.setLineDash([4,3]);
+  ctx.strokeStyle='rgba(148,163,184,.6)';
+  ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(refX,PT); ctx.lineTo(refX,PT+cH); ctx.stroke();
+  ctx.restore();
+  ctx.textAlign='center';
+  ctx.font='bold 13px Nunito'; ctx.fillStyle='#2563eb';
+  if(tclTotal>0){
+    const mSum=tclHist.reduce((a,b)=>a+b,0)/tclTotal;
+    const sdSum=Math.sqrt(tclHist.reduce((a,b)=>a+(b-mSum)**2,0)/tclTotal);
+    const sdMmhg=(sdSum*100/(tclN*5)).toFixed(1);
+    ctx.fillText(`x̅ = 120 ± ${sdMmhg} mmHg`, refX, PT-9);
+  } else {
+    ctx.fillText('x̅ = 120 mmHg', refX, PT-9);
+  }
+
+  const showCurve=tclTotal>50 && tclN>1;
+  if(showCurve){
+    const mu=tclN*3.5, sd=Math.sqrt(tclN*35/12);
+    const nd=x=>Math.exp(-.5*((x-mu)/sd)**2)/(sd*Math.sqrt(2*Math.PI));
+    const peak=nd(mu);
+    ctx.beginPath(); ctx.strokeStyle='#ef4444'; ctx.lineWidth=2.5;
+    for(let px=0;px<=cW;px++){
+      const s=sLo+(px/cW)*nBars;
+      const y=PT+cH-(nd(s-0.5)/peak)*cH*.93;
+      px===0?ctx.moveTo(PL+px,y):ctx.lineTo(PL+px,y);
+    }
+    ctx.stroke();
+    // ── anotação: seta vermelha "curva normal" ──
+    if(tclAnnotAlpha>0){
+      // ponto de inflexão direito: x=μ+σ, y=e^(-0.5)*93% do pico
+      const tipX=PL+(mu+sd-sLo+0.5)*bW;
+      const tipY=PT+cH*(1-Math.exp(-0.5)*0.93);
+      const lblX=tipX+10, lblY=tipY-20;
+      ctx.save();
+      ctx.globalAlpha=tclAnnotAlpha;
+      // texto
+      ctx.font='bold 13px Nunito'; ctx.fillStyle='#ef4444'; ctx.textAlign='left';
+      const txtW=ctx.measureText('curva normal').width;
+      ctx.font='18px serif'; ctx.textAlign='center';
+      ctx.fillText('😮', lblX+txtW/2, lblY-14);
+      ctx.font='bold 13px Nunito'; ctx.fillStyle='#ef4444'; ctx.textAlign='left';
+      ctx.fillText('curva normal', lblX, lblY);
+      // linha da seta
+      const ang=Math.atan2(tipY-lblY, tipX-lblX);
+      ctx.strokeStyle='#ef4444'; ctx.lineWidth=2; ctx.setLineDash([]);
+      ctx.beginPath(); ctx.moveTo(lblX,lblY+2); ctx.lineTo(tipX,tipY); ctx.stroke();
+      // cabeça da seta
+      ctx.beginPath();
+      ctx.moveTo(tipX, tipY);
+      ctx.lineTo(tipX-10*Math.cos(ang-0.4), tipY-10*Math.sin(ang-0.4));
+      ctx.lineTo(tipX-10*Math.cos(ang+0.4), tipY-10*Math.sin(ang+0.4));
+      ctx.closePath(); ctx.fillStyle='#ef4444'; ctx.fill();
+      ctx.restore();
+    }
+    tclG('tclInsight').classList.add('tcl-show');
+    const _insN=tclG('tclInsN'); if(_insN) _insN.textContent=tclN;
+    // aciona a anotação se ainda não foi mostrada nesta sessão de curva
+    if(!tclAnnotShown){ tclAnnotShown=true; tclAnnotAlpha=1; }
+  } else {
+    tclG('tclInsight').classList.remove('tcl-show');
+    tclAnnotShown=false; tclAnnotAlpha=0;
+  }
+
+  ctx.strokeStyle='rgba(255,255,255,.7)'; ctx.lineWidth=1.5;
+  ctx.beginPath();
+  ctx.moveTo(PL,PT); ctx.lineTo(PL,PT+cH); ctx.lineTo(PL+cW,PT+cH);
+  ctx.stroke();
+
+  ctx.font='bold 13px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='center';
+  ctx.fillText('f', 12, PT+cH/2+5);
+
+  ctx.font='11px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='right';
+  let yStep=2; while(maxC/yStep>10) yStep+=2;
+  for(let v=0;v<=maxC;v+=yStep){
+    const ty=PT+cH-(v/maxC)*cH;
+    ctx.fillText(v, PL-4, ty+4);
+    ctx.strokeStyle='rgba(148,163,184,.3)'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.moveTo(PL-3,ty); ctx.lineTo(PL,ty); ctx.stroke();
+  }
+
+  ctx.fillStyle='#1e293b'; ctx.font='bold 12px Nunito'; ctx.textAlign='center';
+  const labelStep=nBars<=10?1:nBars<=20?2:nBars<=30?3:5;
+  for(let s=sLo;s<=sHi;s+=labelStep){
+    ctx.fillText(tclToMmhg(s), PL+(s-sLo+.5)*bW, H-PB+14);
+  }
+  ctx.fillStyle='#1e293b'; ctx.font='13px Nunito';
+  ctx.fillText('pressão sistólica (mmHg)', PL+cW/2, H-2);
+}
+
+function tclDoRoll(){
+  const vals=Array.from({length:tclN},()=>Math.ceil(Math.random()*6));
+  vals.forEach((v,i)=>tclFlashVal(i,v));
+  const s=vals.reduce((a,b)=>a+b,0);
+  tclCounts[s]=(tclCounts[s]||0)+1;
+  tclTotal++; tclHist.push(s);
+  tclLastMmhg=tclToMmhg(s);
+  tclDrawHist();
+}
+
+tclG('tclSlSpeed').addEventListener('input',function(){
+  tclG('tclLblSpeed').textContent=TCL_SPL[this.value];
+  if(tclIsAuto){tclStopAuto();tclStartAuto();}
+});
+
+tclG('tclBtnRun').addEventListener('click',tclDoRoll);
+
+tclG('tclBtnAuto').addEventListener('click',function(){
+  if(tclIsAuto){tclStopAuto();this.innerHTML='⟳ Várias';this.classList.remove('tcl-running');}
+  else{tclStartAuto();this.innerHTML='⏹ Parar';this.classList.add('tcl-running');}
+});
+
+tclG('tclBtnReset').addEventListener('click',function(){
+  tclStopAuto();
+  tclG('tclBtnAuto').innerHTML='⟳ Várias';
+  tclG('tclBtnAuto').classList.remove('tcl-running');
+  tclResetCounts();
+  tclAnnotAlpha=0; tclAnnotShown=false;
+  TCL_FACTORS.forEach((_,i)=>{tclG(`tclFv${i}`).textContent='—';tclG(`tclFv${i}`).classList.remove('tcl-just-rolled');});
+  tclG('tclInsight').classList.remove('tcl-show');
+  const cv=tclG('tclCv'); cv.getContext('2d').clearRect(0,0,cv.width,cv.height);
+});
+
+function tclStartAuto(){ tclIsAuto=true; tclAutoTmr=setInterval(tclDoRoll,TCL_SP[+tclG('tclSlSpeed').value]); }
+function tclStopAuto(){ tclIsAuto=false; clearInterval(tclAutoTmr); tclAutoTmr=null; tclHideAnnot(); }
+
+tclBuildFactorGrid(); tclResetCounts();
+
+// ── curvas assimétricas (Beta distribution) ──────────────────
+function tclDrawSkewCanvas(canvasId, positive, chartTitle, xLabel){
+  const canvas=document.getElementById(canvasId);
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.offsetWidth||260;
+  canvas.width=W;
+  const H=canvas.height;
+  const PL=36,PR=8,PT=28,PB=42;
+  const cW=W-PL-PR, cH=H-PT-PB;
+  ctx.clearRect(0,0,W,H);
+
+  // Beta(α,β): positive skew=Beta(2,5), negative=Beta(5,2)
+  const alpha=positive?2:5, beta=positive?5:2;
+  const N=300;
+  const ys=[];
+  for(let i=0;i<=N;i++){
+    const x=0.002+i/N*0.996;
+    ys.push(Math.pow(x,alpha-1)*Math.pow(1-x,beta-1));
+  }
+  const maxY=Math.max(...ys);
+
+  // título do gráfico no topo
+  ctx.font='bold 12px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='center';
+  ctx.fillText(chartTitle, PL+cW/2, 16);
+
+  // área preenchida
+  ctx.beginPath();
+  ctx.moveTo(PL, PT+cH);
+  ys.forEach((y,i)=>ctx.lineTo(PL+(i/N)*cW, PT+cH-(y/maxY)*cH*0.88));
+  ctx.lineTo(PL+cW, PT+cH);
+  ctx.closePath();
+  ctx.fillStyle='rgba(37,99,235,0.10)';
+  ctx.fill();
+
+  // curva
+  ctx.beginPath();
+  ctx.strokeStyle='#2563eb'; ctx.lineWidth=2.5;
+  ys.forEach((y,i)=>{
+    const cx=PL+(i/N)*cW, cy=PT+cH-(y/maxY)*cH*0.88;
+    i===0?ctx.moveTo(cx,cy):ctx.lineTo(cx,cy);
+  });
+  ctx.stroke();
+
+  // eixos
+  ctx.strokeStyle='rgba(30,41,59,0.5)'; ctx.lineWidth=1.5;
+  ctx.beginPath();
+  ctx.moveTo(PL,PT); ctx.lineTo(PL,PT+cH); ctx.lineTo(PL+cW,PT+cH);
+  ctx.stroke();
+
+  // escala Y — 3 marcas: 0, 0.5, 1.0 (normalizado)
+  ctx.font='11px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='right';
+  [0,0.5,1].forEach(v=>{
+    const yy=PT+cH-(v*cH*0.88);
+    ctx.beginPath(); ctx.moveTo(PL-3,yy); ctx.lineTo(PL,yy);
+    ctx.strokeStyle='rgba(30,41,59,0.4)'; ctx.lineWidth=1; ctx.stroke();
+    ctx.fillText(v===0?'0':v===0.5?'0,5':'1,0', PL-5, yy+4);
+  });
+
+  // rótulo eixo Y (f) — em pé
+  ctx.font='bold 13px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='center';
+  ctx.fillText('f', 10, PT+cH/2+5);
+
+  // escala X — 5 marcas igualmente espaçadas
+  ctx.font='11px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='center';
+  const xLabels=positive?['baixo','','','','alto']:['baixo','','','','alto'];
+  [0,0.25,0.5,0.75,1].forEach((v,idx)=>{
+    const xx=PL+v*cW;
+    ctx.beginPath(); ctx.moveTo(xx,PT+cH); ctx.lineTo(xx,PT+cH+3);
+    ctx.strokeStyle='rgba(30,41,59,0.4)'; ctx.lineWidth=1; ctx.stroke();
+    if(idx===0||idx===4) ctx.fillText(xLabels[idx], xx, PT+cH+14);
+  });
+
+  // título eixo X
+  ctx.font='11px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='center';
+  ctx.fillText(xLabel, PL+cW/2, H-4);
+
+  // indicação "cauda" próximo à cauda real
+  // cauda positiva: extremo direito (~x=0.85..1) → pegar ponto onde y cai a 15% do pico
+  // cauda negativa: extremo esquerdo (~x=0..0.15)
+  let caudaIdx;
+  if(positive){
+    // percorre da direita até achar y > 15% do pico
+    caudaIdx=N;
+    for(let i=N;i>=0;i--){ if(ys[i]/maxY>0.12){caudaIdx=i;break;} }
+    caudaIdx=Math.round((caudaIdx+N)/2); // meio entre esse ponto e a borda direita
+  } else {
+    caudaIdx=0;
+    for(let i=0;i<=N;i++){ if(ys[i]/maxY>0.12){caudaIdx=i;break;} }
+    caudaIdx=Math.round(caudaIdx/2);
+  }
+  const caudaX=PL+(caudaIdx/N)*cW;
+  const caudaY=PT+cH*0.55; // posição fixa na metade inferior, dentro do canvas
+  ctx.font='bold 12px Nunito'; ctx.fillStyle='#2563eb';
+  ctx.textAlign= positive ? 'right' : 'left';
+  const cx2 = positive ? caudaX+2 : caudaX-2;
+  ctx.fillText('cauda para', cx2, caudaY);
+  ctx.fillText(positive ? 'à direita →' : '← à esquerda', cx2, caudaY+16);
+}
+window.tclDrawSkewCanvases=function(){
+  tclDrawSkewCanvas('tclCvPos',true,'Curva assimétrica positiva','tempo de internação (dias)');
+  tclDrawSkewCanvas('tclCvNeg',false,'Curva assimétrica negativa','idade ao óbito (anos)');
+};
+})();
+</script>
 <section id="s2">
   <div class="card">
     <h2>📊 A Curva em Sino</h2>
@@ -376,7 +954,7 @@
   </div>
   <!-- EXERCÍCIOS ABA 4 -->
   <div class="card" style="border-color:#8B5CF6;margin-top:.5rem">
-    <h2>✏️ Exercício 1 — Aba 4</h2>
+    <h2>✏️ Exercício 1 — Aba 5</h2>
     <p style="font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.2rem">Observe os gráficos abaixo. Os formatos das curvas são coerentes com os seus respectivos parâmetros apresentados?</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
       <div style="flex:1;min-width:280px;text-align:center">
@@ -403,7 +981,7 @@
 
   <!-- EXERCÍCIO 2 ABA 4 -->
   <div class="card" style="border-color:#8B5CF6;margin-top:.5rem">
-    <h2>✏️ Exercício 2 — Aba 4</h2>
+    <h2>✏️ Exercício 2 — Aba 5</h2>
     <p style="font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.2rem">Observe os gráficos abaixo. Os formatos das curvas são coerentes com os seus respectivos parâmetros apresentados?</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
       <div style="flex:1;min-width:280px;text-align:center">
@@ -430,7 +1008,7 @@
 
   <!-- EXERCÍCIO 3 ABA 4 -->
   <div class="card" style="border-color:#8B5CF6;margin-top:.5rem">
-    <h2>✏️ Exercício 3 — Aba 4</h2>
+    <h2>✏️ Exercício 3 — Aba 5</h2>
     <p style="font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.2rem">Observe os gráficos abaixo. Os formatos das curvas são coerentes com os seus respectivos parâmetros apresentados?</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
       <div style="flex:1;min-width:280px;text-align:center">
@@ -457,7 +1035,7 @@
 
   <!-- EXERCÍCIO 4 ABA 4 -->
   <div class="card" style="border-color:#8B5CF6;margin-top:.5rem">
-    <h2>✏️ Exercício 4 — Aba 4</h2>
+    <h2>✏️ Exercício 4 — Aba 5</h2>
     <p style="font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.2rem">Observe os gráficos abaixo. Os formatos das curvas são coerentes com os seus respectivos parâmetros apresentados?</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
       <div style="flex:1;min-width:280px;text-align:center">
@@ -484,7 +1062,7 @@
 
   <!-- EXERCÍCIO 5 ABA 4 -->
   <div class="card" style="border-color:#8B5CF6;margin-top:.5rem">
-    <h2>✏️ Exercício 5 — Aba 4</h2>
+    <h2>✏️ Exercício 5 — Aba 5</h2>
     <p style="font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.2rem">Observe os gráficos abaixo. Os formatos das curvas são coerentes com os seus respectivos parâmetros apresentados?</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
       <div style="flex:1;min-width:280px;text-align:center">
@@ -511,7 +1089,7 @@
 
   <!-- EXERCÍCIO 6 ABA 4 — só muda σ, coerente -->
   <div class="card" style="border-color:#8B5CF6;margin-top:.5rem">
-    <h2>✏️ Exercício 6 — Aba 4</h2>
+    <h2>✏️ Exercício 6 — Aba 5</h2>
     <p style="font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.2rem">Observe os gráficos abaixo. Os formatos das curvas são coerentes com os seus respectivos parâmetros apresentados?</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
       <div style="flex:1;min-width:280px;text-align:center">
@@ -532,7 +1110,7 @@
 
   <!-- EXERCÍCIO 7 ABA 4 — só muda μ, incoerente -->
   <div class="card" style="border-color:#8B5CF6;margin-top:.5rem">
-    <h2>✏️ Exercício 7 — Aba 4</h2>
+    <h2>✏️ Exercício 7 — Aba 5</h2>
     <p style="font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.2rem">Observe os gráficos abaixo. Os formatos das curvas são coerentes com os seus respectivos parâmetros apresentados?</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
       <div style="flex:1;min-width:280px;text-align:center">
@@ -553,7 +1131,7 @@
 
   <!-- EXERCÍCIO 8 ABA 4 — só muda μ, coerente -->
   <div class="card" style="border-color:#8B5CF6;margin-top:.5rem">
-    <h2>✏️ Exercício 8 — Aba 4</h2>
+    <h2>✏️ Exercício 8 — Aba 5</h2>
     <p style="font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.2rem">Observe os gráficos abaixo. Os formatos das curvas são coerentes com os seus respectivos parâmetros apresentados?</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
       <div style="flex:1;min-width:280px;text-align:center">
@@ -574,7 +1152,7 @@
 
   <!-- EXERCÍCIO 9 ABA 4 — muda os dois, incoerente -->
   <div class="card" style="border-color:#8B5CF6;margin-top:.5rem">
-    <h2>✏️ Exercício 9 — Aba 4</h2>
+    <h2>✏️ Exercício 9 — Aba 5</h2>
     <p style="font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.2rem">Observe os gráficos abaixo. Os formatos das curvas são coerentes com os seus respectivos parâmetros apresentados?</p>
     <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.2rem">
       <div style="flex:1;min-width:280px;text-align:center">
@@ -940,17 +1518,499 @@
 
 </section>
 
+<!-- ══════════════════════════════════════════════════════════════
+     SEÇÃO s10 — EXERCÍCIOS CONTEXTUALIZADOS
+════════════════════════════════════════════════════════════════ -->
+<section id="s10">
+
+<div class="card" style="border-color:#7C3AED">
+  <h2>🎯 Exercícios para Treinar</h2>
+  <p>Cada exercício traz uma variável diferente da área de saúde. Leia o enunciado, resolva no papel e confira o gabarito comentado.</p>
+</div>
+
+<!-- ── PSICOLOGIA ── -->
+<div class="ex-acc" style="--acc:#7C3AED;margin-top:14px">
+  <button class="ex-btn" onclick="toggleAcc(this)">
+    <span>📋 Exercício 1 — Contexto: Psicologia</span><span class="ex-arr">▼</span>
+  </button>
+  <div class="ex-body">
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #EDE9FE">
+      <p style="font-weight:700;color:#5B21B6;margin:0 0 6px">Exercício 1 — Escore de ansiedade (GAD-7)</p>
+      <p>O <strong>GAD-7</strong> é uma escala de ansiedade generalizada que varia de 0 a 21 pontos. Em estudantes universitários, o escore segue uma distribuição normal com <strong>média μ = 8</strong> e <strong>desvio padrão σ = 2</strong> pontos.</p>
+      <p>Qual a probabilidade de um estudante sorteado ao acaso ter escore <strong>entre 5 e 11</strong> pontos?</p>
+      <button class="ex-gab-btn" data-cv="gabCv1" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabCv1" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (5 − 8) / 2 = <strong>−1,50</strong> &nbsp;|&nbsp; Z₂ = (11 − 8) / 2 = <strong>+1,50</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 1,50) = 0,4332 &nbsp;|&nbsp; P(0 &lt; Z &lt; 1,50) = 0,4332</p>
+        <p><strong>Passo 3 — some as duas metades</strong> (o intervalo se estende dos dois lados da média):</p>
+        <p>P(5 &lt; X &lt; 11) = 0,4332 + 0,4332 = <strong>0,8664 → 86,64%</strong></p>
+        <p class="ex-concl">Há cerca de <strong>87% de chance</strong> de um estudante ter escore entre 5 e 11 — uma faixa bastante ampla ao redor da média.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #EDE9FE">
+      <p style="font-weight:700;color:#5B21B6;margin:0 0 6px">Exercício 2 — Tempo de reação simples</p>
+      <p>Em um experimento de atenção, o tempo de reação simples de adultos saudáveis segue distribuição normal com <strong>média μ = 280 ms</strong> e <strong>desvio padrão σ = 25 ms</strong>.</p>
+      <p>Em um estudo com <strong>400 participantes</strong>, quantas pessoas devem ter tempo de reação <strong>superior a 313 ms</strong>?</p>
+      <button class="ex-gab-btn" data-cv="gabCv2" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabCv2" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Passo 1 — calcule o escore Z:</strong></p>
+        <p>Z = (313 − 280) / 25 = <strong>+1,32</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 1,32) = 0,4066</p>
+        <p><strong>Passo 3 — subtraia de 0,5</strong> (queremos a cauda acima de 313):</p>
+        <p>P(X &gt; 313) = 0,5000 − 0,4066 = <strong>0,0934 → 9,34%</strong></p>
+        <p><strong>Passo 4 — aplique à população:</strong></p>
+        <p>400 × 0,0934 = <strong>≈ 37 participantes</strong></p>
+        <p class="ex-concl">Cerca de <strong>37 dos 400 participantes</strong> (≈ 9%) devem levar mais de 313 ms para reagir — um tempo bem acima da média.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #EDE9FE">
+      <p style="font-weight:700;color:#5B21B6;margin:0 0 6px">Exercício 3 — Escore de autoestima (Rosenberg)</p>
+      <p>A <strong>Escala de Autoestima de Rosenberg</strong> (0–30 pontos) em adultos brasileiros tem distribuição normal com <strong>média μ = 25</strong> e <strong>desvio padrão σ = 4</strong> pontos.</p>
+      <p>Qual a probabilidade de um adulto sorteado ter escore <strong>entre 27 e 29</strong> pontos — ou seja, acima da média?</p>
+      <button class="ex-gab-btn" data-cv="gabCv3" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabCv3" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (27 − 25) / 4 = <strong>+0,50</strong> &nbsp;|&nbsp; Z₂ = (29 − 25) / 4 = <strong>+1,00</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 0,50) = 0,1915 &nbsp;|&nbsp; P(0 &lt; Z &lt; 1,00) = 0,3413</p>
+        <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — acima da média):</p>
+        <p>P(27 &lt; X &lt; 29) = 0,3413 − 0,1915 = <strong>0,1498 → 14,98%</strong></p>
+        <p class="ex-concl">Cerca de <strong>15% dos adultos</strong> têm autoestima nessa faixa elevada, entre leve e moderadamente acima da média.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #EDE9FE">
+      <p style="font-weight:700;color:#5B21B6;margin:0 0 6px">Exercício 4 — Horas de sono por noite</p>
+      <p>Pesquisas com universitários mostram que as horas de sono por noite seguem distribuição normal com <strong>média μ = 7,0 h</strong> e <strong>desvio padrão σ = 0,8 h</strong>.</p>
+      <p>Em uma pesquisa com <strong>600 universitários</strong>, quantos devem dormir <strong>entre 5,50 h e 6,34 h</strong> — abaixo da média?</p>
+      <button class="ex-gab-btn" data-cv="gabCv4" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabCv4" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (5,50 − 7,0) / 0,8 = <strong>−1,88</strong> &nbsp;|&nbsp; Z₂ = (6,34 − 7,0) / 0,8 = <strong>−0,83</strong></p>
+        <p><strong>Passo 2 — consulte a tabela</strong> (use os valores positivos pela simetria):</p>
+        <p>P(0 &lt; Z &lt; 1,88) = 0,4699 &nbsp;|&nbsp; P(0 &lt; Z &lt; 0,83) = 0,2967</p>
+        <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — abaixo da média):</p>
+        <p>P(5,50 &lt; X &lt; 6,34) = 0,4699 − 0,2967 = <strong>0,1732 → 17,32%</strong></p>
+        <p><strong>Passo 4 — aplique à população:</strong></p>
+        <p>600 × 0,1732 = <strong>≈ 104 universitários</strong></p>
+        <p class="ex-concl">Cerca de <strong>104 dos 600 universitários</strong> (≈ 17%) dormem nessa faixa de privação moderada de sono.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <p style="font-weight:700;color:#5B21B6;margin:0 0 6px">Exercício 5 — Nível de cortisol e o p-valor</p>
+      <p>O nível de cortisol matinal em adultos saudáveis segue distribuição normal com <strong>média μ = 18 µg/dL</strong> e <strong>desvio padrão σ = 3 µg/dL</strong>. Um paciente chega ao consultório com cortisol de <strong>24,39 µg/dL</strong>.</p>
+      <p>Qual a probabilidade de encontrar, ao acaso na população, uma pessoa com cortisol <strong>igual ou superior</strong> a esse valor? O que esse número indica clinicamente?</p>
+      <button class="ex-gab-btn" data-cv="gabCv5" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabCv5" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Passo 1 — calcule o escore Z:</strong></p>
+        <p>Z = (24,39 − 18) / 3 = <strong>+2,13</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 2,13) = 0,4834</p>
+        <p><strong>Passo 3 — subtraia de 0,5</strong> (cauda acima de 24,39):</p>
+        <p>P(X ≥ 24,39) = 0,5000 − 0,4834 = <strong>0,0166 → 1,66%</strong></p>
+        <p class="ex-concl">Há apenas <strong>1,66% de chance</strong> de encontrar, por acaso, alguém com cortisol tão alto na população saudável.</p>
+      </div>
+    </div>
+
+    <!-- caixinha p-valor -->
+    <div style="border-radius:10px;overflow:hidden;border:2px solid #D97706">
+      <button onclick="this.classList.toggle('pv-open');this.nextElementSibling.classList.toggle('pv-open');if(this.classList.contains('pv-open'))setTimeout(drawPValorCanvas,80)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#FFFBEB;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;color:#92400E;text-align:left;gap:8px">
+        <span>💡 O que o Exercício 5 revela</span>
+        <span style="font-size:.85rem;transition:transform .25s" class="pv-arr">▼</span>
+      </button>
+      <div style="display:none;padding:16px 18px 18px;background:#FFFBEB;font-size:.95rem;line-height:1.7;color:#78350F;border-top:1px solid #FDE68A">
+        <canvas id="pvCanvas" height="210" style="width:100%;display:block;margin-bottom:14px;border-radius:6px"></canvas>
+        <p style="margin:0">Essa probabilidade extremamente pequena em uma das pontas da curva normal tem um nome: <strong>p-valor</strong>. Ele responde à pergunta: <em>"se essa pessoa fosse da população saudável, qual seria a chance de observarmos um resultado tão extremo quanto esse?"</em></p>
+        <p style="margin:10px 0 0">Como p = 0,0166 é menor que 0,05 (o limite convencional), concluímos que esse resultado é <strong>estatisticamente raro</strong> na população saudável — o que justifica investigação clínica.</p>
+      </div>
+    </div>
+    <style>
+      button.pv-open .pv-arr { transform: rotate(180deg); }
+      button.pv-open + div { display: block !important; }
+    </style>
+
+  </div>
+</div>
+
+<!-- ═══════════════════ FISIOTERAPIA ═══════════════════ -->
+<div class="ex-acc" style="--acc:#0EA5E9;margin-top:14px">
+  <button class="ex-btn" onclick="toggleAcc(this)" style="background:#0EA5E9">
+    <span>📋 Exercício 2 — Contexto: Fisioterapia</span><span class="ex-arr">▼</span>
+  </button>
+  <div class="ex-body">
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #BAE6FD">
+      <p style="font-weight:700;color:#0369A1;margin:0 0 6px">Exercício 1 — Amplitude de movimento do joelho</p>
+      <p>Em fisioterapia ortopédica, a amplitude de movimento (ADM) do joelho em extensão completa segue distribuição normal com média μ = 120° e desvio padrão σ = 8°. Qual é a probabilidade de um paciente apresentar ADM entre 109,76° e 132,48°?</p>
+      <button class="ex-gab-btn" data-cv="gabFisio1" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFisio1" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 120°, σ = 8°, x₁ = 109,76°, x₂ = 132,48°</p>
+        <p><strong>Padronização:</strong> Z₁ = (109,76−120)/8 = <strong>−1,28</strong> · Z₂ = (132,48−120)/8 = <strong>+1,56</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(109,76 &lt; X &lt; 132,48) = 0,9406 − 0,1003 = <strong>0,8403</strong></p>
+        <p class="ex-concl">Há <strong>84,03%</strong> de chance de o paciente ter ADM entre 109,76° e 132,48°.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #BAE6FD">
+      <p style="font-weight:700;color:#0369A1;margin:0 0 6px">Exercício 2 — Força dos extensores do joelho</p>
+      <p>A força isométrica dos extensores do joelho em adultos saudáveis segue distribuição normal com μ = 280 N e σ = 40 N. Um paciente pós-cirúrgico apresentou força de 337,2 N na avaliação. Em um grupo de <strong>120 indivíduos</strong>, quantos devem superar esse valor de força?</p>
+      <button class="ex-gab-btn" data-cv="gabFisio2" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFisio2" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 280 N, σ = 40 N, x = 337,2 N</p>
+        <p><strong>Padronização:</strong> Z = (337,2−280)/40 = <strong>+1,43</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(X &gt; 337,2) = 1 − 0,9236 = <strong>0,0764</strong></p>
+        <p><strong>Aplicação à população:</strong> 120 × 0,0764 = <strong>≈ 9 indivíduos</strong></p>
+        <p class="ex-concl">Apenas <strong>9 dos 120 indivíduos</strong> (≈ 7,64%) devem apresentar força superior a 337,2 N.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #BAE6FD">
+      <p style="font-weight:700;color:#0369A1;margin:0 0 6px">Exercício 3 — Repetições no teste de 30 segundos</p>
+      <p>No teste de sentar e levantar em 30 segundos, idosos da comunidade realizam em média μ = 18 repetições (σ = 3). Qual é a probabilidade de um idoso completar entre 21 e 24 repetições?</p>
+      <button class="ex-gab-btn" data-cv="gabFisio3" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFisio3" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 18, σ = 3, x₁ = 21, x₂ = 24</p>
+        <p><strong>Padronização:</strong> Z₁ = (21−18)/3 = <strong>+1,00</strong> · Z₂ = (24−18)/3 = <strong>+2,00</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(21 &lt; X &lt; 24) = 0,9772 − 0,8413 = <strong>0,1359</strong></p>
+        <p class="ex-concl">Há <strong>13,59%</strong> de probabilidade de o idoso completar entre 21 e 24 repetições.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #BAE6FD">
+      <p style="font-weight:700;color:#0369A1;margin:0 0 6px">Exercício 4 — Pontuação na Escala de Berg</p>
+      <p>A pontuação na Escala de Equilíbrio de Berg (BBS) em idosos com histórico de queda segue distribuição normal com μ = 42 pontos e σ = 5 pontos. Em um serviço de reabilitação com <strong>80 pacientes</strong>, quantos devem apresentar pontuação entre 31,35 e 38,35?</p>
+      <button class="ex-gab-btn" data-cv="gabFisio4" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFisio4" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 42, σ = 5, x₁ = 31,35, x₂ = 38,35</p>
+        <p><strong>Padronização:</strong> Z₁ = (31,35−42)/5 = <strong>−2,13</strong> · Z₂ = (38,35−42)/5 = <strong>−0,73</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(31,35 &lt; X &lt; 38,35) = 0,2327 − 0,0166 = <strong>0,2161</strong></p>
+        <p><strong>Aplicação à população:</strong> 80 × 0,2161 = <strong>≈ 17 pacientes</strong></p>
+        <p class="ex-concl"><strong>17 dos 80 pacientes</strong> (≈ 21,61%) devem apresentar pontuação entre 31,35 e 38,35 na BBS — faixa que indica risco elevado de queda.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <p style="font-weight:700;color:#0369A1;margin:0 0 6px">Exercício 5 — Pressão plantar em corrida</p>
+      <p>A pressão plantar máxima durante a corrida em atletas recreativos tem distribuição normal com μ = 180 kPa e σ = 25 kPa. Um corredor com dor plantar foi avaliado e apresentou pressão de 234,25 kPa. Esse valor é clinicamente incomum na população de referência?</p>
+      <button class="ex-gab-btn" data-cv="gabFisio5" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFisio5" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 180 kPa, σ = 25 kPa, x = 234,25 kPa</p>
+        <p><strong>Padronização:</strong> Z = (234,25−180)/25 = <strong>+2,17</strong></p>
+        <p><strong>Probabilidade:</strong> P(X &gt; 234,25) = 1 − 0,9850 = <strong>0,0150</strong></p>
+        <p class="ex-concl">Apenas <strong>1,50%</strong> dos atletas apresentam pressão plantar tão alta — justifica avaliação biomecânica detalhada.</p>
+      </div>
+    </div>
+
+    <div style="border-radius:10px;overflow:hidden;border:2px solid #0EA5E9">
+      <button onclick="this.classList.toggle('pv-open');this.nextElementSibling.classList.toggle('pv-open');if(this.classList.contains('pv-open'))setTimeout(function(){drawPValorCanvasFor('pvFisio',1.645,2.17,'p = 0,05','p = 0,0150','#0EA5E9','rgba(14,165,233,0.20)','rgba(14,165,233,0.45)')},80)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#E0F2FE;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;color:#0369A1;text-align:left;gap:8px">
+        <span>💡 O que o Exercício 5 revela</span>
+        <span style="font-size:.85rem;transition:transform .25s" class="pv-arr">▼</span>
+      </button>
+      <div style="display:none;padding:16px 18px 18px;background:#F0F9FF;font-size:.95rem;line-height:1.7;color:#0369A1;border-top:1px solid #BAE6FD">
+        <canvas id="pvFisio" height="210" style="width:100%;display:block;margin-bottom:14px;border-radius:6px"></canvas>
+        <p style="margin:0">Z = +2,17 representa 234,25 kPa — uma pressão além do esperado. Como p = 0,0150 é inferior a 0,05, esse achado é <strong>estatisticamente raro</strong> e justifica investigação da biomecânica da corrida.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════ NUTRIÇÃO ═══════════════════ -->
+<div class="ex-acc" style="--acc:#10B981;margin-top:14px">
+  <button class="ex-btn" onclick="toggleAcc(this)" style="background:#10B981">
+    <span>📋 Exercício 3 — Contexto: Nutrição</span><span class="ex-arr">▼</span>
+  </button>
+  <div class="ex-body">
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #A7F3D0">
+      <p style="font-weight:700;color:#065F46;margin:0 0 6px">Exercício 1 — Consumo diário de cálcio</p>
+      <p>O consumo diário de cálcio em mulheres adultas brasileiras segue distribuição normal com μ = 900 mg e σ = 120 mg. Qual é a probabilidade de uma mulher consumir entre 724 mg e 974 mg por dia?</p>
+      <button class="ex-gab-btn" data-cv="gabNutri1" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabNutri1" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 900 mg, σ = 120 mg, x₁ = 724 mg, x₂ = 974 mg</p>
+        <p><strong>Padronização:</strong> Z₁ = (724−900)/120 = <strong>−1,47</strong> · Z₂ = (974−900)/120 = <strong>+0,62</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(724 &lt; X &lt; 974) = 0,7324 − 0,0708 = <strong>0,6616</strong></p>
+        <p class="ex-concl">Há <strong>66,16%</strong> de probabilidade de o consumo diário de cálcio estar entre 724 mg e 974 mg.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #A7F3D0">
+      <p style="font-weight:700;color:#065F46;margin:0 0 6px">Exercício 2 — Vitamina D sérica</p>
+      <p>O nível sérico de vitamina D em adultos com exposição solar adequada segue distribuição normal com μ = 28 ng/mL e σ = 6 ng/mL. Em uma amostra de <strong>350 indivíduos</strong>, quantos devem apresentar nível acima de 37,84 ng/mL?</p>
+      <button class="ex-gab-btn" data-cv="gabNutri2" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabNutri2" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 28 ng/mL, σ = 6 ng/mL, x = 37,84 ng/mL</p>
+        <p><strong>Padronização:</strong> Z = (37,84−28)/6 = <strong>+1,64</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(X &gt; 37,84) = 1 − 0,9495 = <strong>0,0505</strong></p>
+        <p><strong>Aplicação à população:</strong> 350 × 0,0505 = <strong>≈ 18 indivíduos</strong></p>
+        <p class="ex-concl">Apenas <strong>18 dos 350 indivíduos</strong> (≈ 5,05%) devem apresentar vitamina D sérica acima de 37,84 ng/mL.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #A7F3D0">
+      <p style="font-weight:700;color:#065F46;margin:0 0 6px">Exercício 3 — Ingestão calórica diária</p>
+      <p>A ingestão calórica diária de universitários segue distribuição normal com μ = 2200 kcal e σ = 300 kcal. Qual é a probabilidade de um estudante consumir entre 2461 kcal e 2713 kcal por dia?</p>
+      <button class="ex-gab-btn" data-cv="gabNutri3" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabNutri3" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 2200 kcal, σ = 300 kcal, x₁ = 2461 kcal, x₂ = 2713 kcal</p>
+        <p><strong>Padronização:</strong> Z₁ = (2461−2200)/300 = <strong>+0,87</strong> · Z₂ = (2713−2200)/300 = <strong>+1,71</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(2461 &lt; X &lt; 2713) = 0,9564 − 0,8078 = <strong>0,1486</strong></p>
+        <p class="ex-concl">Há <strong>14,86%</strong> de probabilidade de o estudante consumir entre 2461 kcal e 2713 kcal.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #A7F3D0">
+      <p style="font-weight:700;color:#065F46;margin:0 0 6px">Exercício 4 — IMC em gestantes</p>
+      <p>O IMC pré-gestacional de gestantes atendidas em unidade básica de saúde tem distribuição normal com μ = 23 kg/m² e σ = 3 kg/m². Em um cadastro com <strong>250 gestantes</strong>, quantas devem apresentar IMC entre 16,85 e 20,81 kg/m²?</p>
+      <button class="ex-gab-btn" data-cv="gabNutri4" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabNutri4" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 23 kg/m², σ = 3 kg/m², x₁ = 16,85, x₂ = 20,81</p>
+        <p><strong>Padronização:</strong> Z₁ = (16,85−23)/3 = <strong>−2,05</strong> · Z₂ = (20,81−23)/3 = <strong>−0,73</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(16,85 &lt; X &lt; 20,81) = 0,2327 − 0,0202 = <strong>0,2125</strong></p>
+        <p><strong>Aplicação à população:</strong> 250 × 0,2125 = <strong>≈ 53 gestantes</strong></p>
+        <p class="ex-concl"><strong>53 das 250 gestantes</strong> (≈ 21,25%) devem apresentar IMC pré-gestacional entre 16,85 e 20,81 kg/m² — faixa de baixo peso, que exige acompanhamento nutricional.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <p style="font-weight:700;color:#065F46;margin:0 0 6px">Exercício 5 — Consumo de sódio</p>
+      <p>O consumo diário de sódio em adultos hipertensos tem distribuição normal com μ = 2500 mg e σ = 400 mg. Um paciente relatou consumo habitual de 3432 mg/dia. Esse valor é estatisticamente incomum nessa população?</p>
+      <button class="ex-gab-btn" data-cv="gabNutri5" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabNutri5" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 2500 mg, σ = 400 mg, x = 3432 mg</p>
+        <p><strong>Padronização:</strong> Z = (3432−2500)/400 = <strong>+2,33</strong></p>
+        <p><strong>Probabilidade:</strong> P(X &gt; 3432) = 1 − 0,9901 = <strong>0,0099</strong></p>
+        <p class="ex-concl">Apenas <strong>0,99%</strong> dos pacientes hipertensos consomem mais sódio que esse valor — resultado raro que reforça a necessidade de intervenção dietética imediata.</p>
+      </div>
+    </div>
+
+    <div style="border-radius:10px;overflow:hidden;border:2px solid #10B981">
+      <button onclick="this.classList.toggle('pv-open');this.nextElementSibling.classList.toggle('pv-open');if(this.classList.contains('pv-open'))setTimeout(function(){drawPValorCanvasFor('pvNutri',1.645,2.33,'p = 0,05','p = 0,0099','#10B981','rgba(16,185,129,0.20)','rgba(16,185,129,0.45)')},80)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#D1FAE5;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;color:#065F46;text-align:left;gap:8px">
+        <span>💡 O que o Exercício 5 revela</span>
+        <span style="font-size:.85rem;transition:transform .25s" class="pv-arr">▼</span>
+      </button>
+      <div style="display:none;padding:16px 18px 18px;background:#ECFDF5;font-size:.95rem;line-height:1.7;color:#065F46;border-top:1px solid #A7F3D0">
+        <canvas id="pvNutri" height="210" style="width:100%;display:block;margin-bottom:14px;border-radius:6px"></canvas>
+        <p style="margin:0">Z = +2,33 equivale a 3432 mg de sódio — um consumo que supera o de 99,01% da população de referência. Com p = 0,0099, esse resultado é <strong>estatisticamente raro</strong> e indica risco cardiovascular elevado, justificando aconselhamento nutricional urgente.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════ ENFERMAGEM ═══════════════════ -->
+<div class="ex-acc" style="--acc:#EF4444;margin-top:14px">
+  <button class="ex-btn" onclick="toggleAcc(this)" style="background:#EF4444">
+    <span>📋 Exercício 4 — Contexto: Enfermagem</span><span class="ex-arr">▼</span>
+  </button>
+  <div class="ex-body">
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #FECACA">
+      <p style="font-weight:700;color:#991B1B;margin:0 0 6px">Exercício 1 — Frequência respiratória</p>
+      <p>A frequência respiratória de adultos em repouso segue distribuição normal com μ = 16 ipm e σ = 3 ipm. Qual é a probabilidade de um paciente apresentar frequência respiratória entre 12,64 e 19,72 ipm?</p>
+      <button class="ex-gab-btn" data-cv="gabEnfer1" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabEnfer1" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 16 ipm, σ = 3 ipm, x₁ = 12,64, x₂ = 19,72</p>
+        <p><strong>Padronização:</strong> Z₁ = (12,64−16)/3 = <strong>−1,12</strong> · Z₂ = (19,72−16)/3 = <strong>+1,24</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(12,64 &lt; X &lt; 19,72) = 0,8925 − 0,1314 = <strong>0,7611</strong></p>
+        <p class="ex-concl">Há <strong>76,11%</strong> de probabilidade de o paciente apresentar frequência respiratória entre 12,64 e 19,72 ipm.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #FECACA">
+      <p style="font-weight:700;color:#991B1B;margin:0 0 6px">Exercício 2 — Pressão arterial sistólica</p>
+      <p>A pressão arterial sistólica em adultos normotensos tem distribuição normal com μ = 120 mmHg e σ = 14 mmHg. Em uma triagem com <strong>500 adultos</strong>, quantos devem apresentar PA sistólica acima de 142 mmHg?</p>
+      <button class="ex-gab-btn" data-cv="gabEnfer2" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabEnfer2" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 120 mmHg, σ = 14 mmHg, x = 142 mmHg</p>
+        <p><strong>Padronização:</strong> Z = (142−120)/14 = <strong>+1,57</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(X &gt; 142) = 1 − 0,9418 = <strong>0,0582</strong></p>
+        <p><strong>Aplicação à população:</strong> 500 × 0,0582 = <strong>≈ 29 adultos</strong></p>
+        <p class="ex-concl">Aproximadamente <strong>29 dos 500 adultos</strong> (≈ 5,82%) devem apresentar PA sistólica acima de 142 mmHg — valor que merece atenção clínica mesmo em normotensos.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #FECACA">
+      <p style="font-weight:700;color:#991B1B;margin:0 0 6px">Exercício 3 — Glicemia pós-prandial</p>
+      <p>A glicemia 2 horas após refeição em diabéticos controlados segue distribuição normal com μ = 145 mg/dL e σ = 20 mg/dL. Qual é a probabilidade de um paciente apresentar glicemia entre 159,6 e 178,4 mg/dL?</p>
+      <button class="ex-gab-btn" data-cv="gabEnfer3" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabEnfer3" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 145 mg/dL, σ = 20 mg/dL, x₁ = 159,6, x₂ = 178,4</p>
+        <p><strong>Padronização:</strong> Z₁ = (159,6−145)/20 = <strong>+0,73</strong> · Z₂ = (178,4−145)/20 = <strong>+1,67</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(159,6 &lt; X &lt; 178,4) = 0,9525 − 0,7673 = <strong>0,1852</strong></p>
+        <p class="ex-concl">Há <strong>18,52%</strong> de probabilidade de o paciente apresentar glicemia pós-prandial entre 159,6 e 178,4 mg/dL.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #FECACA">
+      <p style="font-weight:700;color:#991B1B;margin:0 0 6px">Exercício 4 — Tempo de resposta de enfermagem</p>
+      <p>O tempo de resposta a chamadas de enfermagem em unidade clínica segue distribuição normal com μ = 4 min e σ = 1 min. Em um plantão com <strong>300 chamadas registradas</strong>, quantas devem ter sido atendidas entre 2,48 e 3,62 minutos?</p>
+      <button class="ex-gab-btn" data-cv="gabEnfer4" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabEnfer4" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 4 min, σ = 1 min, x₁ = 2,48, x₂ = 3,62</p>
+        <p><strong>Padronização:</strong> Z₁ = (2,48−4)/1 = <strong>−1,52</strong> · Z₂ = (3,62−4)/1 = <strong>−0,38</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(2,48 &lt; X &lt; 3,62) = 0,3520 − 0,0643 = <strong>0,2877</strong></p>
+        <p><strong>Aplicação à população:</strong> 300 × 0,2877 = <strong>≈ 86 chamadas</strong></p>
+        <p class="ex-concl"><strong>86 das 300 chamadas</strong> (≈ 28,77%) devem ter sido atendidas entre 2,48 e 3,62 minutos após o acionamento.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <p style="font-weight:700;color:#991B1B;margin:0 0 6px">Exercício 5 — Temperatura corporal pós-operatória</p>
+      <p>A temperatura corporal de pacientes adultos em pós-operatório imediato tem distribuição normal com μ = 36,5 °C e σ = 0,5 °C. Um paciente apresentou temperatura de 37,58 °C seis horas após a cirurgia. Esse valor indica febre incomum para esse contexto clínico?</p>
+      <button class="ex-gab-btn" data-cv="gabEnfer5" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabEnfer5" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 36,5 °C, σ = 0,5 °C, x = 37,58 °C</p>
+        <p><strong>Padronização:</strong> Z = (37,58−36,5)/0,5 = <strong>+2,16</strong></p>
+        <p><strong>Probabilidade:</strong> P(X &gt; 37,58) = 1 − 0,9846 = <strong>0,0154</strong></p>
+        <p class="ex-concl">Apenas <strong>1,54%</strong> dos pacientes pós-operatórios apresentam temperatura tão elevada — resultado raro que justifica monitoramento atento e investigação de foco infeccioso.</p>
+      </div>
+    </div>
+
+    <div style="border-radius:10px;overflow:hidden;border:2px solid #EF4444">
+      <button onclick="this.classList.toggle('pv-open');this.nextElementSibling.classList.toggle('pv-open');if(this.classList.contains('pv-open'))setTimeout(function(){drawPValorCanvasFor('pvEnfer',1.645,2.16,'p = 0,05','p = 0,0154','#EF4444','rgba(239,68,68,0.20)','rgba(239,68,68,0.45)')},80)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#FEE2E2;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;color:#991B1B;text-align:left;gap:8px">
+        <span>💡 O que o Exercício 5 revela</span>
+        <span style="font-size:.85rem;transition:transform .25s" class="pv-arr">▼</span>
+      </button>
+      <div style="display:none;padding:16px 18px 18px;background:#FEF2F2;font-size:.95rem;line-height:1.7;color:#991B1B;border-top:1px solid #FECACA">
+        <canvas id="pvEnfer" height="210" style="width:100%;display:block;margin-bottom:14px;border-radius:6px"></canvas>
+        <p style="margin:0">Z = +2,16 representa 37,58 °C — temperatura elevada que ultrapassa o padrão esperado em pós-operatório sem complicação. Com p = 0,0154, esse achado é <strong>estatisticamente raro</strong> e justifica monitoramento cuidadoso e investigação de foco infeccioso.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════ FARMÁCIA ═══════════════════ -->
+<div class="ex-acc" style="--acc:#F97316;margin-top:14px">
+  <button class="ex-btn" onclick="toggleAcc(this)" style="background:#F97316">
+    <span>📋 Exercício 5 — Contexto: Farmácia</span><span class="ex-arr">▼</span>
+  </button>
+  <div class="ex-body">
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #FED7AA">
+      <p style="font-weight:700;color:#9A3412;margin:0 0 6px">Exercício 1 — Massa de comprimidos</p>
+      <p>No controle de qualidade farmacêutico, a massa de comprimidos de paracetamol 500 mg segue distribuição normal com μ = 500 mg e σ = 10 mg. Qual é a proporção de comprimidos com massa entre 486,6 mg e 509,7 mg?</p>
+      <button class="ex-gab-btn" data-cv="gabFarma1" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFarma1" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 500 mg, σ = 10 mg, x₁ = 486,6 mg, x₂ = 509,7 mg</p>
+        <p><strong>Padronização:</strong> Z₁ = (486,6−500)/10 = <strong>−1,34</strong> · Z₂ = (509,7−500)/10 = <strong>+0,97</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(486,6 &lt; X &lt; 509,7) = 0,8340 − 0,0901 = <strong>0,7439</strong></p>
+        <p class="ex-concl"><strong>74,39%</strong> dos comprimidos apresentam massa entre 486,6 mg e 509,7 mg, dentro da faixa de variação aceitável.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #FED7AA">
+      <p style="font-weight:700;color:#9A3412;margin:0 0 6px">Exercício 2 — Concentração do princípio ativo</p>
+      <p>A concentração do princípio ativo em lotes de um antibiótico segue distribuição normal com μ = 100% e σ = 2%. Em uma produção de <strong>200 lotes</strong>, quantos devem apresentar concentração acima de 102,56%?</p>
+      <button class="ex-gab-btn" data-cv="gabFarma2" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFarma2" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 100%, σ = 2%, x = 102,56%</p>
+        <p><strong>Padronização:</strong> Z = (102,56−100)/2 = <strong>+1,28</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(X &gt; 102,56%) = 1 − 0,8997 = <strong>0,1003</strong></p>
+        <p><strong>Aplicação à população:</strong> 200 × 0,1003 = <strong>≈ 20 lotes</strong></p>
+        <p class="ex-concl"><strong>20 dos 200 lotes</strong> (≈ 10,03%) devem apresentar concentração acima de 102,56% — o que pode indicar superdosagem e exige revisão do processo.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #FED7AA">
+      <p style="font-weight:700;color:#9A3412;margin:0 0 6px">Exercício 3 — Tempo de dissolução de cápsulas</p>
+      <p>O tempo de dissolução de cápsulas de liberação imediata em fluido gástrico simulado segue distribuição normal com μ = 20 min e σ = 4 min. Qual é a probabilidade de uma cápsula se dissolver entre 22,08 e 26,52 minutos?</p>
+      <button class="ex-gab-btn" data-cv="gabFarma3" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFarma3" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 20 min, σ = 4 min, x₁ = 22,08, x₂ = 26,52</p>
+        <p><strong>Padronização:</strong> Z₁ = (22,08−20)/4 = <strong>+0,52</strong> · Z₂ = (26,52−20)/4 = <strong>+1,63</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(22,08 &lt; X &lt; 26,52) = 0,9484 − 0,6985 = <strong>0,2499</strong></p>
+        <p class="ex-concl">Há <strong>24,99%</strong> de probabilidade de a cápsula se dissolver entre 22,08 e 26,52 minutos após o contato com o fluido gástrico.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #FED7AA">
+      <p style="font-weight:700;color:#9A3412;margin:0 0 6px">Exercício 4 — pH de soluções injetáveis</p>
+      <p>O pH de soluções injetáveis produzidas em um laboratório farmacêutico segue distribuição normal com μ = 7,2 e σ = 0,3. Em um lote de <strong>150 amostras</strong>, quantas devem apresentar pH entre 6,68 e 7,03?</p>
+      <button class="ex-gab-btn" data-cv="gabFarma4" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFarma4" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 7,2, σ = 0,3, x₁ = 6,68, x₂ = 7,03</p>
+        <p><strong>Padronização:</strong> Z₁ = (6,68−7,2)/0,3 = <strong>−1,73</strong> · Z₂ = (7,03−7,2)/0,3 = <strong>−0,57</strong></p>
+        <p><strong>Consulta à tabela:</strong> P(6,68 &lt; X &lt; 7,03) = 0,2843 − 0,0418 = <strong>0,2425</strong></p>
+        <p><strong>Aplicação à população:</strong> 150 × 0,2425 = <strong>≈ 36 amostras</strong></p>
+        <p class="ex-concl"><strong>36 das 150 amostras</strong> (≈ 24,25%) devem apresentar pH entre 6,68 e 7,03 — abaixo do intervalo ideal, indicando necessidade de ajuste no processo.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <p style="font-weight:700;color:#9A3412;margin:0 0 6px">Exercício 5 — Umidade de matéria-prima</p>
+      <p>O teor de umidade de uma matéria-prima farmacêutica em condições controladas tem distribuição normal com μ = 3% e σ = 0,5%. Um lote suspeito apresentou umidade de 4,12%. Esse valor indica desvio incomum no processo produtivo?</p>
+      <button class="ex-gab-btn" data-cv="gabFarma5" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFarma5" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Identificação:</strong> μ = 3%, σ = 0,5%, x = 4,12%</p>
+        <p><strong>Padronização:</strong> Z = (4,12−3)/0,5 = <strong>+2,24</strong></p>
+        <p><strong>Probabilidade:</strong> P(X &gt; 4,12%) = 1 − 0,9875 = <strong>0,0125</strong></p>
+        <p class="ex-concl">Apenas <strong>1,25%</strong> dos lotes apresentam umidade tão elevada — resultado incomum que indica possível falha no controle de armazenamento e justifica inspeção do lote.</p>
+      </div>
+    </div>
+
+    <div style="border-radius:10px;overflow:hidden;border:2px solid #F97316">
+      <button onclick="this.classList.toggle('pv-open');this.nextElementSibling.classList.toggle('pv-open');if(this.classList.contains('pv-open'))setTimeout(function(){drawPValorCanvasFor('pvFarma',1.645,2.24,'p = 0,05','p = 0,0125','#F97316','rgba(249,115,22,0.20)','rgba(249,115,22,0.45)')},80)" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#FFEDD5;border:none;cursor:pointer;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;color:#9A3412;text-align:left;gap:8px">
+        <span>💡 O que o Exercício 5 revela</span>
+        <span style="font-size:.85rem;transition:transform .25s" class="pv-arr">▼</span>
+      </button>
+      <div style="display:none;padding:16px 18px 18px;background:#FFF7ED;font-size:.95rem;line-height:1.7;color:#9A3412;border-top:1px solid #FED7AA">
+        <canvas id="pvFarma" height="210" style="width:100%;display:block;margin-bottom:14px;border-radius:6px"></canvas>
+        <p style="margin:0">Z = +2,24 equivale a 4,12% de umidade — um valor incomum em processos sob controle. Com p = 0,0125, esse achado é <strong>estatisticamente raro</strong> e justifica inspeção detalhada do processo e avaliação do lote.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</section>
+
 <script>
 // ── NAVEGAÇÃO ──────────────────────────────────────
 const sections = [
-  { id:'s1',  label:'1 · O que é?' },
-  { id:'s1b', label:'2 · Simetria dos Valores Equidistantes' },
-  { id:'s1c', label:'3 · Simetria das Áreas' },
-  { id:'s2',  label:'4 · Os Parâmetros' },
-  { id:'s4',  label:'5 · Regra Empírica 68,26% · 95,44% · 99,74%' },
-  { id:'s7',  label:'6 · Escore Z' },
-  { id:'s8',  label:'7 · Tabela Normal Padronizada' },
-  { id:'s9',  label:'8 · Problema Inverso' },
+  { id:'sTCL',label:'1 · Por que a curva normal?' },
+  { id:'s1',  label:'2 · O que é?' },
+  { id:'s1b', label:'3 · Simetria dos Valores Equidistantes' },
+  { id:'s1c', label:'4 · Simetria das Áreas' },
+  { id:'s2',  label:'5 · Os Parâmetros' },
+  { id:'s4',  label:'6 · Regra Empírica 68,26% · 95,44% · 99,74%' },
+  { id:'s7',  label:'7 · Escore Z' },
+  { id:'s8',  label:'8 · Tabela Normal Padronizada' },
+  { id:'s10', label:'9 · Exercícios para Treinar' },
+  { id:'s9',  label:'10 · Problema Inverso — extra' },
 ];
 
 let currentIdx = 0;
@@ -978,6 +2038,7 @@ function showSection(id) {
     renderEx4();
   }
   if (id==='s3') { drawUseCaseCanvases(); renderEx2(); }
+  if (id==='sTCL') { setTimeout(()=>{ if(window.tclDrawSkewCanvases) window.tclDrawSkewCanvases(); },80); }
   window.scrollTo(0, 0);
 }
 
@@ -986,13 +2047,15 @@ function navigateSection(dir) {
   if (newIdx >= 0 && newIdx < sections.length) {
     showSection(sections[newIdx].id);
     const btn = document.getElementById('btnTabelaZ');
-    if (btn) btn.style.display = (sections[newIdx].id === 's9' || sections[newIdx].id === 's8') ? 'flex' : 'none';
+    if (btn) btn.style.display = (sections[newIdx].id === 's9' || sections[newIdx].id === 's8' || sections[newIdx].id === 's10') ? 'flex' : 'none';
   }
 }
-document.getElementById('s1').classList.add('active');
+document.getElementById('sTCL').classList.add('active');
+currentIdx = 0;
 document.getElementById('nav-label').textContent = sections[0].label;
 document.getElementById('nav-prev').disabled = true;
-setTimeout(() => { drawExampleCanvases(); drawIdeiaCentralCanvas(); renderEx1(); drawConclusao2Canvas(); }, 50);
+document.getElementById('nav-next').disabled = false;
+setTimeout(() => { if(window.tclDrawSkewCanvases) window.tclDrawSkewCanvases(); }, 80);
 
 // ── CANVAS ABA 2 – PARA QUE SERVE ─────────────────
 function drawUseCase(canvasId, mu, sigma, cutLo, cutHi, color, bgColor, probLabel) {
@@ -5969,7 +7032,9 @@ function showExFeedback(prefix, num, correct, explain) {
 }
 
 function updateExScore(prefix, correct) {
-  const containerId = prefix === 'ex8r' ? 'ex8real-container' : `${prefix}-container`;
+  const containerId = prefix === 'ex8r' ? 'ex8real-container'
+                    : prefix === 'ex4s' ? 'ex4simetria-container'
+                    : `${prefix}-container`;
   const container = document.getElementById(containerId);
   let answered = parseInt(container.dataset.answered) + 1;
   let score    = parseInt(container.dataset.score) + (correct ? 1 : 0);
@@ -5988,13 +7053,17 @@ function updateExScore(prefix, correct) {
 }
 
 function retryEx(prefix) {
-  const container = document.getElementById(`${prefix}-container`);
+  const containerId = prefix === 'ex8r' ? 'ex8real-container'
+                    : prefix === 'ex4s' ? 'ex4simetria-container'
+                    : `${prefix}-container`;
+  const container = document.getElementById(containerId);
   container.dataset.built = '';
   if (prefix === 'ex1') renderEx1();
   if (prefix === 'ex1b') renderEx1b();
   if (prefix === 'ex2') renderEx2();
   if (prefix === 'ex3') renderEx3();
   if (prefix === 'ex4') renderEx4();
+  if (prefix === 'ex4s') renderEx4Simetria();
   if (prefix === 'ex8') renderEx8();
   if (prefix === 'ex9') renderEx9();
 }
@@ -6067,10 +7136,11 @@ function buildTabelaZS9() {
 
   const thSt  = 'padding:6px 8px;background:#8B5CF6;color:white;font-weight:900;text-align:center;font-size:.78rem;border:1px solid #7C3AED;white-space:nowrap;';
   const thHl  = 'padding:6px 8px;background:#F59E0B;color:white;font-weight:900;text-align:center;font-size:.78rem;border:1px solid #D97706;white-space:nowrap;';
-  const rhSt  = 'padding:5px 7px;background:#EDE9FE;color:#6D28D9;font-weight:900;text-align:center;border:1px solid #DDD6FE;font-size:.78rem;white-space:nowrap;';
+  const thZ   = 'padding:6px 8px;background:#8B5CF6;color:white;font-weight:900;text-align:center;font-size:.78rem;border:1px solid #7C3AED;white-space:nowrap;position:sticky;left:0;z-index:3;';
+  const rhSt  = 'padding:5px 7px;background:#EDE9FE;color:#6D28D9;font-weight:900;text-align:center;border:1px solid #DDD6FE;font-size:.78rem;white-space:nowrap;position:sticky;left:0;z-index:1;';
   const tdSt  = 'padding:5px 6px;text-align:center;border:1px solid #E2E8F0;font-size:.76rem;font-weight:700;color:#334155;';
 
-  let hRow = `<tr><th style="${thSt}">Z</th>`;
+  let hRow = `<tr><th style="${thZ}">Z</th>`;
   zCols.forEach(c => { hRow += `<th style="${thSt}">${c}</th>`; });
   hRow += '</tr>';
   head.innerHTML = hRow;
@@ -6094,14 +7164,15 @@ function buildTabelaZFull() {
 
   const thSt  = 'padding:6px 8px;background:#8B5CF6;color:white;font-weight:900;text-align:center;font-size:.78rem;border:1px solid #7C3AED;white-space:nowrap;';
   const thHl  = 'padding:6px 8px;background:#F59E0B;color:white;font-weight:900;text-align:center;font-size:.78rem;border:1px solid #D97706;white-space:nowrap;';
-  const rhSt  = 'padding:5px 7px;background:#EDE9FE;color:#6D28D9;font-weight:900;text-align:center;border:1px solid #DDD6FE;font-size:.78rem;white-space:nowrap;';
-  const rhHl  = 'padding:5px 7px;background:#FDE68A;color:#92400E;font-weight:900;text-align:center;border:1px solid #F59E0B;font-size:.78rem;white-space:nowrap;';
+  const thZ   = 'padding:6px 8px;background:#8B5CF6;color:white;font-weight:900;text-align:center;font-size:.78rem;border:1px solid #7C3AED;white-space:nowrap;position:sticky;left:0;z-index:3;';
+  const rhSt  = 'padding:5px 7px;background:#EDE9FE;color:#6D28D9;font-weight:900;text-align:center;border:1px solid #DDD6FE;font-size:.78rem;white-space:nowrap;position:sticky;left:0;z-index:1;';
+  const rhHl  = 'padding:5px 7px;background:#FDE68A;color:#92400E;font-weight:900;text-align:center;border:1px solid #F59E0B;font-size:.78rem;white-space:nowrap;position:sticky;left:0;z-index:1;';
   const tdSt  = 'padding:5px 6px;text-align:center;border:1px solid #E2E8F0;font-size:.76rem;font-weight:700;color:#334155;';
   const tdRHl = 'padding:5px 6px;text-align:center;border:1px solid #FDE68A;font-size:.76rem;font-weight:700;color:#334155;background:#FFFBEB;';
   const tdCHl = 'padding:5px 6px;text-align:center;border:1px solid #FDE68A;font-size:.76rem;font-weight:700;color:#334155;background:#FEF3C7;';
   const tdTgt = 'padding:5px 6px;text-align:center;border:3px solid #F59E0B;font-size:.88rem;font-weight:900;color:#92400E;background:#FBBF24;';
 
-  let hRow = `<tr><th style="${thSt}">Z</th>`;
+  let hRow = `<tr><th style="${thZ}">Z</th>`;
   zCols.forEach((c,ci) => { hRow += `<th style="${ci===7?thHl:thSt}">${c}</th>`; });
   hRow += '</tr>';
   head.innerHTML = hRow;
@@ -6451,6 +7522,303 @@ function openTabelaZModal() {
 function closeTabelaZModal() {
   document.getElementById('tabelaZModal').style.display = 'none';
   document.body.style.overflow = '';
+}
+</script>
+
+<script>
+function toggleAcc(btn){
+  const body = btn.nextElementSibling;
+  const open = body.classList.toggle('open');
+  btn.classList.toggle('open', open);
+}
+function toggleGab(btn){
+  const gab = btn.nextElementSibling;
+  gab.classList.toggle('open');
+  const isOpen = gab.classList.contains('open');
+  btn.textContent = isOpen ? 'Fechar gabarito ▲' : 'Ver gabarito ▼';
+  if(isOpen && btn.dataset.cv) setTimeout(()=>drawNormEx(btn.dataset.cv), 30);
+}
+
+// ── GRÁFICO P-VALOR (caixinha Ex5) ───────────────────
+function drawPValorCanvas(){
+  const canvas=document.getElementById('pvCanvas');
+  if(!canvas) return;
+  const ctx=canvas.getContext('2d');
+  const W=canvas.offsetWidth||canvas.parentElement?.offsetWidth||360; canvas.width=W;
+  const H=canvas.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#FFFBEB'; ctx.fillRect(0,0,W,H);
+
+  // Layout: top zone for labels (70px), curve zone, bottom zone for x-axis labels
+  const PL=34, PR=14, PT=70, PB=30;
+  const cH=H-PT-PB;
+  const cW=W-PL-PR;
+
+  const xMin=0, xMax=3.1;
+  const norm=x=>Math.exp(-0.5*x*x)/Math.sqrt(2*Math.PI);
+  const yPk=norm(0);
+  const toX=x=>PL+(x-xMin)/(xMax-xMin)*cW;
+  const toY=y=>PT+cH-(y/yPk)*cH;
+  const yBase=PT+cH; // eixo X
+  const z5=1.645, zEx=2.13;
+
+  // sombra cinza (área total)
+  ctx.beginPath(); ctx.moveTo(toX(0),yBase);
+  for(let x=0;x<=xMax;x+=0.02) ctx.lineTo(toX(x),toY(norm(x)));
+  ctx.lineTo(toX(xMax),yBase); ctx.closePath();
+  ctx.fillStyle='rgba(203,213,225,0.30)'; ctx.fill();
+
+  // região âmbar p=0,05
+  ctx.beginPath(); ctx.moveTo(toX(z5),yBase);
+  for(let x=z5;x<=xMax;x+=0.02) ctx.lineTo(toX(x),toY(norm(x)));
+  ctx.lineTo(toX(xMax),yBase); ctx.closePath();
+  ctx.fillStyle='rgba(251,191,36,0.65)'; ctx.fill();
+
+  // região vermelha p=0,0166
+  ctx.beginPath(); ctx.moveTo(toX(zEx),yBase);
+  for(let x=zEx;x<=xMax;x+=0.02) ctx.lineTo(toX(x),toY(norm(x)));
+  ctx.lineTo(toX(xMax),yBase); ctx.closePath();
+  ctx.fillStyle='rgba(220,38,38,0.82)'; ctx.fill();
+
+  // curva
+  ctx.beginPath();
+  for(let x=0;x<=xMax;x+=0.02) ctx.lineTo(toX(x),toY(norm(x)));
+  ctx.strokeStyle='#374151'; ctx.lineWidth=2.5; ctx.stroke();
+
+  // eixo X
+  ctx.beginPath(); ctx.moveTo(toX(0)-4,yBase); ctx.lineTo(W-PR+4,yBase);
+  ctx.strokeStyle='#94A3B8'; ctx.lineWidth=1.5; ctx.stroke();
+
+  // eixo Y (linha tracejada em μ)
+  ctx.beginPath(); ctx.moveTo(toX(0),yBase); ctx.lineTo(toX(0),PT-6);
+  ctx.strokeStyle='#CBD5E1'; ctx.lineWidth=1.5; ctx.setLineDash([5,4]); ctx.stroke(); ctx.setLineDash([]);
+
+  // linhas verticais tracejadas nas zonas
+  [[z5,'#B45309'],[zEx,'#DC2626']].forEach(([z,col])=>{
+    ctx.beginPath(); ctx.moveTo(toX(z),yBase); ctx.lineTo(toX(z),toY(norm(z)));
+    ctx.strokeStyle=col; ctx.lineWidth=2; ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
+  });
+
+  // helper seta
+  function arrow(x1,y1,x2,y2,col){
+    const ang=Math.atan2(y2-y1,x2-x1);
+    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
+    ctx.strokeStyle=col; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x2,y2);
+    ctx.lineTo(x2-9*Math.cos(ang-0.38),y2-9*Math.sin(ang-0.38));
+    ctx.lineTo(x2-9*Math.cos(ang+0.38),y2-9*Math.sin(ang+0.38));
+    ctx.closePath(); ctx.fillStyle=col; ctx.fill();
+  }
+
+  // --- Label p = 0,05 --- no lado esquerdo da zona âmbar, acima
+  const x5px=toX(z5);
+  const midAmber=(x5px+toX(xMax))/2;
+  ctx.font='bold 15px Nunito,sans-serif'; ctx.textAlign='center'; ctx.fillStyle='#92400E';
+  ctx.fillText('p = 0,05', midAmber, 20);
+  arrow(midAmber, 26, midAmber, toY(norm((z5+xMax)/2))-4, '#B45309');
+
+  // --- Label p = 0,0166 --- abaixo do label âmbar, seta aponta para zona vermelha
+  const midRed=(toX(zEx)+toX(xMax))/2;
+  ctx.font='bold 15px Nunito,sans-serif'; ctx.textAlign='center'; ctx.fillStyle='#991B1B';
+  ctx.fillText('p = 0,0166', midRed, 46);
+  arrow(midRed, 52, midRed, toY(norm((zEx+xMax)/2))-3, '#DC2626');
+
+  // rótulo μ abaixo do eixo
+  ctx.font='bold 15px Nunito,sans-serif'; ctx.textAlign='center'; ctx.fillStyle='#94A3B8';
+  ctx.fillText('μ', toX(0), yBase+20);
+
+  // f(x) — label do eixo Y, horizontal, canto superior esquerdo
+  ctx.font='14px Nunito,sans-serif'; ctx.textAlign='right'; ctx.fillStyle='#94A3B8';
+  ctx.fillText('f(x)', PL-6, PT+8);
+}
+
+// ── MINI CURVAS NOS GABARITOS ─────────────────────────
+const normExCfg = {
+  // Psicologia (purple)
+  gabCv1: {mu:8,   sigma:2,   x1:5,    x2:11,    fillCol:'rgba(124,58,237,0.22)', marksCol:'#7C3AED'},
+  gabCv2: {mu:280, sigma:25,  x1:313,  x2:1/0,   fillCol:'rgba(124,58,237,0.22)', marksCol:'#7C3AED'},
+  gabCv3: {mu:25,  sigma:4,   x1:27,   x2:29,    fillCol:'rgba(124,58,237,0.22)', marksCol:'#7C3AED'},
+  gabCv4: {mu:7.0, sigma:0.8, x1:5.50, x2:6.34,  fillCol:'rgba(124,58,237,0.22)', marksCol:'#7C3AED'},
+  gabCv5: {mu:18,  sigma:3,   x1:24.39,x2:1/0,   fillCol:'rgba(124,58,237,0.22)', marksCol:'#7C3AED'},
+  // Fisioterapia (blue)
+  gabFisio1: {mu:120, sigma:8,  x1:109.76,x2:132.48, fillCol:'rgba(14,165,233,0.22)', marksCol:'#0EA5E9'},
+  gabFisio2: {mu:280, sigma:40, x1:337.2, x2:1/0,    fillCol:'rgba(14,165,233,0.22)', marksCol:'#0EA5E9'},
+  gabFisio3: {mu:18,  sigma:3,  x1:21,    x2:24,     fillCol:'rgba(14,165,233,0.22)', marksCol:'#0EA5E9'},
+  gabFisio4: {mu:42,  sigma:5,  x1:31.35, x2:38.35,  fillCol:'rgba(14,165,233,0.22)', marksCol:'#0EA5E9'},
+  gabFisio5: {mu:180, sigma:25, x1:234.25,x2:1/0,    fillCol:'rgba(14,165,233,0.22)', marksCol:'#0EA5E9'},
+  // Nutrição (green)
+  gabNutri1: {mu:900,  sigma:120, x1:724,  x2:974,  fillCol:'rgba(16,185,129,0.22)', marksCol:'#059669'},
+  gabNutri2: {mu:28,   sigma:6,   x1:37.84,x2:1/0,  fillCol:'rgba(16,185,129,0.22)', marksCol:'#059669'},
+  gabNutri3: {mu:2200, sigma:300, x1:2461, x2:2713, fillCol:'rgba(16,185,129,0.22)', marksCol:'#059669'},
+  gabNutri4: {mu:23,   sigma:3,   x1:16.85,x2:20.81,fillCol:'rgba(16,185,129,0.22)', marksCol:'#059669'},
+  gabNutri5: {mu:2500, sigma:400, x1:3432, x2:1/0,  fillCol:'rgba(16,185,129,0.22)', marksCol:'#059669'},
+  // Enfermagem (red)
+  gabEnfer1: {mu:16,  sigma:3,   x1:12.64,x2:19.72, fillCol:'rgba(239,68,68,0.22)', marksCol:'#DC2626'},
+  gabEnfer2: {mu:120, sigma:14,  x1:142,  x2:1/0,   fillCol:'rgba(239,68,68,0.22)', marksCol:'#DC2626'},
+  gabEnfer3: {mu:145, sigma:20,  x1:159.6,x2:178.4, fillCol:'rgba(239,68,68,0.22)', marksCol:'#DC2626'},
+  gabEnfer4: {mu:4,   sigma:1,   x1:2.48, x2:3.62,  fillCol:'rgba(239,68,68,0.22)', marksCol:'#DC2626'},
+  gabEnfer5: {mu:36.5,sigma:0.5, x1:37.58,x2:1/0,   fillCol:'rgba(239,68,68,0.22)', marksCol:'#DC2626'},
+  // Farmácia (orange)
+  gabFarma1: {mu:500, sigma:10,  x1:486.6,x2:509.7, fillCol:'rgba(249,115,22,0.22)', marksCol:'#EA580C'},
+  gabFarma2: {mu:100, sigma:2,   x1:102.56,x2:1/0,  fillCol:'rgba(249,115,22,0.22)', marksCol:'#EA580C'},
+  gabFarma3: {mu:20,  sigma:4,   x1:22.08,x2:26.52, fillCol:'rgba(249,115,22,0.22)', marksCol:'#EA580C'},
+  gabFarma4: {mu:7.2, sigma:0.3, x1:6.68, x2:7.03,  fillCol:'rgba(249,115,22,0.22)', marksCol:'#EA580C'},
+  gabFarma5: {mu:3,   sigma:0.5, x1:4.12, x2:1/0,   fillCol:'rgba(249,115,22,0.22)', marksCol:'#EA580C'},
+};
+
+function drawNormEx(canvasId){
+  const cfg = normExCfg[canvasId];
+  const canvas = document.getElementById(canvasId);
+  if(!cfg||!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth||300;
+  canvas.width = W;
+  const H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#F8FAFC'; ctx.fillRect(0,0,W,H);
+
+  const {mu, sigma, x1, x2} = cfg;
+  const xMin = mu - 3.6*sigma;
+  const xMax = mu + 3.6*sigma;
+  const norm = x => Math.exp(-0.5*((x-mu)/sigma)**2);
+  const yPk = 1;
+  const PL=8, PR=8, PT=14, PB=28;
+  const cW=W-PL-PR, cH=H-PT-PB;
+  const toX = x => PL + (x-xMin)/(xMax-xMin)*cW;
+  const toY = y => PT + cH - y*cH;
+
+  // shaded area
+  const sL = isFinite(x1) ? Math.max(x1, xMin) : xMin;
+  const sR = isFinite(x2) ? Math.min(x2, xMax) : xMax;
+  ctx.beginPath();
+  ctx.moveTo(toX(sL), toY(0));
+  for(let i=0; i<=200; i++){
+    const x = sL + (sR-sL)*i/200;
+    ctx.lineTo(toX(x), toY(norm(x)));
+  }
+  ctx.lineTo(toX(sR), toY(0));
+  ctx.closePath();
+  ctx.fillStyle = cfg.fillCol || 'rgba(124,58,237,0.22)'; ctx.fill();
+
+  // curve
+  ctx.beginPath();
+  for(let i=0; i<=300; i++){
+    const x = xMin + (xMax-xMin)*i/300;
+    ctx.lineTo(toX(x), toY(norm(x)));
+  }
+  ctx.strokeStyle='#4B5563'; ctx.lineWidth=2; ctx.stroke();
+
+  // x-axis
+  ctx.beginPath();
+  ctx.moveTo(PL, toY(0)); ctx.lineTo(W-PR, toY(0));
+  ctx.strokeStyle='#CBD5E1'; ctx.lineWidth=1; ctx.stroke();
+
+  // μ dashed line
+  ctx.beginPath();
+  ctx.moveTo(toX(mu), toY(0)); ctx.lineTo(toX(mu), toY(0.98));
+  ctx.strokeStyle='#94A3B8'; ctx.lineWidth=1.5; ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
+
+  // x value lines
+  const marksCol = cfg.marksCol || '#7C3AED';
+  const marks = [];
+  if(isFinite(x1)) marks.push({v:x1, col:marksCol});
+  if(isFinite(x2)) marks.push({v:x2, col:marksCol});
+  marks.forEach(({v,col})=>{
+    ctx.beginPath();
+    ctx.moveTo(toX(v), toY(0)); ctx.lineTo(toX(v), toY(norm(v)));
+    ctx.strokeStyle=col; ctx.lineWidth=1.5; ctx.setLineDash([3,3]); ctx.stroke(); ctx.setLineDash([]);
+  });
+
+  // labels
+  const fmtN = n => String(n).replace('.',',');
+  ctx.font='bold 10px Nunito,sans-serif'; ctx.textAlign='center';
+
+  // collect label positions to nudge overlaps
+  const lbls = [{v:mu, lbl:'μ='+fmtN(mu), col:'#64748B'}, ...marks.map(m=>({v:m.v, lbl:fmtN(m.v), col:marksCol}))];
+  lbls.forEach(l=>{ ctx.fillStyle=l.col; ctx.fillText(l.lbl, toX(l.v), H-4); });
+}
+
+// ── P-VALOR CANVAS GENÉRICO ───────────────────────────
+function drawPValorCanvasFor(canvasId, z5, zEx, p5Label, pExLabel, lineCol, amberFill, redFill){
+  const canvas = document.getElementById(canvasId);
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || canvas.parentElement?.offsetWidth || 360;
+  canvas.width = W;
+  const H = canvas.height;
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle='#FFFBEB'; ctx.fillRect(0,0,W,H);
+  const PL=34, PR=14, PT=70, PB=30;
+  const cH=H-PT-PB; const cW=W-PL-PR;
+  const xMin=0, xMax=3.1;
+  const norm = x => Math.exp(-0.5*x*x)/Math.sqrt(2*Math.PI);
+  const yPk = norm(0);
+  const toX = x => PL+(x-xMin)/(xMax-xMin)*cW;
+  const toY = y => PT+cH-(y/yPk)*cH;
+  const yBase = PT+cH;
+
+  // gray fill (0 to z5)
+  ctx.beginPath(); ctx.moveTo(toX(0), yBase);
+  for(let i=0;i<=200;i++){ const x=xMin+(z5-xMin)*i/200; ctx.lineTo(toX(x),toY(norm(x))); }
+  ctx.lineTo(toX(z5),yBase); ctx.closePath();
+  ctx.fillStyle='rgba(203,213,225,0.5)'; ctx.fill();
+
+  // amber fill (z5 to xMax)
+  const midAmber = toX((z5+xMax)/2);
+  ctx.beginPath(); ctx.moveTo(toX(z5), yBase);
+  for(let i=0;i<=200;i++){ const x=z5+(xMax-z5)*i/200; ctx.lineTo(toX(x),toY(norm(x))); }
+  ctx.lineTo(toX(xMax),yBase); ctx.closePath();
+  ctx.fillStyle = amberFill||'rgba(217,119,6,0.25)'; ctx.fill();
+
+  // red fill (zEx to xMax)
+  const midRed = toX((zEx+xMax)/2);
+  ctx.beginPath(); ctx.moveTo(toX(zEx), yBase);
+  for(let i=0;i<=200;i++){ const x=zEx+(xMax-zEx)*i/200; ctx.lineTo(toX(x),toY(norm(x))); }
+  ctx.lineTo(toX(xMax),yBase); ctx.closePath();
+  ctx.fillStyle = redFill||'rgba(220,38,38,0.50)'; ctx.fill();
+
+  // curve
+  ctx.beginPath();
+  for(let i=0;i<=300;i++){ const x=xMin+(xMax-xMin)*i/300; ctx.lineTo(toX(x),toY(norm(x))); }
+  ctx.strokeStyle='#4B5563'; ctx.lineWidth=2; ctx.stroke();
+
+  // x-axis
+  ctx.beginPath(); ctx.moveTo(PL,yBase); ctx.lineTo(W-PR,yBase);
+  ctx.strokeStyle='#CBD5E1'; ctx.lineWidth=1; ctx.stroke();
+
+  // dashed verticals
+  [z5, zEx].forEach(z=>{
+    ctx.beginPath(); ctx.moveTo(toX(z),yBase); ctx.lineTo(toX(z),toY(norm(z)));
+    ctx.strokeStyle=lineCol||'#D97706'; ctx.lineWidth=1.5; ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
+  });
+
+  // arrow helper
+  const arrow=(x,y1,y2,col)=>{
+    ctx.strokeStyle=col; ctx.fillStyle=col; ctx.lineWidth=1.5;
+    ctx.beginPath(); ctx.moveTo(x,y1); ctx.lineTo(x,y2); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x,y2); ctx.lineTo(x-4,y2-8); ctx.lineTo(x+4,y2-8); ctx.closePath(); ctx.fill();
+  };
+
+  // label p5
+  const yAm = toY(norm((z5+xMax)/2));
+  ctx.font='bold 15px Nunito,sans-serif'; ctx.textAlign='center'; ctx.fillStyle='#92400E';
+  ctx.fillText(p5Label, midAmber, 20);
+  arrow(midAmber, 26, yAm-6, '#B45309');
+
+  // label pEx
+  const yRed = toY(norm((zEx+xMax)/2));
+  ctx.font='bold 15px Nunito,sans-serif'; ctx.fillStyle='#991B1B';
+  ctx.fillText(pExLabel, midRed, 46);
+  arrow(midRed, 52, yRed-6, '#B91C1C');
+
+  // μ label
+  ctx.font='13px Nunito,sans-serif'; ctx.fillStyle='#64748B'; ctx.textAlign='center';
+  ctx.fillText('μ', toX(0), yBase+18);
+
+  // f(x) label
+  ctx.font='14px Nunito,sans-serif'; ctx.textAlign='right'; ctx.fillStyle='#94A3B8';
+  ctx.fillText('f(x)', PL-6, PT+8);
 }
 </script>
 
