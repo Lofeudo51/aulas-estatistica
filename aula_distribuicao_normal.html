@@ -107,15 +107,6 @@
   .card p, .card li { font-size: 1.05rem; line-height: 1.7; }
   .card ul { padding-left: 1.4rem; }
 
-  .emoji-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin: 1.2rem 0; }
-  .emoji-box {
-    background: #F8FAFC; border-radius: 16px; padding: 1rem 1.4rem;
-    text-align: center; min-width: 110px; box-shadow: 0 2px 8px rgba(0,0,0,.06); transition: transform .2s;
-  }
-  .emoji-box:hover { transform: scale(1.07); }
-  .emoji-box .big { font-size: 2.5rem; display: block; }
-  .emoji-box span:last-child { font-size: .85rem; font-weight: 700; color: #64748B; }
-
   canvas { display: block; margin: 1rem auto; border-radius: 16px; max-width: 100%; background: #F8FAFC; box-shadow: 0 2px 10px rgba(0,0,0,.08); }
 
   .slider-wrap { margin: 1rem 0; }
@@ -123,132 +114,25 @@
   input[type=range] { width: 100%; accent-color: var(--azul); height: 6px; border-radius: 4px; }
   .slider-val { display: inline-block; background: var(--azul); color: white; border-radius: 8px; padding: .15rem .7rem; font-weight: 700; font-size: 1rem; margin-left: .4rem; }
 
-  .rule-bar { display: flex; border-radius: 14px; overflow: hidden; margin: .8rem 0; height: 52px; }
-  .rule-seg { display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 1rem; color: white; text-shadow: 0 1px 3px rgba(0,0,0,.2); transition: flex .4s; }
-
-  /* ── SERIES SELECTOR ── */
-  .series-selector {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: .8rem;
-    margin: 1rem 0 1.4rem;
-  }
-  .series-btn {
-    font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1rem;
-    padding: 1rem .8rem; border: 3px solid transparent;
-    border-radius: 16px; cursor: pointer; text-align: center;
-    transition: transform .18s, box-shadow .18s;
-    color: white; line-height: 1.3;
-  }
-  .series-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,.15); }
   .series-btn.s1 { background: linear-gradient(135deg,#3B82F6,#6366F1); }
   .series-btn.s2 { background: linear-gradient(135deg,#10B981,#059669); }
   .series-btn.s3 { background: linear-gradient(135deg,#F59E0B,#EF4444); }
   .series-btn.s4 { background: linear-gradient(135deg,#EC4899,#8B5CF6); }
-  .series-btn.s5 { background: linear-gradient(135deg,#8B5CF6,#3B82F6); }
-  .series-btn .s-num { font-size: 1.5rem; display: block; }
-  .series-btn .s-label { font-size: .82rem; opacity: .93; display: block; margin-top: .2rem; }
 
-  /* ── QUIZ ── */
-  .quiz-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: .5rem; }
-  .quiz-progress-label { font-size: .95rem; font-weight: 700; color: #64748B; }
-  .quiz-progress-bar { width: 100%; height: 8px; background: #E2E8F0; border-radius: 99px; margin-bottom: 1.2rem; overflow: hidden; }
-  .quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--azul), var(--roxo)); border-radius: 99px; transition: width .4s ease; }
-  .quiz-badge { font-size: .8rem; font-weight: 700; padding: .25rem .75rem; border-radius: 99px; color: white; }
-  .quiz-badge.tipo-mc     { background: var(--azul); }
-  .quiz-badge.tipo-grafico{ background: var(--roxo); }
-  .quiz-badge.tipo-vof    { background: var(--laranja); }
-  .quiz-badge.tipo-lacuna { background: var(--verde); }
-
-  .quiz-q { font-size: 1.15rem; font-weight: 700; margin-bottom: .8rem; line-height: 1.6; }
-  .quiz-canvas-wrap { background: #F8FAFC; border-radius: 16px; padding: .5rem; margin-bottom: 1rem; box-shadow: 0 2px 8px rgba(0,0,0,.06); text-align: center; }
-  .quiz-canvas-wrap canvas { max-width: 100%; border-radius: 10px; }
-
-  .quiz-opts { display: flex; flex-direction: column; gap: .6rem; }
-  .quiz-opts button {
-    font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700;
-    text-align: left; padding: .8rem 1.2rem;
-    border: 2px solid #CBD5E1; border-radius: 12px;
-    background: white; cursor: pointer; transition: all .18s;
-  }
-  .quiz-opts button:hover:not(:disabled) { border-color: var(--azul); background: #EFF6FF; }
   .quiz-opts button.correct { background: #D1FAE5; border-color: var(--verde); }
-  .quiz-opts button.wrong   { background: #FEE2E2; border-color: #EF4444; }
 
-  .quiz-opts-vof { display: flex; gap: 1rem; margin-bottom: .5rem; }
-  .quiz-opts-vof button {
-    font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 900;
-    padding: .9rem 2rem; border: 2px solid #CBD5E1; border-radius: 14px;
-    background: white; cursor: pointer; flex: 1; transition: all .18s;
-  }
-  .quiz-opts-vof button:hover:not(:disabled) { border-color: var(--azul); background: #EFF6FF; }
   .quiz-opts-vof button.correct { background: #D1FAE5; border-color: var(--verde); }
-  .quiz-opts-vof button.wrong   { background: #FEE2E2; border-color: #EF4444; }
 
-  .quiz-lacuna-wrap { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .8rem; }
-  .quiz-lacuna-wrap button {
-    font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700;
-    padding: .6rem 1.2rem; border: 2px solid #CBD5E1; border-radius: 10px;
-    background: white; cursor: pointer; transition: all .18s;
-  }
-  .quiz-lacuna-wrap button:hover:not(:disabled) { border-color: var(--azul); background: #EFF6FF; }
   .quiz-lacuna-wrap button.correct { background: #D1FAE5; border-color: var(--verde); }
-  .quiz-lacuna-wrap button.wrong   { background: #FEE2E2; border-color: #EF4444; }
-  .lacuna-text { font-size: 1.1rem; font-weight: 700; line-height: 2.2; margin-bottom: .8rem; }
-  .lacuna-blank { display: inline-block; min-width: 70px; border-bottom: 3px solid var(--azul); text-align: center; font-weight: 900; color: var(--azul); padding: 0 .3rem; }
 
   .feedback { margin-top: .8rem; font-size: 1rem; font-weight: 700; min-height: 1.4rem; padding: .5rem .8rem; border-radius: 10px; }
   .feedback.ok  { background: #D1FAE5; color: #059669; }
   .feedback.err { background: #FEE2E2; color: #DC2626; }
 
-  .next-btn {
-    margin-top: 1rem; font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700;
-    background: var(--azul); color: white; border: none; border-radius: 12px;
-    padding: .7rem 1.8rem; cursor: pointer; display: none; transition: transform .15s;
-  }
-  .next-btn:hover { transform: translateY(-2px); }
-  #quiz-score { font-size: 1.2rem; font-weight: 900; text-align: center; margin-top: 1rem; }
-
-  .back-series-btn {
-    font-family: 'Nunito', sans-serif; font-size: .95rem; font-weight: 700;
-    background: #E2E8F0; color: #475569; border: none; border-radius: 10px;
-    padding: .5rem 1.2rem; cursor: pointer; margin-bottom: 1.2rem; display: inline-block;
-    transition: background .18s;
-  }
-  .back-series-btn:hover { background: #CBD5E1; }
-
-  .series-result-btns { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; margin-top: 1.2rem; }
-  .series-result-btns button {
-    font-family: 'Nunito', sans-serif; font-size: 1rem; font-weight: 700;
-    border: none; border-radius: 12px; padding: .7rem 1.5rem; cursor: pointer; color: white;
-    transition: transform .15s;
-  }
-  .series-result-btns button:hover { transform: translateY(-2px); }
-  .btn-repeat { background: var(--azul); }
-  .btn-next-series { background: var(--verde); }
-  .btn-menu { background: #64748B; }
-
-  .example-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
-  .ex-card { border-radius: 16px; padding: 1.2rem; text-align: center; font-weight: 700; font-size: .95rem; color: white; transition: transform .2s; cursor: default; }
-  .ex-card:hover { transform: scale(1.04); }
-  .ex-card .icon { font-size: 2.2rem; display: block; margin-bottom: .4rem; }
-
-  .series-tag {
-    display: inline-block; font-size: .78rem; font-weight: 900; padding: .2rem .8rem;
-    border-radius: 99px; color: white; margin-bottom: .5rem;
-  }
-  .tag-s1 { background: #3B82F6; }
-  .tag-s2 { background: #10B981; }
-  .tag-s3 { background: #F59E0B; }
-  .tag-s4 { background: #EC4899; }
-  .tag-s5 { background: #8B5CF6; }
-
 /* skew card */
 .tcl-h2{font-size:1rem;font-weight:800;color:#93c5fd;margin-bottom:8px}
 .tcl-skew-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
 @media(max-width:480px){.tcl-skew-grid{grid-template-columns:1fr}}
-.tcl-skew-lbl{font-size:.85rem;color:#ffffff;line-height:1.5;margin-top:6px;text-align:center}
-.tcl-skew-lbl strong{color:#93c5fd}
 .tcl-skew-intro{color:#cbd5e1;font-size:.95rem;line-height:1.6;margin-bottom:12px}
 .tcl-card.tcl-card-skew{border:1px solid #93c5fd}
 </style>
@@ -582,17 +466,29 @@
     Nesses casos, a curva normal <strong>não é uma boa aproximação</strong> e outros métodos estatísticos são necessários.
   </p>
   <div class="tcl-skew-grid">
-    <div>
-      <canvas id="tclCvPos" height="175"></canvas>
-      <p class="tcl-skew-lbl">
-        <em>ex.: tempo de internação, carga viral, creatinina sérica</em>
-      </p>
+    <div style="text-align:center">
+      <svg viewBox="0 0 260 150" style="width:100%;max-width:280px;display:block;margin:0 auto">
+        <text x="130" y="13" text-anchor="middle" font-family="Nunito,sans-serif" font-size="11" font-weight="bold" fill="#93c5fd">Assimetria positiva (direita)</text>
+        <path d="M10,124 L22,74 L34,44 L46,28 L58,24 L70,28 L82,36 L94,48 L106,61 L130,86 L154,105 L178,117 L202,122 L226,124 L250,124 Z" fill="rgba(37,99,235,0.15)"/>
+        <polyline points="10,124 22,74 34,44 46,28 58,24 70,28 82,36 94,48 106,61 130,86 154,105 178,117 202,122 226,124 250,124" fill="none" stroke="#60a5fa" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="10" y1="124" x2="246" y2="124" stroke="white" stroke-width="1"/>
+        <polygon points="246,120 254,124 246,128" fill="white"/>
+        <line x1="10" y1="124" x2="10" y2="18" stroke="white" stroke-width="1"/>
+        <polygon points="6,18 10,10 14,18" fill="white"/>
+        <text x="130" y="144" text-anchor="middle" font-family="Nunito,sans-serif" font-size="11" fill="white">ex.: tempo de internação, carga viral</text>
+      </svg>
     </div>
-    <div>
-      <canvas id="tclCvNeg" height="175"></canvas>
-      <p class="tcl-skew-lbl">
-        <em>ex.: idade ao óbito (países desenvolvidos), saturação de O₂ em adultos saudáveis</em>
-      </p>
+    <div style="text-align:center">
+      <svg viewBox="0 0 260 150" style="width:100%;max-width:280px;display:block;margin:0 auto">
+        <text x="130" y="13" text-anchor="middle" font-family="Nunito,sans-serif" font-size="11" font-weight="bold" fill="#93c5fd">Assimetria negativa (esquerda)</text>
+        <path d="M10,124 L34,124 L58,122 L82,117 L106,105 L130,86 L154,61 L178,36 L190,28 L202,24 L214,28 L226,44 L238,74 L250,124 Z" fill="rgba(37,99,235,0.15)"/>
+        <polyline points="10,124 34,124 58,122 82,117 106,105 130,86 154,61 178,36 190,28 202,24 214,28 226,44 238,74 250,124" fill="none" stroke="#60a5fa" stroke-width="2.5" stroke-linejoin="round"/>
+        <line x1="10" y1="124" x2="246" y2="124" stroke="white" stroke-width="1"/>
+        <polygon points="246,120 254,124 246,128" fill="white"/>
+        <line x1="10" y1="124" x2="10" y2="18" stroke="white" stroke-width="1"/>
+        <polygon points="6,18 10,10 14,18" fill="white"/>
+        <text x="130" y="144" text-anchor="middle" font-family="Nunito,sans-serif" font-size="11" fill="white">ex.: idade ao óbito, saturação de O₂</text>
+      </svg>
     </div>
   </div>
 </div>
@@ -646,11 +542,26 @@ function tclSetN(newN){
 }
 
 function tclFlashVal(i,dice){
-  const mmhg=Math.round(70/tclN+(dice-1)*20/tclN);
   const v=tclG(`tclFv${i}`); if(!v) return;
-  v.textContent=mmhg;
   v.classList.add('tcl-just-rolled');
   setTimeout(()=>v.classList.remove('tcl-just-rolled'),280);
+}
+
+// Distribui totalMmhg entre os fatores garantindo que a soma bate exatamente,
+// usando o método do maior resto (Hamilton).
+function tclSetFactorDisplay(vals, totalMmhg){
+  const N=vals.length;
+  const exact=vals.map(d=>70/N+(d-1)*20/N);
+  const floors=exact.map(Math.floor);
+  const remainder=totalMmhg-floors.reduce((a,b)=>a+b,0);
+  // distribui os pontos restantes aos fatores com maior parte fracionária
+  const order=exact.map((x,i)=>({i,frac:x-Math.floor(x)}))
+                    .sort((a,b)=>b.frac-a.frac);
+  for(let k=0;k<remainder;k++) floors[order[k].i]++;
+  floors.forEach((val,i)=>{
+    const v=tclG(`tclFv${i}`); if(!v) return;
+    v.textContent=val;
+  });
 }
 
 function tclResetCounts(){ tclCounts=new Array(tclN*6+2).fill(0); tclTotal=0; tclHist=[]; tclLastMmhg=null; }
@@ -703,12 +614,13 @@ function tclDrawHist(){
     const mSum=tclHist.reduce((a,b)=>a+b,0)/tclTotal;
     const sdSum=Math.sqrt(tclHist.reduce((a,b)=>a+(b-mSum)**2,0)/tclTotal);
     const sdMmhg=(sdSum*100/(tclN*5)).toFixed(1);
-    ctx.fillText(`x̅ = 120 ± ${sdMmhg} mmHg`, refX, PT-9);
+    const mMmhg=tclToMmhg(mSum);
+    ctx.fillText(`x̅ = ${mMmhg} ± ${sdMmhg} mmHg`, refX, PT-9);
   } else {
     ctx.fillText('x̅ = 120 mmHg', refX, PT-9);
   }
 
-  const showCurve=tclTotal>50 && tclN>1;
+  const showCurve=tclTotal>=300 && tclN>1;
   if(showCurve){
     const mu=tclN*3.5, sd=Math.sqrt(tclN*35/12);
     const nd=x=>Math.exp(-.5*((x-mu)/sd)**2)/(sd*Math.sqrt(2*Math.PI));
@@ -749,6 +661,7 @@ function tclDrawHist(){
     }
     tclG('tclInsight').classList.add('tcl-show');
     const _insN=tclG('tclInsN'); if(_insN) _insN.textContent=tclN;
+    tclG('tclInsight').classList.add('tcl-show');
     // aciona a anotação se ainda não foi mostrada nesta sessão de curva
     if(!tclAnnotShown){ tclAnnotShown=true; tclAnnotAlpha=1; }
   } else {
@@ -789,6 +702,7 @@ function tclDoRoll(){
   tclCounts[s]=(tclCounts[s]||0)+1;
   tclTotal++; tclHist.push(s);
   tclLastMmhg=tclToMmhg(s);
+  tclSetFactorDisplay(vals, tclLastMmhg);
   tclDrawHist();
 }
 
@@ -800,13 +714,13 @@ tclG('tclSlSpeed').addEventListener('input',function(){
 tclG('tclBtnRun').addEventListener('click',tclDoRoll);
 
 tclG('tclBtnAuto').addEventListener('click',function(){
-  if(tclIsAuto){tclStopAuto();this.innerHTML='⟳ Várias';this.classList.remove('tcl-running');}
+  if(tclIsAuto){tclStopAuto();this.innerHTML='▶▶ Acelerar';this.classList.remove('tcl-running');}
   else{tclStartAuto();this.innerHTML='⏹ Parar';this.classList.add('tcl-running');}
 });
 
 tclG('tclBtnReset').addEventListener('click',function(){
   tclStopAuto();
-  tclG('tclBtnAuto').innerHTML='⟳ Várias';
+  tclG('tclBtnAuto').innerHTML='▶▶ Acelerar';
   tclG('tclBtnAuto').classList.remove('tcl-running');
   tclResetCounts();
   tclAnnotAlpha=0; tclAnnotShown=false;
@@ -820,109 +734,6 @@ function tclStopAuto(){ tclIsAuto=false; clearInterval(tclAutoTmr); tclAutoTmr=n
 
 tclBuildFactorGrid(); tclResetCounts();
 
-// ── curvas assimétricas (Beta distribution) ──────────────────
-function tclDrawSkewCanvas(canvasId, positive, chartTitle, xLabel){
-  const canvas=document.getElementById(canvasId);
-  if(!canvas) return;
-  const ctx=canvas.getContext('2d');
-  const W=canvas.offsetWidth||260;
-  canvas.width=W;
-  const H=canvas.height;
-  const PL=36,PR=8,PT=28,PB=42;
-  const cW=W-PL-PR, cH=H-PT-PB;
-  ctx.clearRect(0,0,W,H);
-
-  // Beta(α,β): positive skew=Beta(2,5), negative=Beta(5,2)
-  const alpha=positive?2:5, beta=positive?5:2;
-  const N=300;
-  const ys=[];
-  for(let i=0;i<=N;i++){
-    const x=0.002+i/N*0.996;
-    ys.push(Math.pow(x,alpha-1)*Math.pow(1-x,beta-1));
-  }
-  const maxY=Math.max(...ys);
-
-  // título do gráfico no topo
-  ctx.font='bold 12px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='center';
-  ctx.fillText(chartTitle, PL+cW/2, 16);
-
-  // área preenchida
-  ctx.beginPath();
-  ctx.moveTo(PL, PT+cH);
-  ys.forEach((y,i)=>ctx.lineTo(PL+(i/N)*cW, PT+cH-(y/maxY)*cH*0.88));
-  ctx.lineTo(PL+cW, PT+cH);
-  ctx.closePath();
-  ctx.fillStyle='rgba(37,99,235,0.10)';
-  ctx.fill();
-
-  // curva
-  ctx.beginPath();
-  ctx.strokeStyle='#2563eb'; ctx.lineWidth=2.5;
-  ys.forEach((y,i)=>{
-    const cx=PL+(i/N)*cW, cy=PT+cH-(y/maxY)*cH*0.88;
-    i===0?ctx.moveTo(cx,cy):ctx.lineTo(cx,cy);
-  });
-  ctx.stroke();
-
-  // eixos
-  ctx.strokeStyle='rgba(30,41,59,0.5)'; ctx.lineWidth=1.5;
-  ctx.beginPath();
-  ctx.moveTo(PL,PT); ctx.lineTo(PL,PT+cH); ctx.lineTo(PL+cW,PT+cH);
-  ctx.stroke();
-
-  // escala Y — 3 marcas: 0, 0.5, 1.0 (normalizado)
-  ctx.font='11px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='right';
-  [0,0.5,1].forEach(v=>{
-    const yy=PT+cH-(v*cH*0.88);
-    ctx.beginPath(); ctx.moveTo(PL-3,yy); ctx.lineTo(PL,yy);
-    ctx.strokeStyle='rgba(30,41,59,0.4)'; ctx.lineWidth=1; ctx.stroke();
-    ctx.fillText(v===0?'0':v===0.5?'0,5':'1,0', PL-5, yy+4);
-  });
-
-  // rótulo eixo Y (f) — em pé
-  ctx.font='bold 13px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='center';
-  ctx.fillText('f', 10, PT+cH/2+5);
-
-  // escala X — 5 marcas igualmente espaçadas
-  ctx.font='11px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='center';
-  const xLabels=positive?['baixo','','','','alto']:['baixo','','','','alto'];
-  [0,0.25,0.5,0.75,1].forEach((v,idx)=>{
-    const xx=PL+v*cW;
-    ctx.beginPath(); ctx.moveTo(xx,PT+cH); ctx.lineTo(xx,PT+cH+3);
-    ctx.strokeStyle='rgba(30,41,59,0.4)'; ctx.lineWidth=1; ctx.stroke();
-    if(idx===0||idx===4) ctx.fillText(xLabels[idx], xx, PT+cH+14);
-  });
-
-  // título eixo X
-  ctx.font='11px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='center';
-  ctx.fillText(xLabel, PL+cW/2, H-4);
-
-  // indicação "cauda" próximo à cauda real
-  // cauda positiva: extremo direito (~x=0.85..1) → pegar ponto onde y cai a 15% do pico
-  // cauda negativa: extremo esquerdo (~x=0..0.15)
-  let caudaIdx;
-  if(positive){
-    // percorre da direita até achar y > 15% do pico
-    caudaIdx=N;
-    for(let i=N;i>=0;i--){ if(ys[i]/maxY>0.12){caudaIdx=i;break;} }
-    caudaIdx=Math.round((caudaIdx+N)/2); // meio entre esse ponto e a borda direita
-  } else {
-    caudaIdx=0;
-    for(let i=0;i<=N;i++){ if(ys[i]/maxY>0.12){caudaIdx=i;break;} }
-    caudaIdx=Math.round(caudaIdx/2);
-  }
-  const caudaX=PL+(caudaIdx/N)*cW;
-  const caudaY=PT+cH*0.55; // posição fixa na metade inferior, dentro do canvas
-  ctx.font='bold 12px Nunito'; ctx.fillStyle='#2563eb';
-  ctx.textAlign= positive ? 'right' : 'left';
-  const cx2 = positive ? caudaX+2 : caudaX-2;
-  ctx.fillText('cauda para', cx2, caudaY);
-  ctx.fillText(positive ? 'à direita →' : '← à esquerda', cx2, caudaY+16);
-}
-window.tclDrawSkewCanvases=function(){
-  tclDrawSkewCanvas('tclCvPos',true,'Curva assimétrica positiva','tempo de internação (dias)');
-  tclDrawSkewCanvas('tclCvNeg',false,'Curva assimétrica negativa','idade ao óbito (anos)');
-};
 })();
 </script>
 <section id="s2">
@@ -2024,7 +1835,6 @@ function showSection(id) {
   document.getElementById('nav-next').disabled = currentIdx === sections.length - 1;
   if (id==='s2') { drawCurve(); renderEx4Aba4(); setTimeout(()=>{ drawConclusao1Canvas(); }, 100); }
   if (id==='s4') { drawAllRuleCanvases(); renderEx4(); renderEx4Simetria(); }
-  if (id==='s6') { drawJoaoCanvas(); draw75Canvas(); setTimeout(drawConclusao6Canvas, 100); }
   if (id==='s7') { drawZCanvas(); drawZExplainCanvas(); renderEx7z(); renderEx7calc(); }
   if (id==='s8') { buildTabelaZ(); setTimeout(()=>{ drawTabelaDestaque(); drawJoaoZCanvas(); renderEx8real(); }, 80); }
   if (id==='s9') { buildTabelaZS9(); setTimeout(()=>{ drawS9ExCanvas(); drawS9Passo2Canvas(); drawS9TabelaCanvas(); renderEx9(); }, 80); }
@@ -2037,8 +1847,6 @@ function showSection(id) {
     renderEx1c();
     renderEx4();
   }
-  if (id==='s3') { drawUseCaseCanvases(); renderEx2(); }
-  if (id==='sTCL') { setTimeout(()=>{ if(window.tclDrawSkewCanvases) window.tclDrawSkewCanvases(); },80); }
   window.scrollTo(0, 0);
 }
 
@@ -2055,91 +1863,7 @@ currentIdx = 0;
 document.getElementById('nav-label').textContent = sections[0].label;
 document.getElementById('nav-prev').disabled = true;
 document.getElementById('nav-next').disabled = false;
-setTimeout(() => { if(window.tclDrawSkewCanvases) window.tclDrawSkewCanvases(); }, 80);
 
-// ── CANVAS ABA 2 – PARA QUE SERVE ─────────────────
-function drawUseCase(canvasId, mu, sigma, cutLo, cutHi, color, bgColor, probLabel) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle = bgColor; ctx.fillRect(0,0,W,H);
-
-  const xMin = mu - 3.8*sigma, xMax = mu + 3.8*sigma;
-  const norm = x => (1/(sigma*Math.sqrt(2*Math.PI)))*Math.exp(-0.5*((x-mu)/sigma)**2);
-  const yPeak = norm(mu);
-  const toX = x => (x-xMin)/(xMax-xMin)*W;
-  const toY = y => H - 50 - (y/yPeak)*(H - 65);
-
-  // Área destacada
-  if (cutLo !== null) {
-    ctx.beginPath();
-    ctx.moveTo(toX(xMin), toY(0));
-    for (let x=xMin; x<=cutLo; x+=(xMax-xMin)/300) ctx.lineTo(toX(x), toY(norm(x)));
-    ctx.lineTo(toX(cutLo), toY(0));
-    ctx.closePath();
-    ctx.fillStyle = color.replace('1)', '0.45)'); ctx.fill();
-  }
-  if (cutHi !== null) {
-    ctx.beginPath();
-    ctx.moveTo(toX(cutHi), toY(0));
-    for (let x=cutHi; x<=xMax; x+=(xMax-xMin)/300) ctx.lineTo(toX(x), toY(norm(x)));
-    ctx.lineTo(toX(xMax), toY(0));
-    ctx.closePath();
-    ctx.fillStyle = color.replace('1)', '0.45)'); ctx.fill();
-  }
-
-  // Curva
-  ctx.beginPath();
-  for (let x=xMin; x<=xMax; x+=(xMax-xMin)/300) ctx.lineTo(toX(x), toY(norm(x)));
-  ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.stroke();
-
-  // Linhas de corte
-  [cutLo, cutHi].forEach(cut => {
-    if (cut === null) return;
-    ctx.beginPath();
-    ctx.moveTo(toX(cut), toY(0)); ctx.lineTo(toX(cut), toY(norm(cut)) + 2);
-    ctx.strokeStyle = color; ctx.lineWidth = 2; ctx.setLineDash([5,4]); ctx.stroke(); ctx.setLineDash([]);
-  });
-
-  // Linha da média
-  ctx.beginPath();
-  ctx.moveTo(toX(mu), toY(0)); ctx.lineTo(toX(mu), toY(yPeak));
-  ctx.strokeStyle = '#94A3B8'; ctx.lineWidth = 1.5; ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
-
-  // Rótulo de probabilidade na área colorida
-  if (probLabel) {
-    ctx.font = 'bold 28px Nunito'; ctx.textAlign = 'center';
-    ctx.fillStyle = color;
-    // posição: lado esquerdo se cutLo, direito se cutHi, ambos se os dois
-    if (cutLo !== null && cutHi !== null) {
-      ctx.fillText(probLabel, toX(xMin + sigma), toY(yPeak * 0.15));
-      ctx.fillText(probLabel, toX(xMax - sigma), toY(yPeak * 0.15));
-    } else if (cutLo !== null) {
-      ctx.fillText(probLabel, toX(xMin + sigma*1.2), toY(yPeak * 0.18));
-    } else if (cutHi !== null) {
-      ctx.fillText(probLabel, toX(xMax - sigma*1.2), toY(yPeak * 0.18));
-    }
-  }
-
-  // Eixo x: apenas média e cortes — sem duplicar
-  ctx.font = 'bold 22px Nunito'; ctx.textAlign = 'center';
-  const marks = [{v:mu, label:String(mu), iscut:false}];
-  if (cutLo !== null) marks.push({v:cutLo, label:String(cutLo), iscut:true});
-  if (cutHi !== null) marks.push({v:cutHi, label:String(cutHi), iscut:true});
-  marks.forEach(({v, label, iscut}) => {
-    ctx.fillStyle = iscut ? color : '#64748B';
-    ctx.fillText(label, toX(v), H - 10);
-  });
-}
-
-function drawUseCaseCanvases() {
-  drawUseCase('ucCanvas1', 120, 10, null, 130, 'rgba(239,68,68,1)',  '#FFF5F5', '15,87%');
-  drawUseCase('ucCanvas2',   6, 1.5, 4.5, null, 'rgba(245,158,11,1)','#FFFBEB', '16,00%');
-  drawUseCase('ucCanvas3',  50, 0.5, 49.5, 50.5, 'rgba(99,102,241,1)', '#EEF2FF', '31,74%');
-  drawUseCase('ucCanvas4',  14, 1,   12.5, null,  'rgba(16,185,129,1)', '#F0FDF4', '6,68%');
-}
 
 // ── CURVINHAS DA ABA 1 ────────────────────────────
 function drawMiniCurve(canvasId, mu, sigma, color, labelLeft, labelMid, labelRight) {
@@ -2964,27 +2688,27 @@ function checkEx1c(num) {
       // va está mais próximo do simétrico de g2 — trocar
       pairedVa = vb; pairedVb = va;
     }
-    drawEx1cCanvasDoubleResult(num, g1, g2, pairedVa, pairedVb, correct);
     if (correct) {
+      drawEx1cCanvasDoubleResult(num, g1, g2, pairedVa, pairedVb, correct);
       document.getElementById(`ex1c-in${num}a`).disabled = true;
       document.getElementById(`ex1c-in${num}b`).disabled = true;
       fb.textContent = q.explain;
       fb.style.background = '#D1FAE5'; fb.style.color = '#059669';
     } else {
-      fb.innerHTML = `❌ Não foi! <button onclick="resetEx1c(${num})" style="margin-left:.8rem;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;padding:.3rem 1rem;border:none;border-radius:10px;background:#3B82F6;color:white;cursor:pointer;">🔄 Tente de novo</button>`;
+      fb.innerHTML = `❌ Não foi dessa vez! <button onclick="resetEx1c(${num})" style="margin-left:.8rem;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;padding:.3rem 1rem;border:none;border-radius:10px;background:#3B82F6;color:white;cursor:pointer;">🔄 Tente de novo</button>`;
       fb.style.background = '#FEE2E2'; fb.style.color = '#DC2626';
     }
   } else {
     const val = parseInt(document.getElementById(`ex1c-in${num}`).value);
     const correct = val === q.answer;
-    // Desenhar resultado no canvas (só para single)
-    if (q.type === 'single') drawEx1cCanvasResult(num, q.xGiven, q.side, val, correct);
     if (correct) {
+      // Só redesenha o canvas quando acerta
+      if (q.type === 'single') drawEx1cCanvasResult(num, q.xGiven, q.side, val, correct);
       document.getElementById(`ex1c-in${num}`).disabled = true;
       fb.textContent = q.explain;
       fb.style.background = '#D1FAE5'; fb.style.color = '#059669';
     } else {
-      fb.innerHTML = `❌ Não foi! <button onclick="resetEx1c(${num})" style="margin-left:.8rem;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;padding:.3rem 1rem;border:none;border-radius:10px;background:#3B82F6;color:white;cursor:pointer;">🔄 Tente de novo</button>`;
+      fb.innerHTML = `❌ Não foi dessa vez! <button onclick="resetEx1c(${num})" style="margin-left:.8rem;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;padding:.3rem 1rem;border:none;border-radius:10px;background:#3B82F6;color:white;cursor:pointer;">🔄 Tente de novo</button>`;
       fb.style.background = '#FEE2E2'; fb.style.color = '#DC2626';
     }
   }
@@ -3343,51 +3067,6 @@ window.addEventListener('resize', () => {
   if (s3 && s3.classList.contains('active')) drawCurve();
 });
 
-// ── CANVAS REGRA 68-95-99 ─────────────────────────
-function drawRuleCanvas() {
-  const canvas = document.getElementById('ruleCanvas');
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0,0,W,H); ctx.fillStyle = '#F8FAFC'; ctx.fillRect(0,0,W,H);
-
-  const xMin=-4, xMax=4, yPeak = normal(0,0,1);
-  const toX = x => (x-xMin)/(xMax-xMin)*W;
-  const toY = y => H - 50 - (y/yPeak)*(H-90);
-
-  const zones = [
-    {lo:-1,hi:1,  color:'rgba(59,130,246,0.5)'},
-    {lo:-2,hi:-1, color:'rgba(236,72,153,0.4)'},
-    {lo:1, hi:2,  color:'rgba(236,72,153,0.4)'},
-    {lo:-3,hi:-2, color:'rgba(139,92,246,0.35)'},
-    {lo:2, hi:3,  color:'rgba(139,92,246,0.35)'},
-  ];
-  zones.forEach(({lo,hi,color}) => {
-    ctx.beginPath(); ctx.moveTo(toX(lo), toY(0));
-    for (let x=lo;x<=hi;x+=0.02) ctx.lineTo(toX(x), toY(normal(x,0,1)));
-    ctx.lineTo(toX(hi), toY(0)); ctx.closePath(); ctx.fillStyle = color; ctx.fill();
-  });
-
-  ctx.beginPath();
-  for (let x=xMin;x<=xMax;x+=0.04) ctx.lineTo(toX(x), toY(normal(x,0,1)));
-  ctx.strokeStyle='#1E293B'; ctx.lineWidth=3; ctx.stroke();
-
-  const brac = [
-    {lo:-1,hi:1, y:0.18, color:'#3B82F6', label:'68,26%'},
-    {lo:-2,hi:2, y:0.06, color:'#EC4899', label:'95,44%'},
-    {lo:-3,hi:3, y:-0.02,color:'#8B5CF6', label:'99,74%'},
-  ];
-  brac.forEach(({lo,hi,y,color,label}) => {
-    const yy = toY(y < 0 ? 0 : y) - (y<0?22:0);
-    ctx.strokeStyle=color; ctx.lineWidth=2.5;
-    ctx.beginPath(); ctx.moveTo(toX(lo), yy); ctx.lineTo(toX(hi), yy); ctx.stroke();
-    [lo,hi].forEach(x => { ctx.beginPath(); ctx.moveTo(toX(x), yy-6); ctx.lineTo(toX(x), yy+6); ctx.stroke(); });
-    ctx.fillStyle=color; ctx.font='bold 42px Nunito'; ctx.textAlign='center';
-    ctx.fillText(label, toX((lo+hi)/2), yy-10);
-  });
-
-  ctx.fillStyle='#64748B'; ctx.font='bold 30px Nunito'; ctx.textAlign='center';
-  [-3,-2,-1,0,1,2,3].forEach(v => ctx.fillText(v===0?'μ':`${v>0?'+':''}${v}σ`, toX(v), H-14));
-}
 
 function drawSingleRuleCanvas(canvasId, sigmas, shadeColor, label, axisLabels) {
   const canvas = document.getElementById(canvasId);
@@ -3772,680 +3451,6 @@ function drawZCanvas() {
   });
 }
 
-// ── CANVAS ABA 6 ──────────────────────────────────
-function drawJoaoCanvas() {
-  const canvas = document.getElementById('joaoCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle = '#F8FAFC'; ctx.fillRect(0,0,W,H);
-
-  const xMin = -4, xMax = 4;
-  const yPeak = normal(0,0,1);
-  const toX = x => (x - xMin)/(xMax - xMin) * W;
-  const toY = y => H - 48 - (y/yPeak)*(H - 110);
-
-  // Área azul clara: toda a curva
-  ctx.beginPath();
-  ctx.moveTo(toX(xMin), toY(0));
-  for (let x = xMin; x <= xMax; x += 0.02) ctx.lineTo(toX(x), toY(normal(x,0,1)));
-  ctx.lineTo(toX(xMax), toY(0));
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(59,130,246,0.12)';
-  ctx.fill();
-
-  // Curva
-  ctx.beginPath();
-  for (let x = xMin; x <= xMax; x += 0.04) ctx.lineTo(toX(x), toY(normal(x,0,1)));
-  ctx.strokeStyle = '#1E293B'; ctx.lineWidth = 2.5; ctx.stroke();
-
-  // Linha da média (destaque)
-  ctx.beginPath();
-  ctx.moveTo(toX(0), toY(0)); ctx.lineTo(toX(0), toY(normal(0,0,1)));
-  ctx.strokeStyle = '#3B82F6'; ctx.lineWidth = 3; ctx.setLineDash([6,4]); ctx.stroke(); ctx.setLineDash([]);
-
-  // Rótulo média
-  ctx.font = 'bold 22px Nunito'; ctx.textAlign = 'center';
-  ctx.fillStyle = '#1D4ED8';
-  ctx.fillText('média das notas = 6,0 ± 1,5', toX(0), toY(normal(0,0,1)) - 12);
-
-  // Rótulos 2.000 alunos em cada lado
-  ctx.font = 'bold 22px Nunito'; ctx.textAlign = 'center';
-  ctx.fillStyle = 'rgba(59,130,246,0.8)';
-  ctx.fillText('2.000 alunos', toX(-2), toY(0.12));
-  ctx.fillText('50%', toX(-2), toY(0.12) + 26);
-  ctx.fillText('2.000 alunos', toX(2), toY(0.12));
-  ctx.fillText('50%', toX(2), toY(0.12) + 26);
-
-  // Eixo x
-  const axisMarks = [
-    {z:-3,label:'1,5'},{z:-2,label:'3'  },{z:-1,label:'4,5'},
-    {z: 0,label:'6'  },{z: 1,label:'7,5'},{z: 2,label:'9'  },{z:3,label:'10,5'},
-  ];
-  ctx.font = 'bold 22px Nunito'; ctx.textAlign = 'center';
-  axisMarks.forEach(({z,label}) => {
-    ctx.fillStyle = z === 0 ? '#1D4ED8' : '#64748B';
-    ctx.fillText(label, toX(z), H - 14);
-    ctx.beginPath();
-    ctx.moveTo(toX(z), toY(0)); ctx.lineTo(toX(z), toY(0)+6);
-    ctx.strokeStyle = z === 0 ? '#3B82F6' : '#CBD5E1';
-    ctx.lineWidth = 2; ctx.stroke();
-  });
-}
-
-// ── CANVAS 7,5 (caso que funciona com regra empírica) ──
-function draw75Canvas() {
-  const canvas = document.getElementById('canvas75');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle = '#F8FAFC'; ctx.fillRect(0,0,W,H);
-
-  const xMin = -4, xMax = 4;
-  const yPeak = normal(0,0,1);
-  const toX = x => (x - xMin)/(xMax - xMin) * W;
-  const toY = y => H - 44 - (y/yPeak)*(H - 68);
-
-  // Área azul: abaixo da média (50%)
-  ctx.beginPath();
-  ctx.moveTo(toX(xMin), toY(0));
-  for (let x = xMin; x <= 0; x += 0.02) ctx.lineTo(toX(x), toY(normal(x,0,1)));
-  ctx.lineTo(toX(0), toY(0));
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(59,130,246,0.35)';
-  ctx.fill();
-
-  // Área verde: entre média e +1σ (34,13%)
-  ctx.beginPath();
-  ctx.moveTo(toX(0), toY(0));
-  for (let x = 0; x <= 1; x += 0.02) ctx.lineTo(toX(x), toY(normal(x,0,1)));
-  ctx.lineTo(toX(1), toY(0));
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(16,185,129,0.40)';
-  ctx.fill();
-
-  // Curva
-  ctx.beginPath();
-  for (let x = xMin; x <= xMax; x += 0.04) ctx.lineTo(toX(x), toY(normal(x,0,1)));
-  ctx.strokeStyle = '#1E293B'; ctx.lineWidth = 2.5; ctx.stroke();
-
-  // Linha da média
-  ctx.beginPath();
-  ctx.moveTo(toX(0), toY(0)); ctx.lineTo(toX(0), toY(normal(0,0,1)));
-  ctx.strokeStyle = '#3B82F6'; ctx.lineWidth = 2; ctx.setLineDash([5,4]); ctx.stroke(); ctx.setLineDash([]);
-
-  // Linha +1σ (nota 7,5)
-  ctx.beginPath();
-  ctx.moveTo(toX(1), toY(0)); ctx.lineTo(toX(1), toY(normal(1,0,1)) - 8);
-  ctx.strokeStyle = '#10B981'; ctx.lineWidth = 2.5; ctx.setLineDash([6,4]); ctx.stroke(); ctx.setLineDash([]);
-
-  // Rótulos percentuais nas áreas
-  ctx.font = 'bold 22px Nunito'; ctx.textAlign = 'center';
-  ctx.fillStyle = '#1D4ED8';
-  ctx.fillText('50%', toX(-2), toY(0.09));
-  ctx.fillStyle = '#059669';
-  ctx.fillText('34,13%', toX(0.5), toY(0.18));
-
-  // Rótulo nota 7,5
-  ctx.font = 'bold 22px Nunito'; ctx.fillStyle = '#059669';
-  ctx.fillText('nota 7,5 = +1σ', toX(1), toY(normal(1,0,1)) - 22);
-
-  // Eixo x
-  const axisMarks = [
-    {z:-3,label:'1,5'},{z:-2,label:'3'  },{z:-1,label:'4,5'},
-    {z: 0,label:'6'  },{z: 1,label:'7,5'},{z: 2,label:'9'  },{z:3,label:'10,5'},
-  ];
-  ctx.font = 'bold 22px Nunito'; ctx.textAlign = 'center';
-  axisMarks.forEach(({z,label}) => {
-    ctx.fillStyle = z === 0 ? '#1D4ED8' : z === 1 ? '#059669' : '#64748B';
-    ctx.fillText(label, toX(z), H - 14);
-    ctx.beginPath();
-    ctx.moveTo(toX(z), toY(0)); ctx.lineTo(toX(z), toY(0)+5);
-    ctx.strokeStyle = z === 0 ? '#3B82F6' : z === 1 ? '#10B981' : '#CBD5E1';
-    ctx.lineWidth = 1.5; ctx.stroke();
-  });
-}
-
-
-function drawQuizCurve(canvasId, opts = {}) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const mu = opts.mu ?? 0, sigma = opts.sigma ?? 1;
-  const xMin = -4, xMax = 4;
-  const norm = (x) => (1/(sigma*Math.sqrt(2*Math.PI)))*Math.exp(-0.5*((x-mu)/sigma)**2);
-  const yPeak = norm(mu) * 1.18;
-  const toX = x => (x - xMin)/(xMax - xMin) * W;
-  const toY = y => H - 28 - (y/yPeak)*(H - 48);
-
-  ctx.clearRect(0,0,W,H); ctx.fillStyle = '#F8FAFC'; ctx.fillRect(0,0,W,H);
-
-  if (opts.shadeRegions) {
-    opts.shadeRegions.forEach(({lo, hi, color}) => {
-      ctx.beginPath(); ctx.moveTo(toX(lo), toY(0));
-      for (let x=lo; x<=hi; x+=0.02) ctx.lineTo(toX(x), toY(norm(x)));
-      ctx.lineTo(toX(hi), toY(0)); ctx.closePath(); ctx.fillStyle = color; ctx.fill();
-    });
-  }
-
-  if (opts.mu2 !== undefined) {
-    const sigma2 = opts.sigma2 ?? 1;
-    const norm2 = (x) => (1/(sigma2*Math.sqrt(2*Math.PI)))*Math.exp(-0.5*((x-opts.mu2)/sigma2)**2);
-    ctx.beginPath();
-    for (let x=xMin; x<=xMax; x+=0.04) ctx.lineTo(toX(x), toY(norm2(x)));
-    ctx.strokeStyle = opts.color2 ?? '#EC4899'; ctx.lineWidth = 2.5; ctx.setLineDash([6,4]); ctx.stroke(); ctx.setLineDash([]);
-    if (opts.label2) {
-      ctx.fillStyle = opts.color2 ?? '#EC4899'; ctx.font = 'bold 12px Nunito'; ctx.textAlign = 'center';
-      ctx.fillText(opts.label2, toX(opts.mu2), toY(norm2(opts.mu2)) - 8);
-    }
-  }
-
-  ctx.beginPath();
-  for (let x=xMin; x<=xMax; x+=0.04) ctx.lineTo(toX(x), toY(norm(x)));
-  ctx.strokeStyle = opts.color ?? '#3B82F6'; ctx.lineWidth = 3; ctx.stroke();
-
-  ctx.beginPath();
-  ctx.moveTo(toX(mu), toY(0)); ctx.lineTo(toX(mu), toY(norm(mu)));
-  ctx.strokeStyle = opts.color ?? '#3B82F6'; ctx.lineWidth = 2; ctx.setLineDash([5,4]); ctx.stroke(); ctx.setLineDash([]);
-
-  if (opts.arrow) {
-    const ax = toX(opts.arrow.x), ay = toY(norm(opts.arrow.x)) - 10;
-    ctx.beginPath(); ctx.moveTo(ax, ay - 30); ctx.lineTo(ax, ay - 4);
-    ctx.strokeStyle = '#EF4444'; ctx.lineWidth = 2.5; ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(ax - 7, ay - 12); ctx.lineTo(ax, ay - 2); ctx.lineTo(ax + 7, ay - 12);
-    ctx.fillStyle = '#EF4444'; ctx.fill();
-    if (opts.arrow.label) {
-      ctx.fillStyle = '#EF4444'; ctx.font = 'bold 12px Nunito'; ctx.textAlign = 'center';
-      ctx.fillText(opts.arrow.label, ax, ay - 34);
-    }
-  }
-
-  ctx.fillStyle = '#64748B'; ctx.font = 'bold 22px Nunito'; ctx.textAlign = 'center';
-  const ticks = opts.ticks ?? [-3,-2,-1,0,1,2,3];
-  const tickLabels = opts.tickLabels ?? null;
-  ticks.forEach((v, i) => {
-    const label = tickLabels ? tickLabels[i] : (v === 0 ? 'μ' : `${v > 0 ? '+' : ''}${v}σ`);
-    ctx.fillText(label, toX(v), H - 4);
-  });
-
-  if (opts.label) {
-    ctx.fillStyle = opts.color ?? '#3B82F6'; ctx.font = 'bold 22px Nunito'; ctx.textAlign = 'center';
-    ctx.fillText(opts.label, toX(mu), toY(norm(mu)) - 8);
-  }
-}
-
-// ══════════════════════════════════════════════════════
-//  BANCO DE QUESTÕES — 5 SÉRIES
-//  Ordem pedagógica:
-//   Série 1 → Regra 68,26% (±1σ)
-//   Série 2 → Regra 95,44% (±2σ)
-//   Série 3 → Regra 99,74% (±3σ)
-//   Série 4 → Lacunas (consolidação)
-//   Série 5 → V ou F conceitual (revisão final)
-// ══════════════════════════════════════════════════════
-
-// ── SÉRIE 1: Regra dos 68,26% (±1σ) ──
-// Respostas distribuídas entre posições A (0), B (1), C (2), D (3)
-const serie1 = [
-  {
-    tipo:'grafico',
-    q:'📊 A área azul cobre de −1σ até +1σ. Que porcentagem dos dados fica dentro?',
-    canvasSetup:{ shadeRegions:[{lo:-1,hi:1,color:'rgba(59,130,246,0.45)'}] },
-    opts:['50%','99,74%','68,26%','95,44%'],
-    answer:2, explain:'✅ A região ±1σ sempre cobre 68,26% dos dados — é a Regra dos 68,26%!'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área azul cobre ±1σ. Altura média 170 cm, desvio padrão 8 cm. Qual é o limite INFERIOR da área azul?',
-    canvasSetup:{ shadeRegions:[{lo:-1,hi:1,color:'rgba(59,130,246,0.45)'}] },
-    opts:['154 cm  (170 − 16)','146 cm  (170 − 24)','178 cm  (170 + 8)','162 cm  (170 − 8)'],
-    answer:3, explain:'✅ Limite inferior = μ − 1σ = 170 − 8 = 162 cm.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área azul cobre ±1σ. Altura média 170 cm, desvio padrão 8 cm. Qual é o limite SUPERIOR da área azul?',
-    canvasSetup:{ shadeRegions:[{lo:-1,hi:1,color:'rgba(59,130,246,0.45)'}] },
-    opts:['162 cm  (170 − 8)','178 cm  (170 + 8)','194 cm  (170 + 24)','186 cm  (170 + 16)'],
-    answer:1, explain:'✅ Limite superior = μ + 1σ = 170 + 8 = 178 cm.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Em testes de QI, média 100 e desvio padrão 15. A área azul (±1σ) vai de qual valor até qual?',
-    canvasSetup:{ shadeRegions:[{lo:-1,hi:1,color:'rgba(59,130,246,0.45)'}] },
-    opts:['70 até 130  (100 ± 30)','90 até 110  (100 ± 10)','85 até 115  (100 ± 15)','55 até 145  (100 ± 45)'],
-    answer:2, explain:'✅ μ ± 1σ = 100 ± 15 → de 85 até 115.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Peso de bebês: média 3,3 kg, desvio padrão 0,4 kg. A área azul (±1σ) vai de qual valor até qual?',
-    canvasSetup:{ shadeRegions:[{lo:-1,hi:1,color:'rgba(59,130,246,0.45)'}] },
-    opts:['2,1 kg até 4,5 kg  (3,3 ± 1,2)','2,9 kg até 3,7 kg  (3,3 ± 0,4)','3,1 kg até 3,5 kg  (3,3 ± 0,2)','2,5 kg até 4,1 kg  (3,3 ± 0,8)'],
-    answer:1, explain:'✅ μ ± 1σ = 3,3 ± 0,4 → de 2,9 kg até 3,7 kg.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Notas de uma prova: média 7, desvio padrão 1. A área azul (±1σ) representa quais notas?',
-    canvasSetup:{ shadeRegions:[{lo:-1,hi:1,color:'rgba(59,130,246,0.45)'}] },
-    opts:['Nota 5 até nota 9  (7 ± 2)','Nota 4 até nota 10  (7 ± 3)','Nota 6,5 até nota 7,5  (7 ± 0,5)','Nota 6 até nota 8  (7 ± 1)'],
-    answer:3, explain:'✅ μ ± 1σ = 7 ± 1 → de nota 6 até nota 8.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Temperatura média 25°C, desvio padrão 3°C. A área azul (±1σ) vai de qual temperatura até qual?',
-    canvasSetup:{ shadeRegions:[{lo:-1,hi:1,color:'rgba(59,130,246,0.45)'}] },
-    opts:['23°C até 27°C  (25 ± 2)','16°C até 34°C  (25 ± 9)','22°C até 28°C  (25 ± 3)','19°C até 31°C  (25 ± 6)'],
-    answer:2, explain:'✅ μ ± 1σ = 25 ± 3 → de 22°C até 28°C.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 As pontas laranjas mostram os dados FORA de ±1σ. Quantos % estão nessas pontas?',
-    canvasSetup:{ shadeRegions:[{lo:-4,hi:-1,color:'rgba(245,158,11,0.45)'},{lo:1,hi:4,color:'rgba(245,158,11,0.45)'}] },
-    opts:['50%','0,26%  (100% − 99,74%)','4,56%  (100% − 95,44%)','31,74%  (100% − 68,26%)'],
-    answer:3, explain:'✅ Como 68,26% ficam DENTRO de ±1σ, sobram 100% − 68,26% = 31,74% nas extremidades.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 As pontas laranjas mostram os dados fora de ±1σ. Numa turma de 100 alunos, quantos ficam nessas pontas?',
-    canvasSetup:{ shadeRegions:[{lo:-4,hi:-1,color:'rgba(245,158,11,0.45)'},{lo:1,hi:4,color:'rgba(245,158,11,0.45)'}] },
-    opts:['Nenhum','Cerca de 32 alunos','Cerca de 5 alunos','Cerca de 68 alunos'],
-    answer:1, explain:'✅ 31,74% de 100 ≈ 32 alunos ficam fora de ±1σ — nas duas extremidades juntas.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área azul cobre ±1σ. Numa turma de 50 alunos, quantos ficam dentro da área azul?',
-    canvasSetup:{ shadeRegions:[{lo:-1,hi:1,color:'rgba(59,130,246,0.45)'}] },
-    opts:['Todos os 50 alunos','Cerca de 48 alunos  (95,44% de 50)','Cerca de 25 alunos  (50% de 50)','Cerca de 34 alunos  (68,26% de 50)'],
-    answer:3, explain:'✅ 68,26% de 50 ≈ 34 alunos ficam dentro de ±1σ da média.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área azul mostra os dados ACIMA de +1σ (apenas a ponta direita). Que porcentagem dos dados fica nessa região?',
-    canvasSetup:{ shadeRegions:[{lo:1,hi:4,color:'rgba(59,130,246,0.45)'}] },
-    opts:['15,87%  (31,74% ÷ 2)','31,74%  (100% − 68,26%)','4,56%','34,13%'],
-    answer:0, explain:'✅ Os 31,74% fora de ±1σ se dividem igualmente: 15,87% acima de +1σ e 15,87% abaixo de −1σ.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área azul mostra os dados ABAIXO de −1σ (apenas a ponta esquerda). Que porcentagem dos dados fica nessa região?',
-    canvasSetup:{ shadeRegions:[{lo:-4,hi:-1,color:'rgba(59,130,246,0.45)'}] },
-    opts:['31,74%','4,56%','34,13%','15,87%  (31,74% ÷ 2)'],
-    answer:3, explain:'✅ Os 31,74% fora de ±1σ se dividem igualmente: 15,87% abaixo de −1σ e 15,87% acima de +1σ.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área azul mostra os dados da MÉDIA até +1σ (metade direita da região central). Que porcentagem dos dados fica aqui?',
-    canvasSetup:{ shadeRegions:[{lo:0,hi:1,color:'rgba(59,130,246,0.45)'}] },
-    opts:['34,13%  (68,26% ÷ 2)','68,26%','50%','15,87%'],
-    answer:0, explain:'✅ A região ±1σ tem 68,26% no total. Como a curva é simétrica, cada metade (0 a +1σ ou −1σ a 0) tem 34,13%.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área azul mostra todos os dados ACIMA da média (lado direito inteiro). Que porcentagem dos dados fica nessa metade?',
-    canvasSetup:{ shadeRegions:[{lo:0,hi:4,color:'rgba(59,130,246,0.45)'}] },
-    opts:['68,26%','50%','34,13%','25%'],
-    answer:1, explain:'✅ A distribuição normal é simétrica — exatamente 50% dos dados ficam acima da média e 50% abaixo.'
-  },
-];
-
-// ── SÉRIE 2: Regra dos 95,44% (±2σ) ──
-const serie2 = [
-  {
-    tipo:'grafico',
-    q:'📊 A área rosa cobre de −2σ até +2σ. Que porcentagem dos dados fica dentro?',
-    canvasSetup:{ shadeRegions:[{lo:-2,hi:2,color:'rgba(236,72,153,0.35)'}] },
-    opts:['99,74%','50%','68,26%','95,44%'],
-    answer:3, explain:'✅ A região ±2σ sempre cobre 95,44% dos dados — é a Regra dos 95,44%!'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área rosa cobre ±2σ. Altura média 170 cm, desvio padrão 8 cm. Qual é o limite INFERIOR da área rosa?',
-    canvasSetup:{ shadeRegions:[{lo:-2,hi:2,color:'rgba(236,72,153,0.35)'}] },
-    opts:['154 cm  (170 − 16)','162 cm  (170 − 8)','146 cm  (170 − 24)','186 cm  (170 + 16)'],
-    answer:0, explain:'✅ Limite inferior = μ − 2σ = 170 − 16 = 154 cm.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área rosa cobre ±2σ. Altura média 170 cm, desvio padrão 8 cm. Qual é o limite SUPERIOR da área rosa?',
-    canvasSetup:{ shadeRegions:[{lo:-2,hi:2,color:'rgba(236,72,153,0.35)'}] },
-    opts:['178 cm  (170 + 8)','154 cm  (170 − 16)','186 cm  (170 + 16)','194 cm  (170 + 24)'],
-    answer:2, explain:'✅ Limite superior = μ + 2σ = 170 + 16 = 186 cm.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Em testes de QI (média 100, σ=15), a área rosa (±2σ) vai de qual valor até qual?',
-    canvasSetup:{ shadeRegions:[{lo:-2,hi:2,color:'rgba(236,72,153,0.35)'}] },
-    opts:['85 até 115  (100 ± 15)','70 até 130  (100 ± 30)','55 até 145  (100 ± 45)','80 até 120  (100 ± 20)'],
-    answer:1, explain:'✅ μ ± 2σ = 100 ± 30 → de 70 até 130.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Peso de bebês: média 3,3 kg, σ=0,4 kg. A área rosa (±2σ) vai de qual valor até qual?',
-    canvasSetup:{ shadeRegions:[{lo:-2,hi:2,color:'rgba(236,72,153,0.35)'}] },
-    opts:['2,9 kg até 3,7 kg  (3,3 ± 0,4)','2,7 kg até 3,9 kg  (3,3 ± 0,6)','2,1 kg até 4,5 kg  (3,3 ± 1,2)','2,5 kg até 4,1 kg  (3,3 ± 0,8)'],
-    answer:3, explain:'✅ μ ± 2σ = 3,3 ± 0,8 → de 2,5 kg até 4,1 kg.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Notas de uma prova: média 7, σ=1. A área rosa (±2σ) representa quais notas?',
-    canvasSetup:{ shadeRegions:[{lo:-2,hi:2,color:'rgba(236,72,153,0.35)'}] },
-    opts:['Nota 6 até nota 8  (7 ± 1)','Nota 5 até nota 9  (7 ± 2)','Nota 5,5 até nota 8,5  (7 ± 1,5)','Nota 4 até nota 10  (7 ± 3)'],
-    answer:1, explain:'✅ μ ± 2σ = 7 ± 2 → de nota 5 até nota 9.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Temperatura média 25°C, σ=3°C. A área rosa (±2σ) vai de qual temperatura até qual?',
-    canvasSetup:{ shadeRegions:[{lo:-2,hi:2,color:'rgba(236,72,153,0.35)'}] },
-    opts:['22°C até 28°C  (25 ± 3)','16°C até 34°C  (25 ± 9)','20°C até 30°C  (25 ± 5)','19°C até 31°C  (25 ± 6)'],
-    answer:3, explain:'✅ μ ± 2σ = 25 ± 6 → de 19°C até 31°C.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 As pontas laranjas mostram os dados FORA de ±2σ. Quantos % estão nessas pontas?',
-    canvasSetup:{ shadeRegions:[{lo:-4,hi:-2,color:'rgba(245,158,11,0.45)'},{lo:2,hi:4,color:'rgba(245,158,11,0.45)'}] },
-    opts:['31,74%  (100% − 68,26%)','4,56%  (100% − 95,44%)','0,26%  (100% − 99,74%)','10%'],
-    answer:1, explain:'✅ Como 95,44% ficam DENTRO de ±2σ, sobram 100% − 95,44% = 4,56% nas extremidades.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 As pontas laranjas mostram os dados fora de ±2σ. Numa cidade com 10.000 moradores, quantos ficam nessas pontas?',
-    canvasSetup:{ shadeRegions:[{lo:-4,hi:-2,color:'rgba(245,158,11,0.45)'},{lo:2,hi:4,color:'rgba(245,158,11,0.45)'}] },
-    opts:['Nenhum','Cerca de 3.174 moradores  (31,74%)','Cerca de 456 moradores  (4,56% de 10.000)','Cerca de 26 moradores  (0,26%)'],
-    answer:2, explain:'✅ 4,56% de 10.000 = 456 moradores ficam fora de ±2σ — são casos incomuns.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área rosa cobre ±2σ. Numa turma de 100 alunos, quantos ficam dentro da área rosa?',
-    canvasSetup:{ shadeRegions:[{lo:-2,hi:2,color:'rgba(236,72,153,0.35)'}] },
-    opts:['Todos os 100 alunos','Cerca de 68 alunos  (68,26%)','Cerca de 100 alunos  (99,74%)','Cerca de 95 alunos  (95,44% de 100)'],
-    answer:3, explain:'✅ 95,44% de 100 ≈ 95 alunos ficam dentro de ±2σ da média.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área rosa mostra os dados ACIMA de +2σ (apenas a ponta direita). Que porcentagem dos dados fica nessa região?',
-    canvasSetup:{ shadeRegions:[{lo:2,hi:4,color:'rgba(236,72,153,0.35)'}] },
-    opts:['4,56%','2,28%  (4,56% ÷ 2)','10%','31,74%'],
-    answer:1, explain:'✅ Os 4,56% fora de ±2σ se dividem igualmente: 2,28% acima de +2σ e 2,28% abaixo de −2σ.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área rosa mostra os dados ABAIXO de −2σ (apenas a ponta esquerda). Que porcentagem dos dados fica nessa região?',
-    canvasSetup:{ shadeRegions:[{lo:-4,hi:-2,color:'rgba(236,72,153,0.35)'}] },
-    opts:['4,56%','15,87%','2,28%  (4,56% ÷ 2)','0,26%'],
-    answer:2, explain:'✅ Os 4,56% fora de ±2σ se dividem igualmente: 2,28% abaixo de −2σ e 2,28% acima de +2σ.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área rosa mostra os dados entre +1σ e +2σ (faixa direita entre os dois desvios). Que porcentagem fica aqui?',
-    canvasSetup:{ shadeRegions:[{lo:1,hi:2,color:'rgba(236,72,153,0.35)'}] },
-    opts:['13,59%  (95,44%−68,26% = 27,18%, dividido por 2)','27,18%','4,56%','34,13%'],
-    answer:0, explain:'✅ Entre ±1σ e ±2σ temos 95,44% − 68,26% = 27,18%. Dividindo pelos dois lados: 13,59% em cada faixa lateral.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área rosa mostra os dados entre −2σ e −1σ (faixa esquerda). Que porcentagem fica aqui?',
-    canvasSetup:{ shadeRegions:[{lo:-2,hi:-1,color:'rgba(236,72,153,0.35)'}] },
-    opts:['27,18%','4,56%','34,13%','13,59%  (95,44%−68,26% = 27,18%, dividido por 2)'],
-    answer:3, explain:'✅ A faixa entre −2σ e −1σ tem os mesmos 13,59% que a faixa entre +1σ e +2σ — a curva é simétrica!'
-  },
-];
-
-// ── SÉRIE 3: Regra dos 99,74% (±3σ) ──
-const serie3 = [
-  {
-    tipo:'grafico',
-    q:'📊 A área roxa cobre de −3σ até +3σ. Que porcentagem dos dados fica dentro?',
-    canvasSetup:{ shadeRegions:[{lo:-3,hi:3,color:'rgba(139,92,246,0.35)'}] },
-    opts:['68,26%','100%','95,44%','99,74%'],
-    answer:3, explain:'✅ A região ±3σ sempre cobre 99,74% dos dados — é a Regra dos 99,74%!'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área roxa cobre ±3σ. Altura média 170 cm, desvio padrão 8 cm. Qual é o limite INFERIOR?',
-    canvasSetup:{ shadeRegions:[{lo:-3,hi:3,color:'rgba(139,92,246,0.35)'}] },
-    opts:['162 cm  (170 − 8)','146 cm  (170 − 24)','154 cm  (170 − 16)','194 cm  (170 + 24)'],
-    answer:1, explain:'✅ Limite inferior = μ − 3σ = 170 − 24 = 146 cm.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área roxa cobre ±3σ. Altura média 170 cm, desvio padrão 8 cm. Qual é o limite SUPERIOR?',
-    canvasSetup:{ shadeRegions:[{lo:-3,hi:3,color:'rgba(139,92,246,0.35)'}] },
-    opts:['178 cm  (170 + 8)','146 cm  (170 − 24)','186 cm  (170 + 16)','194 cm  (170 + 24)'],
-    answer:3, explain:'✅ Limite superior = μ + 3σ = 170 + 24 = 194 cm.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Em testes de QI (média 100, σ=15), a área roxa (±3σ) vai de qual valor até qual?',
-    canvasSetup:{ shadeRegions:[{lo:-3,hi:3,color:'rgba(139,92,246,0.35)'}] },
-    opts:['55 até 145  (100 ± 45)','85 até 115  (100 ± 15)','60 até 140  (100 ± 40)','70 até 130  (100 ± 30)'],
-    answer:0, explain:'✅ μ ± 3σ = 100 ± 45 → de 55 até 145.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Peso de bebês: média 3,3 kg, σ=0,4 kg. A área roxa (±3σ) vai de qual valor até qual?',
-    canvasSetup:{ shadeRegions:[{lo:-3,hi:3,color:'rgba(139,92,246,0.35)'}] },
-    opts:['2,5 kg até 4,1 kg  (3,3 ± 0,8)','2,0 kg até 4,6 kg  (3,3 ± 1,3)','2,1 kg até 4,5 kg  (3,3 ± 1,2)','2,9 kg até 3,7 kg  (3,3 ± 0,4)'],
-    answer:2, explain:'✅ μ ± 3σ = 3,3 ± 1,2 → de 2,1 kg até 4,5 kg.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Notas de uma prova: média 7, σ=1. A área roxa (±3σ) representa quais notas?',
-    canvasSetup:{ shadeRegions:[{lo:-3,hi:3,color:'rgba(139,92,246,0.35)'}] },
-    opts:['Nota 5 até nota 9  (7 ± 2)','Nota 4 até nota 10  (7 ± 3)','Nota 6 até nota 8  (7 ± 1)','Nota 3 até nota 11  (7 ± 4)'],
-    answer:1, explain:'✅ μ ± 3σ = 7 ± 3 → de nota 4 até nota 10.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 Temperatura média 25°C, σ=3°C. A área roxa (±3σ) vai de qual temperatura até qual?',
-    canvasSetup:{ shadeRegions:[{lo:-3,hi:3,color:'rgba(139,92,246,0.35)'}] },
-    opts:['22°C até 28°C  (25 ± 3)','15°C até 35°C  (25 ± 10)','19°C até 31°C  (25 ± 6)','16°C até 34°C  (25 ± 9)'],
-    answer:3, explain:'✅ μ ± 3σ = 25 ± 9 → de 16°C até 34°C.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 As pontinhas laranjas mostram os dados FORA de ±3σ. Quantos % estão nessas pontinhas?',
-    canvasSetup:{ shadeRegions:[{lo:-4,hi:-3,color:'rgba(245,158,11,0.55)'},{lo:3,hi:4,color:'rgba(245,158,11,0.55)'}] },
-    opts:['4,56%  (100% − 95,44%)','31,74%  (100% − 68,26%)','0,26%  (100% − 99,74%)','1%'],
-    answer:2, explain:'✅ Como 99,74% ficam DENTRO de ±3σ, sobram apenas 0,26% nessas pontinhas — raríssimo!'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 As pontinhas laranjas mostram os dados fora de ±3σ. Numa cidade de 10.000 moradores, quantos ficam nessas pontinhas?',
-    canvasSetup:{ shadeRegions:[{lo:-4,hi:-3,color:'rgba(245,158,11,0.55)'},{lo:3,hi:4,color:'rgba(245,158,11,0.55)'}] },
-    opts:['Cerca de 456 moradores  (4,56%)','Cerca de 26 moradores  (0,26% de 10.000)','Nenhum','Cerca de 3.174 moradores  (31,74%)'],
-    answer:1, explain:'✅ 0,26% de 10.000 = 26 moradores. Valores além de ±3σ são extremamente raros!'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área roxa cobre ±3σ. Qual das frases abaixo está ERRADA?',
-    canvasSetup:{ shadeRegions:[{lo:-3,hi:3,color:'rgba(139,92,246,0.35)'}] },
-    opts:['99,74% dos dados ficam dentro','A área roxa é maior que a área rosa','Nenhum valor pode existir fora de ±3σ','Valores fora de ±3σ são muito raros'],
-    answer:2, explain:'✅ Valores fora de ±3σ existem — são 0,26% dos dados. Raros, mas possíveis!'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área roxa mostra os dados ACIMA de +3σ (pontinha direita). Que porcentagem dos dados fica nessa região?',
-    canvasSetup:{ shadeRegions:[{lo:3,hi:4,color:'rgba(139,92,246,0.55)'}] },
-    opts:['0,26%','0,13%  (0,26% ÷ 2)','4,56%','1%'],
-    answer:1, explain:'✅ Os 0,26% fora de ±3σ se dividem igualmente: 0,13% acima de +3σ e 0,13% abaixo de −3σ.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área roxa mostra os dados entre +2σ e +3σ (faixa lateral direita mais externa). Que porcentagem fica aqui?',
-    canvasSetup:{ shadeRegions:[{lo:2,hi:3,color:'rgba(139,92,246,0.35)'}] },
-    opts:['4,56%','2,28%','13,59%','2,15%  (99,74%−95,44% = 4,30%, dividido por 2)'],
-    answer:3, explain:'✅ Entre ±2σ e ±3σ temos 99,74% − 95,44% = 4,30%. Dividindo pelos dois lados: 2,15% em cada faixa.'
-  },
-  {
-    tipo:'grafico',
-    q:'📊 A área roxa mostra os dados entre −3σ e −2σ (faixa lateral esquerda mais externa). Que porcentagem fica aqui?',
-    canvasSetup:{ shadeRegions:[{lo:-3,hi:-2,color:'rgba(139,92,246,0.35)'}] },
-    opts:['2,15%  (99,74%−95,44% = 4,30%, dividido por 2)','13,59%','4,56%','0,26%'],
-    answer:0, explain:'✅ A faixa entre −3σ e −2σ tem os mesmos 2,35% que a faixa entre +2σ e +3σ — a curva é simétrica!'
-  },
-];
-
-// ── SÉRIE 4: Verdadeiro ou Falso — revisão conceitual final (11 questões) ──
-const serie4 = [
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"A curva da distribuição normal tem formato de sino."', answer:true,  explain:'✅ Verdadeiro! O sino é o formato característico da distribuição normal.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"Na distribuição normal, a maioria dos dados fica longe da média."', answer:false, explain:'✅ Falso! A maioria fica perto do centro — é por isso que o sino é alto no meio.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"A distribuição normal é simétrica: os dois lados são iguais."', answer:true,  explain:'✅ Verdadeiro! Se dobrar o gráfico no meio, os dois lados se encaixam perfeitamente.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"A média, a mediana e a moda têm valores diferentes na distribuição normal."', answer:false, explain:'✅ Falso! Os três ficam no mesmo ponto — bem no centro da curva.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"A distribuição normal pode ter formato triangular."', answer:false, explain:'✅ Falso! Só tem formato de sino — nunca triângulo, retângulo ou outra forma.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"O pico da curva normal fica onde está a média."', answer:true,  explain:'✅ Verdadeiro! O ponto mais alto da curva é exatamente onde fica a média (μ).' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"Quando o desvio padrão é pequeno, a curva fica mais estreita e alta."', answer:true,  explain:'✅ Verdadeiro! Desvio padrão pequeno = dados concentrados = curva alta e fina.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"Quando o desvio padrão aumenta, a curva fica mais estreita."', answer:false, explain:'✅ Falso! Quando o desvio padrão aumenta, a curva fica mais larga e mais baixa.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"Alturas de pessoas adultas seguem aproximadamente a distribuição normal."', answer:true,  explain:'✅ Verdadeiro! Altura humana é um exemplo clássico de distribuição normal.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"Na distribuição normal, não existem valores muito distantes da média."', answer:false, explain:'✅ Falso! Existem, mas são raros. Os extremos têm probabilidade muito baixa.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"Cerca de 68,26% dos dados ficam entre μ−1σ e μ+1σ, e os outros 31,74% ficam nas duas extremidades da curva."', answer:true,  explain:'✅ Verdadeiro! 68,26% dentro de ±1σ + 31,74% fora = 100%. As duas pontinhas juntas somam 31,74%.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"A área total embaixo da curva normal representa 100% dos dados."', answer:true,  explain:'✅ Verdadeiro! A área total sob a curva é sempre 100% — todos os dados estão representados.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"Abaixo da média ficam exatamente 50% dos dados."', answer:true,  explain:'✅ Verdadeiro! Como a curva é simétrica, a média divide os dados ao meio — 50% abaixo e 50% acima.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"Acima da média ficam mais de 50% dos dados."', answer:false, explain:'✅ Falso! Acima da média ficam exatamente 50% dos dados — a curva é perfeitamente simétrica.' },
-  { tipo:'vof', q:'Verdadeiro ou Falso?\n\n"A soma das probabilidades de todos os valores possíveis na distribuição normal é maior que 100%."', answer:false, explain:'✅ Falso! A soma é sempre exatamente 100% — a área total sob a curva representa todos os casos possíveis.' },
-];
-
-const allSeries = {
-  1: { name:'Série 1', subtitle:'Regra dos 68,26% (±1σ)',    color:'#3B82F6', tag:'tag-s1', questions: serie1 },
-  2: { name:'Série 2', subtitle:'Regra dos 95,44% (±2σ)',    color:'#10B981', tag:'tag-s2', questions: serie2 },
-  3: { name:'Série 3', subtitle:'Regra dos 99,74% (±3σ)',  color:'#F59E0B', tag:'tag-s3', questions: serie3 },
-  4: { name:'Série 4', subtitle:'Verdadeiro ou Falso',    color:'#8B5CF6', tag:'tag-s4', questions: serie4 },
-};
-
-// ── Estado do quiz ──
-let currentSeriesId = null;
-let quizDeck = [];
-let qi = 0, score = 0;
-
-function startSeries(seriesId) {
-  currentSeriesId = seriesId;
-  const s = allSeries[seriesId];
-  quizDeck = [...s.questions]; // ordem fixa — mesmas 10 questões
-  qi = 0; score = 0;
-  document.getElementById('quiz-menu').style.display = 'none';
-  document.getElementById('quiz-container').style.display = 'block';
-  renderQuiz();
-}
-
-function backToMenu() {
-  document.getElementById('quiz-container').style.display = 'none';
-  document.getElementById('quiz-menu').style.display = 'block';
-}
-
-function renderQuiz() {
-  const c = document.getElementById('quiz-container');
-  const s = allSeries[currentSeriesId];
-
-  if (qi >= quizDeck.length) {
-    const total = quizDeck.length;
-    const pct = Math.round(score/total*100);
-    const emoji = pct === 100 ? '🏆' : pct >= 70 ? '🎉' : '💪';
-    const nextId = currentSeriesId < 4 ? currentSeriesId + 1 : null;
-
-    c.innerHTML = `
-      <button class="back-series-btn" onclick="backToMenu()">← Voltar ao menu</button>
-      <div class="card" style="border-color:${s.color}">
-        <div class="series-tag ${s.tag}">${s.name} — ${s.subtitle}</div>
-        <h2>${emoji} Resultado!</h2>
-        <div id="quiz-score">Você acertou <strong>${score}</strong> de <strong>${total}</strong> questões (${pct}%)</div>
-        <div class="series-result-btns">
-          <button class="btn-repeat" onclick="startSeries(${currentSeriesId})">🔄 Repetir esta série</button>
-          ${nextId ? `<button class="btn-next-series" onclick="startSeries(${nextId})">➡️ Próxima série</button>` : ''}
-          <button class="btn-menu" onclick="backToMenu()">📚 Ver todas as séries</button>
-        </div>
-      </div>
-    `;
-    return;
-  }
-
-  const q = quizDeck[qi];
-  const progress = Math.round((qi/quizDeck.length)*100);
-  const canvasId = 'qcanvas_' + qi;
-  const s_tag = `<span class="series-tag ${s.tag}">${s.name} — ${s.subtitle}</span>`;
-
-  let optsHTML = '';
-  if (q.tipo === 'vof') {
-    optsHTML = `<div class="quiz-opts-vof">
-      <button onclick="answerVOF(true)">✅ Verdadeiro</button>
-      <button onclick="answerVOF(false)">❌ Falso</button>
-    </div>`;
-  } else if (q.tipo === 'lacuna') {
-    optsHTML = `
-      <div class="lacuna-text">${q.q.replace(q.blank || '___', `<span class="lacuna-blank" id="lacuna-fill">___</span>`)}</div>
-      <div class="quiz-lacuna-wrap">
-        ${q.opts.map((o,i)=>`<button onclick="answerLacuna(${i})">${o}</button>`).join('')}
-      </div>`;
-  } else {
-    optsHTML = `<div class="quiz-opts">
-      ${q.opts.map((o,i)=>`<button onclick="answerMC(${i})">${o}</button>`).join('')}
-    </div>`;
-  }
-
-  c.innerHTML = `
-    <button class="back-series-btn" onclick="backToMenu()">← Voltar ao menu</button>
-    <div class="card" style="border-color:${s.color}">
-      <div class="quiz-header">
-        <span class="quiz-progress-label">Questão ${qi+1} de ${quizDeck.length}</span>
-        ${s_tag}
-      </div>
-      <div class="quiz-progress-bar"><div class="quiz-progress-fill" style="width:${progress}%;background:${s.color}"></div></div>
-      ${q.tipo !== 'lacuna' ? `<div class="quiz-q">${q.q}</div>` : ''}
-      ${q.tipo === 'grafico' ? `<div class="quiz-canvas-wrap"><canvas id="${canvasId}" width="520" height="240"></canvas></div>` : ''}
-      ${optsHTML}
-      <div class="feedback" id="qfeedback"></div>
-      <button class="next-btn" id="qnext" style="background:${s.color}" onclick="qi++;renderQuiz()">Próxima →</button>
-    </div>
-  `;
-
-  if (q.tipo === 'grafico' && q.canvasSetup) {
-    setTimeout(() => drawQuizCurve(canvasId, q.canvasSetup), 30);
-  }
-}
-
-function showFeedback(correct, q) {
-  const fb = document.getElementById('qfeedback');
-  if (correct) {
-    score++;
-    fb.textContent = q.explain;
-    fb.className = 'feedback ok';
-  } else {
-    fb.textContent = '❌ Não foi dessa vez. ' + q.explain;
-    fb.className = 'feedback err';
-  }
-  document.getElementById('qnext').style.display = 'inline-block';
-}
-
-function answerMC(i) {
-  const q = quizDeck[qi];
-  const btns = document.querySelectorAll('.quiz-opts button');
-  btns.forEach(b => b.disabled = true);
-  btns[q.answer].classList.add('correct');
-  if (i !== q.answer) btns[i].classList.add('wrong');
-  showFeedback(i === q.answer, q);
-}
-
-function answerVOF(val) {
-  const q = quizDeck[qi];
-  const btns = document.querySelectorAll('.quiz-opts-vof button');
-  btns.forEach(b => b.disabled = true);
-  const correctIdx = q.answer === true ? 0 : 1;
-  const chosenIdx = val === true ? 0 : 1;
-  btns[correctIdx].classList.add('correct');
-  if (chosenIdx !== correctIdx) btns[chosenIdx].classList.add('wrong');
-  showFeedback(val === q.answer, q);
-}
-
-function answerLacuna(i) {
-  const q = quizDeck[qi];
-  const btns = document.querySelectorAll('.quiz-lacuna-wrap button');
-  btns.forEach(b => b.disabled = true);
-  btns[q.answer].classList.add('correct');
-  if (i !== q.answer) btns[i].classList.add('wrong');
-  const fill = document.getElementById('lacuna-fill');
-  if (fill) { fill.textContent = q.opts[q.answer]; fill.style.color = i === q.answer ? '#059669' : '#DC2626'; }
-  showFeedback(i === q.answer, q);
-}
 
 // ── CANVAS SIMETRIA ABA 2 (interativo) ───────────
 function drawSimetriaCanvas() {
@@ -4928,7 +3933,6 @@ function drawAreasCanvas(canvasId, bands, label) {
 }
 
 
-
 function drawIdeiaCentralCanvas() {
   const canvas = document.getElementById('ideiaCentralCanvas');
   if (!canvas) return;
@@ -5052,64 +4056,6 @@ function drawConclusao1Canvas() {
   ctx.fillText('μ', toX(0), H - 14);
 }
 
-function drawConclusao6Canvas() {
-  const canvas = document.getElementById('conclusao6Canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0,0,W,H);
-
-  const mu = 6, sigma = 1.5;
-  // Deslocado para esquerda: range 1 a 11, μ=6 fica no lado esquerdo
-  const xMin = 1, xMax = 11;
-  const norm = x => Math.exp(-0.5*((x-mu)/sigma)**2) / (sigma*Math.sqrt(2*Math.PI));
-  const yPk  = norm(mu);
-  const toX  = x => (x - xMin) / (xMax - xMin) * W;
-  const toY  = y => H - 52 - (y / yPk) * (H - 78);
-
-  // Área amarela entre 6 e 7
-  ctx.beginPath(); ctx.moveTo(toX(mu), toY(0));
-  for (let x = mu; x <= 7; x += 0.02) ctx.lineTo(toX(x), toY(norm(x)));
-  ctx.lineTo(toX(7), toY(0)); ctx.closePath();
-  ctx.fillStyle = 'rgba(253,230,138,0.55)'; ctx.fill();
-
-  // Curva
-  ctx.beginPath();
-  for (let x = xMin; x <= xMax; x += 0.03) ctx.lineTo(toX(x), toY(norm(x)));
-  ctx.strokeStyle = 'white'; ctx.lineWidth = 2.5; ctx.stroke();
-
-  // Linha da média (6)
-  ctx.beginPath();
-  ctx.moveTo(toX(mu), toY(0)); ctx.lineTo(toX(mu), toY(yPk));
-  ctx.strokeStyle = 'rgba(255,255,255,0.55)'; ctx.lineWidth = 1.5;
-  ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
-
-  // Linha do 7 — amarela
-  ctx.beginPath();
-  ctx.moveTo(toX(7), toY(0)); ctx.lineTo(toX(7), toY(norm(7)));
-  ctx.strokeStyle = '#FDE68A'; ctx.lineWidth = 2.5;
-  ctx.setLineDash([5,3]); ctx.stroke(); ctx.setLineDash([]);
-
-  // Linha do 7,5 — branca discreta
-  ctx.beginPath();
-  ctx.moveTo(toX(7.5), toY(0)); ctx.lineTo(toX(7.5), toY(norm(7.5)));
-  ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.lineWidth = 1.2;
-  ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
-
-  // ? vermelho grande no centro da área amarela
-  ctx.font = 'bold 58px Nunito'; ctx.textAlign = 'center';
-  ctx.fillStyle = '#EF4444';
-  ctx.fillText('?', toX(6.5), toY(yPk * 0.42));
-
-  // Eixo X — fonte maior e bem espaçada
-  ctx.font = 'bold 24px Nunito'; ctx.textAlign = 'center';
-  ctx.fillStyle = 'rgba(255,255,255,0.8)';
-  ctx.fillText('6 (μ)', toX(mu), H - 20);
-  ctx.fillStyle = '#FDE68A';
-  ctx.fillText('7', toX(7), H - 20);
-  ctx.fillStyle = 'rgba(255,255,255,0.45)';
-  ctx.fillText('7,5', toX(7.5), H - 20);
-}
 
 function drawConclusao2Canvas() {
   drawCurva100('conclusao2Canvas',  1, 'SIMÉTRICA · 100% DAS POSSIBILIDADES');
@@ -5155,72 +4101,6 @@ function drawCurva100(canvasId, sigmaFactor, label) {
 
 // QI: μ=100, σ=15 — valores: 55, 70, 85, 100, 115, 130, 145
 
-function drawCurvaAssim(canvasId, direction) {
-  const canvas = document.getElementById(canvasId);
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0, 0, W, H);
-
-  // Skew-normal: f(x) = 2 * φ(x) * Φ(α*x)
-  const alpha = direction === 'left' ? -6 : 6;
-  const phi  = x => Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
-  const Phi  = x => { // CDF normal approx
-    const t = 1 / (1 + 0.2316419 * Math.abs(x));
-    const d = phi(x) * t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))));
-    return x >= 0 ? 1 - d : d;
-  };
-  const skewNorm = x => 2 * phi(x) * Phi(alpha * x);
-
-  const xMin = -3.6, xMax = 3.6;
-  const steps = 200;
-  const dx = (xMax - xMin) / steps;
-
-  // Encontrar pico para normalizar Y
-  let yPk = 0;
-  for (let i = 0; i <= steps; i++) { const v = skewNorm(xMin + i * dx); if (v > yPk) yPk = v; }
-
-  const padB = 44, padT = 16;
-  const toX = x => (x - xMin) / (xMax - xMin) * W;
-  const toY = y => H - padB - (y / yPk) * (H - padB - padT);
-
-  // Área preenchida
-  ctx.beginPath();
-  ctx.moveTo(toX(xMin), toY(0));
-  for (let i = 0; i <= steps; i++) {
-    const x = xMin + i * dx;
-    ctx.lineTo(toX(x), toY(skewNorm(x)));
-  }
-  ctx.lineTo(toX(xMax), toY(0));
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(196,181,253,0.45)';
-  ctx.fill();
-
-  // Curva
-  ctx.beginPath();
-  for (let i = 0; i <= steps; i++) {
-    const x = xMin + i * dx;
-    ctx.lineTo(toX(x), toY(skewNorm(x)));
-  }
-  ctx.strokeStyle = 'white';
-  ctx.lineWidth = 2.5;
-  ctx.stroke();
-
-  // Label embaixo em capslock amarelo
-  const labelTop = direction === 'left'
-    ? 'ASSIMETRIA PARA A ESQUERDA — PORTANTO NÃO É UMA CURVA NORMAL'
-    : 'ASSIMETRIA PARA A DIREITA — PORTANTO NÃO É UMA CURVA NORMAL';
-  ctx.font = 'bold 15px Nunito'; ctx.textAlign = 'center';
-  ctx.fillStyle = '#FDE047';
-  ctx.fillText(labelTop, toX(0), H - 10);
-
-  // 100% próximo ao eixo x, do lado da massa da distribuição
-  const textX100 = direction === 'left' ? toX(-1.2) : toX(1.2);
-  ctx.font = 'bold 42px Nunito';
-  ctx.fillStyle = 'rgba(255,255,255,0.85)';
-  ctx.textAlign = 'center';
-  ctx.fillText('100%', textX100, toY(yPk * 0.15));
-}
 
 const ex4Questions = [
   {
@@ -5583,7 +4463,6 @@ function drawS9TabelaCanvas() {
   ctx.strokeStyle='#F59E0B'; ctx.lineWidth=3;
   ctx.strokeRect(5*cW+1.5, 2*cH+1.5, cW-3, cH-3);
 }
-
 
 
 const ex9Questions = [
@@ -6227,7 +5106,6 @@ function renderEx8Core(container, prefix) {
   });
 
   html += `<div id="${prefix}-score" style="display:none;text-align:center;margin-top:.8rem;padding:1rem;border-radius:14px;background:linear-gradient(135deg,#8B5CF6,#3B82F6);color:white;font-size:1.2rem;font-weight:900"></div>`;
-  html += `<button id="${prefix}-retry" onclick="retryEx7z()" style="display:none;margin-top:.8rem;width:100%;font-family:'Nunito',sans-serif;font-size:1rem;font-weight:900;padding:.8rem;border:none;border-radius:12px;background:#E2E8F0;color:#475569;cursor:pointer;">🔄 Tentar novamente</button>`;
 
   container.innerHTML = html;
   container.dataset.total    = ex8Questions.length;
@@ -6241,7 +5119,7 @@ function drawAllEx8CanvasesFor(prefix) {
   const mu = 50, sigma = 8;
   ex8Questions.forEach((q, i) => {
     const num = i + 1;
-    const correctIdx = q.correctPos;
+    const correctIdx = i % 2;
     for (let gi = 0; gi < 2; gi++) {
       const isCorrect = gi === correctIdx;
       const fromVal   = isCorrect ? mu : q.wrongFrom;
@@ -6250,15 +5128,6 @@ function drawAllEx8CanvasesFor(prefix) {
   });
 }
 
-function drawAllEx8Canvases() {
-  drawAllEx8CanvasesFor('ex8');
-}
-
-function retryEx7z() {
-  const container = document.getElementById('ex7z-container');
-  container.dataset.built = '';
-  renderEx7z();
-}
 
 function drawEx8Canvas(canvasId, mu, sigma, x, fromVal) {
   const canvas = document.getElementById(canvasId);
@@ -6321,37 +5190,60 @@ function drawEx8Canvas(canvasId, mu, sigma, x, fromVal) {
 }
 
 function answerEx8(num, chosen, correct, prefix) {
-  const divs = document.querySelectorAll(`#${prefix}-q${num} div[onclick]`);
-  divs.forEach(d => { d.dataset.disabled = '1'; d.style.cursor = 'default'; d.removeAttribute('onclick'); });
-  divs[correct].style.border = '3px solid #10B981';
-  divs[correct].style.background = '#D1FAE5';
-  if (chosen !== correct) { divs[chosen].style.border = '3px solid #EF4444'; divs[chosen].style.background = '#FEE2E2'; }
+  const divs = document.querySelectorAll(`#${prefix}-q${num} div[id^="${prefix}-gc${num}-"]`);
+  divs.forEach(d => { d.dataset.disabled = '1'; d.style.cursor = 'default'; d.removeAttribute('onclick'); d.onmouseover = null; d.onmouseout = null; });
 
   const fb = document.getElementById(`${prefix}-fb${num}`);
   const isRight = chosen === correct;
-  fb.textContent = isRight
-    ? '✅ Correto! Z é sempre medido a partir da média.'
-    : '❌ Não foi! O Z parte sempre da média, não de outro ponto.';
-  fb.style.background = isRight ? '#D1FAE5' : '#FEE2E2';
-  fb.style.color      = isRight ? '#059669' : '#DC2626';
-  fb.style.display    = 'block';
 
-  const container = document.getElementById(`${prefix}-container`);
-  let answered = parseInt(container.dataset.answered) + 1;
-  let score    = parseInt(container.dataset.score) + (isRight ? 1 : 0);
-  container.dataset.answered = answered;
-  container.dataset.score    = score;
-  const total = parseInt(container.dataset.total);
-  if (answered === total) {
-    const pct   = Math.round(score/total*100);
-    const emoji = pct===100?'🏆':pct>=60?'🎉':'💪';
-    const el    = document.getElementById(`${prefix}-score`);
-    el.textContent = `${emoji} Você acertou ${score} de ${total} (${pct}%)`;
-    el.style.display = 'block';
-    document.getElementById(`${prefix}-retry`).style.display = 'block';
+  if (isRight) {
+    divs[correct].style.border = '3px solid #10B981';
+    divs[correct].style.background = '#D1FAE5';
+    fb.innerHTML = '✅ Correto! Z é sempre medido a partir da média.';
+    fb.style.background = '#D1FAE5';
+    fb.style.color = '#059669';
+    fb.style.display = 'block';
+
+    const container = document.getElementById(`${prefix}-container`);
+    let answered = parseInt(container.dataset.answered) + 1;
+    let score    = parseInt(container.dataset.score) + 1;
+    container.dataset.answered = answered;
+    container.dataset.score    = score;
+    const total = parseInt(container.dataset.total);
+    if (answered === total) {
+      const pct   = Math.round(score/total*100);
+      const emoji = pct===100?'🏆':pct>=60?'🎉':'💪';
+      const el    = document.getElementById(`${prefix}-score`);
+      el.textContent = `${emoji} Você acertou ${score} de ${total} (${pct}%)`;
+      el.style.display = 'block';
+    }
+  } else {
+    divs[chosen].style.border = '3px solid #EF4444';
+    divs[chosen].style.background = '#FEE2E2';
+    fb.innerHTML = '❌ Não foi dessa vez! <button onclick="retryEx8Question('+num+',\''+prefix+'\')" style="margin-left:.6rem;font-family:\'Nunito\',sans-serif;font-size:.88rem;font-weight:900;padding:.3rem .9rem;border:none;border-radius:8px;background:#fff;color:#DC2626;cursor:pointer;border:1px solid #EF4444;">🔄 Tentar novamente</button>';
+    fb.style.background = '#FEE2E2';
+    fb.style.color = '#DC2626';
+    fb.style.display = 'block';
   }
 }
 
+function retryEx8Question(num, prefix) {
+  const qDiv = document.getElementById(`${prefix}-q${num}`);
+  const divs = qDiv.querySelectorAll(`[id^="${prefix}-gc${num}-"]`);
+  divs.forEach((d, gi) => {
+    d.dataset.disabled = '';
+    d.style.cursor = 'pointer';
+    d.style.border = '2px solid #CBD5E1';
+    d.style.background = 'white';
+    const correctIdx = (num - 1) % 2;
+    d.setAttribute('onclick', `answerEx8(${num},${gi},${correctIdx},'${prefix}')`);
+    d.onmouseover = function(){ if(!this.dataset.disabled)this.style.borderColor='#8B5CF6'; };
+    d.onmouseout  = function(){ if(!this.dataset.disabled)this.style.borderColor='#CBD5E1'; };
+  });
+  const fb = document.getElementById(`${prefix}-fb${num}`);
+  fb.style.display = 'none';
+  fb.innerHTML = '';
+}
 
 
 const ex3Questions = [
@@ -6987,29 +5879,31 @@ function resetExMcArea(prefix, num) {
 }
 
 function answerEx(prefix, num, chosen, correct, explain) {
-  // Desabilitar botões ou divs de gráfico
   const optsContainer = document.getElementById(`${prefix}-opts${num}`);
   const btns = optsContainer.querySelectorAll('button');
   const divs = optsContainer.querySelectorAll('div[onclick]');
+  const isRight = chosen === correct;
+  const hideCorrect = !isRight && prefix === 'ex1';
 
   if (btns.length > 0) {
     btns.forEach((b, i) => {
       b.disabled = true;
-      if (i === correct) { b.style.background='#D1FAE5'; b.style.borderColor='#10B981'; }
-      else if (i === chosen) { b.style.background='#FEE2E2'; b.style.borderColor='#EF4444'; }
+      if (i === correct && !hideCorrect) { b.style.background='#D1FAE5'; b.style.borderColor='#10B981'; }
+      else if (i === chosen && !isRight) { b.style.background='#FEE2E2'; b.style.borderColor='#EF4444'; }
     });
   } else if (divs.length > 0) {
     divs.forEach((d, i) => {
+      if (!d.dataset.origOnclick) d.dataset.origOnclick = d.getAttribute('onclick') || '';
       d.style.cursor = 'default';
       d.removeAttribute('onclick');
       const c = d.querySelector('canvas');
       if (c) c.dataset.disabled = '1';
-      if (i === correct) { d.style.border='3px solid #10B981'; d.style.background='#D1FAE5'; }
-      else if (i === chosen) { d.style.border='3px solid #EF4444'; d.style.background='#FEE2E2'; }
+      if (i === correct && !hideCorrect) { d.style.border='3px solid #10B981'; d.style.background='#D1FAE5'; }
+      else if (i === chosen && !isRight) { d.style.border='3px solid #EF4444'; d.style.background='#FEE2E2'; }
     });
   }
-  showExFeedback(prefix, num, chosen === correct, explain);
-  updateExScore(prefix, chosen === correct);
+  showExFeedback(prefix, num, isRight, explain);
+  if (prefix !== 'ex1') updateExScore(prefix, isRight);
 }
 
 function answerExVOF(prefix, num, chosen, correct, explain) {
@@ -7025,10 +5919,39 @@ function answerExVOF(prefix, num, chosen, correct, explain) {
 
 function showExFeedback(prefix, num, correct, explain) {
   const fb = document.getElementById(`${prefix}-fb${num}`);
-  fb.textContent = correct ? explain : '❌ Não foi dessa vez. ' + explain;
-  fb.style.background = correct ? '#D1FAE5' : '#FEE2E2';
-  fb.style.color = correct ? '#059669' : '#DC2626';
+  if (correct) {
+    fb.textContent = explain;
+    fb.style.background = '#D1FAE5';
+    fb.style.color = '#059669';
+  } else if (prefix === 'ex1') {
+    fb.innerHTML = `❌ Não foi dessa vez! <button onclick="retryExQuestion('${prefix}',${num})" style="margin-left:.8rem;font-family:'Nunito',sans-serif;font-size:.95rem;font-weight:900;padding:.3rem 1rem;border:none;border-radius:10px;background:#3B82F6;color:white;cursor:pointer;">🔄 Tente de novo</button>`;
+    fb.style.background = '#FEE2E2';
+    fb.style.color = '#DC2626';
+  } else {
+    fb.textContent = '❌ Não foi dessa vez. ' + explain;
+    fb.style.background = '#FEE2E2';
+    fb.style.color = '#DC2626';
+  }
   fb.style.display = 'block';
+}
+
+function retryExQuestion(prefix, num) {
+  const optsContainer = document.getElementById(`${prefix}-opts${num}`);
+  const divs = optsContainer.querySelectorAll(`div[id^="${prefix}-gc${num}-"]`);
+  divs.forEach(d => {
+    d.style.border = '2px solid #CBD5E1';
+    d.style.background = 'white';
+    d.style.cursor = 'pointer';
+    if (d.dataset.origOnclick) {
+      d.setAttribute('onclick', d.dataset.origOnclick);
+      d.dataset.origOnclick = '';
+    }
+    const c = d.querySelector('canvas');
+    if (c) c.dataset.disabled = '';
+  });
+  const fb = document.getElementById(`${prefix}-fb${num}`);
+  fb.style.display = 'none';
+  fb.innerHTML = '';
 }
 
 function updateExScore(prefix, correct) {
@@ -7337,91 +6260,6 @@ function drawTabelaDestaque() {
 
 }
 
-function drawConclusao3Canvas() {
-  const canvas = document.getElementById('conclusao3Canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  ctx.clearRect(0, 0, W, H);
-
-  const xMin = -3.5, xMax = 3.5;
-  const norm = x => Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
-  const yPk = norm(0);
-  const padB = 60, padT = 28;
-  const toX = x => (x - xMin) / (xMax - xMin) * W;
-  const toY = y => H - padB - (y / yPk) * (H - padB - padT);
-
-  const z1 = 1.0, z2 = 1.5;
-
-  // Área esquerda (–1.5σ a –1σ) — amarela
-  ctx.beginPath();
-  ctx.moveTo(toX(-z2), toY(0));
-  for (let x = -z2; x <= -z1; x += 0.02) ctx.lineTo(toX(x), toY(norm(x)));
-  ctx.lineTo(toX(-z1), toY(0));
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(251,191,36,0.90)';
-  ctx.fill();
-
-  // Área direita (+1σ a +1.5σ) — amarela igual
-  ctx.beginPath();
-  ctx.moveTo(toX(z1), toY(0));
-  for (let x = z1; x <= z2; x += 0.02) ctx.lineTo(toX(x), toY(norm(x)));
-  ctx.lineTo(toX(z2), toY(0));
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(251,191,36,0.90)';
-  ctx.fill();
-
-  // Curva
-  ctx.beginPath();
-  for (let x = xMin; x <= xMax; x += 0.04) ctx.lineTo(toX(x), toY(norm(x)));
-  ctx.strokeStyle = 'white';
-  ctx.lineWidth = 3.5;
-  ctx.stroke();
-
-  // Linha da média
-  ctx.beginPath();
-  ctx.moveTo(toX(0), toY(0));
-  ctx.lineTo(toX(0), toY(yPk));
-  ctx.strokeStyle = 'rgba(255,255,255,0.5)';
-  ctx.lineWidth = 2;
-  ctx.setLineDash([6, 5]);
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // Labels das áreas
-  ctx.font = 'bold 30px Nunito';
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#1E293B';
-  ctx.fillText('9,19%', toX((-z2 - z1) / 2), toY(norm(-1.25) * 0.52));
-  ctx.fillText('9,19%', toX((z1 + z2) / 2), toY(norm(1.25) * 0.52));
-
-  // Seta de simetria
-  const arrowY = toY(yPk * 0.62);
-  const x1 = toX(-z2 * 0.72), x2 = toX(z2 * 0.72);
-  ctx.beginPath();
-  ctx.moveTo(x1, arrowY); ctx.lineTo(x2, arrowY);
-  ctx.strokeStyle = 'white'; ctx.lineWidth = 3; ctx.stroke();
-  [[x1, 1], [x2, -1]].forEach(([px, dir]) => {
-    ctx.beginPath();
-    ctx.moveTo(px, arrowY);
-    ctx.lineTo(px + dir * 16, arrowY - 9);
-    ctx.lineTo(px + dir * 16, arrowY + 9);
-    ctx.closePath();
-    ctx.fillStyle = 'white'; ctx.fill();
-  });
-  ctx.font = 'bold 22px Nunito'; ctx.fillStyle = 'white'; ctx.textAlign = 'center';
-  ctx.fillText('SIMÉTRICAS!', toX(0), arrowY - 14);
-
-  // Eixo x
-  ctx.beginPath();
-  ctx.moveTo(0, toY(0)); ctx.lineTo(W, toY(0));
-  ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.lineWidth = 1.5; ctx.stroke();
-
-  // Só o símbolo μ
-  ctx.font = 'bold 24px Nunito'; ctx.fillStyle = 'rgba(255,255,255,0.85)';
-  ctx.textAlign = 'center';
-  ctx.fillText('μ', toX(0), H - 10);
-}
 function drawJoaoZCanvas() {
   const canvas = document.getElementById('joaoZCanvas');
   if (!canvas) return;
