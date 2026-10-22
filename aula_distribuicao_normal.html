@@ -1458,6 +1458,28 @@ tclBuildFactorGrid(); tclResetCounts();
       button.pv-open + div { display: block !important; }
     </style>
 
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid #E2E8F0">
+      <p style="font-weight:700;color:#5B21B6;margin:0 0 6px">Exercício 6 — Ansiedade e p-valor (unilateral)</p>
+      <p>Em adultos com transtorno de ansiedade generalizada <strong>sem tratamento</strong>, o escore no <strong>Inventário de Ansiedade de Beck (BAI)</strong> segue distribuição normal, com média populacional <strong>μ = 26 pontos</strong> e desvio padrão populacional <strong>σ = 8 pontos</strong>. Uma paciente desse grupo fez 12 sessões de terapia cognitivo-comportamental (TCC) e, ao final, seu escore foi de <strong>14 pontos</strong>.<br><br>A psicóloga quer saber se esse valor ainda é compatível com a população sem tratamento ou se há indícios de que a TCC reduziu a ansiedade. Considere <strong>α = 5%</strong> e teste unilateral à esquerda, ou seja, <strong>p = P(Z ≤ z)</strong>.<br><br>Qual alternativa apresenta corretamente o escore Z, o valor de p e a conclusão?</p>
+      <p style="margin:4px 0"><strong>A)</strong> Z = −1,5; p ≈ 0,933. Como p &gt; α, o resultado é compatível com a população sem tratamento.</p>
+      <p style="margin:4px 0"><strong>B)</strong> Z = −1,5; p ≈ 0,067. Como p &gt; α, o resultado ainda é compatível com a população sem tratamento: não há indícios suficientes de que a TCC tenha reduzido a ansiedade, e com uma única paciente não é possível concluir.</p>
+      <p style="margin:4px 0"><strong>C)</strong> Z = −1,5; p ≈ 0,067. Como p &gt; α, está comprovado que a TCC não funciona para pacientes com ansiedade.</p>
+      <p style="margin:4px 0"><strong>D)</strong> Z = −1,5; p ≈ 0,067. Como p &lt; α, há indícios de que a TCC reduziu a ansiedade.</p>
+      <button class="ex-gab-btn" data-cv="gabCv6" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabCv6" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Gabarito: alternativa B</strong></p>
+        <p><strong>Passo 1 — calcule o escore Z:</strong></p>
+        <p>Z = (14 − 26) / 8 = <strong>−1,50</strong></p>
+        <p><strong>Passo 2 — consulte a tabela</strong> (use o valor positivo pela simetria):</p>
+        <p>P(0 &lt; Z &lt; 1,50) = 0,4332 = <strong>43,32%</strong></p>
+        <p><strong>Passo 3 — subtraia de 50%</strong> (cauda abaixo do valor):</p>
+        <p>p = P(X ≤ 14) = 50% − 43,32% = <strong>6,68%</strong></p>
+        <p><strong>Passo 4 — compare p com α = 5%:</strong></p>
+        <p>6,68% &gt; 5%</p>
+        <p class="ex-concl">Como <strong>p = 6,68% &gt; α = 5%</strong>, o valor ainda é compatível com a população sem tratamento: <strong>não há indícios suficientes</strong> de efeito da TCC. Não é prova de que ela não funciona — é só uma paciente.</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1574,6 +1596,28 @@ tclBuildFactorGrid(); tclResetCounts();
       </div>
     </div>
 
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid #E2E8F0">
+      <p style="font-weight:700;color:#0369A1;margin:0 0 6px">Exercício 6 — Capsulite adesiva e p-valor (unilateral)</p>
+      <p>Em pacientes com <strong>capsulite adesiva de ombro sem tratamento</strong>, a <strong>amplitude de movimento (ADM) de flexão do ombro</strong> segue distribuição normal, com média populacional <strong>μ = 100°</strong> e desvio padrão populacional <strong>σ = 15°</strong>. Um paciente desse grupo fez 8 semanas de fisioterapia e, ao final, sua ADM foi de <strong>130°</strong>.<br><br>O fisioterapeuta quer saber se esse valor ainda é compatível com a população sem tratamento ou se há indícios de que a fisioterapia aumentou a ADM. Considere <strong>α = 5%</strong> e teste unilateral à direita, ou seja, <strong>p = P(Z ≥ z)</strong>.<br><br>Qual alternativa apresenta corretamente o escore Z, o valor de p e a conclusão?</p>
+      <p style="margin:4px 0"><strong>A)</strong> Z = +2,0; p ≈ 0,977. Como p &gt; α, não há indícios de que a fisioterapia tenha aumentado a ADM.</p>
+      <p style="margin:4px 0"><strong>B)</strong> Z = +2,0; p ≈ 0,023. Como p &lt; α, está comprovado que a fisioterapia aumenta a ADM de todos os pacientes com capsulite adesiva.</p>
+      <p style="margin:4px 0"><strong>C)</strong> Z = +2,0; p ≈ 0,023. Como p &lt; α, há indícios de que a fisioterapia aumentou a ADM, embora com um único paciente não seja possível afirmar com certeza.</p>
+      <p style="margin:4px 0"><strong>D)</strong> Z = +1,0; p ≈ 0,159. Como p &gt; α, o valor é compatível com a população sem tratamento e não há indícios de efeito.</p>
+      <button class="ex-gab-btn" data-cv="gabFisio6" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFisio6" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Gabarito: alternativa C</strong></p>
+        <p><strong>Passo 1 — calcule o escore Z:</strong></p>
+        <p>Z = (130 − 100) / 15 = <strong>+2,00</strong></p>
+        <p><strong>Passo 2 — consulte a tabela</strong>:</p>
+        <p>P(0 &lt; Z &lt; 2,00) = 0,4772 = <strong>47,72%</strong></p>
+        <p><strong>Passo 3 — subtraia de 50%</strong> (cauda acima do valor):</p>
+        <p>p = P(X ≥ 130) = 50% − 47,72% = <strong>2,28%</strong></p>
+        <p><strong>Passo 4 — compare p com α = 5%:</strong></p>
+        <p>2,28% &lt; 5%</p>
+        <p class="ex-concl">Como <strong>p = 2,28% &lt; α = 5%</strong>, o valor é incomum para a população sem tratamento, o que dá <strong>indícios de efeito</strong> da fisioterapia. Não é certeza: é só um paciente.</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1690,6 +1734,28 @@ tclBuildFactorGrid(); tclResetCounts();
       </div>
     </div>
 
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid #E2E8F0">
+      <p style="font-weight:700;color:#065F46;margin:0 0 6px">Exercício 6 — LDL-colesterol e p-valor (unilateral)</p>
+      <p>Em adultos com <strong>dislipidemia sem tratamento dietético</strong>, o <strong>LDL-colesterol</strong> segue distribuição normal, com média populacional <strong>μ = 160 mg/dL</strong> e desvio padrão populacional <strong>σ = 20 mg/dL</strong>. Um paciente desse grupo seguiu uma intervenção dietética por 12 semanas e, ao final, seu LDL foi de <strong>121 mg/dL</strong>.<br><br>A nutricionista quer saber se esse valor ainda é compatível com a população sem tratamento ou se há indícios de que a dieta reduziu o LDL. Considere <strong>α = 5%</strong> e teste unilateral à esquerda, ou seja, <strong>p = P(Z ≤ z)</strong>.<br><br>Qual alternativa apresenta corretamente o escore Z, o valor de p e a conclusão?</p>
+      <p style="margin:4px 0"><strong>A)</strong> Z = −1,95; p ≈ 0,974. Como p &gt; α, não há indícios de que a dieta tenha reduzido o LDL.</p>
+      <p style="margin:4px 0"><strong>B)</strong> Z = −1,95; p ≈ 0,026. Como p &lt; α, está comprovado que a intervenção dietética reduz o LDL de toda a população com dislipidemia.</p>
+      <p style="margin:4px 0"><strong>C)</strong> Z = −0,98; p ≈ 0,164. Como p &gt; α, o valor é compatível com a população sem tratamento e não há indícios de efeito.</p>
+      <p style="margin:4px 0"><strong>D)</strong> Z = −1,95; p ≈ 0,026. Como p &lt; α, há indícios de que a dieta reduziu o LDL, embora com um único paciente não seja possível afirmar com certeza.</p>
+      <button class="ex-gab-btn" data-cv="gabNutri6" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabNutri6" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Gabarito: alternativa D</strong></p>
+        <p><strong>Passo 1 — calcule o escore Z:</strong></p>
+        <p>Z = (121 − 160) / 20 = <strong>−1,95</strong></p>
+        <p><strong>Passo 2 — consulte a tabela</strong> (use o valor positivo pela simetria):</p>
+        <p>P(0 &lt; Z &lt; 1,95) = 0,4744 = <strong>47,44%</strong></p>
+        <p><strong>Passo 3 — subtraia de 50%</strong> (cauda abaixo do valor):</p>
+        <p>p = P(X ≤ 121) = 50% − 47,44% = <strong>2,56%</strong></p>
+        <p><strong>Passo 4 — compare p com α = 5%:</strong></p>
+        <p>2,56% &lt; 5%</p>
+        <p class="ex-concl">Como <strong>p = 2,56% &lt; α = 5%</strong>, o valor é incomum para a população sem tratamento, o que dá <strong>indícios de efeito</strong> da dieta. Não é certeza: é só um paciente.</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1806,6 +1872,28 @@ tclBuildFactorGrid(); tclResetCounts();
       </div>
     </div>
 
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid #E2E8F0">
+      <p style="font-weight:700;color:#991B1B;margin:0 0 6px">Exercício 6 — Cicatrização de lesão por pressão e p-valor (unilateral)</p>
+      <p>Em pacientes com <strong>lesão por pressão estágio 2</strong> tratados com o curativo convencional, o <strong>tempo de cicatrização</strong> segue distribuição normal, com média populacional <strong>μ = 21 dias</strong> e desvio padrão populacional <strong>σ = 5 dias</strong>. Um paciente foi tratado com um novo tipo de cobertura e cicatrizou em <strong>13 dias</strong>.<br><br>A enfermeira quer saber se esse tempo ainda é compatível com o curativo convencional ou se há indícios de que a nova cobertura acelerou a cicatrização. Considere <strong>α = 5%</strong> e teste unilateral à esquerda, ou seja, <strong>p = P(Z ≤ z)</strong>.<br><br>Qual alternativa apresenta corretamente o escore Z, o valor de p e a conclusão?</p>
+      <p style="margin:4px 0"><strong>A)</strong> Z = −1,6; p ≈ 0,055. Como p &lt; α, há indícios de que a nova cobertura reduziu o tempo de cicatrização.</p>
+      <p style="margin:4px 0"><strong>B)</strong> Z = −1,6; p ≈ 0,055. Como p &gt; α, o tempo é compatível com o curativo convencional: não há indícios suficientes de efeito, embora p esteja próximo de α e um único paciente não permita concluir.</p>
+      <p style="margin:4px 0"><strong>C)</strong> Z = −1,6; p ≈ 0,945. Como p &gt; α, não há indícios de que a nova cobertura tenha feito efeito.</p>
+      <p style="margin:4px 0"><strong>D)</strong> Z = −1,6; p ≈ 0,055. Como p está muito próximo de α, está comprovado que a nova cobertura não tem efeito.</p>
+      <button class="ex-gab-btn" data-cv="gabEnfer6" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabEnfer6" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Gabarito: alternativa B</strong></p>
+        <p><strong>Passo 1 — calcule o escore Z:</strong></p>
+        <p>Z = (13 − 21) / 5 = <strong>−1,60</strong></p>
+        <p><strong>Passo 2 — consulte a tabela</strong> (use o valor positivo pela simetria):</p>
+        <p>P(0 &lt; Z &lt; 1,60) = 0,4452 = <strong>44,52%</strong></p>
+        <p><strong>Passo 3 — subtraia de 50%</strong> (cauda abaixo do valor):</p>
+        <p>p = P(X ≤ 13) = 50% − 44,52% = <strong>5,48%</strong></p>
+        <p><strong>Passo 4 — compare p com α = 5%:</strong></p>
+        <p>5,48% &gt; 5%</p>
+        <p class="ex-concl">Como <strong>p = 5,48% &gt; α = 5%</strong>, o tempo ainda é compatível com o curativo convencional: <strong>não há indícios suficientes</strong> de efeito. O p ficou perto de α, mas a regra é a mesma — e é só um paciente.</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1922,6 +2010,28 @@ tclBuildFactorGrid(); tclResetCounts();
       </div>
     </div>
 
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid #E2E8F0">
+      <p style="font-weight:700;color:#9A3412;margin:0 0 6px">Exercício 6 — Pressão arterial e p-valor (unilateral)</p>
+      <p>Em adultos com hipertensão arterial <strong>sem tratamento</strong>, a <strong>pressão arterial sistólica (PAS)</strong> segue distribuição normal, com média populacional <strong>μ = 170 mmHg</strong> e desvio padrão populacional <strong>σ = 10 mmHg</strong>. Um paciente desse grupo foi tratado por 8 semanas com um novo anti-hipertensivo e, ao final, sua PAS foi de <strong>148 mmHg</strong>.<br><br>O farmacêutico quer saber se esse valor ainda é compatível com a população sem tratamento ou se há indícios de que o medicamento fez efeito. Considere <strong>α = 5%</strong> e teste unilateral à esquerda, ou seja, <strong>p = P(Z ≤ z)</strong>.<br><br>Qual alternativa apresenta corretamente o escore Z, o valor de p e a conclusão?</p>
+      <p style="margin:4px 0"><strong>A)</strong> Z = −2,2; p ≈ 0,014. Como p &lt; α, há indícios de que o medicamento reduziu a PAS, embora com um único paciente não seja possível afirmar com certeza.</p>
+      <p style="margin:4px 0"><strong>B)</strong> Z = −2,2; p ≈ 0,986. Como p &gt; α, não há indícios de que o medicamento tenha feito efeito.</p>
+      <p style="margin:4px 0"><strong>C)</strong> Z = −2,2; p ≈ 0,014. Como p &lt; α, está comprovado que o medicamento reduz a PAS de toda a população hipertensa.</p>
+      <p style="margin:4px 0"><strong>D)</strong> Z = −1,1; p ≈ 0,136. Como p &gt; α, o valor é compatível com a população sem tratamento e não há indícios de efeito.</p>
+      <button class="ex-gab-btn" data-cv="gabFarma6" onclick="toggleGab(this)">Ver gabarito ▼</button>
+      <div class="ex-gab">
+        <canvas id="gabFarma6" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
+        <p><strong>Gabarito: alternativa A</strong></p>
+        <p><strong>Passo 1 — calcule o escore Z:</strong></p>
+        <p>Z = (148 − 170) / 10 = <strong>−2,20</strong></p>
+        <p><strong>Passo 2 — consulte a tabela</strong> (use o valor positivo pela simetria):</p>
+        <p>P(0 &lt; Z &lt; 2,20) = 0,4861 = <strong>48,61%</strong></p>
+        <p><strong>Passo 3 — subtraia de 50%</strong> (cauda abaixo do valor):</p>
+        <p>p = P(X ≤ 148) = 50% − 48,61% = <strong>1,39%</strong></p>
+        <p><strong>Passo 4 — compare p com α = 5%:</strong></p>
+        <p>1,39% &lt; 5%</p>
+        <p class="ex-concl">Como <strong>p = 1,39% &lt; α = 5%</strong>, o valor é incomum para a população sem tratamento, o que dá <strong>indícios de efeito</strong> do medicamento. Não é certeza: é só um paciente.</p>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -6486,6 +6596,21 @@ function toggleAcc(btn){
   const body = btn.nextElementSibling;
   const open = body.classList.toggle('open');
   btn.classList.toggle('open', open);
+  if(open){
+    // fecha os outros contextos que estiverem abertos
+    const sec = btn.closest('section') || document;
+    sec.querySelectorAll('.ex-btn.open').forEach(b=>{
+      if(b!==btn){ b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); }
+    });
+    // mantém o contexto clicado visível (o conteúdo acima pode ter encolhido)
+    // rola até o título colorido, descontando a barra de navegação fixa no topo
+    requestAnimationFrame(()=>{
+      const nav = document.querySelector('nav');
+      const off = (nav ? nav.getBoundingClientRect().height : 0) + 10;
+      const y = btn.getBoundingClientRect().top + window.pageYOffset - off;
+      window.scrollTo({top: Math.max(0, y), behavior: 'smooth'});
+    });
+  }
 }
 function toggleGab(btn){
   const gab = btn.nextElementSibling;
@@ -6653,6 +6778,11 @@ const normExCfg = {
   gabFarma3: {mu:20,  sigma:4,   x1:22.08,x2:26.52, fillCol:'rgba(249,115,22,0.22)', marksCol:'#EA580C'},
   gabFarma4: {mu:7.2, sigma:0.3, x1:6.68, x2:7.03,  fillCol:'rgba(249,115,22,0.22)', marksCol:'#EA580C'},
   gabFarma5: {mu:3,   sigma:0.5, x1:4.12, x2:1/0,   fillCol:'rgba(249,115,22,0.22)', marksCol:'#EA580C'},
+  gabCv6: {mu:26, sigma:8, x1:-1/0, x2:14, fillCol:'rgba(124,58,237,0.22)', marksCol:'#7C3AED'},
+  gabFisio6: {mu:100, sigma:15, x1:130, x2:1/0, fillCol:'rgba(14,165,233,0.22)', marksCol:'#0EA5E9'},
+  gabNutri6: {mu:160, sigma:20, x1:-1/0, x2:121, fillCol:'rgba(16,185,129,0.22)', marksCol:'#059669'},
+  gabEnfer6: {mu:21, sigma:5, x1:-1/0, x2:13, fillCol:'rgba(239,68,68,0.22)', marksCol:'#DC2626'},
+  gabFarma6: {mu:170, sigma:10, x1:-1/0, x2:148, fillCol:'rgba(249,115,22,0.22)', marksCol:'#EA580C'},
 };
 
 function drawNormEx(canvasId){
