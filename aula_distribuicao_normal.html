@@ -138,7 +138,6 @@
 </style>
 </head>
 <body>
-
 <header>
   <h1>🔔 Distribuição Normal</h1>
   <p style="font-size:.85rem;opacity:.75;margin-top:.4rem;font-weight:600;letter-spacing:.3px">Desenvolvido por André Lo Feudo com apoio do Claude</p>
@@ -1354,11 +1353,13 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabCv1" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Passo 1 — calcule os escores Z:</strong></p>
-        <p>Z₁ = (5 − 8) / 2 = <strong>−1,50</strong> &nbsp;|&nbsp; Z₂ = (11 − 8) / 2 = <strong>+1,50</strong></p>
+        <p>Z₁ = (5 − 8) / 2 = <strong>−1,50</strong></p>
+        <p>Z₂ = (11 − 8) / 2 = <strong>+1,50</strong></p>
         <p><strong>Passo 2 — consulte a tabela:</strong></p>
-        <p>P(0 &lt; Z &lt; 1,50) = 0,4332 &nbsp;|&nbsp; P(0 &lt; Z &lt; 1,50) = 0,4332</p>
+        <p>P(−1,50 &lt; Z &lt; 0) = 0,4332 = <strong>43,32%</strong></p>
+        <p>P(0 &lt; Z &lt; 1,50) = 0,4332 = <strong>43,32%</strong></p>
         <p><strong>Passo 3 — some as duas metades</strong> (o intervalo se estende dos dois lados da média):</p>
-        <p>P(5 &lt; X &lt; 11) = 0,4332 + 0,4332 = <strong>0,8664 → 86,64%</strong></p>
+        <p>P(5 &lt; X &lt; 11) = 43,32% + 43,32% = <strong>86,64%</strong></p>
         <p class="ex-concl">Há cerca de <strong>87% de chance</strong> de um estudante ter escore entre 5 e 11 — uma faixa bastante ampla ao redor da média.</p>
       </div>
     </div>
@@ -1373,11 +1374,11 @@ tclBuildFactorGrid(); tclResetCounts();
         <p><strong>Passo 1 — calcule o escore Z:</strong></p>
         <p>Z = (313 − 280) / 25 = <strong>+1,32</strong></p>
         <p><strong>Passo 2 — consulte a tabela:</strong></p>
-        <p>P(0 &lt; Z &lt; 1,32) = 0,4066</p>
+        <p>P(0 &lt; Z &lt; 1,32) = 0,4066 = <strong>40,66%</strong></p>
         <p><strong>Passo 3 — subtraia de 0,5</strong> (queremos a cauda acima de 313):</p>
-        <p>P(X &gt; 313) = 0,5000 − 0,4066 = <strong>0,0934 → 9,34%</strong></p>
+        <p>P(X &gt; 313) = 50% − 40,66% = <strong>9,34%</strong></p>
         <p><strong>Passo 4 — aplique à população:</strong></p>
-        <p>400 × 0,0934 = <strong>≈ 37 participantes</strong></p>
+        <p>400 × 9,34% = 37,36 → <strong>≈ 37 participantes</strong></p>
         <p class="ex-concl">Cerca de <strong>37 dos 400 participantes</strong> (≈ 9%) devem levar mais de 313 ms para reagir — um tempo bem acima da média.</p>
       </div>
     </div>
@@ -1390,11 +1391,13 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabCv3" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Passo 1 — calcule os escores Z:</strong></p>
-        <p>Z₁ = (27 − 25) / 4 = <strong>+0,50</strong> &nbsp;|&nbsp; Z₂ = (29 − 25) / 4 = <strong>+1,00</strong></p>
+        <p>Z₁ = (27 − 25) / 4 = <strong>+0,50</strong></p>
+        <p>Z₂ = (29 − 25) / 4 = <strong>+1,00</strong></p>
         <p><strong>Passo 2 — consulte a tabela:</strong></p>
-        <p>P(0 &lt; Z &lt; 0,50) = 0,1915 &nbsp;|&nbsp; P(0 &lt; Z &lt; 1,00) = 0,3413</p>
+        <p>P(0 &lt; Z &lt; 0,50) = 0,1915 = <strong>19,15%</strong></p>
+        <p>P(0 &lt; Z &lt; 1,00) = 0,3413 = <strong>34,13%</strong></p>
         <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — acima da média):</p>
-        <p>P(27 &lt; X &lt; 29) = 0,3413 − 0,1915 = <strong>0,1498 → 14,98%</strong></p>
+        <p>P(27 &lt; X &lt; 29) = 34,13% − 19,15% = <strong>14,98%</strong></p>
         <p class="ex-concl">Cerca de <strong>15% dos adultos</strong> têm autoestima nessa faixa elevada, entre leve e moderadamente acima da média.</p>
       </div>
     </div>
@@ -1407,13 +1410,15 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabCv4" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Passo 1 — calcule os escores Z:</strong></p>
-        <p>Z₁ = (5,50 − 7,0) / 0,8 = <strong>−1,88</strong> &nbsp;|&nbsp; Z₂ = (6,34 − 7,0) / 0,8 = <strong>−0,83</strong></p>
+        <p>Z₁ = (5,50 − 7,0) / 0,8 = <strong>−1,88</strong></p>
+        <p>Z₂ = (6,34 − 7,0) / 0,8 = <strong>−0,83</strong></p>
         <p><strong>Passo 2 — consulte a tabela</strong> (use os valores positivos pela simetria):</p>
-        <p>P(0 &lt; Z &lt; 1,88) = 0,4699 &nbsp;|&nbsp; P(0 &lt; Z &lt; 0,83) = 0,2967</p>
+        <p>P(0 &lt; Z &lt; 1,88) = 0,4699 = <strong>46,99%</strong></p>
+        <p>P(0 &lt; Z &lt; 0,83) = 0,2967 = <strong>29,67%</strong></p>
         <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — abaixo da média):</p>
-        <p>P(5,50 &lt; X &lt; 6,34) = 0,4699 − 0,2967 = <strong>0,1732 → 17,32%</strong></p>
+        <p>P(5,50 &lt; X &lt; 6,34) = 46,99% − 29,67% = <strong>17,32%</strong></p>
         <p><strong>Passo 4 — aplique à população:</strong></p>
-        <p>600 × 0,1732 = <strong>≈ 104 universitários</strong></p>
+        <p>600 × 17,32% = 103,92 → <strong>≈ 104 universitários</strong></p>
         <p class="ex-concl">Cerca de <strong>104 dos 600 universitários</strong> (≈ 17%) dormem nessa faixa de privação moderada de sono.</p>
       </div>
     </div>
@@ -1428,9 +1433,9 @@ tclBuildFactorGrid(); tclResetCounts();
         <p><strong>Passo 1 — calcule o escore Z:</strong></p>
         <p>Z = (24,39 − 18) / 3 = <strong>+2,13</strong></p>
         <p><strong>Passo 2 — consulte a tabela:</strong></p>
-        <p>P(0 &lt; Z &lt; 2,13) = 0,4834</p>
+        <p>P(0 &lt; Z &lt; 2,13) = 0,4834 = <strong>48,34%</strong></p>
         <p><strong>Passo 3 — subtraia de 0,5</strong> (cauda acima de 24,39):</p>
-        <p>P(X ≥ 24,39) = 0,5000 − 0,4834 = <strong>0,0166 → 1,66%</strong></p>
+        <p>P(X ≥ 24,39) = 50% − 48,34% = <strong>1,66%</strong></p>
         <p class="ex-concl">Há apenas <strong>1,66% de chance</strong> de encontrar, por acaso, alguém com cortisol tão alto na população saudável.</p>
       </div>
     </div>
@@ -1443,8 +1448,9 @@ tclBuildFactorGrid(); tclResetCounts();
       </button>
       <div style="display:none;padding:16px 18px 18px;background:#FFFBEB;font-size:.95rem;line-height:1.7;color:#78350F;border-top:1px solid #FDE68A">
         <canvas id="pvCanvas" height="210" style="width:100%;display:block;margin-bottom:14px;border-radius:6px"></canvas>
-        <p style="margin:0">Essa probabilidade extremamente pequena em uma das pontas da curva normal tem um nome: <strong>p-valor</strong>. Ele responde à pergunta: <em>"se essa pessoa fosse da população saudável, qual seria a chance de observarmos um resultado tão extremo quanto esse?"</em></p>
-        <p style="margin:10px 0 0">Como p = 0,0166 é menor que 0,05 (o limite convencional), concluímos que esse resultado é <strong>estatisticamente raro</strong> na população saudável — o que justifica investigação clínica.</p>
+        <p style="margin:0">Essa probabilidade em uma das pontas da curva normal tem um nome: <strong>p-valor</strong>. Ele responde à pergunta: <em>"se este caso viesse da população saudável, qual seria a chance de observarmos um resultado tão extremo quanto esse?"</em></p>
+        <p style="margin:10px 0 0">Por convenção, adota-se o <strong>nível de significância α = 5%</strong> como linha de corte (um valor padronizado). Se <strong>p &lt; α</strong>, consideramos o caso <strong>especial</strong> — <strong>estatisticamente raro</strong>.</p>
+        <p style="margin:10px 0 0">Aqui, <strong>p = 1,66% &lt; α = 5%</strong>: o resultado é <strong>estatisticamente raro</strong> na população saudável — o que justifica investigação clínica.</p>
       </div>
     </div>
     <style>
@@ -1469,8 +1475,14 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabFisio1" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 120°, σ = 8°, x₁ = 109,76°, x₂ = 132,48°</p>
-        <p><strong>Padronização:</strong> Z₁ = (109,76−120)/8 = <strong>−1,28</strong> · Z₂ = (132,48−120)/8 = <strong>+1,56</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(109,76 &lt; X &lt; 132,48) = 0,9406 − 0,1003 = <strong>0,8403</strong></p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (109,76−120)/8 = <strong>−1,28</strong></p>
+        <p>Z₂ = (132,48−120)/8 = <strong>+1,56</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(−1,28 &lt; Z &lt; 0) = 0,3997 = <strong>39,97%</strong></p>
+        <p>P(0 &lt; Z &lt; 1,56) = 0,4406 = <strong>44,06%</strong></p>
+        <p><strong>Passo 3 — some as duas metades</strong> (o intervalo se estende dos dois lados da média):</p>
+        <p>P(109,76 &lt; X &lt; 132,48) = 39,97% + 44,06% = <strong>84,03%</strong></p>
         <p class="ex-concl">Há <strong>84,03%</strong> de chance de o paciente ter ADM entre 109,76° e 132,48°.</p>
       </div>
     </div>
@@ -1482,9 +1494,14 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabFisio2" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 280 N, σ = 40 N, x = 337,2 N</p>
-        <p><strong>Padronização:</strong> Z = (337,2−280)/40 = <strong>+1,43</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(X &gt; 337,2) = 1 − 0,9236 = <strong>0,0764</strong></p>
-        <p><strong>Aplicação à população:</strong> 120 × 0,0764 = <strong>≈ 9 indivíduos</strong></p>
+        <p><strong>Passo 1 — calcule o escore Z:</strong></p>
+        <p>Z = (337,2−280)/40 = <strong>+1,43</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 1,43) = 0,4236 = <strong>42,36%</strong></p>
+        <p><strong>Passo 3 — subtraia de 50%</strong> (cauda acima do valor):</p>
+        <p>P(X &gt; 337,2) = 50% − 42,36% = <strong>7,64%</strong></p>
+        <p><strong>Passo 4 — aplique à população:</strong></p>
+        <p>120 × 7,64% = 9,17 → <strong>≈ 9 indivíduos</strong></p>
         <p class="ex-concl">Apenas <strong>9 dos 120 indivíduos</strong> (≈ 7,64%) devem apresentar força superior a 337,2 N.</p>
       </div>
     </div>
@@ -1496,8 +1513,14 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabFisio3" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 18, σ = 3, x₁ = 21, x₂ = 24</p>
-        <p><strong>Padronização:</strong> Z₁ = (21−18)/3 = <strong>+1,00</strong> · Z₂ = (24−18)/3 = <strong>+2,00</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(21 &lt; X &lt; 24) = 0,9772 − 0,8413 = <strong>0,1359</strong></p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (21−18)/3 = <strong>+1,00</strong></p>
+        <p>Z₂ = (24−18)/3 = <strong>+2,00</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 2,00) = 0,4772 = <strong>47,72%</strong></p>
+        <p>P(0 &lt; Z &lt; 1,00) = 0,3413 = <strong>34,13%</strong></p>
+        <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — acima da média):</p>
+        <p>P(21 &lt; X &lt; 24) = 47,72% − 34,13% = <strong>13,59%</strong></p>
         <p class="ex-concl">Há <strong>13,59%</strong> de probabilidade de o idoso completar entre 21 e 24 repetições.</p>
       </div>
     </div>
@@ -1509,9 +1532,16 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabFisio4" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 42, σ = 5, x₁ = 31,35, x₂ = 38,35</p>
-        <p><strong>Padronização:</strong> Z₁ = (31,35−42)/5 = <strong>−2,13</strong> · Z₂ = (38,35−42)/5 = <strong>−0,73</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(31,35 &lt; X &lt; 38,35) = 0,2327 − 0,0166 = <strong>0,2161</strong></p>
-        <p><strong>Aplicação à população:</strong> 80 × 0,2161 = <strong>≈ 17 pacientes</strong></p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (31,35−42)/5 = <strong>−2,13</strong></p>
+        <p>Z₂ = (38,35−42)/5 = <strong>−0,73</strong></p>
+        <p><strong>Passo 2 — consulte a tabela (use os valores positivos pela simetria):</strong></p>
+        <p>P(0 &lt; Z &lt; 2,13) = 0,4834 = <strong>48,34%</strong></p>
+        <p>P(0 &lt; Z &lt; 0,73) = 0,2673 = <strong>26,73%</strong></p>
+        <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — abaixo da média):</p>
+        <p>P(31,35 &lt; X &lt; 38,35) = 48,34% − 26,73% = <strong>21,61%</strong></p>
+        <p><strong>Passo 4 — aplique à população:</strong></p>
+        <p>80 × 21,61% = 17,29 → <strong>≈ 17 pacientes</strong></p>
         <p class="ex-concl"><strong>17 dos 80 pacientes</strong> (≈ 21,61%) devem apresentar pontuação entre 31,35 e 38,35 na BBS — faixa que indica risco elevado de queda.</p>
       </div>
     </div>
@@ -1524,7 +1554,9 @@ tclBuildFactorGrid(); tclResetCounts();
         <canvas id="gabFisio5" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 180 kPa, σ = 25 kPa, x = 234,25 kPa</p>
         <p><strong>Padronização:</strong> Z = (234,25−180)/25 = <strong>+2,17</strong></p>
-        <p><strong>Probabilidade:</strong> P(X &gt; 234,25) = 1 − 0,9850 = <strong>0,0150</strong></p>
+        <p><strong>Tabela:</strong> P(0 &lt; Z &lt; 2,17) = 0,4850 = <strong>48,50%</strong></p>
+        <p><strong>Probabilidade (cauda):</strong></p>
+        <p>P(X &gt; 234,25) = 50% − 48,50% = <strong>1,50%</strong></p>
         <p class="ex-concl">Apenas <strong>1,50%</strong> dos atletas apresentam pressão plantar tão alta — justifica avaliação biomecânica detalhada.</p>
       </div>
     </div>
@@ -1536,7 +1568,9 @@ tclBuildFactorGrid(); tclResetCounts();
       </button>
       <div style="display:none;padding:16px 18px 18px;background:#F0F9FF;font-size:.95rem;line-height:1.7;color:#0369A1;border-top:1px solid #BAE6FD">
         <canvas id="pvFisio" height="210" style="width:100%;display:block;margin-bottom:14px;border-radius:6px"></canvas>
-        <p style="margin:0">Z = +2,17 representa 234,25 kPa — uma pressão além do esperado. Como p = 0,0150 é inferior a 0,05, esse achado é <strong>estatisticamente raro</strong> e justifica investigação da biomecânica da corrida.</p>
+        <p style="margin:0">Essa probabilidade em uma das pontas da curva normal tem um nome: <strong>p-valor</strong>. Ele responde à pergunta: <em>"se este caso viesse da população de referência, qual seria a chance de observarmos um resultado tão extremo quanto esse?"</em></p>
+        <p style="margin:10px 0 0">Por convenção, adota-se o <strong>nível de significância α = 5%</strong> como linha de corte (um valor padronizado). Se <strong>p &lt; α</strong>, consideramos o caso <strong>especial</strong> — <strong>estatisticamente raro</strong>.</p>
+        <p style="margin:10px 0 0">Z = +2,17 representa 234,25 kPa — uma pressão além do esperado. Como <strong>p = 1,50% &lt; α = 5%</strong>, esse achado é <strong>estatisticamente raro</strong> e justifica investigação da biomecânica da corrida.</p>
       </div>
     </div>
 
@@ -1557,8 +1591,14 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabNutri1" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 900 mg, σ = 120 mg, x₁ = 724 mg, x₂ = 974 mg</p>
-        <p><strong>Padronização:</strong> Z₁ = (724−900)/120 = <strong>−1,47</strong> · Z₂ = (974−900)/120 = <strong>+0,62</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(724 &lt; X &lt; 974) = 0,7324 − 0,0708 = <strong>0,6616</strong></p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (724−900)/120 = <strong>−1,47</strong></p>
+        <p>Z₂ = (974−900)/120 = <strong>+0,62</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(−1,47 &lt; Z &lt; 0) = 0,4292 = <strong>42,92%</strong></p>
+        <p>P(0 &lt; Z &lt; 0,62) = 0,2324 = <strong>23,24%</strong></p>
+        <p><strong>Passo 3 — some as duas metades</strong> (o intervalo se estende dos dois lados da média):</p>
+        <p>P(724 &lt; X &lt; 974) = 42,92% + 23,24% = <strong>66,16%</strong></p>
         <p class="ex-concl">Há <strong>66,16%</strong> de probabilidade de o consumo diário de cálcio estar entre 724 mg e 974 mg.</p>
       </div>
     </div>
@@ -1570,9 +1610,14 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabNutri2" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 28 ng/mL, σ = 6 ng/mL, x = 37,84 ng/mL</p>
-        <p><strong>Padronização:</strong> Z = (37,84−28)/6 = <strong>+1,64</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(X &gt; 37,84) = 1 − 0,9495 = <strong>0,0505</strong></p>
-        <p><strong>Aplicação à população:</strong> 350 × 0,0505 = <strong>≈ 18 indivíduos</strong></p>
+        <p><strong>Passo 1 — calcule o escore Z:</strong></p>
+        <p>Z = (37,84−28)/6 = <strong>+1,64</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 1,64) = 0,4495 = <strong>44,95%</strong></p>
+        <p><strong>Passo 3 — subtraia de 50%</strong> (cauda acima do valor):</p>
+        <p>P(X &gt; 37,84) = 50% − 44,95% = <strong>5,05%</strong></p>
+        <p><strong>Passo 4 — aplique à população:</strong></p>
+        <p>350 × 5,05% = 17,67 → <strong>≈ 18 indivíduos</strong></p>
         <p class="ex-concl">Apenas <strong>18 dos 350 indivíduos</strong> (≈ 5,05%) devem apresentar vitamina D sérica acima de 37,84 ng/mL.</p>
       </div>
     </div>
@@ -1584,8 +1629,14 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabNutri3" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 2200 kcal, σ = 300 kcal, x₁ = 2461 kcal, x₂ = 2713 kcal</p>
-        <p><strong>Padronização:</strong> Z₁ = (2461−2200)/300 = <strong>+0,87</strong> · Z₂ = (2713−2200)/300 = <strong>+1,71</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(2461 &lt; X &lt; 2713) = 0,9564 − 0,8078 = <strong>0,1486</strong></p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (2461−2200)/300 = <strong>+0,87</strong></p>
+        <p>Z₂ = (2713−2200)/300 = <strong>+1,71</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 1,71) = 0,4564 = <strong>45,64%</strong></p>
+        <p>P(0 &lt; Z &lt; 0,87) = 0,3078 = <strong>30,78%</strong></p>
+        <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — acima da média):</p>
+        <p>P(2461 &lt; X &lt; 2713) = 45,64% − 30,78% = <strong>14,86%</strong></p>
         <p class="ex-concl">Há <strong>14,86%</strong> de probabilidade de o estudante consumir entre 2461 kcal e 2713 kcal.</p>
       </div>
     </div>
@@ -1597,9 +1648,16 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabNutri4" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 23 kg/m², σ = 3 kg/m², x₁ = 16,85, x₂ = 20,81</p>
-        <p><strong>Padronização:</strong> Z₁ = (16,85−23)/3 = <strong>−2,05</strong> · Z₂ = (20,81−23)/3 = <strong>−0,73</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(16,85 &lt; X &lt; 20,81) = 0,2327 − 0,0202 = <strong>0,2125</strong></p>
-        <p><strong>Aplicação à população:</strong> 250 × 0,2125 = <strong>≈ 53 gestantes</strong></p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (16,85−23)/3 = <strong>−2,05</strong></p>
+        <p>Z₂ = (20,81−23)/3 = <strong>−0,73</strong></p>
+        <p><strong>Passo 2 — consulte a tabela (use os valores positivos pela simetria):</strong></p>
+        <p>P(0 &lt; Z &lt; 2,05) = 0,4798 = <strong>47,98%</strong></p>
+        <p>P(0 &lt; Z &lt; 0,73) = 0,2673 = <strong>26,73%</strong></p>
+        <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — abaixo da média):</p>
+        <p>P(16,85 &lt; X &lt; 20,81) = 47,98% − 26,73% = <strong>21,25%</strong></p>
+        <p><strong>Passo 4 — aplique à população:</strong></p>
+        <p>250 × 21,25% = 53,13 → <strong>≈ 53 gestantes</strong></p>
         <p class="ex-concl"><strong>53 das 250 gestantes</strong> (≈ 21,25%) devem apresentar IMC pré-gestacional entre 16,85 e 20,81 kg/m² — faixa de baixo peso, que exige acompanhamento nutricional.</p>
       </div>
     </div>
@@ -1612,7 +1670,9 @@ tclBuildFactorGrid(); tclResetCounts();
         <canvas id="gabNutri5" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 2500 mg, σ = 400 mg, x = 3432 mg</p>
         <p><strong>Padronização:</strong> Z = (3432−2500)/400 = <strong>+2,33</strong></p>
-        <p><strong>Probabilidade:</strong> P(X &gt; 3432) = 1 − 0,9901 = <strong>0,0099</strong></p>
+        <p><strong>Tabela:</strong> P(0 &lt; Z &lt; 2,33) = 0,4901 = <strong>49,01%</strong></p>
+        <p><strong>Probabilidade (cauda):</strong></p>
+        <p>P(X &gt; 3432) = 50% − 49,01% = <strong>0,99%</strong></p>
         <p class="ex-concl">Apenas <strong>0,99%</strong> dos pacientes hipertensos consomem mais sódio que esse valor — resultado raro que reforça a necessidade de intervenção dietética imediata.</p>
       </div>
     </div>
@@ -1624,7 +1684,9 @@ tclBuildFactorGrid(); tclResetCounts();
       </button>
       <div style="display:none;padding:16px 18px 18px;background:#ECFDF5;font-size:.95rem;line-height:1.7;color:#065F46;border-top:1px solid #A7F3D0">
         <canvas id="pvNutri" height="210" style="width:100%;display:block;margin-bottom:14px;border-radius:6px"></canvas>
-        <p style="margin:0">Z = +2,33 equivale a 3432 mg de sódio — um consumo que supera o de 99,01% da população de referência. Com p = 0,0099, esse resultado é <strong>estatisticamente raro</strong> e indica risco cardiovascular elevado, justificando aconselhamento nutricional urgente.</p>
+        <p style="margin:0">Essa probabilidade em uma das pontas da curva normal tem um nome: <strong>p-valor</strong>. Ele responde à pergunta: <em>"se este caso viesse da população de referência, qual seria a chance de observarmos um resultado tão extremo quanto esse?"</em></p>
+        <p style="margin:10px 0 0">Por convenção, adota-se o <strong>nível de significância α = 5%</strong> como linha de corte (um valor padronizado). Se <strong>p &lt; α</strong>, consideramos o caso <strong>especial</strong> — <strong>estatisticamente raro</strong>.</p>
+        <p style="margin:10px 0 0">Z = +2,33 equivale a 3432 mg de sódio — apenas 0,99% dos pacientes consomem mais que isso. Como <strong>p = 0,99% &lt; α = 5%</strong>, esse resultado é <strong>estatisticamente raro</strong> e indica risco cardiovascular elevado, justificando aconselhamento nutricional urgente.</p>
       </div>
     </div>
 
@@ -1640,14 +1702,20 @@ tclBuildFactorGrid(); tclResetCounts();
 
     <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #FECACA">
       <p style="font-weight:700;color:#991B1B;margin:0 0 6px">Exercício 1 — Frequência respiratória</p>
-      <p>A frequência respiratória de adultos em repouso segue distribuição normal com μ = 16 ipm e σ = 3 ipm. Qual é a probabilidade de um paciente apresentar frequência respiratória entre 12,64 e 19,72 ipm?</p>
+      <p>A frequência respiratória de adultos em repouso segue distribuição normal com μ = 16 incursões respiratórias por minuto (irpm) e σ = 3 irpm. Qual é a probabilidade de um paciente apresentar frequência respiratória entre 12,64 e 19,72 irpm?</p>
       <button class="ex-gab-btn" data-cv="gabEnfer1" onclick="toggleGab(this)">Ver gabarito ▼</button>
       <div class="ex-gab">
         <canvas id="gabEnfer1" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
-        <p><strong>Identificação:</strong> μ = 16 ipm, σ = 3 ipm, x₁ = 12,64, x₂ = 19,72</p>
-        <p><strong>Padronização:</strong> Z₁ = (12,64−16)/3 = <strong>−1,12</strong> · Z₂ = (19,72−16)/3 = <strong>+1,24</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(12,64 &lt; X &lt; 19,72) = 0,8925 − 0,1314 = <strong>0,7611</strong></p>
-        <p class="ex-concl">Há <strong>76,11%</strong> de probabilidade de o paciente apresentar frequência respiratória entre 12,64 e 19,72 ipm.</p>
+        <p><strong>Identificação:</strong> μ = 16 irpm, σ = 3 irpm, x₁ = 12,64, x₂ = 19,72</p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (12,64−16)/3 = <strong>−1,12</strong></p>
+        <p>Z₂ = (19,72−16)/3 = <strong>+1,24</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(−1,12 &lt; Z &lt; 0) = 0,3686 = <strong>36,86%</strong></p>
+        <p>P(0 &lt; Z &lt; 1,24) = 0,3925 = <strong>39,25%</strong></p>
+        <p><strong>Passo 3 — some as duas metades</strong> (o intervalo se estende dos dois lados da média):</p>
+        <p>P(12,64 &lt; X &lt; 19,72) = 36,86% + 39,25% = <strong>76,11%</strong></p>
+        <p class="ex-concl">Há <strong>76,11%</strong> de probabilidade de o paciente apresentar frequência respiratória entre 12,64 e 19,72 irpm.</p>
       </div>
     </div>
 
@@ -1658,9 +1726,14 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabEnfer2" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 120 mmHg, σ = 14 mmHg, x = 142 mmHg</p>
-        <p><strong>Padronização:</strong> Z = (142−120)/14 = <strong>+1,57</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(X &gt; 142) = 1 − 0,9418 = <strong>0,0582</strong></p>
-        <p><strong>Aplicação à população:</strong> 500 × 0,0582 = <strong>≈ 29 adultos</strong></p>
+        <p><strong>Passo 1 — calcule o escore Z:</strong></p>
+        <p>Z = (142−120)/14 = <strong>+1,57</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 1,57) = 0,4418 = <strong>44,18%</strong></p>
+        <p><strong>Passo 3 — subtraia de 50%</strong> (cauda acima do valor):</p>
+        <p>P(X &gt; 142) = 50% − 44,18% = <strong>5,82%</strong></p>
+        <p><strong>Passo 4 — aplique à população:</strong></p>
+        <p>500 × 5,82% = 29,10 → <strong>≈ 29 adultos</strong></p>
         <p class="ex-concl">Aproximadamente <strong>29 dos 500 adultos</strong> (≈ 5,82%) devem apresentar PA sistólica acima de 142 mmHg — valor que merece atenção clínica mesmo em normotensos.</p>
       </div>
     </div>
@@ -1672,8 +1745,14 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabEnfer3" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 145 mg/dL, σ = 20 mg/dL, x₁ = 159,6, x₂ = 178,4</p>
-        <p><strong>Padronização:</strong> Z₁ = (159,6−145)/20 = <strong>+0,73</strong> · Z₂ = (178,4−145)/20 = <strong>+1,67</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(159,6 &lt; X &lt; 178,4) = 0,9525 − 0,7673 = <strong>0,1852</strong></p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (159,6−145)/20 = <strong>+0,73</strong></p>
+        <p>Z₂ = (178,4−145)/20 = <strong>+1,67</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 1,67) = 0,4525 = <strong>45,25%</strong></p>
+        <p>P(0 &lt; Z &lt; 0,73) = 0,2673 = <strong>26,73%</strong></p>
+        <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — acima da média):</p>
+        <p>P(159,6 &lt; X &lt; 178,4) = 45,25% − 26,73% = <strong>18,52%</strong></p>
         <p class="ex-concl">Há <strong>18,52%</strong> de probabilidade de o paciente apresentar glicemia pós-prandial entre 159,6 e 178,4 mg/dL.</p>
       </div>
     </div>
@@ -1685,9 +1764,16 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabEnfer4" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 4 min, σ = 1 min, x₁ = 2,48, x₂ = 3,62</p>
-        <p><strong>Padronização:</strong> Z₁ = (2,48−4)/1 = <strong>−1,52</strong> · Z₂ = (3,62−4)/1 = <strong>−0,38</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(2,48 &lt; X &lt; 3,62) = 0,3520 − 0,0643 = <strong>0,2877</strong></p>
-        <p><strong>Aplicação à população:</strong> 300 × 0,2877 = <strong>≈ 86 chamadas</strong></p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (2,48−4)/1 = <strong>−1,52</strong></p>
+        <p>Z₂ = (3,62−4)/1 = <strong>−0,38</strong></p>
+        <p><strong>Passo 2 — consulte a tabela (use os valores positivos pela simetria):</strong></p>
+        <p>P(0 &lt; Z &lt; 1,52) = 0,4357 = <strong>43,57%</strong></p>
+        <p>P(0 &lt; Z &lt; 0,38) = 0,1480 = <strong>14,80%</strong></p>
+        <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — abaixo da média):</p>
+        <p>P(2,48 &lt; X &lt; 3,62) = 43,57% − 14,80% = <strong>28,77%</strong></p>
+        <p><strong>Passo 4 — aplique à população:</strong></p>
+        <p>300 × 28,77% = 86,31 → <strong>≈ 86 chamadas</strong></p>
         <p class="ex-concl"><strong>86 das 300 chamadas</strong> (≈ 28,77%) devem ter sido atendidas entre 2,48 e 3,62 minutos após o acionamento.</p>
       </div>
     </div>
@@ -1700,7 +1786,9 @@ tclBuildFactorGrid(); tclResetCounts();
         <canvas id="gabEnfer5" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 36,5 °C, σ = 0,5 °C, x = 37,58 °C</p>
         <p><strong>Padronização:</strong> Z = (37,58−36,5)/0,5 = <strong>+2,16</strong></p>
-        <p><strong>Probabilidade:</strong> P(X &gt; 37,58) = 1 − 0,9846 = <strong>0,0154</strong></p>
+        <p><strong>Tabela:</strong> P(0 &lt; Z &lt; 2,16) = 0,4846 = <strong>48,46%</strong></p>
+        <p><strong>Probabilidade (cauda):</strong></p>
+        <p>P(X &gt; 37,58) = 50% − 48,46% = <strong>1,54%</strong></p>
         <p class="ex-concl">Apenas <strong>1,54%</strong> dos pacientes pós-operatórios apresentam temperatura tão elevada — resultado raro que justifica monitoramento atento e investigação de foco infeccioso.</p>
       </div>
     </div>
@@ -1712,7 +1800,9 @@ tclBuildFactorGrid(); tclResetCounts();
       </button>
       <div style="display:none;padding:16px 18px 18px;background:#FEF2F2;font-size:.95rem;line-height:1.7;color:#991B1B;border-top:1px solid #FECACA">
         <canvas id="pvEnfer" height="210" style="width:100%;display:block;margin-bottom:14px;border-radius:6px"></canvas>
-        <p style="margin:0">Z = +2,16 representa 37,58 °C — temperatura elevada que ultrapassa o padrão esperado em pós-operatório sem complicação. Com p = 0,0154, esse achado é <strong>estatisticamente raro</strong> e justifica monitoramento cuidadoso e investigação de foco infeccioso.</p>
+        <p style="margin:0">Essa probabilidade em uma das pontas da curva normal tem um nome: <strong>p-valor</strong>. Ele responde à pergunta: <em>"se este caso viesse da população de referência, qual seria a chance de observarmos um resultado tão extremo quanto esse?"</em></p>
+        <p style="margin:10px 0 0">Por convenção, adota-se o <strong>nível de significância α = 5%</strong> como linha de corte (um valor padronizado). Se <strong>p &lt; α</strong>, consideramos o caso <strong>especial</strong> — <strong>estatisticamente raro</strong>.</p>
+        <p style="margin:10px 0 0">Z = +2,16 representa 37,58 °C — temperatura elevada que ultrapassa o padrão esperado em pós-operatório sem complicação. Como <strong>p = 1,54% &lt; α = 5%</strong>, esse achado é <strong>estatisticamente raro</strong> e justifica monitoramento cuidadoso e investigação de foco infeccioso.</p>
       </div>
     </div>
 
@@ -1733,8 +1823,14 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabFarma1" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 500 mg, σ = 10 mg, x₁ = 486,6 mg, x₂ = 509,7 mg</p>
-        <p><strong>Padronização:</strong> Z₁ = (486,6−500)/10 = <strong>−1,34</strong> · Z₂ = (509,7−500)/10 = <strong>+0,97</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(486,6 &lt; X &lt; 509,7) = 0,8340 − 0,0901 = <strong>0,7439</strong></p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (486,6−500)/10 = <strong>−1,34</strong></p>
+        <p>Z₂ = (509,7−500)/10 = <strong>+0,97</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(−1,34 &lt; Z &lt; 0) = 0,4099 = <strong>40,99%</strong></p>
+        <p>P(0 &lt; Z &lt; 0,97) = 0,3340 = <strong>33,40%</strong></p>
+        <p><strong>Passo 3 — some as duas metades</strong> (o intervalo se estende dos dois lados da média):</p>
+        <p>P(486,6 &lt; X &lt; 509,7) = 40,99% + 33,40% = <strong>74,39%</strong></p>
         <p class="ex-concl"><strong>74,39%</strong> dos comprimidos apresentam massa entre 486,6 mg e 509,7 mg, dentro da faixa de variação aceitável.</p>
       </div>
     </div>
@@ -1746,9 +1842,14 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabFarma2" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 100%, σ = 2%, x = 102,56%</p>
-        <p><strong>Padronização:</strong> Z = (102,56−100)/2 = <strong>+1,28</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(X &gt; 102,56%) = 1 − 0,8997 = <strong>0,1003</strong></p>
-        <p><strong>Aplicação à população:</strong> 200 × 0,1003 = <strong>≈ 20 lotes</strong></p>
+        <p><strong>Passo 1 — calcule o escore Z:</strong></p>
+        <p>Z = (102,56−100)/2 = <strong>+1,28</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 1,28) = 0,3997 = <strong>39,97%</strong></p>
+        <p><strong>Passo 3 — subtraia de 50%</strong> (cauda acima do valor):</p>
+        <p>P(X &gt; 102,56%) = 50% − 39,97% = <strong>10,03%</strong></p>
+        <p><strong>Passo 4 — aplique à população:</strong></p>
+        <p>200 × 10,03% = 20,06 → <strong>≈ 20 lotes</strong></p>
         <p class="ex-concl"><strong>20 dos 200 lotes</strong> (≈ 10,03%) devem apresentar concentração acima de 102,56% — o que pode indicar superdosagem e exige revisão do processo.</p>
       </div>
     </div>
@@ -1760,8 +1861,14 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabFarma3" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 20 min, σ = 4 min, x₁ = 22,08, x₂ = 26,52</p>
-        <p><strong>Padronização:</strong> Z₁ = (22,08−20)/4 = <strong>+0,52</strong> · Z₂ = (26,52−20)/4 = <strong>+1,63</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(22,08 &lt; X &lt; 26,52) = 0,9484 − 0,6985 = <strong>0,2499</strong></p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (22,08−20)/4 = <strong>+0,52</strong></p>
+        <p>Z₂ = (26,52−20)/4 = <strong>+1,63</strong></p>
+        <p><strong>Passo 2 — consulte a tabela:</strong></p>
+        <p>P(0 &lt; Z &lt; 1,63) = 0,4484 = <strong>44,84%</strong></p>
+        <p>P(0 &lt; Z &lt; 0,52) = 0,1985 = <strong>19,85%</strong></p>
+        <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — acima da média):</p>
+        <p>P(22,08 &lt; X &lt; 26,52) = 44,84% − 19,85% = <strong>24,99%</strong></p>
         <p class="ex-concl">Há <strong>24,99%</strong> de probabilidade de a cápsula se dissolver entre 22,08 e 26,52 minutos após o contato com o fluido gástrico.</p>
       </div>
     </div>
@@ -1773,9 +1880,16 @@ tclBuildFactorGrid(); tclResetCounts();
       <div class="ex-gab">
         <canvas id="gabFarma4" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 7,2, σ = 0,3, x₁ = 6,68, x₂ = 7,03</p>
-        <p><strong>Padronização:</strong> Z₁ = (6,68−7,2)/0,3 = <strong>−1,73</strong> · Z₂ = (7,03−7,2)/0,3 = <strong>−0,57</strong></p>
-        <p><strong>Consulta à tabela:</strong> P(6,68 &lt; X &lt; 7,03) = 0,2843 − 0,0418 = <strong>0,2425</strong></p>
-        <p><strong>Aplicação à população:</strong> 150 × 0,2425 = <strong>≈ 36 amostras</strong></p>
+        <p><strong>Passo 1 — calcule os escores Z:</strong></p>
+        <p>Z₁ = (6,68−7,2)/0,3 = <strong>−1,73</strong></p>
+        <p>Z₂ = (7,03−7,2)/0,3 = <strong>−0,57</strong></p>
+        <p><strong>Passo 2 — consulte a tabela (use os valores positivos pela simetria):</strong></p>
+        <p>P(0 &lt; Z &lt; 1,73) = 0,4582 = <strong>45,82%</strong></p>
+        <p>P(0 &lt; Z &lt; 0,57) = 0,2157 = <strong>21,57%</strong></p>
+        <p><strong>Passo 3 — subtraia</strong> (os dois pontos ficam do mesmo lado — abaixo da média):</p>
+        <p>P(6,68 &lt; X &lt; 7,03) = 45,82% − 21,57% = <strong>24,25%</strong></p>
+        <p><strong>Passo 4 — aplique à população:</strong></p>
+        <p>150 × 24,25% = 36,38 → <strong>≈ 36 amostras</strong></p>
         <p class="ex-concl"><strong>36 das 150 amostras</strong> (≈ 24,25%) devem apresentar pH entre 6,68 e 7,03 — abaixo do intervalo ideal, indicando necessidade de ajuste no processo.</p>
       </div>
     </div>
@@ -1788,7 +1902,9 @@ tclBuildFactorGrid(); tclResetCounts();
         <canvas id="gabFarma5" height="85" style="width:100%;display:block;margin-bottom:12px;border-radius:6px"></canvas>
         <p><strong>Identificação:</strong> μ = 3%, σ = 0,5%, x = 4,12%</p>
         <p><strong>Padronização:</strong> Z = (4,12−3)/0,5 = <strong>+2,24</strong></p>
-        <p><strong>Probabilidade:</strong> P(X &gt; 4,12%) = 1 − 0,9875 = <strong>0,0125</strong></p>
+        <p><strong>Tabela:</strong> P(0 &lt; Z &lt; 2,24) = 0,4875 = <strong>48,75%</strong></p>
+        <p><strong>Probabilidade (cauda):</strong></p>
+        <p>P(X &gt; 4,12%) = 50% − 48,75% = <strong>1,25%</strong></p>
         <p class="ex-concl">Apenas <strong>1,25%</strong> dos lotes apresentam umidade tão elevada — resultado incomum que indica possível falha no controle de armazenamento e justifica inspeção do lote.</p>
       </div>
     </div>
@@ -1800,7 +1916,9 @@ tclBuildFactorGrid(); tclResetCounts();
       </button>
       <div style="display:none;padding:16px 18px 18px;background:#FFF7ED;font-size:.95rem;line-height:1.7;color:#9A3412;border-top:1px solid #FED7AA">
         <canvas id="pvFarma" height="210" style="width:100%;display:block;margin-bottom:14px;border-radius:6px"></canvas>
-        <p style="margin:0">Z = +2,24 equivale a 4,12% de umidade — um valor incomum em processos sob controle. Com p = 0,0125, esse achado é <strong>estatisticamente raro</strong> e justifica inspeção detalhada do processo e avaliação do lote.</p>
+        <p style="margin:0">Essa probabilidade em uma das pontas da curva normal tem um nome: <strong>p-valor</strong>. Ele responde à pergunta: <em>"se este caso viesse da população de referência, qual seria a chance de observarmos um resultado tão extremo quanto esse?"</em></p>
+        <p style="margin:10px 0 0">Por convenção, adota-se o <strong>nível de significância α = 5%</strong> como linha de corte (um valor padronizado). Se <strong>p &lt; α</strong>, consideramos o caso <strong>especial</strong> — <strong>estatisticamente raro</strong>.</p>
+        <p style="margin:10px 0 0">Z = +2,24 equivale a 4,12% de umidade — um valor incomum em processos sob controle. Como <strong>p = 1,25% &lt; α = 5%</strong>, esse achado é <strong>estatisticamente raro</strong> e justifica inspeção detalhada do processo e avaliação do lote.</p>
       </div>
     </div>
 
@@ -6378,98 +6496,130 @@ function toggleGab(btn){
 }
 
 // ── GRÁFICO P-VALOR (caixinha Ex5) ───────────────────
-function drawPValorCanvas(){
-  const canvas=document.getElementById('pvCanvas');
-  if(!canvas) return;
-  const ctx=canvas.getContext('2d');
-  const W=canvas.offsetWidth||canvas.parentElement?.offsetWidth||360; canvas.width=W;
-  const H=canvas.height;
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle='#FFFBEB'; ctx.fillRect(0,0,W,H);
+function drawPValorZoom(canvasId, zExIn, pLabel) {
+  const fmt = n => String(n).replace('.', ',');
+  const c = { z: zExIn, p: pLabel };
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  canvas.height = 450;
+  const W = canvas.offsetWidth || 340; canvas.width = W;
+  const H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#FFFBEB'; ctx.fillRect(0, 0, W, H);
 
-  // Layout: top zone for labels (70px), curve zone, bottom zone for x-axis labels
-  const PL=34, PR=14, PT=70, PB=30;
-  const cH=H-PT-PB;
-  const cW=W-PL-PR;
+  const PL = 34, PR = 14;
+  const cW = W - PL - PR;
+  const xMin = 0, xMax = 3.1, z5 = 1.645, zEx = c.z;
+  const norm = x => Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI);
+  const yPk = norm(0);
 
-  const xMin=0, xMax=3.1;
-  const norm=x=>Math.exp(-0.5*x*x)/Math.sqrt(2*Math.PI);
-  const yPk=norm(0);
-  const toX=x=>PL+(x-xMin)/(xMax-xMin)*cW;
-  const toY=y=>PT+cH-(y/yPk)*cH;
-  const yBase=PT+cH; // eixo X
-  const z5=1.645, zEx=2.13;
+  /* ---------- PAINEL 1: curva inteira ---------- */
+  const T1 = 22, cH1 = 140, yB1 = T1 + cH1;
+  const toX1 = x => PL + (x - xMin) / (xMax - xMin) * cW;
+  const toY1 = y => yB1 - (y / yPk) * cH1;
 
-  // sombra cinza (área total)
-  ctx.beginPath(); ctx.moveTo(toX(0),yBase);
-  for(let x=0;x<=xMax;x+=0.02) ctx.lineTo(toX(x),toY(norm(x)));
-  ctx.lineTo(toX(xMax),yBase); ctx.closePath();
-  ctx.fillStyle='rgba(203,213,225,0.30)'; ctx.fill();
+  const area1 = (a, b, fill) => {
+    ctx.beginPath(); ctx.moveTo(toX1(a), yB1);
+    for (let x = a; x <= b; x += 0.02) ctx.lineTo(toX1(x), toY1(norm(x)));
+    ctx.lineTo(toX1(b), yB1); ctx.closePath();
+    ctx.fillStyle = fill; ctx.fill();
+  };
+  area1(0, xMax, 'rgba(203,213,225,0.30)');
+  area1(z5, xMax, 'rgba(251,191,36,0.65)');
+  area1(zEx, xMax, 'rgba(220,38,38,0.82)');
 
-  // região âmbar p=0,05
-  ctx.beginPath(); ctx.moveTo(toX(z5),yBase);
-  for(let x=z5;x<=xMax;x+=0.02) ctx.lineTo(toX(x),toY(norm(x)));
-  ctx.lineTo(toX(xMax),yBase); ctx.closePath();
-  ctx.fillStyle='rgba(251,191,36,0.65)'; ctx.fill();
-
-  // região vermelha p=0,0166
-  ctx.beginPath(); ctx.moveTo(toX(zEx),yBase);
-  for(let x=zEx;x<=xMax;x+=0.02) ctx.lineTo(toX(x),toY(norm(x)));
-  ctx.lineTo(toX(xMax),yBase); ctx.closePath();
-  ctx.fillStyle='rgba(220,38,38,0.82)'; ctx.fill();
-
-  // curva
   ctx.beginPath();
-  for(let x=0;x<=xMax;x+=0.02) ctx.lineTo(toX(x),toY(norm(x)));
-  ctx.strokeStyle='#374151'; ctx.lineWidth=2.5; ctx.stroke();
+  for (let x = 0; x <= xMax; x += 0.02) ctx.lineTo(toX1(x), toY1(norm(x)));
+  ctx.strokeStyle = '#374151'; ctx.lineWidth = 2.5; ctx.stroke();
 
-  // eixo X
-  ctx.beginPath(); ctx.moveTo(toX(0)-4,yBase); ctx.lineTo(W-PR+4,yBase);
-  ctx.strokeStyle='#94A3B8'; ctx.lineWidth=1.5; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(toX1(0) - 4, yB1); ctx.lineTo(W - PR + 4, yB1);
+  ctx.strokeStyle = '#94A3B8'; ctx.lineWidth = 1.5; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(toX1(0), yB1); ctx.lineTo(toX1(0), T1 - 6);
+  ctx.strokeStyle = '#CBD5E1'; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]); ctx.stroke(); ctx.setLineDash([]);
 
-  // eixo Y (linha tracejada em μ)
-  ctx.beginPath(); ctx.moveTo(toX(0),yBase); ctx.lineTo(toX(0),PT-6);
-  ctx.strokeStyle='#CBD5E1'; ctx.lineWidth=1.5; ctx.setLineDash([5,4]); ctx.stroke(); ctx.setLineDash([]);
+  ctx.textAlign = 'center';
+  ctx.font = '13px Nunito, sans-serif'; ctx.fillStyle = '#64748B';
+  ctx.fillText('μ', toX1(0), yB1 + 18);
+  ctx.textAlign = 'right'; ctx.font = '14px Nunito, sans-serif'; ctx.fillStyle = '#94A3B8';
+  ctx.fillText('f(x)', PL - 6, T1 + 8);
 
-  // linhas verticais tracejadas nas zonas
-  [[z5,'#B45309'],[zEx,'#DC2626']].forEach(([z,col])=>{
-    ctx.beginPath(); ctx.moveTo(toX(z),yBase); ctx.lineTo(toX(z),toY(norm(z)));
-    ctx.strokeStyle=col; ctx.lineWidth=2; ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
+  // retângulo pontilhado em volta da cauda
+  const rx1 = toX1(z5) - 8, rx2 = toX1(xMax) + 4;
+  const ry1 = toY1(norm(z5)) - 14, ry2 = yB1 + 6;
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 1.8; ctx.setLineDash([4, 3]);
+  ctx.strokeRect(rx1, ry1, rx2 - rx1, ry2 - ry1);
+
+  /* ---------- PAINEL 2: zoom da cauda ---------- */
+  const T2 = 250, cH2 = 130, yB2 = T2 + cH2;
+  const toX2 = x => PL + (x - z5) / (xMax - z5) * cW;
+  const yPk2 = norm(z5);
+  const toY2 = y => yB2 - (y / yPk2) * cH2;
+
+  // linhas do zoom
+  ctx.beginPath();
+  ctx.moveTo(rx1, ry2); ctx.lineTo(PL, T2 - 8);
+  ctx.moveTo(rx2, ry2); ctx.lineTo(W - PR, T2 - 8);
+  ctx.strokeStyle = '#475569'; ctx.lineWidth = 1.4; ctx.setLineDash([4, 3]); ctx.stroke(); ctx.setLineDash([]);
+
+  ctx.textAlign = 'left'; ctx.font = 'bold 13px Nunito, sans-serif'; ctx.fillStyle = '#475569';
+  ctx.fillText('🔍 zoom na cauda', PL + 6, T2 - 14);
+
+  const path2 = (a, b) => {
+    ctx.beginPath(); ctx.moveTo(toX2(a), yB2);
+    for (let x = a; x <= b; x += 0.01) ctx.lineTo(toX2(x), toY2(norm(x)));
+    ctx.lineTo(toX2(b), yB2); ctx.closePath();
+  };
+
+  // α inteiro (amarelo)
+  path2(z5, xMax); ctx.fillStyle = 'rgba(251,191,36,0.75)'; ctx.fill();
+  // p: só faixas vermelhas sobre o mesmo fundo amarelo
+  ctx.save();
+  path2(zEx, xMax); ctx.clip();
+  ctx.strokeStyle = 'rgba(127,29,29,0.85)'; ctx.lineWidth = 0.9;
+  for (let k = -cH2; k < cW; k += 10) {
+    ctx.beginPath(); ctx.moveTo(toX2(zEx) + k, yB2 + 2); ctx.lineTo(toX2(zEx) + k + cH2, yB2 - cH2 - 2); ctx.stroke();
+  }
+  ctx.restore();
+
+  // curva e eixo do zoom
+  ctx.beginPath();
+  for (let x = z5; x <= xMax; x += 0.01) ctx.lineTo(toX2(x), toY2(norm(x)));
+  ctx.strokeStyle = '#374151'; ctx.lineWidth = 2.5; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(PL, yB2); ctx.lineTo(W - PR + 4, yB2);
+  ctx.strokeStyle = '#94A3B8'; ctx.lineWidth = 1.5; ctx.stroke();
+
+  // linhas verticais tracejadas
+  [[z5, '#B45309'], [zEx, '#DC2626']].forEach(([z, col]) => {
+    ctx.beginPath(); ctx.moveTo(toX2(z), yB2 + 8); ctx.lineTo(toX2(z), toY2(norm(z)));
+    ctx.strokeStyle = col; ctx.lineWidth = 2; ctx.setLineDash([4, 3]); ctx.stroke(); ctx.setLineDash([]);
   });
 
-  // helper seta
-  function arrow(x1,y1,x2,y2,col){
-    const ang=Math.atan2(y2-y1,x2-x1);
-    ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2);
-    ctx.strokeStyle=col; ctx.lineWidth=1.5; ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(x2,y2);
-    ctx.lineTo(x2-9*Math.cos(ang-0.38),y2-9*Math.sin(ang-0.38));
-    ctx.lineTo(x2-9*Math.cos(ang+0.38),y2-9*Math.sin(ang+0.38));
-    ctx.closePath(); ctx.fillStyle=col; ctx.fill();
-  }
+  // rótulos do eixo
+  ctx.font = 'bold 13px Nunito, sans-serif';
+  ctx.textAlign = 'left'; ctx.fillStyle = '#B45309';
+  ctx.fillText('z = 1,645', toX2(z5) + 3, yB2 + 22);
+  ctx.textAlign = 'center'; ctx.fillStyle = '#DC2626';
+  ctx.fillText('z = ' + fmt(zEx), toX2(zEx) + 22, yB2 + 22);
 
-  // --- Label p = 0,05 --- no lado esquerdo da zona âmbar, acima
-  const x5px=toX(z5);
-  const midAmber=(x5px+toX(xMax))/2;
-  ctx.font='bold 15px Nunito,sans-serif'; ctx.textAlign='center'; ctx.fillStyle='#92400E';
-  ctx.fillText('p = 0,05', midAmber, 20);
-  arrow(midAmber, 26, midAmber, toY(norm((z5+xMax)/2))-4, '#B45309');
+  // rótulo do α dentro do amarelo
+  ctx.textAlign = 'center'; ctx.font = 'bold 16px Nunito, sans-serif'; ctx.fillStyle = '#78350F';
+  ctx.fillText('α = 5%', toX2((z5 + zEx) / 2) - 4, yB2 - 26);
 
-  // --- Label p = 0,0166 --- abaixo do label âmbar, seta aponta para zona vermelha
-  const midRed=(toX(zEx)+toX(xMax))/2;
-  ctx.font='bold 15px Nunito,sans-serif'; ctx.textAlign='center'; ctx.fillStyle='#991B1B';
-  ctx.fillText('p = 0,0166', midRed, 46);
-  arrow(midRed, 52, midRed, toY(norm((zEx+xMax)/2))-3, '#DC2626');
+  // rótulo do p, com seta para dentro da área vermelha
+  const px = toX2(zEx + (xMax - zEx) * 0.45);
+  ctx.font = 'bold 16px Nunito, sans-serif'; ctx.fillStyle = '#991B1B';
+  ctx.fillText('p = ' + c.p, px, yB2 - 82);
+  ctx.strokeStyle = '#991B1B'; ctx.fillStyle = '#991B1B'; ctx.lineWidth = 1.8;
+  const ay = toY2(norm(zEx + (xMax - zEx) * 0.45)) + 8;
+  ctx.beginPath(); ctx.moveTo(px, yB2 - 76); ctx.lineTo(px, ay - 8); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(px, ay); ctx.lineTo(px - 5, ay - 9); ctx.lineTo(px + 5, ay - 9); ctx.closePath(); ctx.fill();
 
-  // rótulo μ abaixo do eixo
-  ctx.font='bold 15px Nunito,sans-serif'; ctx.textAlign='center'; ctx.fillStyle='#94A3B8';
-  ctx.fillText('μ', toX(0), yBase+20);
-
-  // f(x) — label do eixo Y, horizontal, canto superior esquerdo
-  ctx.font='14px Nunito,sans-serif'; ctx.textAlign='right'; ctx.fillStyle='#94A3B8';
-  ctx.fillText('f(x)', PL-6, PT+8);
+  ctx.font = 'bold 15px Nunito, sans-serif'; ctx.fillStyle = '#1E293B'; ctx.textAlign = 'center';
+  ctx.fillText('A área do p está dentro da área do α  →  p < α', W / 2, H - 12);
 }
+
+function drawPValorCanvas(){ drawPValorZoom('pvCanvas', 2.13, '1,66%'); }
 
 // ── MINI CURVAS NOS GABARITOS ─────────────────────────
 const normExCfg = {
@@ -6578,85 +6728,9 @@ function drawNormEx(canvasId){
 }
 
 // ── P-VALOR CANVAS GENÉRICO ───────────────────────────
-function drawPValorCanvasFor(canvasId, z5, zEx, p5Label, pExLabel, lineCol, amberFill, redFill){
-  const canvas = document.getElementById(canvasId);
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.offsetWidth || canvas.parentElement?.offsetWidth || 360;
-  canvas.width = W;
-  const H = canvas.height;
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle='#FFFBEB'; ctx.fillRect(0,0,W,H);
-  const PL=34, PR=14, PT=70, PB=30;
-  const cH=H-PT-PB; const cW=W-PL-PR;
-  const xMin=0, xMax=3.1;
-  const norm = x => Math.exp(-0.5*x*x)/Math.sqrt(2*Math.PI);
-  const yPk = norm(0);
-  const toX = x => PL+(x-xMin)/(xMax-xMin)*cW;
-  const toY = y => PT+cH-(y/yPk)*cH;
-  const yBase = PT+cH;
-
-  // gray fill (0 to z5)
-  ctx.beginPath(); ctx.moveTo(toX(0), yBase);
-  for(let i=0;i<=200;i++){ const x=xMin+(z5-xMin)*i/200; ctx.lineTo(toX(x),toY(norm(x))); }
-  ctx.lineTo(toX(z5),yBase); ctx.closePath();
-  ctx.fillStyle='rgba(203,213,225,0.5)'; ctx.fill();
-
-  // amber fill (z5 to xMax)
-  const midAmber = toX((z5+xMax)/2);
-  ctx.beginPath(); ctx.moveTo(toX(z5), yBase);
-  for(let i=0;i<=200;i++){ const x=z5+(xMax-z5)*i/200; ctx.lineTo(toX(x),toY(norm(x))); }
-  ctx.lineTo(toX(xMax),yBase); ctx.closePath();
-  ctx.fillStyle = amberFill||'rgba(217,119,6,0.25)'; ctx.fill();
-
-  // red fill (zEx to xMax)
-  const midRed = toX((zEx+xMax)/2);
-  ctx.beginPath(); ctx.moveTo(toX(zEx), yBase);
-  for(let i=0;i<=200;i++){ const x=zEx+(xMax-zEx)*i/200; ctx.lineTo(toX(x),toY(norm(x))); }
-  ctx.lineTo(toX(xMax),yBase); ctx.closePath();
-  ctx.fillStyle = redFill||'rgba(220,38,38,0.50)'; ctx.fill();
-
-  // curve
-  ctx.beginPath();
-  for(let i=0;i<=300;i++){ const x=xMin+(xMax-xMin)*i/300; ctx.lineTo(toX(x),toY(norm(x))); }
-  ctx.strokeStyle='#4B5563'; ctx.lineWidth=2; ctx.stroke();
-
-  // x-axis
-  ctx.beginPath(); ctx.moveTo(PL,yBase); ctx.lineTo(W-PR,yBase);
-  ctx.strokeStyle='#CBD5E1'; ctx.lineWidth=1; ctx.stroke();
-
-  // dashed verticals
-  [z5, zEx].forEach(z=>{
-    ctx.beginPath(); ctx.moveTo(toX(z),yBase); ctx.lineTo(toX(z),toY(norm(z)));
-    ctx.strokeStyle=lineCol||'#D97706'; ctx.lineWidth=1.5; ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
-  });
-
-  // arrow helper
-  const arrow=(x,y1,y2,col)=>{
-    ctx.strokeStyle=col; ctx.fillStyle=col; ctx.lineWidth=1.5;
-    ctx.beginPath(); ctx.moveTo(x,y1); ctx.lineTo(x,y2); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(x,y2); ctx.lineTo(x-4,y2-8); ctx.lineTo(x+4,y2-8); ctx.closePath(); ctx.fill();
-  };
-
-  // label p5
-  const yAm = toY(norm((z5+xMax)/2));
-  ctx.font='bold 15px Nunito,sans-serif'; ctx.textAlign='center'; ctx.fillStyle='#92400E';
-  ctx.fillText(p5Label, midAmber, 20);
-  arrow(midAmber, 26, yAm-6, '#B45309');
-
-  // label pEx
-  const yRed = toY(norm((zEx+xMax)/2));
-  ctx.font='bold 15px Nunito,sans-serif'; ctx.fillStyle='#991B1B';
-  ctx.fillText(pExLabel, midRed, 46);
-  arrow(midRed, 52, yRed-6, '#B91C1C');
-
-  // μ label
-  ctx.font='13px Nunito,sans-serif'; ctx.fillStyle='#64748B'; ctx.textAlign='center';
-  ctx.fillText('μ', toX(0), yBase+18);
-
-  // f(x) label
-  ctx.font='14px Nunito,sans-serif'; ctx.textAlign='right'; ctx.fillStyle='#94A3B8';
-  ctx.fillText('f(x)', PL-6, PT+8);
+function drawPValorCanvasFor(canvasId, z5, zEx, p5Label, pExLabel){
+  const v = parseFloat(String(pExLabel).replace('p = ','').replace(',','.')) * 100;
+  drawPValorZoom(canvasId, zEx, v.toFixed(2).replace('.', ',') + '%');
 }
 </script>
 
