@@ -157,6 +157,15 @@
   .cmp-cards { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
   .cmp-card  { flex: 1; min-width: 200px; border-radius: 16px; padding: 1rem; text-align: center; }
 
+
+  /* Aba 6 */
+  .s6-sit { font-family:'Fredoka One',cursive; font-size:1.1rem; margin:1.6rem 0 .6rem; padding:.35rem .9rem; border-radius:10px; display:inline-block; color:white; }
+  .s6-q { margin-bottom:1.3rem; }
+  .s6-gbtn { font-family:'Nunito',sans-serif; font-weight:900; font-size:.95rem; background:white; border:3px solid var(--verde); color:var(--verde); border-radius:12px; padding:.5rem 1.1rem; cursor:pointer; margin-top:.5rem; transition:all .15s; }
+  .s6-gbtn:hover { background:var(--verde); color:white; }
+  .s6-gab { background:#F0FDF4; border-left:5px solid var(--verde); border-radius:12px; padding:.8rem 1.1rem; margin-top:.7rem; font-size:1rem; line-height:1.6; }
+  .s6-gab p + p { margin-top:.35rem; }
+
   /* Predict result */
   .pred-result { font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.35rem; text-align: center; margin-top: .8rem; }
 </style>
@@ -419,12 +428,27 @@
     </div>
   </div>
 
+  <div class="card roxo">
+    <h2>📊 E a normalidade dos dados?</h2>
+    <ul>
+      <li>Para <strong>calcular</strong> o r, <strong>NORMALIDADE NÃO É EXIGÊNCIA ABSOLUTA</strong>. O mais importante é a relação ser <strong>aproximadamente linear</strong> e não haver <strong>outliers muito influentes</strong>.</li>
+      <li>Em <strong>amostras pequenas</strong>, dados muito assimétricos podem comprometer a confiabilidade da interpretação do r.</li>
+      <li>A <strong>regressão</strong> só deve ser usada para fazer previsões quando a correlação é moderada, forte ou muito forte e a relação é aproximadamente linear.</li>
+      <li>Se os dados forem <strong>ordinais</strong>, muito assimétricos, ou se a relação não for em linha reta, outras técnicas são mais recomendadas, como a <strong>correlação de Spearman</strong> (não veremos neste curso).</li>
+    </ul>
+    <div class="warn" style="background:linear-gradient(135deg,#EDE9FE,#DDD6FE);border-color:var(--roxo)">
+      <h3 style="color:#5B21B6">💡 Na prática</h3>
+      <p style="color:#4C1D95">Antes de interpretar o r, confira:<br>📊 no <strong>histograma</strong> de cada variável: o formato é mais ou menos de sino, sem muita assimetria?<br>📈 no <strong>diagrama de dispersão</strong>: os pontos seguem mais ou menos uma linha reta, sem outliers que se destacam?</p>
+    </div>
+  </div>
+
   <div class="concl" style="background:linear-gradient(135deg,#F59E0B,#EC4899)">
     <div class="tag">💡 RESUMÃO DOS CUIDADOS</div>
     <div class="text" style="font-size:1.2rem;line-height:1.7">
       1️⃣ Correlação forte <span class="hl">não implica causalidade</span><br>
       2️⃣ Pearson mede apenas <span class="hl">relações lineares</span><br>
-      3️⃣ Sempre <span class="hl">visualize o gráfico</span> antes de interpretar r
+      3️⃣ Sempre <span class="hl">visualize o gráfico</span> antes de interpretar r<br>
+      4️⃣ Com dados muito assimétricos ou outliers, considere a <span class="hl">correlação de Spearman</span>
     </div>
   </div>
 
@@ -434,6 +458,24 @@
   </div>
 </section>
 
+
+<!-- ══════════════ ABA 6 – EXERCÍCIOS POR CURSO ══════════════ -->
+<section id="s6">
+
+  <div class="card verde">
+    <h2>🎓 Exercícios por curso</h2>
+    <p>Escolha o seu curso e resolva os 7 exercícios. Em cada um, tente resolver sozinho antes de abrir o gabarito.</p>
+    <div style="background:#F5F3FF;border-left:4px solid #8B5CF6;border-radius:12px;padding:.8rem 1.1rem;margin-top:.8rem">
+      <span style="font-weight:900;color:#5B21B6">💡 Dica:</span>
+      <span style="font-size:.98rem;color:#4C1D95"> use o botão <strong>📋 Tabela de r</strong> (canto inferior direito) para consultar a interpretação da força da correlação.</span>
+    </div>
+  </div>
+
+  <div class="card" style="border-color:var(--roxo)">
+    <div class="ds-btns" id="s6-btns" style="justify-content:center"></div>
+    <div id="ex-s6"><div style="text-align:center;font-weight:700;color:#94A3B8;padding:1rem">⏳ Toque no botão de um curso</div></div>
+  </div>
+</section>
 
 <footer style="text-align:center;padding:1.2rem 1rem;font-size:.82rem;color:#94A3B8;font-family:'Nunito',sans-serif;border-top:1px solid #E2E8F0;margin-top:2rem">
   Desenvolvido por André Lo Feudo com apoio do Claude
@@ -527,7 +569,8 @@ const SECS = [
   {id:'s2', label:'2. Correlação de Pearson (r)'},
   {id:'s3', label:'3. R² — Poder Explicativo'},
   {id:'s4', label:'4. Regressão — Previsões'},
-  {id:'s5', label:'5. ⚠️ Cuidados Importantes'}
+  {id:'s5', label:'5. ⚠️ Cuidados Importantes'},
+  {id:'s6', label:'6. 🎓 Exercícios por Curso'}
 ];
 
 // ══════════════════════════════════════════════════════
@@ -566,7 +609,8 @@ function onActivate(i) {
     if (s3card) exS3Observer.observe(s3card);
   }
   if (i === 3) { predKey = 'turmaA'; syncPredBtns(); updatePred(); }
-  if (i === 4) redrawExCanvases('ex-s5', [30,19,20]);
+  if (i === 4) redrawExCanvases('ex-s5', [30,19,20,31]);
+  if (i === 5) document.getElementById('ref-btn').style.display = 'block';
 }
 
 // Show floating button when exercises of Aba 2 scroll into view
@@ -1117,13 +1161,13 @@ const QS = [
   {q:'Um nutricionista estuda a relação entre o <span style="color:#7C3AED;font-weight:900">consumo diário de açúcar (g)</span> e o <span style="color:#7C3AED;font-weight:900">índice de massa corporal (IMC)</span> dos seus pacientes. Qual é a variável independente e qual é a dependente?',
    opts:['Independente: IMC | Dependente: consumo de açúcar','Independente: consumo de açúcar | Dependente: IMC','As duas são independentes','Não é possível determinar sem calcular r'], ans:1,
    fb:'✅ Correto! O consumo de açúcar (X) é o fator explicativo — variável independente. O IMC (Y) é o resultado que pode variar em função do consumo — variável dependente.'},
-  {q:'Uma enfermeira estuda a relação entre o <span style="color:#7C3AED;font-weight:900">número de horas de sono</span> (X) e a <span style="color:#7C3AED;font-weight:900">pressão arterial sistólica</span> (Y) dos pacientes. Qual é a variável independente e qual é a dependente?',
+  {q:'Uma enfermeira estuda a relação entre o <span style="color:#7C3AED;font-weight:900">número de horas de sono</span> e a <span style="color:#7C3AED;font-weight:900">pressão arterial sistólica</span> dos pacientes. Qual é a variável independente e qual é a dependente?',
    opts:['As duas são dependentes','Independente: pressão arterial | Dependente: horas de sono','As duas são independentes','Independente: horas de sono | Dependente: pressão arterial'], ans:3,
    fb:'✅ Correto! As horas de sono (X) são o fator explicativo — variável independente. A pressão arterial (Y) é o resultado que pode variar em função do sono — variável dependente.'},
   {q:'Um estudo relacionou os <span style="color:#3B82F6;font-weight:900">anos de escolaridade</span> (X) com o <span style="color:#3B82F6;font-weight:900">salário mensal</span> (Y) de 100 pessoas. O resultado foi R² = 0,70. O que isso significa?',
    opts:['70% dos salários são altos por causa da escolaridade','70% da variação nos salários entre as pessoas é explicada pela diferença nos anos de escolaridade','A correlação entre escolaridade e salário é de 0,70','Quem tem mais escolaridade ganha 70% a mais'], ans:1,
    fb:'✅ Correto! R² = 0,70 significa que 70% das diferenças de salário entre as pessoas são explicadas pelas diferenças nos anos de escolaridade. Os outros 30% dependem de outros fatores — experiência, área de atuação, etc.'},
-  {q:'No gráfico de dispersão que relaciona <span style="color:#7C3AED;font-weight:900">horas de estudo</span> (X) com <span style="color:#7C3AED;font-weight:900">nota da prova</span> (Y), qual é a variável independente e qual é a dependente?',
+  {q:'No gráfico de dispersão que relaciona <span style="color:#7C3AED;font-weight:900">horas de estudo</span> com <span style="color:#7C3AED;font-weight:900">nota da prova</span>, qual é a variável independente e qual é a dependente?',
    cv:{pts:[{x:1,y:2},{x:2,y:3},{x:3,y:5},{x:4,y:6}],
        color:'#7C3AED', xLabel:'Horas de estudo', yLabel:'Nota da prova',
        xRange:[0,5], yRange:[0,10], xStep:1, yStep:2},
@@ -1158,10 +1202,13 @@ const QS = [
    fb:'✅ Correto! Com r = +0,10 a correlação é bem fraca (0,00 a 0,19). Os pontos estão tão dispersos que qualquer previsão seria muito imprecisa. Não vale a pena usar regressão aqui!'},
   {q:'Um estudo mostrou que países com mais TVs por habitante têm maior expectativa de vida. Isso significa que ter TV aumenta a expectativa de vida?',
    opts:['Sim, a correlação é forte e isso prova a causa','Não — ambas dependem do nível de riqueza do país, que é um fator oculto','Não, porque a correlação entre TVs e expectativa de vida é fraca','Sim, mas apenas em países desenvolvidos'], ans:1,
-   fb:'✅ Correto! Esse é um exemplo clássico de correlação espúria. Países mais ricos têm mais TVs E maior expectativa de vida — mas é a riqueza que explica os dois, não a TV causando longevidade.'}
+   fb:'✅ Correto! Esse é um exemplo clássico de correlação espúria. Países mais ricos têm mais TVs E maior expectativa de vida — mas é a riqueza que explica os dois, não a TV causando longevidade.'},
+  {q:'Uma pesquisadora tem uma amostra pequena, com dados muito assimétricos e alguns outliers. Qual a melhor conduta ao analisar a correlação?',
+   opts:['Calcular o r de Pearson e interpretar normalmente, sem olhar os dados','Examinar histograma e dispersão e, se necessário, considerar a correlação de Spearman','Descartar a análise, pois só é possível calcular r com dados perfeitamente normais','Usar R² no lugar do r, que não é afetado por outliers'], ans:1,
+   fb:'✅ Correto! Outliers e forte assimetria, principalmente em amostras pequenas, podem distorcer o r e comprometer a análise. Olhar os gráficos primeiro e considerar a correlação de Spearman é a conduta mais segura.'}
 ];
 
-const SEC_QS = {s1:[0,2,3,1,24,21,22], s2:[4,5,13,6,11,12], s3g1:[23,7], s3g2:[15,17], s3g3:[8,14], s3g4:[16,18], s4:[25,26,27,9,10,28,29], s5:[30,19,20]};
+const SEC_QS = {s1:[0,2,3,1,24,21,22], s2:[4,5,13,6,11,12], s3g1:[23,7], s3g2:[15,17], s3g3:[8,14], s3g4:[16,18], s4:[25,26,27,9,10,28,29], s5:[30,19,20,31]};
 
 // ══════════════════════════════════════════════════════
 // MINI SCATTER (for exercises)
@@ -1174,7 +1221,7 @@ function drawMiniScatter(id, d) {
   ctx.clearRect(0,0,W,H);
   ctx.fillStyle = '#F8FAFC'; ctx.fillRect(0,0,W,H);
 
-  const PL=d.pl||52, PR=20, PT=20, PB=48;
+  const PL=Math.max(d.pl||52, 84), PR=20, PT=20, PB=66;
   const pw=W-PL-PR, ph=H-PT-PB;
   const [xMin,xMax] = d.xRange, [yMin,yMax] = d.yRange;
   const tx = x => PL + (x-xMin)/(xMax-xMin)*pw;
@@ -1193,19 +1240,28 @@ function drawMiniScatter(id, d) {
   ctx.beginPath(); ctx.moveTo(PL,PT); ctx.lineTo(PL,H-PB); ctx.lineTo(W-PR,H-PB); ctx.stroke();
 
   // x ticks
-  ctx.fillStyle='#64748B'; ctx.font='bold 26px Nunito'; ctx.textAlign='center';
-  for(let gx=xMin; gx<=xMax; gx+=xStep) ctx.fillText(gx, tx(gx), H-PB+18);
+  ctx.fillStyle='#64748B'; ctx.font='bold 24px Nunito'; ctx.textAlign='center';
+  for(let gx=xMin; gx<=xMax; gx+=xStep) ctx.fillText(gx, tx(gx), H-PB+32);
   // y ticks
   ctx.textAlign='right';
-  for(let gy=yMin; gy<=yMax; gy+=yStep) ctx.fillText(gy, PL-6, ty(gy)+5);
+  for(let gy=yMin; gy<=yMax; gy+=yStep) ctx.fillText(gy, PL-12, ty(gy)+8);
 
   // axis labels
-  ctx.textAlign='center'; ctx.font='bold 26px Nunito'; ctx.fillStyle='#475569';
-  ctx.fillText(d.xLabel, PL+pw/2, H-2);
-  const yLabelX = (d.pl||52) > 60 ? 16 : 12;
-  ctx.save(); ctx.translate(yLabelX, PT+ph/2); ctx.rotate(-Math.PI/2);
+  ctx.textAlign='center'; ctx.fillStyle='#475569';
+  const fitFont = (txt, maxW) => { let fs=24; ctx.font=`bold ${fs}px Nunito`; while (ctx.measureText(txt).width > maxW && fs > 14) { fs--; ctx.font=`bold ${fs}px Nunito`; } };
+  fitFont(d.xLabel, pw);
+  ctx.fillText(d.xLabel, PL+pw/2, H-10);
+  fitFont(d.yLabel, ph-10);
+  ctx.save(); ctx.translate(26, PT+ph/2); ctx.rotate(-Math.PI/2);
   ctx.fillText(d.yLabel, 0, 0); ctx.restore();
 
+  // reta de regressão (opcional)
+  if (d.line) {
+    ctx.save(); ctx.beginPath(); ctx.rect(PL, PT, pw, ph); ctx.clip();
+    ctx.beginPath(); ctx.moveTo(tx(xMin), ty(d.line.a*xMin + d.line.b)); ctx.lineTo(tx(xMax), ty(d.line.a*xMax + d.line.b));
+    ctx.strokeStyle = d.color; ctx.lineWidth = 3; ctx.setLineDash([10,6]); ctx.stroke(); ctx.setLineDash([]);
+    ctx.restore();
+  }
   // points
   d.pts.forEach(p=>{
     ctx.beginPath(); ctx.arc(tx(p.x),ty(p.y),8,0,Math.PI*2);
@@ -1323,6 +1379,203 @@ function restartQuiz() { qz = {n:0, score:0}; showQ(0); }
 // ══════════════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// ABA 6 – EXERCÍCIOS POR CURSO
+// ══════════════════════════════════════════════════════
+const S6 = [
+ {nome:'Psicologia', cor:'#8B5CF6', q:[
+  {sit:`Situação 1`, t:`Um estudo com 120 universitários investigou a relação entre as <b>horas de sono por noite</b> (X) e o <b>nível de ansiedade</b> (Y), medido por uma escala validada. O coeficiente de correlação encontrado foi <b>r = −0,72</b>. Qual é a interpretação correta dessa correlação?`,
+   o:[`Negativa e forte: quanto mais horas de sono, menor a ansiedade`,`Negativa e moderada: quanto mais horas de sono, menor a ansiedade`,`Positiva e forte: quanto mais horas de sono, maior a ansiedade`,`Negativa e forte: quanto mais horas de sono, maior a ansiedade`],
+   g:[`Sinal negativo → direção <b>negativa</b>: mais sono, menos ansiedade.`,`|−0,72| = 0,72 → entre 0,70 e 0,89 → <b>forte</b>.`,`<b>Resposta:</b> relação negativa e forte.`]},
+  {t:`Ainda na situação 1 (r = −0,72), qual é o <b>R²</b> e a interpretação correta?`,
+   o:[`R² = 0,52 (52%): 52% da variação da ansiedade é explicada pelas horas de sono`,`R² = 0,72 (72%): 72% da variação da ansiedade é explicada pelas horas de sono`,`R² = 0,51 (51%): 51% da variação da ansiedade é explicada pelas horas de sono`,`R² = 0,52 (52%): a cada hora a mais de sono, a ansiedade diminui 52%`],
+   g:[`R² = (−0,72) × (−0,72)`,`R² = 0,5184 = 51,84% ≈ 52% (0,84 passa de 0,5, então arredonda para cima)`,`<b>Resposta:</b> 52% da variação da ansiedade é explicada pelas horas de sono; os outros 48% dependem de outros fatores.`]},
+  {sit:`Situação 2`, t:`Pesquisadores analisaram a relação entre o <b>tempo diário em redes sociais</b> e a <b>satisfação com a imagem corporal</b> de universitárias. O <b>R² encontrado foi 0,49</b> e a relação é negativa (mais tempo nas redes, menor satisfação). Qual é o valor de <b>r</b> e a interpretação correta?`,
+   o:[`r = −0,70: correlação forte e negativa`,`r = +0,70: correlação forte e positiva`,`r = −0,49: correlação moderada e negativa`,`r = −0,70: correlação moderada e negativa`],
+   g:[`r = √0,49 = 0,70`,`Relação negativa → <b>r = −0,70</b>`,`0,70 → entre 0,70 e 0,89 → <b>forte</b>`,`<b>Resposta:</b> correlação forte e negativa. 49% da variação da satisfação é explicada pelo tempo nas redes.`]},
+  {t:`Em outra universidade, o mesmo estudo da situação 2 foi repetido e gerou o gráfico abaixo. Qual alternativa identifica corretamente a <b>variável independente</b>, a <b>variável dependente</b> e o valor de <b>r</b> que melhor representa o gráfico?`,
+   o:[`X: tempo em redes sociais; Y: satisfação corporal; r = −0,90`,`X: satisfação corporal; Y: tempo em redes sociais; r = −0,90`,`X: tempo em redes sociais; Y: satisfação corporal; r = +0,90`,`X: tempo em redes sociais; Y: satisfação corporal; r = −0,50`],
+   cv:{pts:[{x:1,y:80},{x:1.5,y:85},{x:2,y:89},{x:2.5,y:70},{x:3,y:73},{x:3.5,y:43},{x:4,y:56},{x:4.5,y:55},{x:5,y:50},{x:5.5,y:44},{x:6,y:46},{x:6.5,y:35}],color:'#8B5CF6',xLabel:'Redes sociais (h/dia)',yLabel:'Satisfação corporal',xRange:[0,8],yRange:[0,100],xStep:1,yStep:20},
+   g:[`<b>X (independente):</b> tempo em redes sociais. <b>Y (dependente):</b> satisfação corporal.`,`Os pontos descem → sinal negativo. Quase alinhados → correlação muito forte.`,`<b>Resposta: r = −0,90.</b> Sinal positivo não combina com pontos que descem; −0,50 seria uma nuvem bem mais espalhada.`]},
+  {sit:`Situação 3`, t:`Uma professora de Psicologia quis entender o que mais influencia o desempenho acadêmico de universitários e analisou dois estudos independentes. No <b>Estudo A</b>, relacionou as <b>horas de estudo por semana</b> (X) com a <b>nota na prova</b> (Y) e encontrou <b>r = +0,60</b>. No <b>Estudo B</b>, relacionou a <b>frequência de procrastinação</b> (X) com a <b>nota na prova</b> (Y) e encontrou <b>r = −0,80</b>. Para comparar o <b>poder explicativo</b> de cada fator, é preciso calcular o <b>R²</b> de cada estudo. Qual alternativa traz corretamente o R² de cada estudo e a conclusão?`,
+   o:[`A: R² = 36%; B: R² = 64%. Em B, X explica maior parte da variação da nota`,`A: R² = 60%; B: R² = 80%. Em B, X explica maior parte da variação da nota`,`A: R² = 36%; B: R² = 64%. Em A, X explica mais, pois a relação é positiva`,`A: R² = 36%; B: R² = 36%. Os dois explicam o mesmo percentual da variação`],
+   g:[`<b>A:</b> R² = 0,60 × 0,60 = 0,36 = 36%`,`<b>B:</b> R² = (−0,80) × (−0,80) = 0,64 = 64%`,`<b>Resposta:</b> Estudo B (64% contra 36%). O sinal negativo indica só a direção, não a força.`]}
+ ]},
+ {nome:'Nutrição', cor:'#10B981', q:[
+  {sit:`Situação 1`, t:`Um estudo com 80 pacientes investigou a relação entre a <b>ingestão diária de fibras</b> (X) e o <b>nível de colesterol LDL</b> (Y). O coeficiente de correlação encontrado foi <b>r = −0,45</b>. Qual é a interpretação correta dessa correlação?`,
+   o:[`Negativa e moderada: quanto mais fibras, menor o LDL`,`Negativa e fraca: quanto mais fibras, menor o LDL`,`Positiva e moderada: quanto mais fibras, maior o LDL`,`Negativa e moderada: quanto mais fibras, maior o LDL`],
+   g:[`Sinal negativo → direção <b>negativa</b>: mais fibras, menor LDL.`,`|−0,45| = 0,45 → entre 0,40 e 0,69 → <b>moderada</b>.`,`<b>Resposta:</b> relação negativa e moderada.`]},
+  {t:`Ainda na situação 1 (r = −0,45), qual é o <b>R²</b> e a interpretação correta?`,
+   o:[`R² = 0,20 (20%): 20% da variação do LDL é explicada pela ingestão de fibras`,`R² = 0,45 (45%): 45% da variação do LDL é explicada pela ingestão de fibras`,`R² = 0,21 (21%): 21% da variação do LDL é explicada pela ingestão de fibras`,`R² = 0,20 (20%): 20% dos pacientes tiveram o LDL reduzido pelas fibras`],
+   g:[`R² = (−0,45) × (−0,45)`,`R² = 0,2025 = 20,25% ≈ 20% (0,25 é menor que 0,5, então fica em 20)`,`<b>Resposta:</b> 20% da variação do LDL é explicada pela ingestão de fibras; os outros 80% dependem de outros fatores.`]},
+  {sit:`Situação 2`, t:`Um nutricionista estudou a relação entre o <b>IMC</b> e o <b>consumo de alimentos ultraprocessados</b> (% das calorias diárias) de adultos. O <b>R² encontrado foi 0,36</b> e a relação é positiva (mais ultraprocessados, maior IMC). Qual é o valor de <b>r</b> e a interpretação correta?`,
+   o:[`r = +0,60: correlação moderada e positiva`,`r = −0,60: correlação moderada e negativa`,`r = +0,36: correlação fraca e positiva`,`r = +0,60: correlação forte e positiva`],
+   g:[`r = √0,36 = 0,60`,`Relação positiva → <b>r = +0,60</b>`,`0,60 → entre 0,40 e 0,69 → <b>moderada</b>`,`<b>Resposta:</b> correlação moderada e positiva. 36% da variação do IMC é explicada pelo consumo de ultraprocessados.`]},
+  {t:`Em outra cidade, o mesmo estudo da situação 2 foi repetido e gerou o gráfico abaixo. Qual alternativa identifica corretamente a <b>variável independente</b>, a <b>variável dependente</b> e o valor de <b>r</b> que melhor representa o gráfico?`,
+   o:[`X: ultraprocessados; Y: IMC; r = +0,93`,`X: IMC; Y: ultraprocessados; r = +0,93`,`X: ultraprocessados; Y: IMC; r = −0,93`,`X: ultraprocessados; Y: IMC; r = +0,60`],
+   cv:{pts:[{x:15,y:21},{x:20,y:22},{x:25,y:20},{x:30,y:21},{x:35,y:25},{x:40,y:27},{x:45,y:27},{x:50,y:27},{x:55,y:30},{x:60,y:33},{x:25,y:20},{x:45,y:29}],color:'#10B981',xLabel:'Ultraprocessados (% kcal)',yLabel:'IMC (kg/m²)',xRange:[10,70],yRange:[10,40],xStep:10,yStep:10},
+   g:[`<b>X (independente):</b> consumo de ultraprocessados. <b>Y (dependente):</b> IMC.`,`Os pontos sobem → sinal positivo. Bem alinhados → correlação muito forte.`,`<b>Resposta: r = +0,93.</b> Sinal negativo não combina com pontos que sobem; +0,60 seria uma nuvem mais espalhada.`]},
+  {sit:`Situação 3`, t:`Um grupo de pesquisa em Nutrição investigou, em dois estudos independentes, fatores ligados à pressão arterial de adultos. No <b>Estudo A</b>, relacionou o <b>consumo de sódio</b> (X) com a <b>pressão arterial sistólica</b> (Y) e encontrou <b>r = +0,70</b>. No <b>Estudo B</b>, relacionou o <b>consumo de frutas e verduras</b> (X) com a <b>pressão arterial sistólica</b> (Y) e encontrou <b>r = −0,85</b>. Para comparar o <b>poder explicativo</b> de cada fator, é preciso calcular o <b>R²</b> de cada estudo. Qual alternativa traz corretamente o R² de cada estudo e a conclusão?`,
+   o:[`A: R² = 49%; B: R² = 72%. Em B, X explica maior parte da variação da pressão`,`A: R² = 70%; B: R² = 85%. Em B, X explica maior parte da variação da pressão`,`A: R² = 49%; B: R² = 72%. Em A, X explica mais, pois a relação é positiva`,`A: R² = 49%; B: R² = 73%. Em B, X explica maior parte da variação da pressão`],
+   g:[`<b>A:</b> R² = 0,70 × 0,70 = 0,49 = 49%`,`<b>B:</b> R² = (−0,85) × (−0,85) = 0,7225 = 72,25% ≈ 72% (0,25 é menor que 0,5, então fica em 72)`,`<b>Resposta:</b> Estudo B (72% contra 49%). O sinal negativo indica só a direção, não a força.`]}
+ ]},
+ {nome:'Fisioterapia', cor:'#3B82F6', q:[
+  {sit:`Situação 1`, t:`Um estudo com 60 pacientes após cirurgia de joelho investigou a relação entre o <b>número de sessões de fisioterapia</b> (X) e o <b>nível de dor</b> (Y), medido pela Escala Visual Analógica. O coeficiente de correlação encontrado foi <b>r = −0,91</b>. Qual é a interpretação correta dessa correlação?`,
+   o:[`Negativa e muito forte: quanto mais sessões, menor a dor`,`Negativa e forte: quanto mais sessões, menor a dor`,`Positiva e muito forte: quanto mais sessões, maior a dor`,`Negativa e muito forte: quanto mais sessões, maior a dor`],
+   g:[`Sinal negativo → direção <b>negativa</b>: mais sessões, menos dor.`,`|−0,91| = 0,91 → entre 0,90 e 1,00 → <b>muito forte</b>.`,`<b>Resposta:</b> relação negativa e muito forte.`]},
+  {t:`Ainda na situação 1 (r = −0,91), qual é o <b>R²</b> e a interpretação correta?`,
+   o:[`R² = 0,83 (83%): 83% da variação da dor é explicada pelo número de sessões`,`R² = 0,91 (91%): 91% da variação da dor é explicada pelo número de sessões`,`R² = 0,82 (82%): 82% da variação da dor é explicada pelo número de sessões`,`R² = 0,83 (83%): 83% dos pacientes ficaram sem dor após as sessões`],
+   g:[`R² = (−0,91) × (−0,91)`,`R² = 0,8281 = 82,81% ≈ 83% (0,81 passa de 0,5, então arredonda para cima)`,`<b>Resposta:</b> 83% da variação da dor é explicada pelo número de sessões; os outros 17% dependem de outros fatores.`]},
+  {sit:`Situação 2`, t:`Uma fisioterapeuta analisou a relação entre o <b>tempo de equilíbrio em apoio unipodal</b> e a <b>idade</b> de idosos. O <b>R² encontrado foi 0,64</b> e a relação é negativa (quanto mais velho, menor o tempo de equilíbrio). Qual é o valor de <b>r</b> e a interpretação correta?`,
+   o:[`r = −0,80: correlação forte e negativa`,`r = +0,80: correlação forte e positiva`,`r = −0,64: correlação moderada e negativa`,`r = −0,80: correlação muito forte e negativa`],
+   g:[`r = √0,64 = 0,80`,`Relação negativa → <b>r = −0,80</b>`,`0,80 → entre 0,70 e 0,89 → <b>forte</b>`,`<b>Resposta:</b> correlação forte e negativa. 64% da variação do equilíbrio é explicada pela idade.`]},
+  {t:`Em outra clínica, o mesmo estudo da situação 2 foi repetido e gerou o gráfico abaixo. Qual alternativa identifica corretamente a <b>variável independente</b>, a <b>variável dependente</b> e o valor de <b>r</b> que melhor representa o gráfico?`,
+   o:[`X: idade; Y: tempo de equilíbrio; r = −0,61`,`X: tempo de equilíbrio; Y: idade; r = −0,61`,`X: idade; Y: tempo de equilíbrio; r = +0,61`,`X: idade; Y: tempo de equilíbrio; r = −0,95`],
+   cv:{pts:[{x:25,y:14},{x:30,y:19},{x:35,y:19},{x:40,y:12},{x:45,y:11},{x:50,y:20},{x:55,y:6},{x:60,y:10},{x:65,y:5},{x:70,y:10},{x:75,y:9},{x:80,y:11}],color:'#3B82F6',xLabel:'Idade (anos)',yLabel:'Apoio unipodal (s)',xRange:[20,90],yRange:[0,24],xStep:10,yStep:4},
+   g:[`<b>X (independente):</b> idade. <b>Y (dependente):</b> tempo de equilíbrio.`,`Os pontos descem → sinal negativo. Bastante espalhados → correlação moderada.`,`<b>Resposta: r = −0,61.</b> Sinal positivo não combina com pontos que descem; −0,95 seria quase uma reta.`]},
+  {sit:`Situação 3`, t:`Uma clínica de Fisioterapia avaliou, em dois estudos independentes, fatores ligados à recuperação de pacientes. No <b>Estudo A</b>, relacionou as <b>horas semanais de fortalecimento</b> (X) com a <b>força muscular</b> (Y) e encontrou <b>r = +0,88</b>. No <b>Estudo B</b>, relacionou a <b>idade</b> (X) com a <b>amplitude de movimento do joelho</b> (Y) e encontrou <b>r = −0,40</b>. Para comparar o <b>poder explicativo</b> de cada fator, é preciso calcular o <b>R²</b> de cada estudo. Qual alternativa traz corretamente o R² de cada estudo e a conclusão?`,
+   o:[`A: R² = 77%; B: R² = 16%. Em A, X explica maior parte da variação de Y`,`A: R² = 88%; B: R² = 40%. Em A, X explica maior parte da variação de Y`,`A: R² = 78%; B: R² = 16%. Em A, X explica maior parte da variação de Y`,`A: R² = 88%; B: R² = 16%. Em A, X explica maior parte da variação de Y`],
+   g:[`<b>A:</b> R² = 0,88 × 0,88 = 0,7744 = 77,44% ≈ 77% (0,44 é menor que 0,5, então fica em 77)`,`<b>B:</b> R² = (−0,40) × (−0,40) = 0,16 = 16%`,`<b>Resposta:</b> Estudo A (77% contra 16%).`]}
+ ]},
+ {nome:'Enfermagem', cor:'#EC4899', q:[
+  {sit:`Situação 1`, t:`Um estudo com 150 enfermeiros investigou a relação entre a <b>carga horária semanal de plantão</b> (X) e o <b>nível de estresse percebido</b> (Y). O coeficiente de correlação encontrado foi <b>r = +0,52</b>. Qual é a interpretação correta dessa correlação?`,
+   o:[`Positiva e moderada: quanto mais horas de plantão, maior o estresse`,`Positiva e forte: quanto mais horas de plantão, maior o estresse`,`Negativa e moderada: quanto mais horas de plantão, menor o estresse`,`Positiva e moderada: quanto mais horas de plantão, menor o estresse`],
+   g:[`Sinal positivo → direção <b>positiva</b>: mais horas, maior estresse.`,`0,52 → entre 0,40 e 0,69 → <b>moderada</b>.`,`<b>Resposta:</b> relação positiva e moderada.`]},
+  {t:`Ainda na situação 1 (r = +0,52), qual é o <b>R²</b> e a interpretação correta?`,
+   o:[`R² = 0,27 (27%): 27% da variação do estresse é explicada pela carga horária`,`R² = 0,52 (52%): 52% da variação do estresse é explicada pela carga horária`,`R² = 0,28 (28%): 28% da variação do estresse é explicada pela carga horária`,`R² = 0,27 (27%): a cada hora de plantão a mais, o estresse aumenta 27%`],
+   g:[`R² = 0,52 × 0,52`,`R² = 0,2704 = 27,04% ≈ 27% (0,04 é menor que 0,5, então fica em 27)`,`<b>Resposta:</b> 27% da variação do estresse é explicada pela carga horária; os outros 73% dependem de outros fatores.`]},
+  {sit:`Situação 2`, t:`Uma pesquisa em hospitais analisou a relação entre o <b>número de pacientes por enfermeiro</b> e o <b>número de erros de medicação por mês</b>. O <b>R² encontrado foi 0,81</b> e a relação é positiva (mais pacientes por enfermeiro, mais erros). Qual é o valor de <b>r</b> e a interpretação correta?`,
+   o:[`r = +0,90: correlação muito forte e positiva`,`r = −0,90: correlação muito forte e negativa`,`r = +0,81: correlação forte e positiva`,`r = +0,90: correlação forte e positiva`],
+   g:[`r = √0,81 = 0,90`,`Relação positiva → <b>r = +0,90</b>`,`0,90 → entre 0,90 e 1,00 → <b>muito forte</b>`,`<b>Resposta:</b> correlação muito forte e positiva. 81% da variação dos erros é explicada pelo número de pacientes por enfermeiro.`]},
+  {t:`Em outro hospital, o mesmo estudo da situação 2 foi repetido e gerou o gráfico abaixo. Qual alternativa identifica corretamente a <b>variável independente</b>, a <b>variável dependente</b> e o valor de <b>r</b> que melhor representa o gráfico?`,
+   o:[`X: pacientes por enfermeiro; Y: erros de medicação; r = +0,70`,`X: erros de medicação; Y: pacientes por enfermeiro; r = +0,70`,`X: pacientes por enfermeiro; Y: erros de medicação; r = −0,70`,`X: pacientes por enfermeiro; Y: erros de medicação; r = +0,98`],
+   cv:{pts:[{x:4,y:2},{x:5,y:2},{x:6,y:2},{x:7,y:3},{x:8,y:6},{x:9,y:5},{x:10,y:4},{x:11,y:7},{x:12,y:5},{x:6,y:5},{x:8,y:6},{x:10,y:5}],color:'#EC4899',xLabel:'Pacientes por enfermeiro',yLabel:'Erros de medicação',xRange:[3,13],yRange:[0,8],xStep:1,yStep:2},
+   g:[`<b>X (independente):</b> pacientes por enfermeiro. <b>Y (dependente):</b> erros de medicação.`,`Os pontos sobem → sinal positivo. Com dispersão considerável → correlação forte, não perfeita.`,`<b>Resposta: r = +0,70.</b> Sinal negativo não combina com pontos que sobem; +0,98 seria quase uma reta.`]},
+  {sit:`Situação 3`, t:`Uma comissão de controle de infecção de um hospital analisou, em dois estudos independentes, fatores ligados às infecções dos pacientes. No <b>Estudo A</b>, relacionou o <b>tempo de higienização das mãos</b> (X) com o <b>número de infecções hospitalares</b> (Y) e encontrou <b>r = −0,75</b>. No <b>Estudo B</b>, relacionou os <b>dias de internação</b> (X) com o <b>risco de infecção</b> (Y) e encontrou <b>r = +0,70</b>. Para comparar o <b>poder explicativo</b> de cada fator, é preciso calcular o <b>R²</b> de cada estudo. Qual alternativa traz corretamente o R² de cada estudo e a conclusão?`,
+   o:[`A: R² = 56%; B: R² = 49%. Em A, X explica maior parte da variação de Y, mesmo com relação negativa`,`A: R² = 56%; B: R² = 49%. Em B, X explica maior parte da variação de Y, pois a relação é positiva`,`A: R² = 75%; B: R² = 70%. Em A, X explica maior parte da variação de Y`,`A: R² = 57%; B: R² = 49%. Em A, X explica maior parte da variação de Y`],
+   g:[`<b>A:</b> R² = (−0,75) × (−0,75) = 0,5625 = 56,25% ≈ 56% (0,25 é menor que 0,5, então fica em 56)`,`<b>B:</b> R² = 0,70 × 0,70 = 0,49 = 49%`,`<b>Resposta:</b> Estudo A (56% contra 49%), mesmo sendo negativa. O sinal indica só a direção, não a força.`]}
+ ]},
+ {nome:'Farmácia', cor:'#F59E0B', q:[
+  {sit:`Situação 1`, t:`Um estudo com 100 pacientes hipertensos investigou a relação entre a <b>adesão ao tratamento</b> (% das doses tomadas) (X) e a <b>pressão arterial sistólica</b> (Y). O coeficiente de correlação encontrado foi <b>r = −0,66</b>. Qual é a interpretação correta dessa correlação?`,
+   o:[`Negativa e moderada: quanto maior a adesão, menor a pressão`,`Negativa e forte: quanto maior a adesão, menor a pressão`,`Positiva e moderada: quanto maior a adesão, maior a pressão`,`Negativa e moderada: quanto maior a adesão, maior a pressão`],
+   g:[`Sinal negativo → direção <b>negativa</b>: mais adesão, menor pressão.`,`|−0,66| = 0,66 → entre 0,40 e 0,69 → <b>moderada</b>.`,`<b>Resposta:</b> relação negativa e moderada.`]},
+  {t:`Ainda na situação 1 (r = −0,66), qual é o <b>R²</b> e a interpretação correta?`,
+   o:[`R² = 0,44 (44%): 44% da variação da pressão é explicada pela adesão ao tratamento`,`R² = 0,66 (66%): 66% da variação da pressão é explicada pela adesão ao tratamento`,`R² = 0,43 (43%): 43% da variação da pressão é explicada pela adesão ao tratamento`,`R² = 0,44 (44%): 44% dos pacientes controlaram a pressão com o tratamento`],
+   g:[`R² = (−0,66) × (−0,66)`,`R² = 0,4356 = 43,56% ≈ 44% (0,56 passa de 0,5, então arredonda para cima)`,`<b>Resposta:</b> 44% da variação da pressão é explicada pela adesão; os outros 56% dependem de outros fatores.`]},
+  {sit:`Situação 2`, t:`Um farmacêutico analisou a relação entre o <b>número de reações adversas</b> e o <b>número de medicamentos em uso simultâneo</b> em idosos. O <b>R² encontrado foi 0,25</b> e a relação é positiva (mais medicamentos, mais reações). Qual é o valor de <b>r</b> e a interpretação correta?`,
+   o:[`r = +0,50: correlação moderada e positiva`,`r = −0,50: correlação moderada e negativa`,`r = +0,25: correlação fraca e positiva`,`r = +0,50: correlação fraca e positiva`],
+   g:[`r = √0,25 = 0,50`,`Relação positiva → <b>r = +0,50</b>`,`0,50 → entre 0,40 e 0,69 → <b>moderada</b>`,`<b>Resposta:</b> correlação moderada e positiva. 25% da variação das reações adversas é explicada pelo número de medicamentos.`]},
+  {t:`Em outra farmácia hospitalar, o mesmo estudo da situação 2 foi repetido e gerou o gráfico abaixo. Qual alternativa identifica corretamente a <b>variável independente</b>, a <b>variável dependente</b> e o valor de <b>r</b> que melhor representa o gráfico?`,
+   o:[`X: nº de medicamentos; Y: reações adversas; r = +0,93`,`X: reações adversas; Y: nº de medicamentos; r = +0,93`,`X: nº de medicamentos; Y: reações adversas; r = −0,93`,`X: nº de medicamentos; Y: reações adversas; r = +0,60`],
+   cv:{pts:[{x:1,y:3},{x:2,y:2},{x:3,y:3},{x:4,y:4},{x:5,y:5},{x:6,y:4},{x:7,y:5},{x:8,y:6},{x:9,y:7},{x:10,y:7},{x:3,y:2},{x:6,y:5}],color:'#F59E0B',xLabel:'Nº de medicamentos',yLabel:'Reações adversas',xRange:[0,11],yRange:[0,8],xStep:1,yStep:2},
+   g:[`<b>X (independente):</b> nº de medicamentos. <b>Y (dependente):</b> reações adversas.`,`Os pontos sobem → sinal positivo. Bem alinhados → correlação muito forte.`,`<b>Resposta: r = +0,93.</b> Sinal negativo não combina com pontos que sobem; +0,60 seria uma nuvem mais espalhada.`]},
+  {sit:`Situação 3`, t:`Uma farmácia hospitalar analisou, em dois estudos independentes, fatores ligados ao tratamento da hipertensão. No <b>Estudo A</b>, relacionou a <b>dose diária do anti-hipertensivo</b> (X) com a <b>redução da pressão arterial</b> (Y) e encontrou <b>r = +0,95</b>. No <b>Estudo B</b>, relacionou a <b>idade do paciente</b> (X) com a <b>adesão ao tratamento</b> (Y) e encontrou <b>r = −0,20</b>. Para comparar o <b>poder explicativo</b> de cada fator, é preciso calcular o <b>R²</b> de cada estudo. Qual alternativa traz corretamente o R² de cada estudo e a conclusão?`,
+   o:[`A: R² = 90%; B: R² = 4%. Em A, X explica maior parte da variação de Y`,`A: R² = 95%; B: R² = 20%. Em A, X explica maior parte da variação de Y`,`A: R² = 90%; B: R² = 96%. Em B, X explica maior parte da variação de Y`,`A: R² = 91%; B: R² = 4%. Em A, X explica maior parte da variação de Y`],
+   g:[`<b>A:</b> R² = 0,95 × 0,95 = 0,9025 = 90,25% ≈ 90% (0,25 é menor que 0,5, então fica em 90)`,`<b>B:</b> R² = (−0,20) × (−0,20) = 0,04 = 4%`,`<b>Resposta:</b> Estudo A (90% contra 4%). No B, a idade explica quase nada da adesão.`]}
+ ]}
+];
+
+S6[0].q.push(
+  {sit:`Situação 4`, t:`Uma psicóloga acompanhou 40 universitários de um programa de meditação e relacionou o <b>número de sessões de meditação por semana</b> (x) com o <b>escore de estresse</b> (y), medido em uma escala de 0 a 60. O gráfico mostra os dados e a reta de regressão, de equação <b>y = −4x + 50</b>. Qual é o valor estimado de <b>y</b> para <b>x = 5</b> e qual é a interpretação correta da equação?`,
+   o:[`30 pontos: a cada sessão a mais por semana, o escore de estresse diminui, em média, 4 pontos`,`−20 pontos: a cada sessão a mais por semana, o escore de estresse diminui, em média, 4 pontos`,`70 pontos: a cada sessão a mais por semana, o escore de estresse diminui, em média, 4 pontos`,`30 pontos: a cada sessão a mais por semana, o escore de estresse aumenta, em média, 4 pontos`],
+   cv:{pts:[{x:1,y:54},{x:1,y:42},{x:2,y:43},{x:3,y:37},{x:3,y:35},{x:4,y:32},{x:5,y:28},{x:6,y:26},{x:6,y:27},{x:7,y:26},{x:8,y:19}],color:'#8B5CF6',xLabel:'Sessões por semana',yLabel:'Escore de estresse',xRange:[0,9],yRange:[0,60],xStep:1,yStep:10,line:{a:-4,b:50}},
+   g:[`y = −4x + 50`,`y = (−4 × 5) + 50`,`y = −20 + 50 = <b>30</b>`,`O coeficiente de x é negativo (−4): cada sessão a mais reduz o estresse, em média, 4 pontos.`,`<b>Resposta:</b> 30 pontos.`]},
+  {sit:`Situação 5`, t:`Uma pesquisa com 40 universitárias encontrou <b>r = −0,70</b> entre o tempo diário em redes sociais e a satisfação com a imagem corporal. Analise as afirmações:<br><b>I.</b> Mesmo com r = −0,70, não é possível concluir que o tempo nas redes sociais causa a menor satisfação.<br><b>II.</b> Como o r = −0,70 é forte, podemos afirmar que reduzir o tempo nas redes sociais aumentará a satisfação corporal.<br><b>III.</b> Antes de interpretar o r, é recomendável olhar o diagrama de dispersão.<br><b>IV.</b> O coeficiente de Pearson mede qualquer tipo de relação entre as variáveis, inclusive as curvas.<br><b>V.</b> Se houvesse participantes com valores muito fora do padrão (outliers), a correlação de Spearman seria uma alternativa a considerar.<br>Assinale a alternativa que indica corretamente <b>todas</b> as afirmações verdadeiras.`,
+   o:[`Apenas I, III e V`,`Apenas I, II e V`,`Apenas I, III, IV e V`,`Apenas I e III`],
+   g:[`<b>I – Verdadeira:</b> correlação forte não implica causalidade.`,`<b>II – Falsa:</b> r forte não prova que reduzir o tempo nas redes aumentará a satisfação.`,`<b>III – Verdadeira:</b> sempre se visualiza o gráfico antes de interpretar o r.`,`<b>IV – Falsa:</b> o Pearson mede apenas relações lineares.`,`<b>V – Verdadeira:</b> com outliers ou dados muito assimétricos, considere o Spearman.`,`<b>Resposta:</b> I, III e V.`]}
+);
+S6[1].q.push(
+  {sit:`Situação 4`, t:`Uma nutricionista acompanhou pacientes com colesterol alto e relacionou a <b>ingestão diária de fibras, em gramas</b> (x) com o <b>colesterol LDL, em mg/dL</b> (y). O gráfico mostra os dados e a reta de regressão, de equação <b>y = −1,5x + 170</b>. Qual é o valor estimado de <b>y</b> para <b>x = 30 g</b> e qual é a interpretação correta da equação?`,
+   o:[`125 mg/dL: a cada 1 g a mais de fibras por dia, o LDL diminui, em média, 1,5 mg/dL`,`−45 mg/dL: a cada 1 g a mais de fibras por dia, o LDL diminui, em média, 1,5 mg/dL`,`215 mg/dL: a cada 1 g a mais de fibras por dia, o LDL diminui, em média, 1,5 mg/dL`,`125 mg/dL: a cada 1 g a mais de fibras por dia, o LDL diminui, em média, 170 mg/dL`],
+   cv:{pts:[{x:10,y:154},{x:12,y:155},{x:15,y:146},{x:18,y:141},{x:20,y:135},{x:22,y:136},{x:25,y:138},{x:28,y:130},{x:30,y:130},{x:33,y:122},{x:35,y:119},{x:38,y:114},{x:40,y:102}],color:'#10B981',xLabel:'Fibras (g/dia)',yLabel:'LDL (mg/dL)',xRange:[0,50],yRange:[0,200],xStep:10,yStep:50,line:{a:-1.5,b:170}},
+   g:[`y = −1,5x + 170`,`y = (−1,5 × 30) + 170`,`y = −45 + 170 = <b>125</b>`,`O coeficiente de x é −1,5: cada 1 g a mais de fibras reduz o LDL, em média, 1,5 mg/dL. O 170 é o ponto onde a reta cruza o eixo Y.`,`<b>Resposta:</b> 125 mg/dL.`]},
+  {sit:`Situação 5`, t:`Uma nutricionista analisou, em 25 pacientes, a relação entre o consumo diário de sódio e a pressão arterial. Os dados são muito assimétricos e um paciente tem consumo extremamente acima dos demais. Analise as afirmações:<br><b>I.</b> Mesmo com dados muito assimétricos e um paciente com consumo extremo, o r de Pearson continua sendo a única técnica adequada.<br><b>II.</b> Com dados muito assimétricos ou outliers, a correlação de Spearman deve ser considerada.<br><b>III.</b> Como o r resume a relação em um único número, não é necessário olhar o diagrama de dispersão.<br><b>IV.</b> Um paciente com consumo extremo (outlier) pode distorcer o valor de r.<br><b>V.</b> Se o r for forte, podemos concluir que o consumo de sódio causa o aumento da pressão arterial.<br>Assinale a alternativa que indica corretamente <b>todas</b> as afirmações verdadeiras.`,
+   o:[`Apenas II e IV`,`Apenas II, IV e V`,`Apenas I, II e IV`,`Apenas II, III e IV`],
+   g:[`<b>I – Falsa:</b> com dados muito assimétricos ou outliers, considere o Spearman.`,`<b>II – Verdadeira:</b> é exatamente a situação em que o Spearman deve ser considerado.`,`<b>III – Falsa:</b> sempre se visualiza o gráfico antes de interpretar o r.`,`<b>IV – Verdadeira:</b> um outlier pode distorcer o r.`,`<b>V – Falsa:</b> correlação forte não implica causalidade.`,`<b>Resposta:</b> II e IV.`]}
+);
+S6[2].q.push(
+  {sit:`Situação 4`, t:`Uma fisioterapeuta acompanhou pacientes em reabilitação do joelho e relacionou o <b>número de sessões realizadas</b> (x) com a <b>amplitude de movimento do joelho, em graus</b> (y). O gráfico mostra os dados e a reta de regressão, de equação <b>y = 3x + 60</b>. Qual é o valor estimado de <b>y</b> para <b>x = 12 sessões</b> e qual é a interpretação correta da equação?`,
+   o:[`96°: a cada sessão a mais, a amplitude aumenta, em média, 3°`,`36°: a cada sessão a mais, a amplitude aumenta, em média, 3°`,`24°: a cada sessão a mais, a amplitude aumenta, em média, 3°`,`96°: a cada sessão a mais, a amplitude aumenta, em média, 60°`],
+   cv:{pts:[{x:2,y:71},{x:4,y:76},{x:5,y:70},{x:7,y:73},{x:8,y:84},{x:10,y:93},{x:12,y:95},{x:13,y:93},{x:15,y:103},{x:17,y:117},{x:18,y:108},{x:20,y:124}],color:'#3B82F6',xLabel:'Sessões realizadas',yLabel:'Amplitude do joelho (°)',xRange:[0,24],yRange:[0,140],xStep:4,yStep:20,line:{a:3,b:60}},
+   g:[`y = 3x + 60`,`y = (3 × 12) + 60`,`y = 36 + 60 = <b>96</b>`,`O coeficiente de x é +3: cada sessão a mais aumenta a amplitude, em média, 3°. O 60 é o ponto onde a reta cruza o eixo Y.`,`<b>Resposta:</b> 96°.`]},
+  {sit:`Situação 5`, t:`Uma fisioterapeuta encontrou <b>r = 0,05</b> entre a idade e a amplitude de movimento do ombro de 60 pacientes, mas o diagrama de dispersão mostrou uma curva em forma de U. Analise as afirmações:<br><b>I.</b> O r de Pearson mede apenas relações lineares; por isso, um r próximo de zero pode esconder uma relação curva.<br><b>II.</b> Como r ≈ 0,05, podemos afirmar que não existe nenhuma relação entre a idade e a amplitude.<br><b>III.</b> O diagrama de dispersão permitiu perceber a relação em U que o valor de r, sozinho, não mostrou.<br><b>IV.</b> Mesmo que houvesse uma correlação forte entre idade e amplitude, não poderíamos concluir que a idade causa a mudança na amplitude.<br><b>V.</b> Um único ponto muito fora do padrão (outlier) não pode alterar o valor de r.<br>Assinale a alternativa que indica corretamente <b>todas</b> as afirmações verdadeiras.`,
+   o:[`Apenas I, III e IV`,`Apenas I, III, IV e V`,`Apenas I, II e III`,`Apenas I, IV e V`],
+   g:[`<b>I – Verdadeira:</b> r próximo de zero pode esconder uma relação curva.`,`<b>II – Falsa:</b> r ≈ 0 não garante ausência de relação.`,`<b>III – Verdadeira:</b> por isso se visualiza o gráfico antes de interpretar o r.`,`<b>IV – Verdadeira:</b> correlação forte não implica causalidade.`,`<b>V – Falsa:</b> um outlier pode distorcer o r.`,`<b>Resposta:</b> I, III e IV.`]}
+);
+S6[3].q.push(
+  {sit:`Situação 4`, t:`Uma enfermeira gestora relacionou o <b>número de pacientes por enfermeiro</b> (x) com o <b>número de erros de medicação por mês</b> (y) em unidades de internação. O gráfico mostra os dados e a reta de regressão, de equação <b>y = 0,9x − 1,8</b>. Qual é o valor estimado de <b>y</b> para <b>x = 10 pacientes por enfermeiro</b> e qual é a interpretação correta da equação?`,
+   o:[`7,2 erros por mês: a cada paciente a mais por enfermeiro, o número de erros aumenta, em média, 0,9 por mês`,`9,0 erros por mês: a cada paciente a mais por enfermeiro, o número de erros aumenta, em média, 0,9 por mês`,`10,8 erros por mês: a cada paciente a mais por enfermeiro, o número de erros aumenta, em média, 0,9 por mês`,`7,2 erros por mês: a cada paciente a mais por enfermeiro, o número de erros aumenta, em média, 1,8 por mês`],
+   cv:{pts:[{x:4,y:0.9},{x:5,y:3},{x:5,y:3.4},{x:6,y:3.2},{x:7,y:3.6},{x:8,y:5.4},{x:8,y:5.7},{x:9,y:7.1},{x:10,y:6.3},{x:11,y:7.2},{x:12,y:9.5}],color:'#EC4899',xLabel:'Pacientes por enfermeiro',yLabel:'Erros de medicação',xRange:[3,13],yRange:[0,10],xStep:1,yStep:2,line:{a:0.9,b:-1.8}},
+   g:[`y = 0,9x − 1,8`,`y = (0,9 × 10) − 1,8`,`y = 9 − 1,8 = <b>7,2</b>`,`O coeficiente de x é +0,9: cada paciente a mais por enfermeiro aumenta os erros, em média, 0,9 por mês. O −1,8 é o ponto onde a reta cruza o eixo Y.`,`<b>Resposta:</b> 7,2 erros por mês.`]},
+  {sit:`Situação 5`, t:`Um hospital observou <b>r = +0,80</b> entre o número de pacientes por enfermeiro e o número de quedas de pacientes por mês, e o gestor está avaliando as conclusões possíveis. Analise as afirmações:<br><b>I.</b> O valor de r = +0,80 comprova que o excesso de pacientes por enfermeiro causa as quedas.<br><b>II.</b> Mesmo com correlação forte, pode existir outro fator, como a gravidade dos pacientes, explicando as duas variáveis.<br><b>III.</b> Antes de interpretar o r = +0,80, é recomendável olhar o diagrama de dispersão.<br><b>IV.</b> Se os dados forem muito assimétricos, a correlação de Spearman não pode ser considerada.<br><b>V.</b> Se uma unidade tivesse um número de quedas muito acima das demais (outlier), o valor de r poderia ser distorcido.<br>Assinale a alternativa que indica corretamente <b>todas</b> as afirmações verdadeiras.`,
+   o:[`Apenas II, III e V`,`Apenas I, II e III`,`Apenas II, III, IV e V`,`Apenas III e V`],
+   g:[`<b>I – Falsa:</b> correlação forte não implica causalidade.`,`<b>II – Verdadeira:</b> um fator oculto pode explicar as duas variáveis.`,`<b>III – Verdadeira:</b> sempre se visualiza o gráfico antes de interpretar o r.`,`<b>IV – Falsa:</b> com dados muito assimétricos, o Spearman deve ser considerado.`,`<b>V – Verdadeira:</b> um outlier pode distorcer o r.`,`<b>Resposta:</b> II, III e V.`]}
+);
+S6[4].q.push(
+  {sit:`Situação 4`, t:`Um farmacêutico relacionou a <b>adesão ao tratamento, em % das doses tomadas</b> (x) com a <b>pressão arterial sistólica, em mmHg</b> (y) de pacientes hipertensos. O gráfico mostra os dados e a reta de regressão, de equação <b>y = −0,5x + 175</b>. Qual é o valor estimado de <b>y</b> para <b>x = 80%</b> e qual é a interpretação correta da equação?`,
+   o:[`135 mmHg: a cada 1 ponto percentual a mais de adesão, a pressão diminui, em média, 0,5 mmHg`,`−40 mmHg: a cada 1 ponto percentual a mais de adesão, a pressão diminui, em média, 0,5 mmHg`,`215 mmHg: a cada 1 ponto percentual a mais de adesão, a pressão diminui, em média, 0,5 mmHg`,`135 mmHg: a cada 1 ponto percentual a mais de adesão, a pressão diminui, em média, 5 mmHg`],
+   cv:{pts:[{x:40,y:154},{x:45,y:155},{x:50,y:149},{x:55,y:146},{x:60,y:141},{x:65,y:142},{x:70,y:144},{x:75,y:139},{x:80,y:139},{x:85,y:133},{x:90,y:132},{x:95,y:128},{x:100,y:118}],color:'#F59E0B',xLabel:'Adesão ao tratamento (%)',yLabel:'Pressão sistólica (mmHg)',xRange:[30,110],yRange:[0,200],xStep:10,yStep:50,line:{a:-0.5,b:175}},
+   g:[`y = −0,5x + 175`,`y = (−0,5 × 80) + 175`,`y = −40 + 175 = <b>135</b>`,`O coeficiente de x é −0,5: cada ponto percentual a mais de adesão reduz a pressão, em média, 0,5 mmHg.`,`<b>Resposta:</b> 135 mmHg.`]},
+  {sit:`Situação 5`, t:`Uma farmacêutica analisou, em 18 pacientes, a relação entre a dose de um medicamento e a redução da pressão arterial. Analise as afirmações:<br><b>I.</b> O coeficiente de Pearson mede apenas relações lineares.<br><b>II.</b> Uma correlação forte entre a dose e a redução da pressão não implica, por si só, que a dose causa a redução.<br><b>III.</b> Se o r for alto, o diagrama de dispersão é dispensável.<br><b>IV.</b> Se houver valores muito fora do padrão (outliers) ou dados muito assimétricos, deve-se considerar a correlação de Spearman.<br><b>V.</b> Uma relação em forma de U sempre resulta em r próximo de +1.<br>Assinale a alternativa que indica corretamente <b>todas</b> as afirmações verdadeiras.`,
+   o:[`Apenas I, II e IV`,`Apenas I, II, III e IV`,`Apenas I, IV e V`,`Apenas II, III e IV`],
+   g:[`<b>I – Verdadeira:</b> o Pearson mede apenas relações lineares.`,`<b>II – Verdadeira:</b> correlação forte não implica causalidade.`,`<b>III – Falsa:</b> sempre se visualiza o gráfico antes de interpretar o r.`,`<b>IV – Verdadeira:</b> com outliers ou dados muito assimétricos, considere o Spearman.`,`<b>V – Falsa:</b> uma relação em U pode ter r próximo de zero.`,`<b>Resposta:</b> I, II e IV.`]}
+);
+
+function initS6() {
+  const wrap = document.getElementById('s6-btns');
+  S6.forEach((c, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'ds-btn'; btn.textContent = c.nome;
+    btn.style.borderColor = c.cor; btn.style.color = c.cor;
+    btn.onclick = () => showS6(i);
+    wrap.appendChild(btn);
+  });
+}
+function showS6(ci) {
+  document.querySelectorAll('#s6-btns .ds-btn').forEach((b, j) => {
+    const a = j === ci;
+    b.style.background = a ? S6[j].cor : 'white';
+    b.style.color = a ? 'white' : S6[j].cor;
+  });
+  const c = S6[ci];
+  let html = '';
+  c.q.forEach((q, n) => {
+    if (q.sit) html += `<div class="s6-sit" style="background:${c.cor}">${q.sit}</div>`;
+    html += `<div class="s6-q"><div class="quiz-q">Q${n+1}. ${q.t}</div>`;
+    if (q.cv) html += `<canvas id="s6-cv-${n}" width="560" height="400" style="width:100%;max-width:400px;border-radius:14px;background:#F8FAFC;box-shadow:0 2px 8px rgba(0,0,0,.08);display:block;margin:.7rem auto 1rem"></canvas>`;
+    html += `<div class="quiz-opts" id="s6-o-${n}"></div><div class="s6-gab" id="s6-g-${n}" style="display:none"></div></div>`;
+  });
+  document.getElementById('ex-s6').innerHTML = html;
+  c.q.forEach((q, n) => {
+    if (q.cv) drawMiniScatter(`s6-cv-${n}`, q.cv);
+    // a alternativa correta é a primeira da lista; aqui ela é girada para posições variadas e estáveis
+    const shift = (ci * 3 + n * 2 + 1) % 4;
+    const arr = [];
+    q.o.forEach((txt, k) => { arr[(k + shift) % 4] = {txt, ok: k === 0}; });
+    const box = document.getElementById(`s6-o-${n}`);
+    const gab = document.getElementById(`s6-g-${n}`);
+    const letras = ['A','B','C','D'];
+    let done = false;
+    arr.forEach((o, j) => {
+      const btn = document.createElement('button');
+      btn.textContent = `${letras[j]}) ${o.txt}`;
+      btn.onclick = () => {
+        if (done) return; done = true;
+        box.querySelectorAll('button').forEach((b, k) => {
+          b.disabled = true;
+          if (arr[k].ok) b.classList.add('correct');
+          else if (k === j) b.classList.add('wrong');
+        });
+        gab.style.borderLeftColor = o.ok ? '#10B981' : '#EF4444';
+        gab.style.background = o.ok ? '#F0FDF4' : '#FEF2F2';
+        gab.innerHTML = `<p><b>${o.ok ? '✅ Correto!' : '❌ Não exatamente.'}</b></p>` + q.g.map(l => `<p>${l}</p>`).join('');
+        gab.style.display = 'block';
+      };
+      box.appendChild(btn);
+    });
+  });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   try {
   document.getElementById(SECS[0].id).classList.add('active');
@@ -1331,6 +1584,7 @@ window.addEventListener('DOMContentLoaded', () => {
   initS2();
   initS3();
   initS4();
+  initS6();
   ['s1','s2','s4','s5'].forEach(s => buildQs(`ex-${s}`, SEC_QS[s]));
   const s2card = document.querySelector('#s2 .card:last-child');
   if (s2card) exS2Observer.observe(s2card);
