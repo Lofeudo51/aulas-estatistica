@@ -668,7 +668,7 @@ function tclDrawHist(){
     tclAnnotShown=false; tclAnnotAlpha=0;
   }
 
-  ctx.strokeStyle='rgba(255,255,255,.7)'; ctx.lineWidth=1.5;
+  ctx.strokeStyle='#CBD5E1'; ctx.lineWidth=1.5;
   ctx.beginPath();
   ctx.moveTo(PL,PT); ctx.lineTo(PL,PT+cH); ctx.lineTo(PL+cW,PT+cH);
   ctx.stroke();
@@ -677,7 +677,7 @@ function tclDrawHist(){
   ctx.fillText('f', 12, PT+cH/2+5);
 
   ctx.font='11px Nunito'; ctx.fillStyle='#1e293b'; ctx.textAlign='right';
-  let yStep=2; while(maxC/yStep>10) yStep+=2;
+  let yStep=1; { const _nice=[1,2,5,10,20,25,50,100,200,500,1000]; let _i=0; while(maxC/yStep>10 && _i<_nice.length-1){ yStep=_nice[++_i]; } }
   for(let v=0;v<=maxC;v+=yStep){
     const ty=PT+cH-(v/maxC)*cH;
     ctx.fillText(v, PL-4, ty+4);
@@ -1341,7 +1341,7 @@ tclBuildFactorGrid(); tclResetCounts();
 <!-- ── PSICOLOGIA ── -->
 <div class="ex-acc" style="--acc:#7C3AED;margin-top:14px">
   <button class="ex-btn" onclick="toggleAcc(this)">
-    <span>📋 Exercício 1 — Contexto: Psicologia</span><span class="ex-arr">▼</span>
+    <span>📋 Exercícios do Contexto: Psicologia</span><span class="ex-arr">▼</span>
   </button>
   <div class="ex-body">
 
@@ -1486,7 +1486,7 @@ tclBuildFactorGrid(); tclResetCounts();
 <!-- ═══════════════════ FISIOTERAPIA ═══════════════════ -->
 <div class="ex-acc" style="--acc:#0EA5E9;margin-top:14px">
   <button class="ex-btn" onclick="toggleAcc(this)" style="background:#0EA5E9">
-    <span>📋 Exercício 2 — Contexto: Fisioterapia</span><span class="ex-arr">▼</span>
+    <span>📋 Exercícios do Contexto: Fisioterapia</span><span class="ex-arr">▼</span>
   </button>
   <div class="ex-body">
 
@@ -1624,7 +1624,7 @@ tclBuildFactorGrid(); tclResetCounts();
 <!-- ═══════════════════ NUTRIÇÃO ═══════════════════ -->
 <div class="ex-acc" style="--acc:#10B981;margin-top:14px">
   <button class="ex-btn" onclick="toggleAcc(this)" style="background:#10B981">
-    <span>📋 Exercício 3 — Contexto: Nutrição</span><span class="ex-arr">▼</span>
+    <span>📋 Exercícios do Contexto: Nutrição</span><span class="ex-arr">▼</span>
   </button>
   <div class="ex-body">
 
@@ -1762,7 +1762,7 @@ tclBuildFactorGrid(); tclResetCounts();
 <!-- ═══════════════════ ENFERMAGEM ═══════════════════ -->
 <div class="ex-acc" style="--acc:#EF4444;margin-top:14px">
   <button class="ex-btn" onclick="toggleAcc(this)" style="background:#EF4444">
-    <span>📋 Exercício 4 — Contexto: Enfermagem</span><span class="ex-arr">▼</span>
+    <span>📋 Exercícios do Contexto: Enfermagem</span><span class="ex-arr">▼</span>
   </button>
   <div class="ex-body">
 
@@ -1900,7 +1900,7 @@ tclBuildFactorGrid(); tclResetCounts();
 <!-- ═══════════════════ FARMÁCIA ═══════════════════ -->
 <div class="ex-acc" style="--acc:#F97316;margin-top:14px">
   <button class="ex-btn" onclick="toggleAcc(this)" style="background:#F97316">
-    <span>📋 Exercício 5 — Contexto: Farmácia</span><span class="ex-arr">▼</span>
+    <span>📋 Exercícios do Contexto: Farmácia</span><span class="ex-arr">▼</span>
   </button>
   <div class="ex-body">
 
